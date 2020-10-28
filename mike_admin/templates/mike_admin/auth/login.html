@@ -1,0 +1,89 @@
+{% extends '../base.html' %}
+{% load static %}      
+            {% block title %} Login | Mike Creatives Portal {% endblock%}
+            {% block content %}
+            <div class="login-form-area mg-t-30 mg-b-40">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4"></div>
+                        <form id="adminpro-form" class="adminpro-form" method="POST" action ="{% url "mike_admin:login" %}">
+                            {% csrf_token %}
+                            <div class="col-lg-4">
+                                <div class="login-bg">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="logo">
+                                                <a href="/"><img src="{% static "mike_admin/img/logo/mikelogo.png" %}" alt="Mike creatives logo"  width="230"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-title">
+                                                <h1 style="font-size: 3rem"><b>Login</b></h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>{{form.username.label_tag}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.username}}
+                                                <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>{{form.password.label_tag}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.password}}
+                                                <i class="fa fa-lock login-user"></i>
+                                            </div>
+                                            {% if form.errors %}
+                                            <div class="row">
+                                                <em class="invalid">Your Password and username didn't match</em>
+                                            </div>
+                                            {% endif %}
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="forgot-password">
+                                                        <a href="{% url 'mike_admin:password_reset' %}">Forgot password?</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-button-pro">
+                                                <a href = "{% url "mike_admin:django_registration_register" %}"><button type="button" class="login-button login-button-rg">Register</button>
+                                                <button type="submit" class="login-button login-button-lg">Log in</button>
+                                                <input type="hidden" name="next" value="{{ next }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-4"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- login End-->
+    {% endblock %}
+   
+  

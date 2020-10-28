@@ -1,0 +1,155 @@
+{% extends '../base.html' %}
+{% load static %}
+            {% block title %}Create An Account With Us | Mike Creatives
+            {% endblock %}
+            {% block content %}
+            <!-- Register Start-->
+            <div class="login-form-area mg-t-30 mg-b-15">
+                
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <form id="adminpro-register-form" class="adminpro-form" method="POST">
+                            {% csrf_token %}
+                          <!-- {{form}} -->
+                            <div class="col-lg-6">
+                                <div class="login-bg">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="logo">
+                                                <a href="#"><img src="{% static "mike_admin/img/logo/mikelogo.png" %}" alt="logo" width='400' />
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-title">
+                                                <h1 style="font-size: xx-large;"><b>Register With Us</b></h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if form.errors %}
+                                            <div class="row">
+                                                <div class= "alert alert-danger d-flex justify-content-center " role="alert">                              
+                                                    <em class="invalid center">Please correct the errors in the fields</em>                      
+                                                </div>
+                                            </div>
+                                     {% endif %}
+                                   
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Username</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.username}}
+                                                <i class="fa fa-user login-user"></i>
+                                                {% if form.errors %}
+                                                <div class="row">
+                                                    <em class="invalid">{{form.errors.username}}</em>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Email Address</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.email}}
+                                                <i class="fa fa-envelope login-user" aria-hidden="true"></i>
+                                                {% if form.errors %}
+                                                    <div class="row">
+                                                        <em class="invalid">{{form.errors.email}}</em>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Password</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.password1}}
+                                                <i class="fa fa-lock login-user"></i>
+                                                {% if form.errors %}
+                                                    <div class="row">
+                                                        <em class="invalid">{{form.errors.password1}}</em>
+                                                    </div>
+                                                 {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Confirm Password</p>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                {{form.password2}}
+                                                <!-- <input type="password" name="confarm_password" /> -->
+                                                <i class="fa fa-lock login-user"></i>
+                                                
+                                                {% if form.errors %}
+                                                    <div class="row">
+                                                        <em class="invalid">{{form.errors.password2}}</em>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8">
+                                            <div class="login-keep-me register-check">
+                                                <label class="checkbox">
+                                                    {{form.tos}}<i></i>{{form.tos.label}} of Mike Creatives Portal
+                                                </label>
+                                                {% if form.errors %}
+                                                    <div class="row">
+                                                        <em class="invalid">{{form.errors.tos}}</em>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8">
+                                            <div class="login-button-pro">
+                                                <button type="submit" class="login-button login-button-rg">Log In</button>
+                                                <button type="submit" class="login-button login-button-lg">Register</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Register End-->
+        </div>
+    </div>
+{% endblock %}

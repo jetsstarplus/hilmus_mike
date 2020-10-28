@@ -1,0 +1,279 @@
+{% extends './base.html' %}
+{% load static %}
+{% block menus %}
+<div class="wrapper-pro">
+    <div class="left-sidebar-pro">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="#"><img src="{% if user.avatar %} {{user.avatar }} {%else%} {% static 'mike_admin/img/message/1.jpg' %} {% endif %}" alt="user avatar" />
+                </a>
+                <h3>{{ user.full_name}}</h3>
+                <p>{% if user.is_superuser%} Super User {%elif user.is_staff%}}Staff Member {%else%} User {% endif %}</p>
+                <strong>AP+</strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap">
+                <ul class="nav navbar-nav left-sidebar-menu-pro">
+                    <li class="nav-item">
+                        <a href="{% url "mike_admin:home" %}"  role="button"  class="nav-link"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Home</span></a>
+                        
+                    </li>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-user"></i> <span class="mini-dn">Profile</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
+                            <a href="view-mail.html" class="dropdown-item">Update Profile</a>
+                            <a href="compose-mail.html" class="dropdown-item">Change Password</a>
+                            <a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-newspaper-o"></i> <span class="mini-dn">Blog</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url 'article:post' %}" class="dropdown-item">Blogs</a>
+                            {% if user.is_staff %}
+                            <a href="{% url 'article:create_post' %}" class="dropdown-item">Create New Article</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                   
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Header top area start-->
+    <div class="content-inner-all">
+        <div class="header-top-area">
+            <div class="fixed-header-top">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
+                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <div class="admin-logo logo-wrap-pro">
+                                <a href="#"><img src="{% static 'mike_admin/img/logo/log.png' %}" alt="mike-admin logo" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
+                            <div class="header-top-menu tabl-d-n">
+                                <ul class="nav navbar-nav mai-top-nav">
+                                    <li class="nav-item"><a href="{% url "mike_admin:home" %}" class="nav-link">Home</a>
+                                    </li>
+                                    {% if user.is_superuser %}
+                                    <li class="nav-item"><a href="/admin" class="nav-link">Admin</a>
+                                    </li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+                            <div class="header-right-info">
+                                <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span class="adminpro-icon adminpro-chat-pro"></span><span class="indicator-ms"></span></a>
+                                        <div role="menu" class="author-message-top dropdown-menu animated flipInX">
+                                            <div class="message-single-top">
+                                                <h1>Message</h1>
+                                            </div>
+                                            <ul class="message-menu">
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="message-img">
+                                                            <img src="img/message/1.jpg" alt="">
+                                                        </div>
+                                                        <div class="message-content">
+                                                            <span class="message-date">16 Sept</span>
+                                                            <h2>Advanda Cro</h2>
+                                                            <p>Please done this project as soon possible.</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                              
+                                                
+                                            </ul>
+                                            <div class="message-view">
+                                                <a href="#">View All Messages</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-bell-o" aria-hidden="true"></i><span class="indicator-nt"></span></a>
+                                        <div role="menu" class="notification-author dropdown-menu animated flipInX">
+                                            <div class="notification-single-top">
+                                                <h1>Notifications</h1>
+                                            </div>
+                                            <ul class="notification-menu">
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="notification-icon">
+                                                            <span class="adminpro-icon adminpro-checked-pro"></span>
+                                                        </div>
+                                                        <div class="notification-content">
+                                                            <span class="notification-date">16 Sept</span>
+                                                            <h2>Advanda Cro</h2>
+                                                            <p>Please done this project as soon possible.</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="notification-icon">
+                                                            <span class="adminpro-icon adminpro-cloud-computing-down"></span>
+                                                        </div>
+                                                        <div class="notification-content">
+                                                            <span class="notification-date">16 Sept</span>
+                                                            <h2>Sulaiman din</h2>
+                                                            <p>Please done this project as soon possible.</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="notification-icon">
+                                                            <span class="adminpro-icon adminpro-shield"></span>
+                                                        </div>
+                                                        <div class="notification-content">
+                                                            <span class="notification-date">16 Sept</span>
+                                                            <h2>Victor Jara</h2>
+                                                            <p>Please done this project as soon possible.</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="notification-icon">
+                                                            <span class="adminpro-icon adminpro-analytics-arrow"></span>
+                                                        </div>
+                                                        <div class="notification-content">
+                                                            <span class="notification-date">16 Sept</span>
+                                                            <h2>Victor Jara</h2>
+                                                            <p>Please done this project as soon possible.</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="notification-view">
+                                                <a href="#">View All Notification</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                            <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+                                            <span class="admin-name">{% if user.full_name %} {{user.full_name }} {% else %} {{user.username}} {% endif %}</span>
+                                            <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
+                                        </a>
+                                        <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
+                                            <li><a href="{% url 'mike_admin:profile' %}"><span class="adminpro-icon adminpro-user-rounded author-log-ic"></span>My Profile</a>
+                                            </li>
+                                            <li><a href="{% url 'mike_admin:logout' %}"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header top area end-->
+        <!-- Breadcome start-->
+        <div class="breadcome-area mg-b-30 small-dn">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcome-list map-mg-t-40-gl shadow-reset">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="breadcome-heading">
+                                        <form role="search" class="">
+                                            <input type="text" placeholder="Search..." class="form-control">
+                                            <a href=""><i class="fa fa-search"></i></a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ul class="breadcome-menu">
+                                        {% block breadcrump %}
+                                       
+                                        {% endblock %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcome End-->
+        <!-- Mobile Menu start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul class="mobile-menu-nav">
+                                    <li> <a href="{% url "mike_admin:home" %}">Home <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                       
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Profile <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
+                                            </li>
+                                            <li><a href="view-mail.html">View Mail</a>
+                                            </li>
+                                            <li><a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Blogs <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'article:post' %}" class="dropdown-item">Blogs</a>
+                                            </li>
+                                            <li>{% if user.is_staff %}
+                                                <a href="{% url 'article:create_post' %}" class="dropdown-item">Create New Article</a>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu end -->
+        <!-- Breadcome start-->
+        <div class="breadcome-area des-none mg-b-30">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="breadcome-list map-mg-t-40-gl shadow-reset">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <div class="breadcome-heading">
+                                        <form role="search" class="">
+                                            <input type="text" placeholder="Search..." class="form-control">
+                                            <a href=""><i class="fa fa-search"></i></a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <ul class="breadcome-menu">
+                                        {% block m-breadcrump %}
+                                        {% endblock %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcome End-->
+        <!-- income order visit user Start -->
+        
+{% endblock %}
+<!-- {% block content %}{% endblock%}   -->

@@ -1,0 +1,279 @@
+{% extends './base_site.html' %}
+{% load static %}
+{% block title %}  Mike Creatives Portal {% endblock%}
+            {% block breadcrump %}
+          <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+                </li>
+                <li><span class="bread-blod">Profile</span>
+                </li>
+            {% endblock %}
+            {% block m-breadcrump %}
+                <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+                </li>
+                <li><span class="bread-blod">Profile</span>
+                </li>
+            {% endblock %}
+{% block content %}
+            <div class="user-profile-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="user-profile-wrap shadow-reset">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="user-profile-img">
+                                                    <img {% if user.avatar %} src="{{ user.avatar.url }}" {%else%} src="{% static 'mike_admin/img/notification/5.jpg' %}" {% endif %} alt="Profile picture" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="user-profile-content">
+                                                    
+                                                    <h2>{% if profile.full_name %} {{profile.name}} {% else %} Please complete your profile {{profile.username}} {% endif %}</h2>
+                                                    <p class="profile-founder">{{profile.email}}
+                                                    </p>
+                                                    <h3 class="profile-des">{% if profile.is_superuser %} Super User {% elif profile.is_staff %} Staff Member {% else %} user {% endif %}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="user-profile-social-list">
+                                            <table class="table small m-b-xs">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <strong>{{music_number}}</strong> Uploaded Music content
+                                                        </td>
+                                                        <td>
+                                                            <strong>{{boomplay}}</strong> Content on boomplay
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        {% if user.is_staff %}
+                                                        <td>
+                                                            <strong>612</strong> Comments
+                                                        </td>
+                                                        <td>
+                                                            <strong>542</strong> Articles
+                                                        </td>
+                                                        {% endif %}
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <!-- <div class="analytics-sparkle-line user-profile-sparkline">
+                                            <div class="analytics-content">
+                                                <h5>Visits in last 24h</h5>
+                                                <h2 class="counter">498009</h2>
+                                                <div id="sparkline22"></div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-prfile-activity-area mg-b-40 mg-t-30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="user-profile-about shadow-reset">
+                                <h2>About {% if profile.full_name %} {{profile.name}} {% else %} {{profile.username}} {% endif %} </h2>
+                                <p>{% if user.information %}{{user.information}} {% else %} No extra information {% endif %}</p>
+                               
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="post-user-profile-awrap shadow-reset">
+                                <div class="user-profile-post">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <div class="user-profile-img-post">
+                                                <a href="#"><img src="img/notification/3.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="user-profile-post-name">
+                                                <h2><a href="#">Brathers Vissiam</a></h2>
+                                                <p><span>Today 4:21 pm - 12.06.2014</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                            <div class="admin-comment-month user-profile-post-action">
+                                                <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo1">...</button>
+                                                <ul id="adminpro-demo1" class="comment-action-st collapse">
+                                                    <li><a href="#">Add</a>
+                                                    </li>
+                                                    <li><a href="#">Report</a>
+                                                    </li>
+                                                    <li><a href="#">Hide Profile</a>
+                                                    </li>
+                                                    <li><a href="#">Turn on Profile</a>
+                                                    </li>
+                                                    <li><a href="#">Turn off Profile</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="profile-user-post-content">
+                                                <p>It is a long established fact that a reader will be distracted by the readable on content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here.</p>
+                                                <div class="user-post-reply">
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+                                                        <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
+                                                        <button class="btn btn-white profile-time-ds-none btn-xs"><i class="fa fa-share"></i> Share</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="user-profile-comment-list">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                            <div class="user-profile-comment-img">
+                                                <a href="#"><img src="img/notification/2.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div class="user-profile-comment-content">
+                                                <p><strong>Andrew Williams</strong> Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        <div class="comment-replay-profile">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 99 Like</button>
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Reply</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <div class="comment-date-profile">
+                                                            <span class="profile-time-ds-none">12.06.2014</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row profile-comment-mg">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                            <div class="user-profile-comment-img">
+                                                <a href="#"><img src="img/notification/6.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div class="user-profile-comment-content">
+                                                <p><strong>Andrew Williams</strong> Andrew Williams Making this the first true generator on the Internet. It uses a dictionary.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        <div class="comment-replay-profile">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 299 Like</button>
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Reply</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <div class="comment-date-profile">
+                                                            <span class="profile-time-ds-none">10.05.2018</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row replay-user-comment-pro">
+                                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                                    <div class="user-profile-comment-img">
+                                                        <a href="#"><img src="img/notification/5.jpg" alt="" />
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                                    <div class="user-profile-comment-input">
+                                                        <textarea name="text" cols="30" rows="10" placeholder="Write Comment.."></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row profile-comment-mg">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                            <div class="user-profile-comment-img">
+                                                <a href="#"><img src="img/notification/3.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div class="user-profile-comment-content">
+                                                <p><strong>Andrew Williams</strong> Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident.</p>
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        <div class="comment-replay-profile">
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> 299 Like</button>
+                                                                <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Reply</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <div class="comment-date-profile">
+                                                            <span class="profile-time-ds-none">10.05.2018</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row profile-comment-mg">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                            <div class="user-profile-comment-img">
+                                                <a href="#"><img src="img/notification/4.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                            <div class="user-profile-comment-input">
+                                                <textarea name="text" cols="30" rows="10" placeholder="Write Comment.."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div class="user-profile-comment-list">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                            <div class="user-profile-comment-img">
+                                                <a href="#"><img src="img/notification/2.jpg" alt="" />
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endblock %}
