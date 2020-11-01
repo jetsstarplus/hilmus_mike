@@ -1,4 +1,4 @@
-{% extends './base_site.html' %}
+{% extends '../base_site.html' %}
 {% load static %}
 {% block title %}  Mike Creatives Portal {% endblock%}
             {% block breadcrump %}
@@ -53,11 +53,9 @@
                                                     </tr>
                                                     <tr>
                                                         {% if user.is_staff %}
+                                                       
                                                         <td>
-                                                            <strong>612</strong> Comments
-                                                        </td>
-                                                        <td>
-                                                            <strong>542</strong> Articles
+                                                            <strong>{{article.count}}</strong> Articles
                                                         </td>
                                                         {% endif %}
                                                     </tr>
@@ -88,6 +86,21 @@
                             <div class="user-profile-about shadow-reset">
                                 <h2>About {% if profile.full_name %} {{profile.name}} {% else %} {{profile.username}} {% endif %} </h2>
                                 <p>{% if user.information %}{{user.information}} {% else %} No extra information {% endif %}</p>
+                                <div class="button-style-four btn-mg-b-10">
+                                    <!-- <button type="button" class="btn btn-custon-four btn-default">Default</button> -->
+                                    <a href="{% url 'mike_admin:update_profile' %}">
+                                        <button type="button" class="btn btn-custon-four btn-primary">Update Your Profile</button>
+                                    </a>                                    
+                                    <!-- <button type="button" class="btn btn-custon-four btn-danger">Danger</button> -->
+                                </div>
+                                <br />
+                                <div class="button-style-four btn-mg-b-10">                                   
+                                    <!-- <button type="button" class="btn btn-custon-four btn-success">Success</button> -->
+                                    <a href="" style="margin-top:25px">
+                                        <button type="button" class="btn btn-custon-four btn-warning">Change Password</button>
+                                    </a>
+                                    <!-- <button type="button" class="btn btn-custon-four btn-danger">Danger</button> -->
+                                </div>
                                
                             </div>
                         </div>
@@ -239,33 +252,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row profile-comment-mg">
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                            <div class="user-profile-comment-img">
-                                                <a href="#"><img src="img/notification/4.jpg" alt="" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                            <div class="user-profile-comment-input">
-                                                <textarea name="text" cols="30" rows="10" placeholder="Write Comment.."></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             
-                                <div class="user-profile-comment-list">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                            <div class="user-profile-comment-img">
-                                                <a href="#"><img src="img/notification/2.jpg" alt="" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-lg-3">

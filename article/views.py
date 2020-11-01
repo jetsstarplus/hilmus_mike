@@ -1,29 +1,36 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Post, Comment
 from .forms import CommentForm, PostForm
 from django.urls import reverse_lazy
 
 
-class PostList(generic.ListView):
+class PostList(generic.ListView, LoginRequiredMixin):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'article/index.html'
     paginate_by=10
 
+@login_required
 def create_post(request):
     template_name='article/create_post.html'
     new_post=None
     error=None
+    slug=None
     user=request.user
     
     if user.is_staff:   
         if request.method=='POST':
             form = PostForm(data=request.POST)
             if form.is_valid():
+               
                 new_post= form.save(commit=False)
                 new_post.author= request.user
                 new_post.save()
+                slug=new_post.slug
             else:
                 error="There was a problem with your submission"
         else:
@@ -32,45 +39,77 @@ def create_post(request):
     context={
         'user':user,
         'new_post':new_post,
-        'form':form
+        'form':form,
+        'slug':slug
         }
     return render(request, template_name, context=context)
 
  
+@login_required
 def update_post(request, slug):
-    template_name='article/create_post.html'
+    template_name='article/edit_post.html'
     post = get_object_or_404(Post, slug=slug)
     error=None
     user=request.user
+    slug=None
     
     if user.is_staff:   
         if request.method=='POST':
-            form = PostForm(data=request.POST)
-            if form.is_valid():
-                post= form.update()
-            else:
-                error="There was a problem with your submission"
+            if request.user == post.author:
+                form = PostForm(data=request.POST)
+                
+                try:  
+                    post.save(update_fields=['content', 'status'])         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    slug=post.slug
+                except:
+                    error="There was a problem with your submission"
         else:
-            form= PostForm()
+            form= PostForm(instance=post)
     
     context={
         'user':user,
         'post':post,
-        'form':form
+        'form':form,
+        'slug': slug,
+        'error': error
         }
     return render(request, template_name, context=context)
 
- 
-
-class PostUpdate(UpdateView):
-    model= Post
+@login_required
+def delete_post(request, slug):
+    template_name='article/confirm_delete.html'
+    final_template='article/delete_post.html'
+    post= get_object_or_404(Post, slug=slug)
+    error=None
+    user=request.user
+    slug=None
+    message= None
     
-    context_object_name='post'
-
-class PostDelete(DeleteView):
-    model= Post
-    success_url= reverse_lazy('post')
+    if user.is_staff:   
+        if request.method=='POST':
+            if request.user == post.author:                           
+                    post=post.delete()
+                    message="The post has been successfully deleted"                   
+            else:
+                error ="You are not authorized to edit this post"   
+                
+            return render(request, final_template, {'post': post})    
+                    
+        else:
+            form= PostForm(instance=post)
     
+    context={
+        'user':user,
+        'post':post,
+        'form':form,
+        'slug': slug,
+        'error': error,
+        'message':message
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
 def post_detail(request, slug):
     template_name = 'article/post_detail.html'
     post = get_object_or_404(Post, slug=slug)

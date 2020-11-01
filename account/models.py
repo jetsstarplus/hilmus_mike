@@ -12,7 +12,7 @@ class Account(AbstractUser):
     is_payed = models.BooleanField(default=False, null=False, blank=False)
     tos=models.BooleanField(null=True, blank=True, default=False)
     transaction_id = models.TextField(null=True, blank=True)
-    information= models.TextField(null=True, blank=True)
+    information= models.TextField(null=True, blank=True, verbose_name="About Yourself")
     
     # @receiver(models.signals.post_delete, sender=avatar)
     # def delete_ExampleImageModel_images(sender, instance, **kwargs):

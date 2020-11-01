@@ -7,6 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 import mike_admin.urls
+import pages.urls
 
 from article.sitemap import PostSitemap
 
@@ -20,6 +21,7 @@ urlpatterns = [
     path('account/', include(mike_admin.urls)),
     path('article/', include('article.urls')),
     path('summernote/', include('django_summernote.urls')),
+    path('', include(pages.urls)),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
 ]

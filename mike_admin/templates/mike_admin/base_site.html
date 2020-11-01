@@ -20,7 +20,7 @@
                     <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-user"></i> <span class="mini-dn">Profile</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                             <a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
-                            <a href="view-mail.html" class="dropdown-item">Update Profile</a>
+                            <a href="{% url 'mike_admin:update_profile' %}" class="dropdown-item">Update Profile</a>
                             <a href="compose-mail.html" class="dropdown-item">Change Password</a>
                             <a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
                         </div>
@@ -62,6 +62,8 @@
                                     <li class="nav-item"><a href="/admin" class="nav-link">Admin</a>
                                     </li>
                                     {%endif%}
+                                    <li class="nav-item"><a href="/" class="nav-link">Site</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -221,7 +223,7 @@
                                         <ul id="demo" class="collapse dropdown-header-top">
                                             <li><a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
                                             </li>
-                                            <li><a href="view-mail.html">View Mail</a>
+                                            <li><a href="{% url 'mike_admin:update_profile' %}">Update Profile</a>
                                             </li>
                                             <li><a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
                                             </li>
@@ -274,6 +276,22 @@
         </div>
         <!-- Breadcome End-->
         <!-- income order visit user Start -->
+        {% block statistics %}
+        {% endblock statistics %}
         
+{% endblock %}
+{% block footer%}
+    <!-- Footer Start-->
+    <div class="footer-copyright-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-copy-right">
+                        <p>Copyright &#169; {% now "Y" %} Mike Creatives All rights reserved. Developed by <a href="https://hilmus.com">Hilmus Software</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 <!-- {% block content %}{% endblock%}   -->
