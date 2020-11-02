@@ -9,6 +9,7 @@ STATUS = (
 )
 
 class Post(models.Model):
+    image = models.ImageField(upload_to="Articles", null=True, blank=True, verbose_name="Title Image")
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(default=slugify(title),max_length=200, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE,related_name='blog_posts')

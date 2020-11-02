@@ -40,7 +40,8 @@ def create_post(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'slug':slug
+        'slug':slug,
+        'error':error
         }
     return render(request, template_name, context=context)
 

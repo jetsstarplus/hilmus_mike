@@ -1,5 +1,6 @@
 {% extends '../base_site.html' %}
 {% load static %}
+{% load thumbnail %}
 {% block title %}  Mike Creatives Portal {% endblock%}
             {% block breadcrump %}
           <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
@@ -24,7 +25,7 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="user-profile-img">
-                                                    <img {% if user.avatar %} src="{{ user.avatar.url }}" {%else%} src="{% static 'mike_admin/img/notification/5.jpg' %}" {% endif %} alt="Profile picture" />
+                                                    <img {% if user.avatar %} src="{{ user.avatar | thumbnail_url:'avatar' }}" {%else%} src="{% static 'mike_admin/img/notification/5.jpg' %}" {% endif %} alt="Profile picture" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-9">

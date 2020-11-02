@@ -1,11 +1,12 @@
 {% extends './base.html' %}
 {% load static %}
+{% load thumbnail %}
 {% block menus %}
 <div class="wrapper-pro">
     <div class="left-sidebar-pro">
         <nav id="sidebar">
             <div class="sidebar-header">
-                <a href="#"><img src="{% if user.avatar %} {{user.avatar }} {%else%} {% static 'mike_admin/img/message/1.jpg' %} {% endif %}" alt="user avatar" />
+                <a href="#"><img src="{% if user.avatar %} {{user.avatar |thumbnail_url:'avatar2'  }} {%else%} {% static 'mike_admin/img/message/1.jpg' %} {% endif %}" alt="user avatar" />
                 </a>
                 <h3>{{ user.full_name}}</h3>
                 <p>{% if user.is_superuser%} Super User {%elif user.is_staff%}}Staff Member {%else%} User {% endif %}</p>

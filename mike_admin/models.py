@@ -3,6 +3,7 @@ from django.conf import settings
 from datetime import datetime, timezone
 import uuid
 
+
 # from account.models import SeoModel
 
 class Music(models.Model):
@@ -29,4 +30,27 @@ class Music(models.Model):
     def __repr__(self):
         return(self.music, " by ", self.artist)
     
+class Testimonial(models.Model):
+    """A model for creating a testimonial person/ member"""
+    name=models.CharField(max_length=30)
+    picture=models.ImageField(upload_to="testimonials", blank=True, null=True)
+    is_published= models.BooleanField(default=False)
+    content= models.TextField()
+    date_added= models.DateTimeField(auto_now_add=True)
+    date_updated= models.DateTimeField(auto_now=True)
+    
+    def __repr__(self):
+        return(self.name)
+    
+class StaffMembers(models.Model):
+    """A model for creating a testimonial person/ member"""
+    name= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    role=models.CharField(max_length=15)
+    is_published= models.BooleanField(default=False)
+    facebook= models.CharField(max_length=50, blank=True, null=True)
+    twitter=models.CharField(max_length=50, blank=True, null=True)
+    instagram=models.CharField(max_length=50, blank=True, null=True)
+    
+    def __repr__(self):
+        return(self.name)
 # Create your models here.

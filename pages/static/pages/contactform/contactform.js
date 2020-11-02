@@ -2,7 +2,8 @@ jQuery(document).ready(function($) {
   "use strict";
 
   //Contact
-  $('form.contactForm').submit(function() {
+  $('form.contactForm').submit(function(event) {
+    event.preventDefault();
     var f = $(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
@@ -91,23 +92,28 @@ jQuery(document).ready(function($) {
     if (ferror) return false;
     else var str = $(this).serialize();
     var action = $(this).attr('action');
+    
+  //var csrftoken = Cookies.get('csrftoken');
     if( ! action ) {
-      action = 'contactform/contactform.php';
+      action = '{% url "pages:contacts-submit"%}';
     }
     $.ajax({
       type: "POST",
       url: action,
       data: str,
-      success: function(msg) {
-        // alert(msg);
-        if (msg == 'OK') {
+      dataType:'json',
+      success: function(data) {
+        // console.log(data.message)
+        if (data.message == 'OK') {
           $("#sendmessage").addClass("show");
           $("#errormessage").removeClass("show");
+          $("#successmessage").addClass("show");
+          $("#successmessage").html("Success");
           $('.contactForm').find("input, textarea").val("");
         } else {
           $("#sendmessage").removeClass("show");
           $("#errormessage").addClass("show");
-          $('#errormessage').html(msg);
+          $('#errormessage').html("There was an error");
         }
 
       }
