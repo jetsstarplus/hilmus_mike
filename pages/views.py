@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 
 from article.models import Post
+from mike_admin.models import Testimonial, StaffMember
 from article.forms import CommentForm
 from .models import Contact
 
@@ -13,7 +14,13 @@ from .models import Contact
 def index(request):
     template_name='pages/index.html'
     posts = Post.objects.filter(status=1).all().order_by('-created_on')[:3]
-    context={'posts': posts}
+    testimonials = Testimonial.objects.filter(is_published=True).order_by('-date_added')[:10]
+    teams= StaffMember.objects.filter(is_published=True).order_by('-rank')[:4]
+    context={
+        'posts': posts,
+        'testimonials': testimonials,
+        'teams':teams
+        }
     return render(request, template_name, context=context)
 
 

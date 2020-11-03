@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="section-headline text-center ">
-            <h2>About Mike Creatives</h2>
+            <h2>About MIKE Creatives</h2>
           </div>
         </div>
       </div>
@@ -60,6 +60,10 @@
                 <li class = " wow fadeInUp" data-wow-duration="2s" data-wow-delay=".10s">
                   <i class="fa fa-check"></i> Upload Content to boomplay
                 </li>
+
+                <div style="padding-top:3rem" class = " wow fadeInUp" data-wow-duration="2s" data-wow-delay=".17s">                    
+                  <a href="#services"><button class ="btn btn-danger">Learn More</button></a>
+                </div>
                 <!-- <li>
                   <i class="fa fa-check"></i> Make Quality Products
                 </li> -->
@@ -262,6 +266,42 @@
       </div>
       <div class="row">
         <div class="team-top">
+          {% if teams %}
+          {% for team in teams %}
+          <div class="col-md-3 col-sm-3 col-xs-12  wow fadeInUp" data-wow-delay="0.2s">
+            <div class="single-team-member">
+              <div class="team-img">
+                <a href="#">
+										<img src="{% thumbnail team.picture 200x300 crop %}" alt="Team Member Picture">
+									</a>
+                <div class="team-social-icon text-center">
+                  <ul>
+                    <li>
+                      <a href="{{team.facebook}}">
+													<i class="fa fa-facebook"></i>
+												</a>
+                    </li>
+                    <li>
+                      <a href="{{team.twitter}}">
+													<i class="fa fa-twitter"></i>
+												</a>
+                    </li>
+                    <li>
+                      <a href="{{team.instagram}}">
+													<i class="fa fa-instagram"></i>
+												</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="team-content text-center">
+                <h4>{{team.name}}</h4>
+                <p>{{team.role}}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
           <div class="col-md-3 col-sm-3 col-xs-12  wow fadeInUp" data-wow-delay="0.2s">
             <div class="single-team-member">
               <div class="team-img">
@@ -393,6 +433,7 @@
               </div>
             </div>
           </div>
+          {% endif %}
           <!-- End column -->
         </div>
       </div>
@@ -494,15 +535,18 @@
       <div class="row">
         <div class="col-sm-12">
           <div id="customers-testimonials" class="owl-carousel">
-
+            {% if testimonials %}
+            {% for testimonial in testimonials %}
             <!--TESTIMONIAL 1 -->
             <div class="item">
               <div class="shadow-effect">
-                <img class="img-circle" src="http://themes.audemedia.com/html/goodgrowth/images/testimonial3.jpg" alt="">
-                <p>Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate.</p>
+                <img class="img-circle" src="{% thumbnail testimonial.picture 150x150 crop %}" alt="Testimonial image">
+                <p>{{testimonial.content}}</p>
               </div>
-              <div class="testimonial-name">EMILIANO AQUILANI</div>
+              <div class="testimonial-name">{{testimonial.name}}</div>
             </div>
+            {% endfor %}
+            {% else %}
             <!--END OF TESTIMONIAL 1 -->
             <!--TESTIMONIAL 2 -->
             <div class="item">
@@ -539,6 +583,7 @@
               </div>
               <div class="testimonial-name">MICHAEL TEDDY</div>
             </div>
+            {% endif %}
             <!--END OF TESTIMONIAL 5 -->
           </div>
         </div>

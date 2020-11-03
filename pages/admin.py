@@ -24,6 +24,11 @@ class SubscriberAdmin(admin.ModelAdmin):
 admin.site.register(Subscribers, SubscriberAdmin)
 # Register your models here.
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display=('full_name', 'email', 'subject')
+    search_fields=['full_name', 'email', 'subject', 'content']
+    list_filter=('-date_sent')
+    
 admin.site.register(Contact)
 
 # Register your models here.

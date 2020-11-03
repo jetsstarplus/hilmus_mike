@@ -94,6 +94,15 @@
                                             
                                         </div>
                                     </div>
+                                    <div class = "rows">
+                                        <div class = "col-lg-4">
+                                        </div>
+                                        <div class  ="col-lg-8">                                            
+                                            <ul>                                                
+                                                <li style="color: gray; font-size:80%">{{form.password1.help_text}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
@@ -117,11 +126,19 @@
                                        
                                     </div>
                                     <div class="row">
+                                        <div class = "col-lg-4"></div>
+                                        <div class="col-lg-8">
+                                            <div class="">
+                                                <a href="{% url 'mike_admin:password_reset' %}">MIKE Creatives Terms Of Service</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-8">
                                             <div class="login-keep-me register-check">
                                                 <label class="checkbox">
-                                                    {{form.tos}}<i></i>{{form.tos.label}} of Mike Creatives Portal
+                                                    {{form.tos}}<i></i>{{form.tos.label}} of MIKE Creatives Portal
                                                 </label>
                                                 {% if form.errors %}
                                                     <div class="row">

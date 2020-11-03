@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+# from phonenumbers import 
+
 # from versatileimagefield.fields import VersatileImageField
 # from versatileimagefield.placeholder import OnStoragePlaceholderImage
 # Create your models here.
@@ -13,6 +15,7 @@ class Account(AbstractUser):
     tos=models.BooleanField(null=True, blank=True, default=False)
     transaction_id = models.TextField(null=True, blank=True)
     information= models.TextField(null=True, blank=True, verbose_name="About Yourself")
+    # phone=models.PhoneNumberField()
     
     # @receiver(models.signals.post_delete, sender=avatar)
     # def delete_ExampleImageModel_images(sender, instance, **kwargs):

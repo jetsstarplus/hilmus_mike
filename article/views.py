@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post, Comment
-from .forms import CommentForm, PostForm
+from .forms import CommentForm, PostForm, PostUpdateForm
 from django.urls import reverse_lazy
 
 
@@ -53,27 +53,32 @@ def update_post(request, slug):
     error=None
     user=request.user
     slug=None
+    message=None
     
     if user.is_staff:   
         if request.method=='POST':
             if request.user == post.author:
-                form = PostForm(data=request.POST)
-                
-                try:  
-                    post.save(update_fields=['content', 'status'])         
-                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
-                    slug=post.slug
-                except:
-                    error="There was a problem with your submission"
+                form = PostUpdateForm(request.POST, request.FILES, instance=post)
+                if form.is_valid():
+                    try:  
+                        form.save()         
+                        # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                        slug=post.slug
+                        message="Post Update successful"
+                    except:
+                        error="There was a problem with your submission"
+                else:
+                    error = "Your data is not complete"
         else:
-            form= PostForm(instance=post)
+            form= PostUpdateForm(instance=post)
     
     context={
         'user':user,
         'post':post,
         'form':form,
         'slug': slug,
-        'error': error
+        'error': error,
+        'message':message,
         }
     return render(request, template_name, context=context)
 
@@ -98,6 +103,7 @@ def delete_post(request, slug):
             return render(request, final_template, {'post': post})    
                     
         else:
+            
             form= PostForm(instance=post)
     
     context={

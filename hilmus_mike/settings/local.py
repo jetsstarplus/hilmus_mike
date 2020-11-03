@@ -6,7 +6,7 @@ import os
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "-h&@&!q%c-$%=$0=mqvg3xtc!ld2bvundj57e8siy2nf%2(-!&"
+SECRET_KEY = "-h&@&!q%c-$%=$0=mqvg3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

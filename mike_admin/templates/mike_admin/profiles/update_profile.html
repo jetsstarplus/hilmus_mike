@@ -24,7 +24,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST'>
+                <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-lg-6">
                         <div class="login-bg">
@@ -43,7 +43,7 @@
                                         <span class="icon-sc-cl" aria-hidden="true">×</span>
                                     </button>
                                     <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
-                                    <p><strong>Success!</strong>{{message}}</p>
+                                    <p><strong>Success! </strong>{{message}}</p>
                                 </div>
                                 {% endif %}
                                 {% if error %}

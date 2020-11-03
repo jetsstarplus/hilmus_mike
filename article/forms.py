@@ -17,4 +17,12 @@ class PostForm(forms.ModelForm):
         fields=('title', 'image', 'content', 'status')   
         widgets ={
             'content': SummernoteWidget,
-        }   
+        }  
+        
+class PostUpdateForm(forms.ModelForm):
+     class Meta:
+        model=Post
+        fields=('image', 'content', 'status')   
+        widgets ={
+            'content': SummernoteWidget,
+        } 

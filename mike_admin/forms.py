@@ -1,7 +1,10 @@
 from django import forms
 from django_registration.forms import RegistrationFormTermsOfService, RegistrationFormUniqueEmail
 
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+
 from account.models import Account
+from .models import TermsOfService
 
 
 class AccountFormSub(RegistrationFormTermsOfService,RegistrationFormUniqueEmail):
@@ -15,8 +18,16 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Account
         fields=('first_name', 'last_name', 'avatar', 'information')
-    def save(self, user=None):
-        user_profile = super(ProfileForm, self).save(commit=False)
-        if user:            
-            user_profile.save()
-        return user_profile
+    # def save(self, user=None):
+    #     user_profile = super(ProfileForm, self).save(commit=False)
+    #     if user:            
+    #         user_profile.save()
+    #     return user_profile
+    
+class TermsForm(forms.ModelForm):
+    class Meta:
+        model=TermsOfService
+        fields=('title', 'content')   
+        widgets ={
+            'content': SummernoteWidget,
+        }   

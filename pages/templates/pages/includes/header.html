@@ -35,9 +35,6 @@
                   <!-- <li>
                     <a class="page-scroll" href="/#services">Services</a>
                   </li> -->
-                  <li>
-                    <a class="page-scroll" href="/#team">Team</a>
-                  </li>
                   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href=# >Youtube</a></li>
@@ -52,6 +49,12 @@
                   </li>
                   <li>
                     <a class="page-scroll" href="/#contact">Contact</a>
+                  </li>
+                  <li>
+                    <a class="page-scroll" href="{% url 'mike_admin:login' %}">Login</a>
+                  </li>
+                  <li>
+                    <a class="page-scroll" href="{% url 'mike_admin:django_registration_register' %}">SignUp</a>
                   </li>
                 </ul>
               </div>

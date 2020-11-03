@@ -8,7 +8,7 @@
             <div class="sidebar-header">
                 <a href="#"><img src="{% if user.avatar %} {{user.avatar |thumbnail_url:'avatar2'  }} {%else%} {% static 'mike_admin/img/message/1.jpg' %} {% endif %}" alt="user avatar" />
                 </a>
-                <h3>{{ user.full_name}}</h3>
+                <h3>{{ user.first_name}} {{user.last_name}}</h3>
                 <p>{% if user.is_superuser%} Super User {%elif user.is_staff%}}Staff Member {%else%} User {% endif %}</p>
                 <strong>AP+</strong>
             </div>
@@ -22,7 +22,7 @@
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                             <a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
                             <a href="{% url 'mike_admin:update_profile' %}" class="dropdown-item">Update Profile</a>
-                            <a href="compose-mail.html" class="dropdown-item">Change Password</a>
+                            <a href="{% url 'mike_admin:change_password' %}" class="dropdown-item">Change Password</a>
                             <a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
                         </div>
                     </li>
@@ -226,6 +226,8 @@
                                             </li>
                                             <li><a href="{% url 'mike_admin:update_profile' %}">Update Profile</a>
                                             </li>
+                                            <li><a href="{% url 'mike_admin:change_password' %}">Update Profile</a>
+                                            </li>
                                             <li><a href="{% url 'mike_admin:logout' %}" class="dropdown-item">Logout</a>
                                             </li>
                                         </ul>
@@ -277,8 +279,10 @@
         </div>
         <!-- Breadcome End-->
         <!-- income order visit user Start -->
+        {% if user.is_staff %}
         {% block statistics %}
         {% endblock statistics %}
+        {% endif %}
         
 {% endblock %}
 {% block footer%}

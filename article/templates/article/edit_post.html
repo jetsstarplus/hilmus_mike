@@ -26,7 +26,7 @@
                 {% if message %}
                 <div class="alert alert-success alert-st-one" role="alert">
                     <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
-                    <p class="message-mg-rt"><strong>Well done!</strong>{{message}}</p>
+                    <p class="message-mg-rt"><strong>Well done!     </strong>{{message}}</p>
                 </div>   
                 
                   <div class="row">                                            
@@ -47,8 +47,12 @@
 
                 <div class = "card-body"> 
                     {% if not form.is_bound%}
-                     <h1>Edit Post</h1> 
+                     <h1><strong style="color:blue">Edit Post</strong></h1> 
+                     <br />
                     {% endif %}
+                    <div>                        
+                        <h2>{{post.title}}</h2>
+                    </div>
                                   
                 {{form | crispy}}
                 </div>

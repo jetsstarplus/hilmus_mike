@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Music
 from article.models import Post
@@ -11,8 +12,7 @@ from article.models import Post
 from .forms import ProfileForm
 
 @login_required
-def home(request):
-    
+def home(request):    
     return render(request, template_name='mike_admin/dashboard-2.html', context={} )
 
 @login_required
@@ -36,7 +36,7 @@ def profile(request):
         }
     return render(request, template_name="mike_admin/profiles/profile.html", context=context)
 
-class UserListView(ListView):
+class UserListView(ListView, LoginRequiredMixin):
     models=get_user_model()
     template_name='mike_admin/profiles/profile.html'
     context_object_name='user_list'
@@ -44,7 +44,7 @@ class UserListView(ListView):
 
 @login_required
 def update_profile(request):
-    user = get_object_or_404(get_user_model(), pk=request.user.pk)
+    user = request.user
     error= None
     message=None
     form=None
@@ -52,27 +52,16 @@ def update_profile(request):
     # user=request.user
    
     if request.method=='POST':
-            form = ProfileForm(data=request.POST)
-            # user=user.save( commit=False)     
-            user=get_user_model().objects.filter(pk=request.user) 
-            try: 
-                  
-                        
-                first_name= form.cleaned_data['first_name']
-                last_name=form.cleaned_data['last_name']
-                information=form.cleaned_data['information']
-                avatar= form.cleaned_data['avatar']
-                user.update(first_name=first_name, last_name=last_name, information=information, avatar=avatar)
-                
-                # user.save(update_fields=['first_name', 'last_name', 'information', 'avatar'])           
-                # user=user.update(
-                #     first_name=form.cleaned_data['first_name'], 
-                #     last_name=form.cleaned_data['last_name'],
-                #     information=form.cleaned_data['information'],
-                #     avatar=form.cleaned_data['avatar'])                    
-                message="Your profile was successfully updated"
-            except:
-                error="There was a problem with your submission"
+            form = ProfileForm(request.POST, request.FILES, instance=user)
+            # user=user.save( commit=False) 
+            if form.is_valid():    
+                try:                        
+                    form.save()                    
+                    message="Your profile was successfully updated"
+                except:
+                    error="There was a problem with your submission"
+            else:
+                error="There a problem with your submission"
     else:
         form= ProfileForm(instance=user)
     
