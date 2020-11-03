@@ -34,6 +34,14 @@
                             {% endif %}
                         </div>
                     </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-newspaper-o"></i> <span class="mini-dn">Testimonials</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url 'mike_admin:testimonials' %}" class="dropdown-item">Testimonials</a>                          
+                            <a href="{% url 'mike_admin:create_testimonial' %}" class="dropdown-item">Create New Testimonial</a>                            
+                        </div>
+                    </li>
+                    {% endif %}
                    
                 </ul>
             </div>
@@ -242,6 +250,18 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    {% if user.is_staff %}
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Testimonials <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'mike_admin:testimonials' %}" class="dropdown-item">Testimonials</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'mike_admin:create_testimonial' %}" class="dropdown-item">Create New Testimonial</a>
+                                              
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>

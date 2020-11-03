@@ -19,7 +19,7 @@ class Music(models.Model):
     is_sent=models.BooleanField(default=False, verbose_name="Has been sent")
     is_boompay=models.BooleanField(default=True, verbose_name="To upload to boomplay")
     is_skiza=models.BooleanField(default=False, verbose_name="Generate the skiza code", null=True, blank=True)  
-    skiza_code= models.CharField(max_length=50, blank=True, null=True)  
+    skiza_code= models.CharField(max_length=50, blank=True, null=True, verbose_name="The generated Skiza Code")  
     seo_title=models.CharField(max_length=50, blank=True, null=True)
     seo_description=models.TextField(blank=True, null=True) 
     date_added= models.DateTimeField(auto_now_add=True)
@@ -38,6 +38,7 @@ class Testimonial(models.Model):
     picture=models.ImageField(upload_to="testimonials", blank=True, null=True)
     is_published= models.BooleanField(default=False)
     content= models.TextField()
+    added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
     date_added= models.DateTimeField(auto_now_add=True)
     date_updated= models.DateTimeField(auto_now=True)
     

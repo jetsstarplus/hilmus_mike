@@ -4,17 +4,17 @@
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:testimonials"  %}">Testimonials</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Edit Post</span>
+      <li><span class="bread-blod">Edit testimonials</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:testimonials" %}">Testimonials</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Edit Post</span>
+      <li><span class="bread-blod">Edit testimonial</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -47,7 +47,7 @@
 
                 <div class = "card-body"> 
                     {% if not form.is_bound%}
-                     <h1><strong style="color:blue">Edit Post</strong></h1> 
+                     <h1><strong style="color:blue">Edit Testimonial</strong></h1> 
                      <br />
                     {% endif %}
                     <div>                        
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="login-button-pro">
-           <button type="submit" class="login-button login-button-lg"> Update Post </button> 
+           <button type="submit" class="login-button login-button-lg"> Update Testimonial </button> 
           </div>
           
     </form>

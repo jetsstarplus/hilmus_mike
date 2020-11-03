@@ -25,7 +25,6 @@
         
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
-                {% if post_list %}
                 {% for post in post_list %}
                 <div class="card col-lg">
                     <div class="card-body">
@@ -74,14 +73,6 @@
                 <br />
                 <br />
                 {% endfor %}
-                {% else %}
-                <div class= "alert alert-primary">
-                    <h2>There is no post to see here</h2>
-                    <div>
-                        <a href="{% url 'article:create_post' %}"><button class="btn btn-primary">Create New</button></a>
-                    </div>
-                </div>
-                {% endif %}
             </div>
       
         </div>

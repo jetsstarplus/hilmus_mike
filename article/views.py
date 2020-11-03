@@ -24,7 +24,7 @@ def create_post(request):
     
     if user.is_staff:   
         if request.method=='POST':
-            form = PostForm(data=request.POST)
+            form = PostForm(request.FILES, request.POST)
             if form.is_valid():
                
                 new_post= form.save(commit=False)

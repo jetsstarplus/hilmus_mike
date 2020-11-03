@@ -6,7 +6,7 @@
       </li>
       <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Edit Post</span>
+      <li><span class="bread-blod">Delete Post</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
@@ -14,7 +14,7 @@
       </li>
       <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Edit Post</span>
+      <li><span class="bread-blod">Delete Post</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -23,43 +23,34 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6 card mb-4  mt-3 left  top">
-                {% if message %}
-                <div class="alert alert-success alert-st-one" role="alert">
-                    <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
-                    <p class="message-mg-rt"><strong>Well done!     </strong>{{message}}</p>
-                </div>   
                 
-                  <div class="row">                                            
-                        <!-- <a class="col-md-5 mb-4" href="{% url 'article:update_post' slug %}"><button type="button" class="btn btn-primary">Modify</button></a> -->
-                        <a class="col-md-5 mb-4" href="{% url 'article:delete_post' slug %}"><button type="button" class="btn btn-danger">Delete Post</button></a>
-                  </div>
+                  {% if message %}
+                    <div class="alert alert-success alert-st-one" role="alert">
+                        <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
+                        <p class="message-mg-rt"><strong>Well done!</strong>{{message}}</p>
+                    </div>                    
                   <br />
                   {% endif %}
 
                   {% if error %}
                     <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
                         <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
-                        <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
-                    </div>
-                
-                  <br />
-                  {% endif %}
+                        <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}.</p>
+                    </div>                  
+                    <br />
+                    {% endif %}
 
                 <div class = "card-body"> 
                     {% if not form.is_bound%}
-                     <h1><strong style="color:blue">Edit Post</strong></h1> 
-                     <br />
+                     <h1>Create A New Post</h1> 
                     {% endif %}
-                    <div>                        
-                        <h2>{{post.title}}</h2>
-                    </div>
                                   
                 {{form | crispy}}
                 </div>
             </div>
         </div>
         <div class="login-button-pro">
-           <button type="submit" class="login-button login-button-lg"> Update Post </button> 
+           <button type="submit" class="login-button login-button-lg">  </button> 
           </div>
           
     </form>

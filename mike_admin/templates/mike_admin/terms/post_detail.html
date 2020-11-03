@@ -23,10 +23,6 @@
     <div class="col-md-9 card mb-6  mt-3">
       <div class="card-body white">
         <div class="income-dashone-pro">
-            {% ifequal user post.author %}
-                <a href = "{% url 'article:update_post' post.slug %}"><button class="btn btn-primary">Edit Post</button></a>
-                <a href = "{% url 'article:delete_post' post.slug %}"><button class="btn btn-danger">Delete Post</button></a>
-            {% endifequal%}
             <h1>{{post.title}}</h1>  
             <div class="clear"></div>
         </div>
