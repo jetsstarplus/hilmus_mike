@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
-from datetime import datetime, timezone
+from datetime import datetime
+from django.utils import timezone
 import uuid
 
 
@@ -64,4 +65,6 @@ class TermsOfService(models.Model):
     """A model representing the terms of service contents"""
     title= models.CharField(max_length=30)
     content= models.TextField()
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified= models.DateTimeField(auto_now=True)
 # Create your models here.

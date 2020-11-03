@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views import generic
 
-from .models import Music, Testimonial, StaffMember
+from .models import Music, Testimonial, StaffMember, TermsOfService
 from article.models import Post
 
 from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm
@@ -109,6 +109,7 @@ def update_profile(request):
 class TestimonialList(generic.ListView, LoginRequiredMixin):
     queryset = Testimonial.objects.filter(is_published=True).order_by('-date_added')
     template_name = 'mike_admin/testimonials/index.html'
+    context_object_name='testimonials'
     paginate_by=10
 
 @login_required
@@ -158,7 +159,7 @@ def update_testimonial(request, id):
                     form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=post.id
-                    message="Post Update successful"
+                    message="Testimonials Update successful"
                 except:
                     error="There was a problem with your submission"
             else:
@@ -190,7 +191,7 @@ def delete_testimonial(request, id):
         if request.method=='POST':
             if request.user == post.author:                           
                     post=post.delete()
-                    message="The post has been successfully deleted"                   
+                    message="The testimonial has been successfully deleted"                   
             else:
                 error ="You are not authorized to edit this post"   
                 
@@ -214,6 +215,235 @@ def delete_testimonial(request, id):
 def testimonial_detail(request, id):
     template_name = 'mike_admin/testimonials/testimonial_detail.html'
     post = get_object_or_404(Testimonial, pk=id)     # Comment posted
+    
+    context = {
+        'post': post
+    }
+    return render(request, template_name, context=context)
+
+# The Staff Members controllers
+class StaffList(generic.ListView, LoginRequiredMixin):
+    queryset = StaffMember.objects.filter(is_published=True).order_by('-rank')
+    template_name = 'mike_admin/staff/index.html'
+    context_object_name='staffs'
+    paginate_by=10
+
+@login_required
+def create_staff(request):
+    template_name='mike_admin/staff/create_staff.html'
+    new_post=None
+    error=None
+    id=None
+    user=request.user
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            form = StaffMemberForm(request.POST, request.FILES)
+            if form.is_valid():
+               new_post =form.save()
+               id= new_post.id
+            else:
+                error="There was a problem with your submission"
+        else:
+            form= StaffMemberForm()
+    
+    context={
+        'user':user,
+        'new_post':new_post,
+        'form':form,
+        'id':id,
+        'error':error
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def update_staff(request, id):
+    template_name='mike_admin/staff/edit_staff.html'
+    post = get_object_or_404(StaffMember, pk=id)
+    error=None
+    user=request.user
+    id=None
+    message=None
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            form = StaffMemberForm(request.POST, request.FILES, instance=post)
+            if form.is_valid():
+                try:  
+                    form.save()         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    id=post.id
+                    message="Staff Update successful"
+                except:
+                    error="There was a problem with your submission"
+            else:
+                error = "Your data is not complete"
+        else:
+            form= StaffMemberForm(instance=post)
+    
+    context={
+        'user':user,
+        'post':post,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message,
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def delete_staff(request, id):
+    template_name='mike_admin/staff/confirm_delete.html'
+    final_template='mike_admin/staff/delete_staff.html'
+    post= get_object_or_404(StaffMember, id=id)
+    error=None
+    user=request.user
+    id=None
+    message= None
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            if request.user:                           
+                    post=post.delete()
+                    message="The staff member has been successfully deleted"  
+                    id=post.id                 
+            else:
+                error ="You are not authorized to edit this staff"   
+                
+            return render(request, final_template, {'post': post})    
+                    
+        else:
+            
+            form= StaffMemberForm(instance=post)
+    
+    context={
+        'user':user,
+        'post':post,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
+def staff_detail(request, id):
+    template_name = 'mike_admin/staff/staff_detail.html'
+    post = get_object_or_404(Testimonial, pk=id)     # Comment posted
+    
+    context = {
+        'post': post
+    }
+    return render(request, template_name, context=context)
+
+# The Tos controllers
+class TermsList(generic.ListView, LoginRequiredMixin):
+    queryset = TermsOfService.objects.all().order_by('-date_added')
+    template_name = 'mike_admin/terms/index.html'
+    context_object_name= "terms"
+    paginate_by=10
+
+@login_required
+def create_terms(request):
+    template_name='mike_admin/terms/create_terms.html'
+    new_post=None
+    error=None
+    id=None
+    user=request.user
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            form = TermsForm(request.POST)
+            if form.is_valid():
+               new_post= form.save()
+               id= new_post.id
+            else:
+                error="There was a problem with your submission"
+        else:
+            form= TermsForm()
+    
+    context={
+        'user':user,
+        'new_post':new_post,
+        'form':form,
+        'id':id,
+        'error':error
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def update_terms(request, id):
+    template_name='mike_admin/terms/edit_terms.html'
+    terms = get_object_or_404(TermsOfService, pk=id)
+    error=None
+    user=request.user
+    id=None
+    message=None
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            form = TermsForm(request.POST, instance=terms)
+            if form.is_valid():
+                try:  
+                    terms = form.save()         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    id=terms.id
+                    message="Terms Update successful"
+                except:
+                    error="There was a problem with your submission"
+            else:
+                error = "Your data is not complete"
+        else:
+            form= TermsForm(instance=terms)
+    
+    context={
+        'user':user,
+        'terms':terms,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message,
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def delete_terms(request, id):
+    template_name='mike_admin/terms/confirm_delete.html'
+    final_template='mike_admin/terms/delete_terms.html'
+    post= get_object_or_404(TermsOfService, id=id)
+    error=None
+    user=request.user
+    id=None
+    message= None
+    
+    if user.is_staff:   
+        if request.method=='POST':
+            if request.user:                           
+                    post=post.delete()
+                    message="The term of service has been successfully deleted"                   
+            else:
+                error ="You are not authorized to edit this page"   
+                
+            return render(request, final_template, {'post': post})    
+                    
+        else:
+            
+            form= TermsForm(instance=post)
+    
+    context={
+        'user':user,
+        'post':post,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
+def terms_detail(request, id):
+    template_name = 'mike_admin/terms/terms_detail.html'
+    post = get_object_or_404(TermsOfService, pk=id)     # Comment posted
     
     context = {
         'post': post

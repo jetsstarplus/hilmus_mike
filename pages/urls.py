@@ -10,4 +10,5 @@ urlpatterns=[
     path('articles/search/', views.PostSearchList.as_view(), name="post_search"),
     path("mike-creatives/ajax/submit-contacts/", views.submit_contacts, name = "contacts-submit"),
     path("mike-creatives/hilmus/ajax/submit-subscription/", views.submit_subscription, name = "subscribe"),
+    path("terms-of-service/", views.terms, name='terms'),
 ]

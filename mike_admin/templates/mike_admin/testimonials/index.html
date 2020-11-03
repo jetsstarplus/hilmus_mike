@@ -1,6 +1,6 @@
 {% extends 'mike_admin/base_site.html' %}
 {% load thumbnail %}
-{% block title %}Post | Mike Creatives {% endblock%}
+{% block title %}Testimonials | Mike Creatives {% endblock%}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
@@ -25,8 +25,8 @@
         
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
-                {% if testimonial_list %}
-                {% for testimonial in testimonial_list %}
+                {% if testimonials %}
+                {% for testimonial in testimonials %}
                 <div class="card col-lg">
                     <div class="card-body">
                         <div class="income-title">

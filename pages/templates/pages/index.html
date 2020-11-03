@@ -295,7 +295,7 @@
                 </div>
               </div>
               <div class="team-content text-center">
-                <h4>{{team.name}}</h4>
+                <h4>{{team.name.first_name}} {{team.name.last_name}}</h4>
                 <p>{{team.role}}</p>
               </div>
             </div>
@@ -541,7 +541,7 @@
             <div class="item">
               <div class="shadow-effect">
                 <img class="img-circle" src="{% thumbnail testimonial.picture 150x150 crop %}" alt="Testimonial image">
-                <p>{{testimonial.content}}</p>
+                <p>{{testimonial.content | slice:':180'}}</p>
               </div>
               <div class="testimonial-name">{{testimonial.name}}</div>
             </div>

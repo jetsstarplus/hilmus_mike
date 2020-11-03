@@ -1,4 +1,9 @@
 {% extends './base.html' %}
+{% block title %}
+
+  <title>{{post.title}} - Articles Mike Creatives</title>  
+  <meta content="{{post.content | safe }}" name="description">
+{% endblock %}
 {% load static %}
 {% block content %}
   <!-- Start Bottom Header -->

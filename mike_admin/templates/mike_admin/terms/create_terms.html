@@ -1,10 +1,10 @@
 {% extends 'mike_admin/base_site.html' %} 
 {% load crispy_forms_tags %}
-{% block title %} Create a New Testimonial | MIKE Creatives{% endblock %}
+{% block title %} Create a New Post{% endblock %}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials"  %}">Testimonials</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:terms" %}">Terms</a> <span class="bread-slash">/</span>
       </li>
       <li><span class="bread-blod">Create</span>
       </li>
@@ -12,7 +12,7 @@
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonials</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:terms" %}">Terms</a> <span class="bread-slash">/</span>
       </li>
       <li><span class="bread-blod">Create</span>
       </li>
@@ -28,11 +28,11 @@
                 
                 <div class="alert alert-success alert-st-one" role="alert">
                     <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
-                    <p class="message-mg-rt"><strong>Well done!</strong> The testimonial was successfully created</p>
+                    <p class="message-mg-rt"><strong>Well done!</strong>The term of service was successfully created</p>
                 </div>   
                   <div class="row">                                            
-                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:update_testimonial' id %}"><button type="button" class="btn btn-primary">Edit Testimonial</button></a>
-                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_testimonial' id %}"><button type="button" class="btn btn-danger">Delete Testimonial</button></a>
+                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:update_terms' id %}"><button type="button" class="btn btn-primary">Edit Term</button></a>
+                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_terms' id %}"><button type="button" class="btn btn-danger">Delete Term</button></a>
                   </div>
                   <br />
                   {% endif %}
@@ -40,7 +40,7 @@
 
                 <div class = "card-body"> 
                     {% if not form.is_bound%}
-                     <h1>Create A New Testimonial</h1> 
+                     <h1>Create A New Term Of Service</h1> 
                     {% endif %}
                                   
                 {{form | crispy}}
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="login-button-pro">
-           {% if form.is_bound %} {% else %} <button type="submit" class="login-button login-button-lg"> Create Testimonial </button> {% endif %}
+           {% if form.is_bound %} {% else %} <button type="submit" class="login-button login-button-lg"> Create Term </button> {% endif %}
           </div>
           
     </form>

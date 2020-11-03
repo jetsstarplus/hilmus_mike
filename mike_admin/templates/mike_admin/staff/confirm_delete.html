@@ -1,20 +1,20 @@
 {% extends 'mike_admin/base_site.html' %} 
 {% load crispy_forms_tags %}
-{% block title %} Edit Post{% endblock %}
+{% block title %} Confirm Deletion of staff{% endblock %}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Create</span>
+      <li><span class="bread-blod">Confirm</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Edit Post</span>
+      <li><span class="bread-blod">Confirm</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -25,18 +25,17 @@
             <div class="col-md-6 card mb-4  mt-3 left  top">
                 {% if form.is_bound %}
                 <div class="alert alert-success" role="alert">
-                    Your Post Was Successfully Updated
+                    Your Staff Was Successfully Updated
                   </div>
                   <div class="row">                                            
-                        <!-- <a class="col-md-5 mb-4" href="{% url 'article:update_post' slug %}"><button type="button" class="btn btn-primary">Modify</button></a> -->
-                        <a class="col-md-5 mb-4" href="{% url 'article:delete_post' slug %}"><button type="button" class="btn btn-danger">Delete Post</button></a>
+                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_staff' id %}"><button type="button" class="btn btn-danger">Delete Post</button></a>
                   </div>
                   <br />
                   {% endif %}
 
                   {% if post %}
                 <div class="alert alert-danger" role="alert">
-                   <h3>Are you sure you want to delete this post:</h3>
+                   <h3>Are you sure you want to delete this staff member:</h3>
                    <hr />
                    <h4>{{post.title}}</h4>
                    <hr />
@@ -51,7 +50,7 @@
             </div>
         </div>
         <div class="login-button-pro">
-           <button type="submit" class="login-button login-button-lg"> Delete Post </button> 
+           <button type="submit" class="login-button login-button-lg"> Delete Staff </button> 
           </div>
           
     </form>

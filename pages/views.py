@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 
 from article.models import Post
-from mike_admin.models import Testimonial, StaffMember
+from mike_admin.models import Testimonial, StaffMember, TermsOfService
 from article.forms import CommentForm
 from .models import Contact
 
@@ -16,10 +16,22 @@ def index(request):
     posts = Post.objects.filter(status=1).all().order_by('-created_on')[:3]
     testimonials = Testimonial.objects.filter(is_published=True).order_by('-date_added')[:10]
     teams= StaffMember.objects.filter(is_published=True).order_by('-rank')[:4]
+    terms= TermsOfService.objects.all().order_by('-date_added')[:1]
     context={
         'posts': posts,
         'testimonials': testimonials,
         'teams':teams
+        }
+    return render(request, template_name, context=context)
+
+# Create your views here.
+def terms(request):
+    template_name='pages/terms.html'    
+    post_list = Post.objects.filter(status=1).order_by('-created_on')
+    terms= TermsOfService.objects.all().order_by('-date_added')[:1]
+    context={
+        'terms':terms,
+        'post_list':post_list
         }
     return render(request, template_name, context=context)
 

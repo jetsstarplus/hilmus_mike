@@ -1,0 +1,66 @@
+{% extends './base.html' %}
+{%load static %}
+{% block title %}
+<title>Articles Mike Creatives - The Terms Of Service</title>  
+<meta content="{% for term in terms %} {{term.title}} {% endfor %}" name="description">
+{% endblock %}
+
+
+{% block content %}
+ <!-- Start Bottom Header -->
+ <div class="header-bg page-area">
+  <div class="home-overly"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="slider-content text-center">
+          <div class="header-bottom">
+            <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+              <h1 class="title2">Mike Creatives Terms Of Service</h1>
+            </div>
+            <!-- <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
+              <h2 class="title3">Latest news as pertaining to the music industry</h2>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END Header -->
+<div class="blog-page area-padding">
+    <div class="container">
+      <div class="row">
+       
+        <!-- End left sidebar -->
+        <!-- Start single blog -->
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <div class="row">
+            {% if terms %}
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              
+              <div class="single-blog">
+                <div class="single-blog-img">
+                  
+                </div>
+
+                {% for term in terms %}
+                <div class="blog-text">
+                  <h2>
+											<strong>{{term.title}}</strong>
+										</h2>
+                  <p>
+                    {{term.content | safe }}</p></em>
+                  </p>
+                </div>
+                  {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

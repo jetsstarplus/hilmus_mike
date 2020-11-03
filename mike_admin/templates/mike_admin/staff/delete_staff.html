@@ -1,20 +1,20 @@
 {% extends 'mike_admin/base_site.html' %} 
 {% load crispy_forms_tags %}
-{% block title %} Edit Post{% endblock %}
+{% block title %} Delete Staff Member{% endblock %}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Delete Post</span>
+      <li><span class="bread-blod">Delete Staff</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "article:post" %}">Blogs</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Delete Post</span>
+      <li><span class="bread-blod">Delete Staff</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -42,7 +42,7 @@
 
                 <div class = "card-body"> 
                     {% if not form.is_bound%}
-                     <h1>Create A New Post</h1> 
+                     <h1>Create A New Staff Member</h1> 
                     {% endif %}
                                   
                 {{form | crispy}}
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="login-button-pro">
-           <button type="submit" class="login-button login-button-lg">  </button> 
+           <button type="submit" class="login-button login-button-lg"> </button> 
           </div>
           
     </form>

@@ -5,48 +5,44 @@
 
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonialss</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:terms" %}">Terms</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">{{post.name}}</span>
+      <li><span class="bread-blod">{{post.title}}</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonials</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:terms" %}">Terms</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">{{post.name}}</span>
+      <li><span class="bread-blod">{{post.title}}</span>
       </li>
   {% endblock %}
 {% block content %}
-
 <div class="container">
     <div class="col-md-9 card mb-6  mt-3">
       <div class="card-body white">
-        {% if user.is_staff %}
-            <a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary">Edit Testimonial</button></a>
-            <a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger">Delete Testimonial</button></a>
-        {% endif%}
         <div class="income-dashone-pro">
+            {% if user.is_staff %}
+                <a href = "{% url 'mike_admin:update_terms' post.id %}"><button class="btn btn-primary">Edit Term</button></a>
+                <a href = "{% url 'mike_admin:delete_terms' post.id %}"><button class="btn btn-danger">Delete Term</button></a>
+            {% endif%}
             <h1>{{post.title}}</h1>  
             <div class="clear"></div>
         </div>
         <div>
-            {% if post.image %}
-                <img src='{% thumbnail post.image 400x600 crop %}' alt = "post image" />
-            {% endif%}
+            
         </div>
-        <p class=" text-muted">{{ post.created_by }} | {{ post.date_added }}</p>
         <div class="income-dashone-pro">
-            <h1>{{post.name}}</h1>                
+            <h1>{{post.title}}</h1>                
             <div class="income-range low-value-cl">
                 {{ post.content | safe }}
             </div>
             <div class="clear"></div>
         </div>
-        
       </div>
-    </div>
- </div> 
-
+    </div> 
+</div>  
+<br />
+<br />
 {% endblock content %}

@@ -35,10 +35,22 @@
                         </div>
                     </li>
                     {% if user.is_staff %}
-                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-newspaper-o"></i> <span class="mini-dn">Testimonials</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-newspaper-o"></i> <span class="mini-dn">Testimonial</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                             <a href="{% url 'mike_admin:testimonials' %}" class="dropdown-item">Testimonials</a>                          
                             <a href="{% url 'mike_admin:create_testimonial' %}" class="dropdown-item">Create New Testimonial</a>                            
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-users"></i> <span class="mini-dn">Staff Members</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url 'mike_admin:staffs' %}" class="dropdown-item">Staff Members</a>                          
+                            <a href="{% url 'mike_admin:create_staff' %}" class="dropdown-item">Create New Staff Member</a>                            
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-gears"></i> <span class="mini-dn">Terms Of Service</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url 'mike_admin:terms' %}" class="dropdown-item">Terms Of Service</a>                          
+                            <a href="{% url 'mike_admin:create_terms' %}" class="dropdown-item">Create Terms</a>                            
                         </div>
                     </li>
                     {% endif %}
@@ -58,7 +70,7 @@
                                 <i class="fa fa-bars"></i>
                             </button>
                             <div class="admin-logo logo-wrap-pro">
-                                <a href="#"><img src="{% static 'mike_admin/img/logo/log.png' %}" alt="mike-admin logo" />
+                                <a href="#"><strong><h1><span style="color:#ce2029; font-wheight:700">MIKE</span>Creatives</h1></strong>
                                 </a>
                             </div>
                         </div>
@@ -79,93 +91,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
                             <div class="header-right-info">
                                 <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                    <li class="nav-item dropdown">
-                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span class="adminpro-icon adminpro-chat-pro"></span><span class="indicator-ms"></span></a>
-                                        <div role="menu" class="author-message-top dropdown-menu animated flipInX">
-                                            <div class="message-single-top">
-                                                <h1>Message</h1>
-                                            </div>
-                                            <ul class="message-menu">
-                                                <li>
-                                                    <a href="#">
-                                                        <div class="message-img">
-                                                            <img src="img/message/1.jpg" alt="">
-                                                        </div>
-                                                        <div class="message-content">
-                                                            <span class="message-date">16 Sept</span>
-                                                            <h2>Advanda Cro</h2>
-                                                            <p>Please done this project as soon possible.</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                              
-                                                
-                                            </ul>
-                                            <div class="message-view">
-                                                <a href="#">View All Messages</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-bell-o" aria-hidden="true"></i><span class="indicator-nt"></span></a>
-                                        <div role="menu" class="notification-author dropdown-menu animated flipInX">
-                                            <div class="notification-single-top">
-                                                <h1>Notifications</h1>
-                                            </div>
-                                            <ul class="notification-menu">
-                                                <li>
-                                                    <a href="#">
-                                                        <div class="notification-icon">
-                                                            <span class="adminpro-icon adminpro-checked-pro"></span>
-                                                        </div>
-                                                        <div class="notification-content">
-                                                            <span class="notification-date">16 Sept</span>
-                                                            <h2>Advanda Cro</h2>
-                                                            <p>Please done this project as soon possible.</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <div class="notification-icon">
-                                                            <span class="adminpro-icon adminpro-cloud-computing-down"></span>
-                                                        </div>
-                                                        <div class="notification-content">
-                                                            <span class="notification-date">16 Sept</span>
-                                                            <h2>Sulaiman din</h2>
-                                                            <p>Please done this project as soon possible.</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <div class="notification-icon">
-                                                            <span class="adminpro-icon adminpro-shield"></span>
-                                                        </div>
-                                                        <div class="notification-content">
-                                                            <span class="notification-date">16 Sept</span>
-                                                            <h2>Victor Jara</h2>
-                                                            <p>Please done this project as soon possible.</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <div class="notification-icon">
-                                                            <span class="adminpro-icon adminpro-analytics-arrow"></span>
-                                                        </div>
-                                                        <div class="notification-content">
-                                                            <span class="notification-date">16 Sept</span>
-                                                            <h2>Victor Jara</h2>
-                                                            <p>Please done this project as soon possible.</p>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <div class="notification-view">
-                                                <a href="#">View All Notification</a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                   
                                     <li class="nav-item">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                             <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
@@ -258,7 +184,25 @@
                                             <li>
                                                 <a href="{% url 'mike_admin:create_testimonial' %}" class="dropdown-item">Create New Testimonial</a>
                                               
+                                            </li>                                           
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Staff Members <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'mike_admin:staffs' %}" class="dropdown-item">Staff Members</a>
                                             </li>
+                                            <li>
+                                                <a href="{% url 'mike_admin:create_staff' %}" class="dropdown-item">Create New Staff</a>                                              
+                                            </li>                                           
+                                        </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Terms of Service <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'mike_admin:terms' %}" class="dropdown-item">Terms</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'mike_admin:create_terms' %}" class="dropdown-item">Create Term</a>                                              
+                                            </li>                                           
                                         </ul>
                                     </li>
                                     {% endif %}

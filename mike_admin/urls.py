@@ -15,5 +15,20 @@ urlpatterns = [
     path('testimonial/<int:id>/', views.testimonial_detail, name='testimonial_detail'),
     path('testimonial/create/', views.create_testimonial, name="create_testimonial"),
     path('testimonial/<int:id>/change/', views.update_testimonial, name="update_testimonial"), 
-    path('testimonial/<int:id>/delete/', views.delete_testimonial, name="delete_testimonial")
+    path('testimonial/<int:id>/delete/', views.delete_testimonial, name="delete_testimonial"),
+    
+    
+    # Testimonials urls
+    path('staffs/', views.StaffList.as_view(), name='staffs'),
+    path('staff/<int:id>/', views.staff_detail, name='staff_detail'),
+    path('staff/create/', views.create_staff, name="create_staff"),
+    path('staff/<int:id>/change/', views.update_staff, name="update_staff"), 
+    path('staff/<int:id>/delete/', views.delete_staff, name="delete_staff"),
+    
+    # Tos urls
+    path('terms/', views.TermsList.as_view(), name='terms'),
+    path('terms/<int:id>/', views.terms_detail, name='terms_detail'),
+    path('terms/create/', views.create_terms, name="create_terms"),
+    path('terms/<int:id>/change/', views.update_terms, name="update_terms"), 
+    path('terms/<int:id>/delete/', views.delete_terms, name="delete_terms"),
 ]

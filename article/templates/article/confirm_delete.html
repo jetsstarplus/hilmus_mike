@@ -23,17 +23,6 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6 card mb-4  mt-3 left  top">
-                {% if form.is_bound %}
-                <div class="alert alert-success" role="alert">
-                    Your Post Was Successfully Updated
-                  </div>
-                  <div class="row">                                            
-                        <!-- <a class="col-md-5 mb-4" href="{% url 'article:update_post' slug %}"><button type="button" class="btn btn-primary">Modify</button></a> -->
-                        <a class="col-md-5 mb-4" href="{% url 'article:delete_post' slug %}"><button type="button" class="btn btn-danger">Delete Post</button></a>
-                  </div>
-                  <br />
-                  {% endif %}
-
                   {% if post %}
                 <div class="alert alert-danger" role="alert">
                    <h3>Are you sure you want to delete this post:</h3>

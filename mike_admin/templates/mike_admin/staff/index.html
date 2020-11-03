@@ -1,16 +1,16 @@
 {% extends 'mike_admin/base_site.html' %}
 {% load thumbnail %}
-{% block title %}Post | Mike Creatives {% endblock%}
+{% block title %}Terms of Services | MIKE Creatives {% endblock%}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Blogs</span>
+      <li><span class="bread-blod">Staffs</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Blogs</span>
+      <li><span class="bread-blod">Staffs</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -19,13 +19,14 @@
         <div class="col-lg-8">
         <div class="row">
             <div class="col-md-5 alert primary-alert">
-                <h1><strong>Blog</strong></h1>
+                <h1><strong>Staff Members</strong></h1>
             </div>
         </div>
         
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
-                {% for post in post_list %}
+                {% if staffs %}
+                {% for post in staffs %}
                 <div class="card col-lg">
                     <div class="card-body">
                         <div class="income-title">
@@ -33,7 +34,7 @@
                                 <h2>{{ post.title }}</h2>
                                 <div class="income-rate-total">
                                     <div class="price-adminpro-rate">
-                                        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+                                        <p class="card-text text-muted h6">{{ post.rank }} | {{ post.role}} </p>
                                     </div>
                                     
                                 </div>
@@ -43,24 +44,24 @@
                             <div class= "row">
                                 <div class="col-md-3">
                                     {% if post.image %}
-                                        <img src="{% thumbnail post.image 200x150 crop%}" alt="post image">
+                                        <img src="{% thumbnail post.picture 200x150 crop%}" alt="staff image">
                                     {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
                                     <p class="card-text">{{post.content | safe |slice:":200" }}</p>...</p></i></em>
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">
-                                        <a href="{% url 'article:post_detail' post.slug  %}" >
-                                            <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
+                                        <a href="{% url 'mike_admin:staff_detail' post.id %}" >
+                                            <button id = "basicInfoNoSound" class="btn btn-info">More &rarr;</button> 
                                         </a>
-                                        {% ifequal user post.author %}
-                                        <a href="{% url 'article:update_post' post.slug  %}" >
+                                        {% if user.is_staff %}
+                                        <a href="{% url 'mike_admin:update_staff' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-success">Edit</button> 
                                         </a>
-                                        <a href="{% url 'article:delete_post' post.slug  %}" >
+                                        <a href="{% url 'mike_admin:delete_staff' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
                                         </a>
-                                        {% endifequal%}
+                                        {% endif%}
                                       </div>
                                 </div>
                             </div>                          
@@ -73,6 +74,14 @@
                 <br />
                 <br />
                 {% endfor %}
+                {% else %}
+                <div class= "alert alert-primary">
+                    <h2>There are no staff members to see here</h2>
+                    <div>
+                        <a href="{% url 'mike_admin:create_staff' %}"><button class="btn btn-primary">Create New</button></a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
       
         </div>

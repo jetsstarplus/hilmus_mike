@@ -5,7 +5,7 @@
 
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonialss</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
       <li><span class="bread-blod">{{post.name}}</span>
       </li>
@@ -13,7 +13,7 @@
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonials</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:staffs" %}">Staffs</a> <span class="bread-slash">/</span>
       </li>
       <li><span class="bread-blod">{{post.name}}</span>
       </li>
@@ -23,20 +23,27 @@
 <div class="container">
     <div class="col-md-9 card mb-6  mt-3">
       <div class="card-body white">
-        {% if user.is_staff %}
-            <a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary">Edit Testimonial</button></a>
-            <a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger">Delete Testimonial</button></a>
-        {% endif%}
         <div class="income-dashone-pro">
+            {% ifequal user post.author %}
+            <div class="row">
+                <div class = "col-md-6">
+                    <a href = "{% url 'mike_admin:update_staff' post.id %}"><button class="btn btn-primary">Edit Staff</button></a>     
+                </div>
+                <div class="col-md-6">
+                    <a href = "{% url 'mike_admin:delete_staff' post.id %}"><button class="btn btn-danger">Delete Staff</button></a> 
+                </div>
+            </div>               
+                
+            {% endifequal%}
             <h1>{{post.title}}</h1>  
             <div class="clear"></div>
         </div>
         <div>
-            {% if post.image %}
-                <img src='{% thumbnail post.image 400x600 crop %}' alt = "post image" />
+            {% if post.picture %}
+                <img src='{% thumbnail post.picture 850x400 crop %}' alt = "post image" />
             {% endif%}
         </div>
-        <p class=" text-muted">{{ post.created_by }} | {{ post.date_added }}</p>
+        <p class=" text-muted">{{ post.rank }} | {{ post.role }}</p>
         <div class="income-dashone-pro">
             <h1>{{post.name}}</h1>                
             <div class="income-range low-value-cl">
@@ -47,6 +54,5 @@
         
       </div>
     </div>
- </div> 
-
+</div>
 {% endblock content %}
