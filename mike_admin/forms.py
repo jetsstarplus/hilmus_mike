@@ -4,7 +4,7 @@ from django_registration.forms import RegistrationFormTermsOfService, Registrati
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 from account.models import Account
-from .models import TermsOfService, Testimonial, StaffMember
+from .models import TermsOfService, Testimonial, StaffMember, Music
 
 
 class AccountFormSub(RegistrationFormTermsOfService,RegistrationFormUniqueEmail):
@@ -41,3 +41,8 @@ class StaffMemberForm(forms.ModelForm):
     class Meta:
         model= StaffMember
         fields='__all__'
+        
+class MusicForm(forms.ModelForm):
+    class Meta:
+        model = Music
+        fields=['description', 'title', 'music', 'picture', 'is_boompay', 'is_skiza']

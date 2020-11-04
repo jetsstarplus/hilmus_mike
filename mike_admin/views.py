@@ -12,7 +12,7 @@ from django.views import generic
 from .models import Music, Testimonial, StaffMember, TermsOfService
 from article.models import Post
 
-from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm
+from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm
 
 @login_required
 def home(request): 
@@ -445,6 +445,126 @@ def terms_detail(request, id):
     template_name = 'mike_admin/terms/terms_detail.html'
     post = get_object_or_404(TermsOfService, pk=id)     # Comment posted
     
+    context = {
+        'post': post
+    }
+    return render(request, template_name, context=context)
+
+# The Tos controllers
+class MusicList(generic.ListView, LoginRequiredMixin):
+    queryset = Music.objects.all().order_by('-date_added')
+    template_name = 'mike_admin/music/index.html'
+    context_object_name= "musics"
+    paginate_by=10
+
+@login_required
+def create_music(request):
+    template_name='mike_admin/music/create_music.html'
+    new_post=None
+    error=None
+    id=None
+    user=request.user
+    
+    if user.is_payed or user.is_staff:   
+        if request.method=='POST':
+            form = MusicForm(request.POST, request.FILES)
+            if form.is_valid():
+               new_post= form.save(commit=False)
+               new_post.artist= user
+               new_post.save()
+               id= new_post.pk
+            else:
+                error="There was a problem with your submission"
+        else:
+            form= MusicForm()
+    else:
+        error="Please Complete the payment first"
+    
+    context={
+        'user':user,
+        'new_post':new_post,
+        'form':form,
+        'id':id,
+        'error':error
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def update_music(request, pk):
+    template_name='mike_admin/music/edit_music.html'
+    music = get_object_or_404(Music, pk=pk)
+    error=None
+    user=request.user
+    id=None
+    message=None
+    
+    if user.is_staff or user == music.artist:   
+        if request.method=='POST':
+            form = MusicForm(request.POST, request.FILES, instance=music)
+            if form.is_valid():
+                try:  
+                    music = form.save()         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    id=music.id
+                    message="Music Update successful"
+                except:
+                    error="There was a problem with your submission"
+            else:
+                error = "Your data is not complete"
+        else:
+            form= MusicForm(instance=music)
+    
+    context={
+        'user':user,
+        'music':music,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message,
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+def delete_music(request, pk):
+    template_name='mike_admin/music/confirm_delete.html'
+    final_template='mike_admin/music/delete_music.html'
+    post= get_object_or_404(Music, pk=pk)
+    error=None
+    user=request.user
+    id=None
+    message= None
+    
+    if user.is_staff or user==post.artist:   
+        if request.method=='POST':                          
+            post=post.delete()
+            message="The music has been successfully deleted"                   
+            return render(request, final_template, {'post': post})    
+                    
+        else:
+            
+            form= MusicForm(instance=post)
+    else:
+        error="Your are not authorize to delete this music"
+    
+    context={
+        'user':user,
+        'post':post,
+        'form':form,
+        'id': id,
+        'error': error,
+        'message':message
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
+def music_detail(request, pk):
+    template_name = 'mike_admin/music/music_detail.html'
+    post = None    # Comment posted
+    
+    if request.user.is_staff:
+        post = get_object_or_404(Music, pk=pk)  
+    else:
+        post = Music.objects.filter(pk=pk, artist=request.user)
     context = {
         'post': post
     }

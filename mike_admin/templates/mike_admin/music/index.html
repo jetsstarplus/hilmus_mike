@@ -1,0 +1,106 @@
+{% extends 'mike_admin/base_site.html' %}
+{% load thumbnail %}
+{% block title %}Musics | Mike Creatives {% endblock%}
+{% block breadcrump %}
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Musics</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Musics</span>
+      </li>
+  {% endblock %}
+{% block content %}
+<div class="feed-mesage-project-area">
+    <div class="container">
+        <div class="col-lg-8">
+        <div class="row">
+            <div class="col-md-5 alert primary-alert">
+                <h1><strong>Uploaded Musics</strong></h1>
+            </div>
+        </div>
+        
+            <!-- Blog Entries Column -->
+            <div class="col-lg-15 income-dashone-total">
+                {% if musics %}
+                {% for post in musics %}
+                {% if user.is_staff or user == post.artist %}
+                <div class="card col-lg">
+                    <div class="card-body">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>{{ post.title }}</h2>
+                                <div class="income-rate-total">
+                                    <div class="price-adminpro-rate">
+                                        <p class="card-text text-muted h6"> {{ post.date_added}} </p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">  
+                            <div class= "row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="income-range low-value-cl col-md-9">
+                                    <p class="card-text">{{post.content | safe |slice:":400" }}</p>...</p></i></em>
+                                   
+                                    <div style="padding-top:2rem" class="notification-bt responsive-bt">
+                                        <a href="{% url 'mike_admin:music_detail' post.id  %}" >
+                                            <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
+                                        </a>
+                                        {% ifequal user post.author %}
+                                        <a href="{% url 'mike_admin:update_music' post.id  %}" >
+                                            <button id = "basicInfoNoSound" class="btn btn-success">Edit</button> 
+                                        </a>
+                                        <a href="{% url 'mike_admin:delete_music' post.id  %}" >
+                                            <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
+                                        </a>
+                                        {% endifequal%}
+                                      </div>
+                                </div>
+                            </div>                          
+                            
+                            <!-- <div class="clear"></div> -->
+                        </div>
+                        
+                    </div>
+                </div>
+                <br />
+                <br />
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class= "alert alert-primary">
+                    <h2>There are no musics to see here</h2>
+                    <div>
+                        <a href="{% url 'mike_admin:create_music' %}"><button class="btn btn-primary">Create New</button></a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+      
+        </div>
+    </div>
+    <div class = "container">
+        <div class="">
+        {% if is_paginated %}
+            <nav aria-label="Page navigation conatiner">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+                {% endif %}
+            </ul>
+            </nav>
+        </div>
+    </div>
+ </div>
+    {% endif %}
+{% endblock %}

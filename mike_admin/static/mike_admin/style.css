@@ -3972,20 +3972,20 @@ ul.breadcome-menu {
 	color: #303030;
 }
 .materialdesign .header-top-area, .materialdesign .fixed-header-top{
-	background: #1f2e86;
+	background: #ce2029;
 }
 .materialdesign .header-top-menu .navbar-nav>li .dropdown-menu, .materialdesign .header-right-info ul.header-right-menu li .author-message-top, .materialdesign .header-right-info ul.header-right-menu li .notification-author, .materialdesign .header-right-info ul.header-right-menu li .author-log, .materialdesign .header-right-info ul.header-right-menu li .admintab-wrap.menu-setting-wrap.menu-setting-wrap-bg.dropdown-menu{
-	background: #1f2c79;
+	background: #ce2029;
 }
 .materialdesign .header-right-info .author-message-top:before, .materialdesign .header-right-info .notification-author:before{
-	border-bottom: 10px solid #1f2c79;
+	border-bottom: 10px solid #ce2029;
 }
 .materialdesign .header-top-menu .navbar-nav>li .dropdown-menu a:hover, .materialdesign .header-right-info ul.header-right-menu li .dropdown-header-top.author-log li a:hover, .materialdesign  .header-right-info ul.header-right-menu li .dropdown-header-top.author-log li a:focus, .materialdesign  .header-drl-controller-btn.btn-info:active:focus, .btn-info:active:hover{
-    background: #172054;
+    background: #ce2029;
 }
 .materialdesign .header-drl-controller-btn.btn-info {
-    background-color: #1f2e86;
-    border-color: #1f2e86;
+    background-color: #ce2029;
+    border-color: #ce2029;
 }
 .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:hover, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:focus, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:active, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:visited{
 	background: #ebebeb;
@@ -3997,13 +3997,13 @@ ul.breadcome-menu {
 	color: #fff;
 }
 .materialdesign .message-single-top h1, .materialdesign .notification-single-top h1{
-	border-bottom: 1px solid #1f2e86;
+	border-bottom: 1px solid #ce2029;
 }
 .materialdesign .header-right-info ul.header-right-menu li .message-view a, .materialdesign .header-right-info ul.header-right-menu li .notification-view a{
-	border-top: 1px solid #1f2e86;
+	border-top: 1px solid #ce2029;
 }
 .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a, .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a:focus, .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a:hover .notes-img{
-	background: #172054;
+	background: #ce2029;
 }
 .materialdesign .breadcome-heading .form-control, .breadcome-heading .form-control:focus {
     border: 1px solid #ececec;

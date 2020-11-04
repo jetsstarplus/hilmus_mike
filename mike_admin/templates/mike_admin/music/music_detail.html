@@ -1,0 +1,56 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load thumbnail %}
+{% block title %} {{ post.title }} | Mike Creatives {% endblock title %}
+{% block breadcrump %}
+
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:music" %}">Musics</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{post.title}}</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:music" %}">Musics</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{post.title}}</span>
+      </li>
+  {% endblock %}
+{% block content %}
+{% if user.is_staff or user == post.artist %}
+<div class="container">
+    <div class="col-md-9 card mb-6  mt-3">
+      <div class="card-body white">
+        <div class="income-dashone-pro">
+            {% if user.is_staff or user == post.artist%}
+                <a href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit Music</button></a>
+                <a href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete Music</button></a>
+            {% endif%}
+            <h1>{{post.title}}</h1>  
+            <div class="clear"></div>
+        </div>
+        <div class = 'row'>
+            <br />
+            <div class = 'col-md-6'>
+                <img src="{% thumbnail post.picture 200x170 crop %}" alt="post picture">
+             </div>
+             <div class="income-dashone-pro col-md-6">
+                 <h1>{{post.title}}</h1>  
+                 <p class=" text-muted">{{ post.artist.first_name }} {{post.artist.last_name}} | {{ post.date_added }}</p> 
+                 <p>{{post.music.name}}</p>                            
+                 <div class="income-range low-value-cl">
+                     {{ post.description | safe }}
+                 </div>
+                 <div class="clear"></div>
+             </div>
+        </div>
+        
+      </div>
+    </div> 
+</div>  
+{% endif %}
+<br />
+<br />
+{% endblock content %}

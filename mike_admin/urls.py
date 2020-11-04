@@ -31,4 +31,11 @@ urlpatterns = [
     path('terms/create/', views.create_terms, name="create_terms"),
     path('terms/<int:id>/change/', views.update_terms, name="update_terms"), 
     path('terms/<int:id>/delete/', views.delete_terms, name="delete_terms"),
+    
+    # Music urls
+    path('music/', views.MusicList.as_view(), name='music'),
+    path('music/<pk>/', views.music_detail, name='music_detail'),
+    path('music/create/', views.create_music, name="create_music"),
+    path('music/<pk>/change/', views.update_music, name="update_music"), 
+    path('music/<pk>/delete/', views.delete_music, name="delete_music"),
 ]
