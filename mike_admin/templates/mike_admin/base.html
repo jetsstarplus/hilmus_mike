@@ -58,8 +58,15 @@
 		============================================ -->
     <link rel="stylesheet" href="{% static "mike_admin/css/form.css" %}">
     <link rel="stylesheet" href="{% static "mike_admin/css/form/all-type-forms.css" %}">
-    <!-- modernizr JS
-    ============================================ -->
+
+    <!--Users Phone number for uploading-->
+
+    <link href="{% static 'home/js/build/css/intlTelInput.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'home/js/build/css/demo.css' %}" rel="stylesheet"> -->
+    <link href="{% static 'home/js/build/isValidNumber.css' %}" rel = "stylesheet">
+      <!-- modernizr JS
+      ============================================ -->
+    
     
     <script src="{% static "mike_admin/js/vendor/modernizr-2.8.3.min.js" %}"></script>
 </head>
@@ -140,6 +147,10 @@
     <script src="{% static "mike_admin/js/jquery.form.min.js" %}"></script>
     <script src="{% static "mike_admin/js/jquery.validate.min.js" %}"></script>
     <script src="{% static "mike_admin/js/form-active.js" %}"></script>
+
+     <!-- The phone number field -->
+  <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
+  
     <!-- main JS
 		============================================ -->
     <script src="{% static "mike_admin/js/main.js" %}"></script>

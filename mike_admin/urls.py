@@ -42,4 +42,7 @@ urlpatterns = [
     #Users urls
     path('users/', views.UserList.as_view(), name='users'),
     path('user/<str:username>/', views.user_detail, name='user_detail'),
+    
+    #Users urls
+    path('transactions/', views.LipaTransactionList.as_view(), name='lipa'),
 ]

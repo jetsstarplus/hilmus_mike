@@ -17,7 +17,7 @@ class AccountForm(AccountFormSub):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model=Account
-        fields=('first_name', 'last_name', 'avatar', 'information')
+        fields=('first_name', 'last_name', 'phone', 'avatar', 'information')
     # def save(self, user=None):
     #     user_profile = super(ProfileForm, self).save(commit=False)
     #     if user:            

@@ -268,6 +268,7 @@
                     </div>
                 </div>
             </div>
+            {% if user.is_staff %}
             <!-- Transitions Start-->
             <div class="transition-world-area">
                 <div class="container-fluid">
@@ -277,7 +278,7 @@
                                 <div class="sparkline7-list">
                                     <div class="sparkline7-hd">
                                         <div class="main-spark7-hd">
-                                            <h1>Transitions <span class="res-ds-n">Worldwide</span></h1>
+                                            <h1>MIKE Creatives <span class="res-ds-n">Mpesa Transactions</span></h1>
                                             <div class="sparkline7-outline-icon">
                                                 <span class="sparkline7-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                                 <span><i class="fa fa-wrench"></i></span>
@@ -285,60 +286,74 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sparkline7-graph">
-                                        <div class="row">
-                                            <div class="col-lg-6">
+                            
+                                    <div class="col-lg-12">
+                                        <div class="sparkline9-list shadow-reset mg-tb-30">
+                                            <div class="sparkline9-hd">
+                                                <div class="main-sparkline9-hd">
+                                                    <h1>Lipa Na Mpesa</h1>
+                                                    <div class="sparkline9-outline-icon">
+                                                        <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                                        <span><i class="fa fa-wrench"></i></span>
+                                                        <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="sparkline9-graph dashone-comment">
                                                 <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
-                                                    <div id="toolbar">
+                                                    <div id="toolbar1">
                                                         <select class="form-control">
                                                             <option value="">Export Basic</option>
                                                             <option value="all">Export All</option>
                                                             <option value="selected">Export Selected</option>
                                                         </select>
                                                     </div>
-                                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                                    <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
                                                         <thead>
                                                             <tr>
                                                                 <th data-field="state" data-checkbox="true"></th>
-                                                                <th data-field="id">No</th>
-                                                                <th data-field="method" data-editable="true">Method</th>
-                                                                <th data-field="date" data-editable="true">Date</th>
-                                                                <th data-field="country" data-editable="true">Country</th>
-                                                                <th data-field="amount" data-editable="true">Amount</th>
+                                                                <th data-field="CheckoutRequestID">CheckoutRequestID</th>
+                                                                <th data-field="MerchantRequestID" data-editable="false">MerchantRequestID</th>
+                                                                <th data-field="ResultCode" data-editable="false">ResultCode</th>
+                                                                <th data-field="ResultDesc" data-editable="false">ResultDesc</th>
+                                                                <th data-field="MpesaReceiptNumber" data-editable="false">MpesaReceiptNumber</th>
+                                                                <th data-field="TransationDate" data-editable="false">TransationDate</th>
+                                                                <th data-field="Amount" data-editable="false">Amount</th>  
+                                                                
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            {% if lipa_transactions %}
+                                                            {% for trans in lipa_transactions %}
+                                                            {% if user.is_staff %}
                                                             <tr>
                                                                 <td></td>
-                                                                <td>1</td>
-                                                                <td>Paypal</td>
-                                                                <td>11:20pm</td>
-                                                                <td>United State</td>
-                                                                <td>$2413</td>
+                                                                <td>{{trans.CheckoutRequestID}}</td>
+                                                                <td>{{trans.MerchantRequestID}}</td>
+                                                                <td>{{trans.ResultCode}}</td>
+                                                                <td>{{trans.ResultDesc}}</td>
+                                                                <td>{{trans.MpesaReceiptNumber}}</td>
+                                                                <td>{{TransationDate}}</td> 
+                                                                <td>{{trans.Amount}}</td>                                    
+                                                                
                                                             </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>2</td>
-                                                                <td>Payoneer</td>
-                                                                <td>5:20am</td>
-                                                                <td>Canada</td>
-                                                                <td>$4565</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>3</td>
-                                                                <td>Skill</td>
-                                                                <td>1 day Ago</td>
-                                                                <td>China</td>
-                                                                <td>$6888</td>
-                                                            </tr>
-                                                       
+                                                            
+                                                            {% endif %}
+                                                            {% endfor %}
+                                                            
+                                                            {% endif %}
                                                         </tbody>
                                                     </table>
+                                                    {% if not users %}
+                                                    <div class= "alert alert-primary" role="alert">
+                                                        <h2>There are no Transactions to see here</h2>
+                                                        
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                            </div>
+                                        </div>
+                                    </div> 
                                         </div>
                                     </div>
                                 </div>
@@ -347,6 +362,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <!-- Transitions End-->
         </div>
     </div>

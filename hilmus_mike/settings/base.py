@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
     'django.contrib.sitemaps',
+    'django.contrib.sites',
     
     # downloaded applications
     # 'versatileimagefield',
@@ -25,12 +26,15 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'mptt',
     'filer',
+    'rest_framework',
     
     # Installed applications
     'pages.apps.PagesConfig',
     'account.apps.AccountConfig',
     'mike_admin.apps.MikeAdminConfig',
-    'article.apps.ArticleConfig'
+    'article.apps.ArticleConfig',
+    'daraja',
+    'mpesa',
 ]
 
 MIDDLEWARE = [
@@ -108,6 +112,16 @@ STATICFILES_DIRS = [
 MEDIAFILES_DIRS = [
     os.path.join(BASE_DIR, "media"),
 ]
+
+# rest framework configuration
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+}
+
+# Login and logout redirect
 LOGOUT_REDIRECT_URL="/account/login/"
 LOGIN_REDIRECT_URL="/account/"
 LOGIN_URL="/account/login/"

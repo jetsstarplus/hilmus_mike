@@ -1,0 +1,100 @@
+{% extends 'mike_admin/base_site.html' %}
+{% load thumbnail %}
+{% block title %}Lipa Na Mpesa Transactions | Mike Creatives {% endblock%}
+{% block breadcrump %}
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Transactions</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Transactions</span>
+      </li>
+  {% endblock %}
+{% block content %}
+<div class="feed-mesage-project-area">
+    <div class="container">
+        <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-5 alert primary-alert">
+                <h1><strong>Lipa Na Mpesa Transactions</strong></h1>
+            </div>
+        </div>
+
+                        <div class="col-lg-12">
+                            <div class="sparkline9-list shadow-reset mg-tb-30">
+                                <div class="sparkline9-hd">
+                                    <div class="main-sparkline9-hd">
+                                        <h1>Lipa Na Mpesa</h1>
+                                        <div class="sparkline9-outline-icon">
+                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sparkline9-graph dashone-comment">
+                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                                        <div id="toolbar1">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="state" data-checkbox="true"></th>
+                                                    <th data-field="CheckoutRequestID">CheckoutRequestID</th>
+                                                    <th data-field="MerchantRequestID" data-editable="false">MerchantRequestID</th>
+                                                    <th data-field="ResultCode" data-editable="false">ResultCode</th>
+                                                    <th data-field="ResultDesc" data-editable="false">ResultDesc</th>
+                                                    <th data-field="MpesaReceiptNumber" data-editable="false">MpesaReceiptNumber</th>
+                                                    <th data-field="TransationDate" data-editable="false">TransationDate</th>
+                                                    <th data-field="Amount" data-editable="false">Amount</th>  
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if lipa_transactions %}
+                                                {% for trans in lipa_transactions %}
+                                                {% if user.is_staff %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{trans.CheckoutRequestID}}</td>
+                                                    <td>{{trans.MerchantRequestID}}</td>
+                                                    <td>{{trans.ResultCode}}</td>
+                                                    <td>{{trans.ResultDesc}}</td>
+                                                    <td>{{trans.MpesaReceiptNumber}}</td>
+                                                    <td>{{TransationDate}}</td> 
+                                                    <td>{{trans.Amount}}</td>                                    
+                                                    
+                                                </tr>
+                                                
+                                                {% endif %}
+                                                {% endfor %}
+                                                
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                        {% if not users %}
+                                        <div class= "alert alert-primary" role="alert">
+                                            <h2>There are no Transactions to see here</h2>
+                                            
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                                                
+                <br />
+                <br />          
+        </div>
+    </div>
+    
+ </div>
+{% endblock %}

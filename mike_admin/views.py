@@ -11,6 +11,7 @@ from django.views import generic
 
 from .models import Music, Testimonial, StaffMember, TermsOfService
 from article.models import Post
+from daraja.models import Lipa_na_mpesa, C2BPaymentModel
 
 from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm
 
@@ -22,6 +23,7 @@ def home(request):
     testimonials=None
     new_users=0
     user_percentage=0
+    lipa_transactions=None
     if request.user.is_staff:
         
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
@@ -34,8 +36,10 @@ def home(request):
         user_percentage=(new_users/int(users.count()))   
         testimonials= Testimonial.objects.filter(is_published=True).order_by('-date_added')
         upload=Music.objects.filter(is_sent=True).order_by('-date_added')
+        lipa_transactions=Lipa_na_mpesa.objects.all().order_by('-TransationDate')
     
     elif request.user:
+        
         musics=Music.objects.filter(artist=request.user, is_sent=False).order_by('-date_added') 
         upload=Music.objects.filter(artist=request.user, is_sent=True).order_by('-date_added') 
     
@@ -47,7 +51,8 @@ def home(request):
         'new_users':new_users,
         'user_percentage':user_percentage,
         'upload':upload,
-        'inactive_users':inactive_users
+        'inactive_users':inactive_users,
+        'lipa_transactions':lipa_transactions,
     }
     return render(request, template_name='mike_admin/dashboard-2.html', context=context )
 
@@ -595,18 +600,15 @@ def user_detail(request, username, **kwargs):
     return render(request, template_name, context=context)
 
 # The Transactions controllers
-class TransactionList(generic.ListView, LoginRequiredMixin):
-    queryset = Music.objects.all().order_by('-date_added')
-    template_name = 'mike_admin/users/users.html'
-    context_object_name= "tansactions"
+class LipaTransactionList(generic.ListView, LoginRequiredMixin):
+    queryset = Lipa_na_mpesa.objects.all().order_by('-TransationDate')
+    template_name = 'mike_admin/transactions/transactions.html'
+    context_object_name= "lipa_tansactions"
 
-@login_required
-def transaction_detail(request, pk, **kwargs):
-    template_name = 'mike_admin/users/user_details.html'
-    accounts = None    # Comment posted
-    if request.user.is_staff:
-            accounts = get_object_or_404(get_user_model(), pk=pk) 
-    context = {
-        'post': post
-    }
-    return render(request, template_name, context=context)
+# The Transactions controllers
+class C2BTransactionList(generic.ListView, LoginRequiredMixin):
+    queryset = C2BPaymentModel.objects.all().order_by('-TransTime')
+    template_name = 'mike_admin/transactions/users.html'
+    context_object_name= "cust_transactions"
+
+
