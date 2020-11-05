@@ -15,7 +15,7 @@ class Account(AbstractUser):
     tos=models.BooleanField(null=True, blank=True, default=False)
     transaction_id = models.TextField(null=True, blank=True)
     information= models.TextField(null=True, blank=True, verbose_name="About Yourself")
-    # phone=models.PhoneNumberField()
+    phone=models.TextField(null=True, blank=True, verbose_name='phone number')
     
     # @receiver(models.signals.post_delete, sender=avatar)
     # def delete_ExampleImageModel_images(sender, instance, **kwargs):

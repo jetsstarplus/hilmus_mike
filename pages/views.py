@@ -13,16 +13,19 @@ from .models import Contact
 # Create your views here.
 def index(request):
     template_name='pages/index.html'
-    posts = Post.objects.filter(status=1).all().order_by('-created_on')[:3]
     testimonials = Testimonial.objects.filter(is_published=True).order_by('-date_added')[:10]
     teams= StaffMember.objects.filter(is_published=True).order_by('-rank')[:4]
     terms= TermsOfService.objects.all().order_by('-date_added')[:1]
     context={
-        'posts': posts,
         'testimonials': testimonials,
-        'teams':teams
+        'teams':teams,
+        'terms':terms
         }
     return render(request, template_name, context=context)
+# The contact page controler
+def contact(request):
+    template_name='pages/contact.html'
+    return render(request, template_name, context={})
 
 # Create your views here.
 def terms(request):

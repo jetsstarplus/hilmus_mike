@@ -11,4 +11,5 @@ urlpatterns=[
     path("mike-creatives/ajax/submit-contacts/", views.submit_contacts, name = "contacts-submit"),
     path("mike-creatives/hilmus/ajax/submit-subscription/", views.submit_subscription, name = "subscribe"),
     path("terms-of-service/", views.terms, name='terms'),
+    path("contact/", views.contact, name="contact"),
 ]

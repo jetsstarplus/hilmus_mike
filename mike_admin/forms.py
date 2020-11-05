@@ -46,3 +46,7 @@ class MusicForm(forms.ModelForm):
     class Meta:
         model = Music
         fields=['description', 'title', 'music', 'picture', 'is_boompay', 'is_skiza']
+        
+        widgets = {'music': forms.FileInput(
+            attrs={
+                'accept': 'audio/mpeg, audio/mpeg-4, audio/aac, audio/ogg, audio/m4a, audio/flac, audio/wav'})}

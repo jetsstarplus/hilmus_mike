@@ -4,13 +4,13 @@
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Musics</span>
+      <li><span class="bread-blod">Users</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Musics</span>
+      <li><span class="bread-blod">Users</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -19,7 +19,7 @@
         <div class="col-lg-12">
         <div class="row">
             <div class="col-md-5 alert primary-alert">
-                <h1><strong>Uploaded Musics</strong></h1>
+                <h1><strong>All Users</strong></h1>
             </div>
         </div>
 
@@ -27,7 +27,7 @@
                             <div class="sparkline9-list shadow-reset mg-tb-30">
                                 <div class="sparkline9-hd">
                                     <div class="main-sparkline9-hd">
-                                        <h1>Uploaded Content</h1>
+                                        <h1>Active Users</h1>
                                         <div class="sparkline9-outline-icon">
                                             <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -49,39 +49,39 @@
 
                                                 <tr>
                                                     <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="Username">Title</th>
-                                                    <th data-field="Full Name" data-editable="false">Artist</th>
-                                                    <th data-field="Email" data-editable="false">Music</th>
-                                                    <th data-field="Phone Number" data-editable="false">Date Uploaded</th>
-                                                    <th data-field="Status">Status</th>
-                                                    <th data-field="Boomplay" data-editable="false">Boomplay</th>
-                                                    <th data-field="Skiza" data-editable="false">Skiza</th>
-                                                    <th data-field="Skiza Code" data-editable="false">Skiza Code</th>
-                                                    <th data-field="Actions" data-editable="false">Actions</th>
+                                                    <th data-field="Username">Username</th>
+                                                    <th data-field="Full Name" data-editable="false">Full Name</th>
+                                                    <th data-field="Email" data-editable="false">Email</th>
+                                                    <th data-field="Phone Number" data-editable="false">Phone Number</th>
+                                                    <th data-field="Musics" data-editable="false">Musics</th>
+                                                    <th data-field="Active" data-editable="false">Active</th>
+                                                    <th data-field="Has Payed" data-editable="false">Has Payed</th>
+                                                    <th data-field="Date Joined" data-editable="false">Date Joined</th>
+                                                    <th data-field="Staff Member" data-editable="false">Staff Member</th>
+                                                    <th data-field="Avatar" data-editable="false">Avatar</th>  
+                                                    <th data-field="Action" data-editable="false">Action</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% if musics %}
-                                                {% for music in musics %}
-                                                {% if music.artist == user or user.is_staff %}
+                                                {% if accounts %}
+                                                {% for account in accounts %}
+                                                {% if user.is_staff %}
                                                 <tr>
                                                     <td></td>
-                                                    <td>{{music.title}}</td>
-                                                    <td><a href="{% url 'mike_admin:user_detail' music.artist %}">{{music.artist}}</a></td>
-                                                    <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
-                                                    <td>{{music.date_added}}</td>
-                                                    
-                                                    <td {% if music.is_sent %}  class="complete-project-dashtwo" style="" {% endif %}>
-                                                        {% if music.is_sent %}<a href="javascript:void(0)" data-name="status" data-pk="undefined" data-value="Complete" class="editable editable-click">Complete</a>
-                                                        {% else %}Pending {% endif %}</td>  
-                                                    
-                                                    <td>{% if music.is_boompay %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td>  
-                                                    <td>{% if music.is_skiza %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td>
-                                                    <td>{{music.skiza_code}}</td>
-                                                                                             
+                                                    <td>{{account.username}}</td>
+                                                    <td>{{account.get_full_name}}</td>
+                                                    <td>{{account.email}}</td>
+                                                    <td>{{account.phone}}</td>
+                                                    <td>{{account.musics.count}}</td>
+                                                    <td>{% if account.is_active %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
+                                                    <td>{% if account.is_payed %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
+                                                    <td>{{account.date_joined}}</td>
+                                                    <td>{% if account.is_staff or account.is_superuser%}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td>
+                                                    <td><img src="{{ account.avatar | thumbnail_url:'avatar_small' }}" alt="picture"/></td>                                    
                                                     <td style="">
                                                         <div class="btn-group project-list-action">
-                                                            <a href="{% url 'mike_admin:music_detail' music.id %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                                            <a href="{% url 'mike_admin:user_detail' account.username %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -92,19 +92,17 @@
                                                 {% endif %}
                                             </tbody>
                                         </table>
-                                        {% if not musics %}
+                                        {% if not users %}
                                         <div class= "alert alert-primary" role="alert">
-                                            <h2>There are no musics to see here</h2>
-                                            <div>
-                                                <a href="{% url 'mike_admin:create_music' %}"><button class="btn btn-primary">Create New</button></a>
-                                            </div>
+                                            <h2>There are no users to see here</h2>
+                                            
                                         </div>
                                         {% endif %}
                                     </div>
                                 </div>
                             </div>
-                        </div>      
-                        
+                        </div>     
+                                                
                 <br />
                 <br />          
         </div>

@@ -134,6 +134,7 @@ THUMBNAIL_ALIASES = {
         'avatar': {'size': (90, 90), 'crop': True},
         'avatar2': {'size': (150, 150), 'crop': True},
         'blog': {'size': (500, 350), 'crop': True},
+        'avatar_small': {'size': (30, 30), 'crop': True},
     },
 }
 

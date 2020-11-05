@@ -18,6 +18,10 @@
                         <a href="{% url "mike_admin:home" %}"  role="button"  class="nav-link"><i class="fa big-icon fa-home"></i> <span class="mini-dn">Home</span></a>
                         
                     </li>
+                    <li class="nav-item">
+                        <a href="{% url "mike_admin:users" %}"  role="button"  class="nav-link"><i class="fa big-icon fa-users"></i> <span class="mini-dn">Users</span></a>
+                        
+                    </li>
                     <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-user"></i> <span class="mini-dn">Profile</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                             <a href="{% url 'mike_admin:profile' %}" class="dropdown-item">View Profile</a>
@@ -53,6 +57,7 @@
                             <a href="{% url 'mike_admin:create_terms' %}" class="dropdown-item">Create Terms</a>                            
                         </div>
                     </li>
+                    
                     {% endif %}
                     <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-cloud-upload"></i> <span class="mini-dn">Uploaded Content</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
@@ -158,6 +163,9 @@
                             <nav id="dropdown">
                                 <ul class="mobile-menu-nav">
                                     <li> <a href="{% url "mike_admin:home" %}">Home <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                       
+                                    </li>
+                                    <li> <a href="{% url "mike_admin:users" %}">Users <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                        
                                     </li>
                                     <li><a data-toggle="collapse" data-target="#demo" href="#">Profile <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>

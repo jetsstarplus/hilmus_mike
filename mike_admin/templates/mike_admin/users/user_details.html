@@ -1,0 +1,94 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load thumbnail %}
+{% block title %} {{ account.get_full_name }} | Mike Creatives {% endblock title %}
+{% block breadcrump %}
+
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:users" %}">Users</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{account.get_full_name}}</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:users" %}">Users</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{account.get_full_name}}</span>
+      </li>
+  {% endblock %}
+{% block content %}
+{% if user.is_staff%}
+<div class="container">
+    <div class="col-md-9 card mb-6  mt-3">
+      <div class="card-body white">
+        <div class="income-dashone-pro">
+          
+            <h1>{{account.username}}</h1>  
+            <div class="clear"></div>
+        </div>
+        <div class = 'row'>
+            <br />
+            <div class = 'col-md-6'>
+                <img src="{% thumbnail account.avatar 270x370 crop %}" alt="post picture">
+             </div>
+             <div class="income-dashone-pro col-md-6">
+                 <div>
+                    <h1>{{account.username}}</h1>  
+                    <p class=" text-muted">{{ account.get_full_name }} | Joined on {{ account.date_joined }}</p>
+                 
+                 </div>
+                 <div class="card">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Musics :</th>
+                                <td>{{account.musics.count}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Posts :</th>
+                                <td>{{account.blog_posts.count}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+                 <div class = "card">
+                     <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">Purpose</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                         <tbody>
+                            <tr>
+                                <td>Has Payed</td>
+                                <td><p>{% if account.is_payed %}<i style="font-size: 2rem; color:green;" class="fa fa-check"></i> {% else %}
+                                    <i class="fa fa-times" style="font-size: 2rem; color:red;"></i>{% endif %}</p> </td>
+                            </tr>
+                            <tr>
+                                <td>Is Active</td>
+                                <td><p>{% if account.is_active %}<i style="font-size: 2rem; color:green;" class="fa fa-check"></i> {% else %}
+                                <i class="fa fa-times" style="font-size: 2rem; color:red;"></i>{% endif %}</p> </td>
+                            </tr>
+                        </tbody>
+                     </table>
+
+                 </div>
+                
+                <br />         
+                 <div class="income-range low-value-cl">
+                     {{ account.information | safe }}
+                 </div>
+                 <div class="clear"></div>
+             </div>
+        </div>
+        
+      </div>
+    </div> 
+</div>  
+{% endif %}
+<br />
+<br />
+{% endblock content %}

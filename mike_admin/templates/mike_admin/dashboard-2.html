@@ -1,5 +1,5 @@
 {% extends './base_site.html' %}
-
+{% load thumbnail %}
             {% block title %}  Mike Creatives Portal {% endblock%}
             {% block breadcrump %}
                 <li><a href="#">Home</a> <span class="bread-slash">/</span>
@@ -20,115 +20,132 @@
             <div class="feed-mesage-project-area">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="sparkline11-list shadow-reset mg-tb-30">
-                                <div class="sparkline11-hd">
-                                    <div class="main-sparkline11-hd">
-                                        <h1>Your daily feed</h1>
-                                        <div class="sparkline11-outline-icon">
-                                            <span class="sparkline11-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                        <div class="col-lg-6">
+                            <div class="sparkline9-list shadow-reset mg-tb-30">
+                                <div class="sparkline9-hd">
+                                    <div class="main-sparkline9-hd">
+                                        <h1>{% if user.is_staff %} Musics To Upload {% else %} Pending Musics {% endif %}</h1>
+                                        <div class="sparkline9-outline-icon">
+                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline11-collapse-close"><i class="fa fa-times"></i></span>
+                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="sparkline11-graph dashone-comment dashtwo-comment comment-scrollbar">
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/1.jpg" alt="" />
-                                            </a>
+                                <div class="sparkline9-graph dashone-comment">
+                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                                        <div id="toolbar1">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
                                         </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Monica Smith</span> posted blog on <span class="feed-author">John Smith</span>.</h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">1m ago</span>
+                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                            <thead>
+
+                                                <tr>
+                                                    <th data-field="state" data-checkbox="true"></th>
+                                                    <th data-field="Username">Title</th>
+                                                    <th data-field="Full Name" data-editable="false">Artist</th>
+                                                    <th data-field="Email" data-editable="false">Music</th>
+                                                    <th data-field="Phone Number" data-editable="false">Date Uploaded</th>
+                                                    
+                                                    <th data-field="Actions" data-editable="false">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if musics and user.is_staff %}
+                                                {% for music in musics %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{music.title}}</td>
+                                                    <td><a href="{% url 'mike_admin:user_detail' music.artist %}">{{music.artist}}</a></td>
+                                                    <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
+                                                    <td>{{music.date_added}}</td>                                                    
+                                                    <td style="">
+                                                        <div class="btn-group project-list-action">
+                                                            <a href="{% url 'mike_admin:music_detail' music.id %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </a>
+                                                {% endfor %}
+                                                
+                                                {% else %}
+                                                     <tr>There are musics here</tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sparkline9-list shadow-reset mg-tb-30">
+                                <div class="sparkline9-hd">
+                                    <div class="main-sparkline9-hd">
+                                        <h1>Uploaded Music</h1>
+                                        <div class="sparkline9-outline-icon">
+                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
                                         </div>
                                     </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/2.jpg" alt="" />
-                                            </a>
+                                </div>
+                                <div class="sparkline9-graph dashone-comment">
+                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                                        <div id="toolbar1">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
                                         </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Joy Khan</span> posted message on <span class="feed-author">Joli Ray</span>.</h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/3.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Mamun</span> share 1 photo on <span class="feed-author">Sohag</span>. </h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Saliya</span> started following on <span class="feed-author">Jay</span>.</h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/5.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Holika</span> posted message on <span class="feed-author">Smith</span>.</h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <p class="message-feed-single">If you earn a BS in Justice of the Studies at GCU, you may be on able to pursue a career in an exciting field! Check out some future career options by reading our blog.</p>
-                                            <div class="feed-like-bt">
-                                                <a class="btn btn-xs btn-white-like"><i class="fa fa-thumbs-up"></i> Like </a>
-                                                <a class="btn btn-xs btn-white-like"><i class="fa fa-heart"></i> Love </a>
-                                            </div>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/6.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="daily-feed-content">
-                                            <h4><span class="feed-author">Monica Smith</span> posted a new blog. </h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="daily-feed-list daily-feed-bbm">
-                                        <div class="daily-feed-img">
-                                            <a href="#"><img src="img/notification/1.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="daily-feed-content daily-feed-cbbm">
-                                            <h4><span class="feed-author">Monica Smith</span> posted a new blog. </h4>
-                                            <p class="res-ds-n-t">Today 5:60 pm - 12.06.2014</p>
-                                            <span class="feed-ago">5m ago</span>
-                                        </div>
+                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                            <thead>
+
+                                                <tr>
+                                                    <th data-field="state" data-checkbox="true"></th>
+                                                    <th data-field="Username">Title</th>
+                                                    <th data-field="Full Name" data-editable="false">Artist</th>
+                                                    <th data-field="Email" data-editable="false">Music</th>
+                                                    <th data-field="Phone Number" data-editable="false">Date Uploaded</th>
+                                                    
+                                                    <th data-field="Actions" data-editable="false">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if upload and user.is_staff %}
+                                                {% for music in upload %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td>{{music.title}}</td>
+                                                    <td><a href="{% url 'mike_admin:user_detail' music.artist %}">{{music.artist}}</a></td>
+                                                    <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
+                                                    <td>{{music.date_added}}</td>                                                    
+                                                    <td style="">
+                                                        <div class="btn-group project-list-action">
+                                                            <a href="{% url 'mike_admin:music_detail' music.id %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                
+                                                {% endfor %}
+                                                
+                                                {% else %}
+                                                     <tr>There are musics here</tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        {% if user.is_staff %}
+                        <div class="col-lg-6">
                             <div class="sparkline9-list shadow-reset mg-tb-30">
                                 <div class="sparkline9-hd">
                                     <div class="main-sparkline9-hd">
-                                        <h1>User project list</h1>
+                                        <h1>Active Users</h1>
                                         <div class="sparkline9-outline-icon">
                                             <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -149,336 +166,105 @@
                                             <thead>
                                                 <tr>
                                                     <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="id">ID</th>
-                                                    <th data-field="status" data-editable="true">Status</th>
-                                                    <th data-field="date" data-editable="true">Date</th>
-                                                    <th data-field="phone" data-editable="true">User</th>
-                                                    <th data-field="company" data-editable="true">Value</th>
+                                                    <th data-field="Username">Username</th>
+                                                    <th data-field="Full Name" data-editable="false">Full Name</th>
+                                                    <th data-field="Email" data-editable="false">Email</th>
+                                                    <th data-field="Phone Number" data-editable="false">Phone Number</th>
+                                                    <th data-field="Musics" data-editable="false">Musics</th>                                                    
+                                                    <th data-field="Avatar" data-editable="false">Avatar</th>
+                                                    <th data-field="Action" data-editable="false">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {% if users %}
+                                                {% for use in users %}
+
                                                 <tr>
                                                     <td></td>
-                                                    <td>1</td>
-                                                    <td>Pending</td>
-                                                    <td>1:20pm</td>
-                                                    <td>John</td>
-                                                    <td>20%</td>
+                                                    <td>{{use.username}}</td>
+                                                    <td>{{use.first_name}} {{user.last_name}}</td>
+                                                    <td>{{use.email}}</td>
+                                                    <td>{{use.phone}}</td>
+                                                    <td>{{use.musics.count}}</td>
+                                                    <td><img style="border-radius: 50%;" src = "{{use.avatar |thumbnail_url:'avatar_small'  }} " alt="Profile picture"></td>
+                                                    <td style="">
+                                                        <div class="btn-group project-list-action">
+                                                            <a href="{% url 'mike_admin:user_detail' use.username %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                                        </div>
+                                                    </td>
                                                 </tr>
+                                                {% endfor %}
+                                                
+                                                {% else %}
+                                                     <tr>There are no users here</tr>
+                                                {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sparkline9-list shadow-reset mg-tb-30">
+                                <div class="sparkline9-hd">
+                                    <div class="main-sparkline9-hd">
+                                        <h1>InActive Users</h1>
+                                        <div class="sparkline9-outline-icon">
+                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sparkline9-graph dashone-comment">
+                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                                        <div id="toolbar1">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="state" data-checkbox="true"></th>
+                                                    <th data-field="Username">Username</th>
+                                                    <th data-field="Full Name" data-editable="false">Full Name</th>
+                                                    <th data-field="Email" data-editable="false">Email</th>
+                                                    <th data-field="phone number" data-editable="false">Phone Number</th>
+                                                    <th data-field="Musics" data-editable="false">Musics</th>
+                                                    <th data-field="Avatar" data-editable="false">Avatar</th>
+                                                    <th data-field="Action" data-editable="false">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% if users %}
+                                                {% for use in inactive_users %}
                                                 <tr>
                                                     <td></td>
-                                                    <td>2</td>
-                                                    <td class="complete-project-dashtwo">Complete</td>
-                                                    <td>2:30pm</td>
-                                                    <td>khan</td>
-                                                    <td>25%</td>
+                                                    <td>{{use.username}}</td>
+                                                    <td>{{use.get_full_name}}</td>
+                                                    <td>{{use.email}}</td>
+                                                    <td>{{use.phone}}</td>
+                                                    <td>{{use.musics.count}}</td>
+                                                    <td><img style="border-radius: 50%;" src = "{{use.avatar |thumbnail_url:'avatar_small'  }} " alt="Profile picture"></td>
+                                                    <td style="">
+                                                        <div class="btn-group project-list-action">
+                                                            <a href="{% url 'mike_admin:user_detail' use.username %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                                        </div>
+                                                    </td>
                                                 </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>3</td>
-                                                    <td>Complete</td>
-                                                    <td>4:50pm</td>
-                                                    <td>hok</td>
-                                                    <td>50%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>4</td>
-                                                    <td class="canceled-project-dashtwo">Canceled</td>
-                                                    <td>5:30pm</td>
-                                                    <td>dogi</td>
-                                                    <td>80%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>5</td>
-                                                    <td>Complete</td>
-                                                    <td>6:20pm</td>
-                                                    <td>joyi</td>
-                                                    <td>30%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>6</td>
-                                                    <td>Pending</td>
-                                                    <td>7:40pm</td>
-                                                    <td>joy</td>
-                                                    <td>40%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>7</td>
-                                                    <td>Complete</td>
-                                                    <td>9:40pm</td>
-                                                    <td>ulla</td>
-                                                    <td>90%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>8</td>
-                                                    <td>Pending</td>
-                                                    <td>11:20pm</td>
-                                                    <td>don</td>
-                                                    <td>95%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>9</td>
-                                                    <td>Pending</td>
-                                                    <td>5:20am</td>
-                                                    <td>dali</td>
-                                                    <td>85%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>10</td>
-                                                    <td>Complete</td>
-                                                    <td>6:20am</td>
-                                                    <td>poli</td>
-                                                    <td>77%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>11</td>
-                                                    <td>Pending</td>
-                                                    <td>7:30am</td>
-                                                    <td>payel</td>
-                                                    <td>55%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>12</td>
-                                                    <td>Complete</td>
-                                                    <td>8:22am</td>
-                                                    <td>flat</td>
-                                                    <td>36%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>13</td>
-                                                    <td>Pending</td>
-                                                    <td>9:25am</td>
-                                                    <td>alit</td>
-                                                    <td>49%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>14</td>
-                                                    <td>Complete</td>
-                                                    <td>10:30am</td>
-                                                    <td>win</td>
-                                                    <td>87%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>15</td>
-                                                    <td>Pending</td>
-                                                    <td>11:11am</td>
-                                                    <td>back</td>
-                                                    <td>97%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>16</td>
-                                                    <td>Canceled</td>
-                                                    <td>11:12am</td>
-                                                    <td>koy</td>
-                                                    <td>58%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>17</td>
-                                                    <td>Complete</td>
-                                                    <td>11:20pm</td>
-                                                    <td>khy</td>
-                                                    <td>22%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>18</td>
-                                                    <td>Pending</td>
-                                                    <td>12:20pm</td>
-                                                    <td>fat</td>
-                                                    <td>33%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>19</td>
-                                                    <td>Pending</td>
-                                                    <td>1:20pm</td>
-                                                    <td>pof</td>
-                                                    <td>65%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>20</td>
-                                                    <td>Complete</td>
-                                                    <td>11:20pm</td>
-                                                    <td>elit</td>
-                                                    <td>46%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>21</td>
-                                                    <td>Pending</td>
-                                                    <td>5:20pm</td>
-                                                    <td>John</td>
-                                                    <td>57%</td>
-                                                </tr>
+                                                {% endfor %}                                                
+                                                {% else %}
+                                                     <tr>There are no users here</tr>
+                                                {% endif %}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="sparkline8-list shadow-reset mg-tb-30">
-                                <div class="sparkline8-hd">
-                                    <div class="main-sparkline8-hd">
-                                        <h1>Messages</h1>
-                                        <div class="sparkline8-outline-icon">
-                                            <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sparkline8-graph dashone-comment messages-scrollbar dashtwo-messages">
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">Toman Alva</a>
-                                            <p class="comment-content">Start each day with a prayer and end your day with a prayer and thank God for a another day.</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 1 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo1">...</button>
-                                            <ul id="adminpro-demo1" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">William Jon</a>
-                                            <p class="comment-content">Simple & easy online tools to increase the website visitors, improve SEO, marketing & sales, automatic blog!</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 5 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo2">...</button>
-                                            <ul id="adminpro-demo2" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">Mexicano</a>
-                                            <p class="comment-content">Soy cursi, twitteo frases pedorras y vendo antojitos mexicanos. Santa Rosa, La Pampa, Argentina</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 15 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo3">...</button>
-                                            <ul id="adminpro-demo3" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">Bhadkamkar</a>
-                                            <p class="comment-content">News love and follow Jesus and my family and friends l hope God bless you always.</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 20 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo4">...</button>
-                                            <ul id="adminpro-demo4" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">SHAKHAWAT</a>
-                                            <p class="comment-content">Make the Best Use of What You Have.You Never Know When & Where You Find Yourself..</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 25 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo5">...</button>
-                                            <ul id="adminpro-demo5" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="comment-phara comment-bd-phara">
-                                        <div class="comment-adminpr">
-                                            <a class="dashtwo-messsage-title" href="#">Sarah</a>
-                                            <p class="comment-content">A 'Power Chick' committed to using my superpowers for good. Author, speaker, radio host.</p>
-                                        </div>
-                                        <div class="admin-comment-month">
-                                            <p class="comment-clock"><i class="fa fa-clock-o"></i> 27 minuts ago</p>
-                                            <button class="comment-setting" data-toggle="collapse" data-target="#adminpro-demo6">...</button>
-                                            <ul id="adminpro-demo6" class="comment-action-st collapse">
-                                                <li><a href="#">Add</a>
-                                                </li>
-                                                <li><a href="#">Report</a>
-                                                </li>
-                                                <li><a href="#">Hide Message</a>
-                                                </li>
-                                                <li><a href="#">Turn on Message</a>
-                                                </li>
-                                                <li><a href="#">Turn off Message</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}                       
                     </div>
                 </div>
             </div>
@@ -546,156 +332,12 @@
                                                                 <td>China</td>
                                                                 <td>$6888</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>4</td>
-                                                                <td>Credit Card</td>
-                                                                <td>2 day Ago</td>
-                                                                <td>France</td>
-                                                                <td>$8789</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>5</td>
-                                                                <td>Master Card</td>
-                                                                <td>5 days ago</td>
-                                                                <td>Brazil</td>
-                                                                <td>$4565</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>6</td>
-                                                                <td>Visa</td>
-                                                                <td>10 days ago</td>
-                                                                <td>United Kingdom</td>
-                                                                <td>$4554</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>7</td>
-                                                                <td>Pizza</td>
-                                                                <td>15 days ago</td>
-                                                                <td>Germany</td>
-                                                                <td>$8789</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>8</td>
-                                                                <td>Master Card</td>
-                                                                <td>20 days ago</td>
-                                                                <td>Brazil</td>
-                                                                <td>$1232</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>9</td>
-                                                                <td>Skill</td>
-                                                                <td>22 days ago</td>
-                                                                <td>India</td>
-                                                                <td>$5465</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>10</td>
-                                                                <td>Payoneer</td>
-                                                                <td>29 days ago</td>
-                                                                <td>Australia</td>
-                                                                <td>$7887</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>11</td>
-                                                                <td>Credit Card</td>
-                                                                <td>31 days ago</td>
-                                                                <td>Saudi</td>
-                                                                <td>$8782</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>12</td>
-                                                                <td>Master Card</td>
-                                                                <td>40 days ago</td>
-                                                                <td>Netherlands</td>
-                                                                <td>$1569</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>13</td>
-                                                                <td>Pizza</td>
-                                                                <td>50 days ago</td>
-                                                                <td>Brazil</td>
-                                                                <td>$8456</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>14</td>
-                                                                <td>Skill</td>
-                                                                <td>60 days ago</td>
-                                                                <td>United State</td>
-                                                                <td>$3654</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>15</td>
-                                                                <td>Master Card</td>
-                                                                <td>70 days ago</td>
-                                                                <td>India</td>
-                                                                <td>$6541</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>16</td>
-                                                                <td>Credit Card</td>
-                                                                <td>75 days ago</td>
-                                                                <td>United Kingdom</td>
-                                                                <td>$9865</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>17</td>
-                                                                <td>Pizza</td>
-                                                                <td>80 days ago</td>
-                                                                <td>United State</td>
-                                                                <td>$4587</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>18</td>
-                                                                <td>Payoneer</td>
-                                                                <td>82 days ago</td>
-                                                                <td>Netherlands</td>
-                                                                <td>$6587</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>19</td>
-                                                                <td>Credit Card</td>
-                                                                <td>85 days ago</td>
-                                                                <td>United Kingdom</td>
-                                                                <td>$1478</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>20</td>
-                                                                <td>Master Card</td>
-                                                                <td>87 days ago</td>
-                                                                <td>India</td>
-                                                                <td>$568</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td>21</td>
-                                                                <td>Payoneer</td>
-                                                                <td>90 days ago</td>
-                                                                <td>United State</td>
-                                                                <td>$2547</td>
-                                                            </tr>
+                                                       
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <div class="vectorjsmarp" id="world-map"></div>
                                             </div>
                                         </div>
                                     </div>

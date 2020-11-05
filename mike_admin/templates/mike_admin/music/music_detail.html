@@ -37,9 +37,63 @@
                 <img src="{% thumbnail post.picture 200x170 crop %}" alt="post picture">
              </div>
              <div class="income-dashone-pro col-md-6">
-                 <h1>{{post.title}}</h1>  
-                 <p class=" text-muted">{{ post.artist.first_name }} {{post.artist.last_name}} | {{ post.date_added }}</p> 
-                 <p>{{post.music.name}}</p>                            
+                 <div>
+                    <h1>{{post.title}}</h1>  
+                    <p class=" text-muted">{{ post.artist.first_name }} {{post.artist.last_name}} | {{ post.date_added }}</p> 
+                 
+                 </div>
+                 <a href="{{post.music.url}}"><p>{{post.music.name}}</p></a> 
+                 <div class = "card">
+                     <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">Purpose</th>
+                              <th scope="col">Status</th>
+                            </tr>
+                          </thead>
+                         <tbody>
+                            <tr>
+                                <td>For BoomPlay</td>
+                                <td><p>{% if post.is_boompay %}<i style="font-size: 2rem; color:green;" class="fa fa-check"></i> {% else %}
+                                    <i class="fa fa-times" style="font-size: 2rem; color:red;"></i>{% endif %}</p> </td>
+                            </tr>
+                            <tr>
+                                <td>For Skiza</td>
+                                <td><p>{% if post.is_skiza %}<i style="font-size: 2rem; color:green;" class="fa fa-check"></i> {% else %}
+                                <i class="fa fa-times" style="font-size: 2rem; color:red;"></i>{% endif %}</p> </td>
+                            </tr>
+                        </tbody>
+                     </table>
+
+                 </div>
+                 {% if post.is_sent %}
+                     <button class ="btn  btn-success">Sent</button>
+                     {% if user.is_staff %}
+                     <br />
+                     <form method = "POST">
+                        {% csrf_token %}
+                        <div class="md-form">
+                            <label for="skiza">Enter the Skiza Code</label>
+                            <input type="text" class="form-control" id="skiza" default="{{post.skiza_code}}"/>
+                           
+                        </div>
+                        <br />
+                        <button class = "btn btn-primary">Add Skiza</button>
+                    </form>
+                    {% endif %} 
+                 {% elif user.is_staff %}  
+                    <form method = "POST">
+                        {% csrf_token %}
+                        <div class="md-form">
+                            <input type="text" class="form-control" id="skiza" default="{{post.skiza_code}}"/>
+                            <label for="skiza">Enter the Skiza Code</label>
+                        </div>
+                        <button class = "btn btn-success">Mark as Sent</button>
+                    </form> 
+                {% else %}
+                <button class ="btn  btn-danger">Pending</button>
+                 {% endif %}  
+                <br />         
                  <div class="income-range low-value-cl">
                      {{ post.description | safe }}
                  </div>

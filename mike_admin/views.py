@@ -25,6 +25,7 @@ def home(request):
     if request.user.is_staff:
         
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
+        inactive_users = get_user_model().objects.filter(is_active=False).order_by('-date_joined')
         musics=Music.objects.filter(is_sent=False).order_by('-date_added')
         # Checking for new users of the system
         for user in users:
@@ -33,7 +34,10 @@ def home(request):
         user_percentage=(new_users/int(users.count()))   
         testimonials= Testimonial.objects.filter(is_published=True).order_by('-date_added')
         upload=Music.objects.filter(is_sent=True).order_by('-date_added')
-        
+    
+    elif request.user:
+        musics=Music.objects.filter(artist=request.user, is_sent=False).order_by('-date_added') 
+        upload=Music.objects.filter(artist=request.user, is_sent=True).order_by('-date_added') 
     
     context={
         'user_music':user_music,
@@ -42,7 +46,8 @@ def home(request):
         'testimonials':testimonials,
         'new_users':new_users,
         'user_percentage':user_percentage,
-        'upload':upload
+        'upload':upload,
+        'inactive_users':inactive_users
     }
     return render(request, template_name='mike_admin/dashboard-2.html', context=context )
 
@@ -455,10 +460,9 @@ class MusicList(generic.ListView, LoginRequiredMixin):
     queryset = Music.objects.all().order_by('-date_added')
     template_name = 'mike_admin/music/index.html'
     context_object_name= "musics"
-    paginate_by=10
 
 @login_required
-def create_music(request):
+def create_music(request, **kwargs):
     template_name='mike_admin/music/create_music.html'
     new_post=None
     error=None
@@ -490,7 +494,7 @@ def create_music(request):
     return render(request, template_name, context=context)
 
 @login_required
-def update_music(request, pk):
+def update_music(request, pk, **kwargs):
     template_name='mike_admin/music/edit_music.html'
     music = get_object_or_404(Music, pk=pk)
     error=None
@@ -525,7 +529,7 @@ def update_music(request, pk):
     return render(request, template_name, context=context)
 
 @login_required
-def delete_music(request, pk):
+def delete_music(request, pk, **kwargs):
     template_name='mike_admin/music/confirm_delete.html'
     final_template='mike_admin/music/delete_music.html'
     post= get_object_or_404(Music, pk=pk)
@@ -557,14 +561,51 @@ def delete_music(request, pk):
     return render(request, template_name, context=context)
     
 @login_required
-def music_detail(request, pk):
+def music_detail(request, pk, **kwargs):
     template_name = 'mike_admin/music/music_detail.html'
     post = None    # Comment posted
-    
-    if request.user.is_staff:
-        post = get_object_or_404(Music, pk=pk)  
+    if request.method == 'POST' and request.user.is_staff:
+        post = Music.objects.filter(pk=pk)
+        post.update(is_sent=True)
     else:
-        post = Music.objects.filter(pk=pk, artist=request.user)
+        if request.user.is_staff:
+            post = get_object_or_404(Music, pk=pk) 
+        else:
+            post = Music.objects.filter(pk=pk, artist=request.user)
+    context = {
+        'post': post
+    }
+    return render(request, template_name, context=context)
+
+# The Users controllers
+class UserList(generic.ListView, LoginRequiredMixin):
+    queryset = get_user_model().objects.all().order_by('-date_joined')
+    template_name = 'mike_admin/users/users.html'
+    context_object_name= "accounts"
+
+@login_required
+def user_detail(request, username, **kwargs):
+    template_name = 'mike_admin/users/user_details.html'
+    account = None    # Comment posted
+    if request.user.is_staff:
+            account = get_object_or_404(get_user_model(), username=username) 
+    context = {
+        'account': account
+    }
+    return render(request, template_name, context=context)
+
+# The Transactions controllers
+class TransactionList(generic.ListView, LoginRequiredMixin):
+    queryset = Music.objects.all().order_by('-date_added')
+    template_name = 'mike_admin/users/users.html'
+    context_object_name= "tansactions"
+
+@login_required
+def transaction_detail(request, pk, **kwargs):
+    template_name = 'mike_admin/users/user_details.html'
+    accounts = None    # Comment posted
+    if request.user.is_staff:
+            accounts = get_object_or_404(get_user_model(), pk=pk) 
     context = {
         'post': post
     }
