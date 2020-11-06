@@ -32,7 +32,7 @@ def lipa_na_mpesa(phone_number, amount):
         "PartyA":phone_number,
         "PartyB":keys.business_shortcode,
         "PhoneNumber": phone_number ,
-        "CallBackURL": "https://thawing-spire-41307.herokuapp.com/payments/lmmapi/",
+        "CallBackURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/",
         "AccountReference": "11111 ",
         "TransactionDesc": "Pay school Fees"
     }
@@ -44,8 +44,9 @@ def lipa_na_mpesa(phone_number, amount):
         response = requests.post(api_url, json = request, headers=headers, verify=False)
     
     
-    return(response.text)
-    # print (response.text)
+    # return(response.text)
+    print (response.text)
+  
   
 #authentication() 
-# lipa_na_mpesa()
+lipa_na_mpesa('254701850242', '1')
