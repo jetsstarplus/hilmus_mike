@@ -14,7 +14,7 @@ import json
 
  
 #This is the form submission view
-def lipa_na_mpesa(request):
+def lipa_na_mpesa_view(request):
     if request.is_ajax():
         phone_number = request.POST.get("phone", None)
         amount = request.POST.get("amount", None)
