@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include(pages.urls)),
     path('filer/', include('filer.urls')),
     # path('', include('daraja.urls')),
-    # path('payments/', include('daraja.api.urls')),
+    path('payments/', include('daraja.api.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
 ]

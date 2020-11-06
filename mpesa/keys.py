@@ -9,8 +9,8 @@ initiatorName = "apitest393"
 
 
 #authentication credentials
-consumer_key = "O5UKKbo3pZf9J69hkcwEVZe82zEFFm5U"
-consumer_secret = "i1HCwqtGhkN2Xpyr"
+consumer_key = "qs9cLOcVNSQIoy5xRqIfvoNoesg3OMJw"
+consumer_secret = "Yfo0Ripipg1TSXRL"
 generatedInitiatorSecurityCredential = "mxsVyMd1MeR0SamvZ1Vtxdtf38pnihbnrxoDOdDawYT5h2je+K7YtpjfxrOUY3OuxlyDXHi2RQtEHbS1QN5810G89+Y4ws1J0DwoUkGE5I0LCjGR9WIykh6cVVE5mR7CcsXggEeTkijOeJouoIeNnTimucr3kvXw19uobQ89jXy0TDw5a1bycahvLIRJMfuhGokzJ3xyo2Q7Bwy5M1X9Tv0VtdU7/wo31W6+PCg46/yxIIDdaDg7w4kChnIteL9wKkqikYJn/btxveaJDkSxy/WU0wjuY/K99rFTrtYIYJgufA1BtoVav8x9SrMgOQZlnsd3LRBSaxVDQeAZFn7Afg=="
 
 #shortcode encryption
