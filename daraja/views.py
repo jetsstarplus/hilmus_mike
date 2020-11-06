@@ -1,16 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework import viewsets
 from . import serializers
 import requests
 from mpesa.daraja import lipa_na_mpesa
 import json
 
-#viewsets define the behavior of the view
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializers
+# #viewsets define the behavior of the view
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = serializers.UserSerializers
 
  
 #This is the form submission view

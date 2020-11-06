@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 
 import mike_admin.urls
 import pages.urls
+import daraja.urls
 
 from article.sitemap import PostSitemap
 
@@ -23,6 +24,8 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('', include(pages.urls)),
     path('filer/', include('filer.urls')),
+    path('', include('daraja.urls')),
+    path('', include('daraja.api.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
 ]
