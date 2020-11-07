@@ -2,11 +2,9 @@ import requests
 
 try:
   import keys
-  import daraja
   from access_token import authentication
 except:
   from . import keys
-  from . import daraja 
   from .access_token import authentication
 
 access_token = authentication()

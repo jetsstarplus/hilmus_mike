@@ -603,7 +603,7 @@ def user_detail(request, username, **kwargs):
 class LipaTransactionList(generic.ListView, LoginRequiredMixin):
     queryset = Lipa_na_mpesa.objects.all().order_by('-TransationDate')
     template_name = 'mike_admin/transactions/transactions.html'
-    context_object_name= "lipa_tansactions"
+    context_object_name= "lipa_transactions"
 
 # The Transactions controllers
 class C2BTransactionList(generic.ListView, LoginRequiredMixin):

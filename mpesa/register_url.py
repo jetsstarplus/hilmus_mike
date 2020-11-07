@@ -6,11 +6,9 @@ import requests
 try:
     from .access_token import authentication        
     from . import keys
-    from . import daraja
 except:
     from access_token import authentication        
     import keys
-    import daraja
 
 
 access_token = authentication()
@@ -30,3 +28,5 @@ def register_url():
    
 
     print (response.text)
+    
+register_url()
