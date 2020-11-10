@@ -24,6 +24,7 @@ def home(request):
     new_users=0
     user_percentage=0
     lipa_transactions=None
+    inactive_users=None
     if request.user.is_staff:
         
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
@@ -473,6 +474,7 @@ def create_music(request, **kwargs):
     error=None
     id=None
     user=request.user
+    form=None
     
     if user.is_payed or user.is_staff:   
         if request.method=='POST':
@@ -570,8 +572,10 @@ def music_detail(request, pk, **kwargs):
     template_name = 'mike_admin/music/music_detail.html'
     post = None    # Comment posted
     if request.method == 'POST' and request.user.is_staff:
+        skiza_code = request.POST.get('skiza')
         post = Music.objects.filter(pk=pk)
-        post.update(is_sent=True)
+        post.update(is_sent=True, skiza_code=skiza_code)
+        post=get_object_or_404(Music, pk=pk)
     else:
         if request.user.is_staff:
             post = get_object_or_404(Music, pk=pk) 

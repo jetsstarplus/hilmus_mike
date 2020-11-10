@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny
 from datetime import datetime
@@ -10,13 +10,16 @@ from rest_framework.response import Response
 
 from daraja.api.serializers import Lipa_na_mpesaSerializer, C2BPaymentSerializer
 from daraja import models
+from mike_admin.models import Service
+from account.models import UserPayment
 
 
 class Lipa_List(CreateAPIView):
     queryset = models.Lipa_na_mpesa.objects.all()
     serializer_class = Lipa_na_mpesaSerializer
     permission_classes = [AllowAny]
-
+    
+    
     def create(self, request, *args, **kwargs):
         print(request.data, "this is the request.data")
 
@@ -52,6 +55,12 @@ class Lipa_List(CreateAPIView):
         
             )
             
+            user= get_user_model().objects.get()
+            
+            user_payment=UserPayment.objects.create(
+                user
+            )
+            
             mpesa_model.save()
             return Response({'ResultDescription': "Yey it worked"})
 
@@ -61,10 +70,10 @@ class Lipa_List(CreateAPIView):
             #print(result_description)
             return Response({'ResultDescription': result_description})
 
-class Customer_to_Business_Validate(CreateAPIView):
-    queryset = models.C2BPaymentModel.objects.all()
-    serializer_class = C2BPaymentSerializer
-    permission_classes = [AllowAny]
+# class Customer_to_Business_Validate(CreateAPIView):
+#     queryset = models.C2BPaymentModel.objects.all()
+#     serializer_class = C2BPaymentSerializer
+#     permission_classes = [AllowAny]
 
     # def create(self, request):
     #     print(request.data + " This is the request")

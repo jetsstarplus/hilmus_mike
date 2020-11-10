@@ -12,4 +12,5 @@ app_name = "home"
 urlpatterns = [
     # path("users/", include(router.urls)),
      path("hilmus/ajax/submit/user/transaction/initiate/", views.lipa_na_mpesa_view, name = "lipa_na_mpesa"),
+     path('lipa/stkpush/', views.lipa_mpesa, name="lipa_na_mpesa_form")
 ]

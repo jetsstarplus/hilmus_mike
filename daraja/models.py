@@ -3,6 +3,10 @@ from datetime import datetime
 from django.utils import timezone
 import pytz
 
+from django.conf import settings
+
+from mike_admin.models import Service
+
 # Create your models here.
 class Lipa_na_mpesa(models.Model):
     CheckoutRequestID = models.CharField(max_length=50, null = True)
@@ -57,4 +61,12 @@ class C2BPaymentModel(models.Model):
         def transaction_name(self):
             return self.FirstName + ' ' + self.LastName
             
-        transaction_name.description = "Full Name"            
+        transaction_name.description = "Full Name"  
+        
+class Initiate(models.Model):       
+    CheckoutRequestID = models.CharField(max_length=50, null = True)
+    MerchantRequestID = models.CharField(max_length = 30, null = True)
+    ResultCode = models.IntegerField(null = True)
+    ResultDescription = models.TextField(max_length = 200,null = True)
+    user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    service= models.ForeignKey(Service, on_delete=models.PROTECT)

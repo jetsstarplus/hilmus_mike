@@ -1,0 +1,87 @@
+{% extends './base.html' %}
+{% block title %}
+
+  <title>{{service.title}} - Articles Mike Creatives</title>  
+  <meta content="{{post.content | safe }}" name="description">
+{% endblock %}
+{% load static %}
+{% block content %}
+  <!-- Start Bottom Header -->
+  <div class="header-bg page-area">
+    <div class="home-overly"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="slider-content text-center">
+            <div class="header-bottom">
+              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+                <h1 class="title2">{% if service.title %}{{service.title}}{% else %} Service Title {% endif %}</h1>
+              </div>
+              <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
+                <h2 class="title3"></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Header -->
+  <div class="blog-page area-padding">
+    <div class="container">
+      <div class="row">
+        {% include './includes/left_side_bar.html' %}
+        <!-- End left sidebar -->
+        <!-- Start single blog -->
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <!-- single-blog start -->
+              <article class="blog-post-wrapper">
+                <div class="post-thumbnail">
+                  <img {% if service.image %} src="{{service.image.url}}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %}/>
+                </div>
+                <div class="post-information">
+                  <h2>{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h2>
+                  
+                  {% if service.content %}
+                  <div class = "entry-content">
+                    {{service.content | safe}}
+                  </div>
+                  {% else %}
+                  <div class="entry-content">
+                    <p>Aliquam et metus pharetra, bibendum massa nec, fermentum odio. Nunc id leo ultrices, mollis ligula in, finibus tortor. Mauris eu dui ut lectus fermentum eleifend. Pellentesque faucibus sem ante, non malesuada odio varius nec. Suspendisse
+                      potenti. Proin consectetur aliquam odio nec fringilla. Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit amet ligula condimentum sagittis.</p>
+                    <blockquote>
+                      <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend. Proin dictum
+                        tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque scelerisque.</p>
+                    </blockquote>
+                    <p>Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis elementum.
+                      Curabitur lobortis, elit ut elementum congue, erat ex bibendum odio, nec iaculis lacus sem non lorem. Duis suscipit metus ante, sed convallis quam posuere quis. Ut tincidunt eleifend odio, ac fringilla mi vehicula nec. Nunc vitae
+                      lacus eget lectus imperdiet tempus sed in dui. Nam molestie magna at risus consectetur, placerat suscipit justo dignissim. Sed vitae fringilla enim, nec ullamcorper arcu.</p>
+                  </div>
+                  {% endif %}
+                </div>
+              </article>
+              <div class="clear"></div>
+              
+              <!-- single-blog end -->
+            </div>
+          </div>
+          {% if service %}
+          <div class="col-md-8 col-xs-12  wow fadeInUp" data-wow-delay="0.2s">
+            <div class="pri_table_list active">
+              <span class="saleon">top sale</span>
+              <h3>Pricing <br/> <span style="color:red">ksh: {{service.pricing}} / one-time</span></h3>
+              <ol>
+                
+              </ol>
+              <a href="{% url 'mike_admin:django_registration_register' %}"><button>sign up now</button></a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

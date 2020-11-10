@@ -9,7 +9,7 @@ var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long
 
 let iti = window.intlTelInput(input, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.3/build/js/utils.js",
-
+  // utilsScript:"../js/build/js/utils.js",
   allowDropdown: false,
   // autoHideDialCode: false,
   autoPlaceholder: "aggressive",

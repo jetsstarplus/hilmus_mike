@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 
 from article.models import Post
-from mike_admin.models import Testimonial, StaffMember, TermsOfService
+from mike_admin.models import Testimonial, StaffMember, TermsOfService, Service
 from article.forms import CommentForm
 from .models import Contact
 
@@ -16,12 +16,15 @@ def index(request):
     testimonials = Testimonial.objects.filter(is_published=True).order_by('-date_added')[:10]
     teams= StaffMember.objects.filter(is_published=True).order_by('-rank')[:4]
     terms= TermsOfService.objects.all().order_by('-date_added')[:1]
+    service_list=Service.objects.all().order_by('-date_added')[:6]
     context={
         'testimonials': testimonials,
         'teams':teams,
-        'terms':terms
+        'terms':terms,
+        'service_list': service_list,
         }
     return render(request, template_name, context=context)
+
 # The contact page controler
 def contact(request):
     template_name='pages/contact.html'
@@ -31,10 +34,12 @@ def contact(request):
 def terms(request):
     template_name='pages/terms.html'    
     post_list = Post.objects.filter(status=1).order_by('-created_on')
-    terms= TermsOfService.objects.all().order_by('-date_added')[:1]
+    terms= TermsOfService.objects.all().order_by('-date_added')[:1]    
+    service_list=Service.objects.all().order_by('-date_added')[:6]
     context={
         'terms':terms,
-        'post_list':post_list
+        'post_list':post_list,
+        'service_list':service_list
         }
     return render(request, template_name, context=context)
 
@@ -42,11 +47,21 @@ def terms(request):
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'pages/blog.html'
+    # context_object_name="post_list"
     paginate_by=10
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['service_list'] = Service.objects.all().order_by('-date_added')[:6]
+        return context
     # def get_queryset(self): # new
     #     return(Posts.objects.filter(
     #         Q(name__icontains='Boston') | Q(state__icontains='NY')
     #     ), Post.objects.filter(status=1).order_by('-created_on'))
+    
+    
 
 class PostSearchList(generic.ListView):
     template_name = 'pages/search.html'    
@@ -55,13 +70,21 @@ class PostSearchList(generic.ListView):
         query = self.request.GET.get('q')
         return Posts.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query)).order_by('-created_on')
+        
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['service_list'] = Service.objects.all().order_by('-date_added')[:6]
+        return context
 
 
 def post_detail(request, slug):
     template_name = 'pages/blog-details.html'
     post_list=Post.objects.filter(status=1).order_by('-created_on')[: 5]
     post = get_object_or_404(Post, slug=slug)
-    comments = post.comments.filter(active=True)
+    comments = post.comments.filter(active=True)       
+    service_list=Service.objects.all().order_by('-date_added')[:6]
     new_comment = None
     # Comment posted
     if request.method == 'POST':
@@ -82,9 +105,25 @@ def post_detail(request, slug):
         'comments': comments,
         'new_comment': new_comment,
         'comment_form': comment_form,
-        'post_list': post_list
+        'post_list': post_list,
+        'service_list':service_list,
     }
     return render(request, template_name, context=context)
+
+
+def service(request, id):
+    template_name = 'pages/services.html'
+    services=Service.objects.all()
+    service = get_object_or_404(Service, id=id)    
+    service_list=Service.objects.all().order_by('-date_added')[:6]
+    
+    context = {
+        'service': service,
+        'services': services,
+        'service_list':service_list,
+    }
+    return render(request, template_name, context=context)
+
 
 #This is the form submission view
 def submit_contacts(request):

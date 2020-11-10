@@ -68,4 +68,19 @@ class TermsOfService(models.Model):
     content= models.TextField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
+    
+
+class Service(models.Model):
+    """ A model representing the services that are offered by mike creatives """
+    image= models.ImageField(upload_to='services', blank=True, null=True)
+    font_image= models.CharField(max_length=40)
+    home_page_text= models.TextField()
+    pricing= models.CharField(max_length=10)
+    title= models.CharField(max_length=30)
+    content= models.TextField()
+    date_added=models.DateTimeField(auto_now_add=True)
+    date_modified= models.DateTimeField(auto_now=True)
+    
+    def __repr__(self):
+        return self.title
 # Create your models here.

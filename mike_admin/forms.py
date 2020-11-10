@@ -4,7 +4,7 @@ from django_registration.forms import RegistrationFormTermsOfService, Registrati
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 from account.models import Account
-from .models import TermsOfService, Testimonial, StaffMember, Music
+from .models import TermsOfService, Testimonial, StaffMember, Music, Service
 
 
 class AccountFormSub(RegistrationFormTermsOfService,RegistrationFormUniqueEmail):
@@ -30,8 +30,16 @@ class TermsForm(forms.ModelForm):
         fields=('title', 'content')   
         widgets ={
             'content': SummernoteWidget,
+        }
+  
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model=Service
+        exclude=('date_added', 'date_modified')   
+        widgets ={
+            'content': SummernoteWidget,
         }  
-        
+  
 class TestimonialForm(forms.ModelForm):
      class Meta:
          model= Testimonial

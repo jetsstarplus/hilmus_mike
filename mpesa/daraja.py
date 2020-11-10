@@ -18,7 +18,7 @@ except:
 
 
 #create the lipa na mpesa API
-def lipa_na_mpesa(phone_number, amount, account):
+def lipa_na_mpesa(phone_number, amount, account, transaction):
         
     access_token = authentication()
     api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
@@ -34,7 +34,7 @@ def lipa_na_mpesa(phone_number, amount, account):
         "PhoneNumber": phone_number ,
         "CallBackURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/",
         "AccountReference": account,
-        "TransactionDesc": "Pay for mike creatives"
+        "TransactionDesc": transaction
     }
 
     #sending the request and expecting back a response
@@ -44,9 +44,9 @@ def lipa_na_mpesa(phone_number, amount, account):
         response = requests.post(api_url, json = request, headers=headers, verify=False)
     
     
-    # return(response.text)
-    print (response.text)
+    return(response.json)
+    # print (response.json)
   
   
 #authentication() 
-lipa_na_mpesa('254701850242', '1', '1234')
+# lipa_na_mpesa('254729408251', '1', '1234', "trial")

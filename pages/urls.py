@@ -12,4 +12,5 @@ urlpatterns=[
     path("mike-creatives/hilmus/ajax/submit-subscription/", views.submit_subscription, name = "subscribe"),
     path("terms-of-service/", views.terms, name='terms'),
     path("contact/", views.contact, name="contact"),
-]
+    path("services/<int:id>/", views.service, name="services"),
+] 

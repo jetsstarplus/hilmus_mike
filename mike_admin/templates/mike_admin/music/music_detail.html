@@ -74,7 +74,7 @@
                         {% csrf_token %}
                         <div class="md-form">
                             <label for="skiza">Enter the Skiza Code</label>
-                            <input type="text" class="form-control" id="skiza" default="{{post.skiza_code}}"/>
+                            <input type="text" class="form-control" id="skiza" placeholder="{{post.skiza_code}}" name="skiza"/>
                            
                         </div>
                         <br />
@@ -85,7 +85,7 @@
                     <form method = "POST">
                         {% csrf_token %}
                         <div class="md-form">
-                            <input type="text" class="form-control" id="skiza" default="{{post.skiza_code}}"/>
+                            <input type="text" class="form-control" id="skiza" placeholder="{{post.skiza_code}}" name="skiza"/>
                             <label for="skiza">Enter the Skiza Code</label>
                         </div>
                         <button class = "btn btn-success">Mark as Sent</button>

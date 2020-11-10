@@ -75,11 +75,14 @@
                 <br />
                 {% endfor %}
                 {% else %}
+                
                 <div class= "alert alert-primary">
                     <h2>There is no post to see here</h2>
+                    {% if user.is_staff %}
                     <div>
                         <a href="{% url 'article:create_post' %}"><button class="btn btn-primary">Create New</button></a>
                     </div>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>

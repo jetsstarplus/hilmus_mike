@@ -6,6 +6,7 @@ from . import serializers
 import requests
 from mpesa.daraja import lipa_na_mpesa
 import json
+from mike_admin.models import Service
 
 # #viewsets define the behavior of the view
 # class UserViewSet(viewsets.ModelViewSet):
@@ -62,4 +63,63 @@ def lipa_na_mpesa_view(request):
         
         # finally:              
         return JsonResponse(data) 
+
+def lipa_mpesa(request):
+    template_name="lipa.html"
+    error=None
+    message=None
+    state=False
+    user=request.user
+    services= Service.objects.all()
+    
+    
+    if request.method=='POST' and user:
+        phone_number = str(request.POST.get("phone", None))
+        service = request.POST.get("amount", None)
         
+        selected_service = Service.objects.filter(id=service)
+                                
+        phone_number=phone_number.strip()
+        phone = len(phone_number)
+        if phone_number.isdigit():
+            if phone == 10:
+                phone_number= phone_number[1:phone]
+                state=True
+            elif phone==12:
+                phone_number= phone_number[3:phone]
+                # print(phone_number)
+                state=True
+            elif phone==9:
+                phone_number= phone_number
+                state=True
+            else:
+                error=" Enter the correct phone number"
+                state=False
+        else:
+            if phone==13:
+                phone_number== phone_number[4:phone]
+                print(phone_number)
+                state=True
+            else:
+                error=" Enter the correct phone number"
+                state=False
+        if state:  
+            try:      
+                phone_number=int('254'+phone_number) 
+            except:
+                error="Phone number was not correct"           
+            try:
+                test = lipa_na_mpesa(phone_number, selected_service.pricing, user, selected_service.title)
+                               
+                message = " You can now enter the pin in your phone to finish the payment"
+                print(test)
+                print(test.MerchantRequestID)
+            except:
+                error=" There was a connection error"
+        
+    context={
+        'error':error,
+        'message':message,
+        'services':services
+    }
+    return render(request, template_name=template_name, context=context)

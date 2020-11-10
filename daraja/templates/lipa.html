@@ -1,0 +1,201 @@
+{% extends 'mike_admin/base_site.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Lipa Na Mpesa | Mike Creatives Portal {% endblock%}
+            {% block breadcrump %}
+          <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+                </li>
+                <li><span class="bread-blod">Lipa Na Mpesa</span>
+                </li>
+            {% endblock %}
+            {% block m-breadcrump %}
+                <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+                </li>
+                <li><span class="bread-blod">Lipa Na Mpesa</span>
+                </li>
+            {% endblock %}
+{% block content %}
+    
+{% block cssblock %}
+<link href="{% static 'home/js/build/css/intlTelInput.css' %}" rel="stylesheet">
+<link href="{% static 'home/js/build/css/demo.css' %}" rel="stylesheet">
+<link href="{% static 'home/js/build/isValidNumber.css' %}" rel = "stylesheet">
+{% endblock %}
+<!-- <input type="tel" id="phone" name="phone"> -->
+    <div class="login-form-area mg-t-30 mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-lg-6">
+                        <div class="login-bg">
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="login-title">
+                                        <h1>Lipa Na Mpesa</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                {% if message %}
+                                <div class="alert alert-success alert-success-style1">
+                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
+                                    </button>
+                                    <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
+                                    <p><strong>Success! </strong>{{message}}</p>
+                                </div>
+                                {% endif %}
+                                {% if error %}
+                                <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+                                    <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
+                                    <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
+                                </div>
+                                
+                                <br />
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="login-input-head">
+                                        <p><strong>Phone Number</strong></p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-input-area register-mg-rt">
+                                                <input type="tel" id="phone" name="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-lg-4">
+                                  <div class="login-input-head">
+                                      <p><strong>Service</strong></p>
+                                  </div>
+                              </div>
+                              <div class="col-lg-8">
+                                  <div class="row">
+                                      <div class="col-lg-12">
+                                        <div class="form-select-list">
+                                            <select class="form-control custom-select-value" name="account">
+                                                {% if services %}
+                                                     {% for service in services %}
+                                                        <option value='{{service.id}}'>{{service.title}}  - Ksh {{service.pricing}}</option>
+                                                        {% endfor %}
+                                                {% else %}
+                                                    <option>Select 1</option>
+                                                    <option>Select 2</option>
+                                                    <option>Select 3</option>
+                                                    <option>Select 4</option>
+                                                {% endif %}
+                                            </select>
+                                        </div>                                          
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                           
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8">
+                                    <div class="login-button-pro">
+                                        <button type="submit" class="login-button login-button-lg">Submit Payment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
+   
+      <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
+      <script>
+        let input = document.querySelector("#phone"),
+        errorMsg = document.querySelector("#error-msg"),
+        validMsg = document.querySelector("#valid-msg"),
+        select = document.querySelector(".selectBox");
+      
+      // here, the index maps to the error code returned from getValidationError - see readme
+      var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+      
+        
+        window.intlTelInput(input, {
+          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.3/build/js/utils.js",
+          allowDropdown: false,
+          // autoHideDialCode: false,
+          autoPlaceholder: "aggressive",
+          // dropdownContainer: document.body,
+          // excludeCountries: ["us"],
+          // formatOnDisplay: false,
+          // geoIpLookup: function(callback) {
+          //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+          //     var countryCode = (resp && resp.country) ? resp.country : "";
+          //     callback(countryCode);
+          //   });
+          // },
+          // hiddenInput: "full_number",
+          initialCountry: "ke",
+          // localizedCountries: { 'de': 'Deutschland' },
+          // nationalMode: false,
+          // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+          // placeholderNumberType: "MOBILE",
+          // preferredCountries: ['cn', 'jp'],
+          separateDialCode: true,
+          
+        });
+
+                
+        let reset = function() {
+            input.classList.remove("error");
+            errorMsg.innerHTML = "";
+            errorMsg.classList.add("hide");
+            validMsg.classList.add("hide");
+        };
+
+        // on blur: validate
+        input.addEventListener('blur', function() {
+            reset();
+            if (input.value.trim()) {
+            if (iti.isValidNumber()) {
+                validMsg.classList.remove("hide");
+            } else {
+                input.classList.add("error");
+                var errorCode = iti.getValidationError();
+                errorMsg.innerHTML = errorMap[errorCode];
+                errorMsg.classList.remove("hide");
+            }
+            }
+        });
+
+        select.addEventListener('submit', function(){
+        reset();
+        if(select.value == "1"){
+            errorMsg.innerHTML = "please select an option";
+            errorMsg.classList.remove("hide");
+        }
+        })
+
+        // on keyup / change flag: reset
+        input.addEventListener('change', reset);
+        input.addEventListener('keyup', reset);
+  
+      </script>
+
+  {% endblock %}
+  {% block jsblock %}
+     <!-- The phone number field -->
+  <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
+  
+  <link href="{% static 'home/contactform/phone.js' %}" rel="stylesheet">
+  {% endblock %}

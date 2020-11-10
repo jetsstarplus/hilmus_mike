@@ -90,23 +90,28 @@
       <div class="row text-center">
         <div class="services-contents">
           <!-- Start Left services -->
-          <div class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp" data-wow-delay="0.1s"  data-wow-duration="1.4s">
+          {% if service_list %}
+          {% for service_single in service_list %}
+          <div class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp" data-wow-delay="0.{{service_single.id}}s"  data-wow-duration="1.4s">
             <div class="about-move">
               <div class="services-details">
                 <div class="single-services">
-                  <a class="services-icon" href="#">
-											<i class="fa fa-youtube"></i>
+                  <a class="services-icon" href="{% url 'pages:services' service_single.id %}">
+											<i class="{{service_single.font_image}}"></i>
 										</a>
-                  <h4>YouTube Channel</h4>
+                  <h4>{{service_single.title}}</h4>
                   <p>
-                    We guide you to ensure you get the most out of the planet's 2nd largest search engine. We'll ensure that your content remains visible to the right audiences.  
+                    {{service_single.home_page_text | slice:':150' | safe}}  
 
                   </p>
                 </div>
               </div>
+              
               <!-- end about-details -->
             </div>
           </div>
+          {% endfor %}
+          {% else %}
           <div class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
             <div class="about-move">
               <div class="services-details">
@@ -123,6 +128,7 @@
               <!-- end about-details -->
             </div>
           </div>
+          
           <div class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp" data-wow-delay="0.3s" data-wow-duration="1.4s">
             <!-- end col-md-4 -->
             <div class=" about-move">
@@ -193,6 +199,7 @@
               <!-- end about-details -->
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -327,69 +334,6 @@
   </div>
   <!-- End reviews Area -->
   
-  <!-- start pricing area -->
-  <div id="pricing" class="pricing-area area-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12 wow fadeInUp">
-          <div class="section-headline text-center">
-            <h2>Pricing Table</h2>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-4 col-xs-12  wow fadeInUp" data-wow-delay="0.2s">
-          <div class="pri_table_list">
-            <h3>basic <br/> <span>$80 / month</span></h3>
-            <ol>
-              <li class="check">Online system</li>
-              <li class="check cross">Full access</li>
-              <li class="check">Free apps</li>
-              <li class="check">Multiple slider</li>
-              <li class="check cross">Free domin</li>
-              <li class="check cross">Support unlimited</li>
-              <li class="check">Payment online</li>
-              <li class="check cross">Cash back</li>
-            </ol>
-            <button>sign up now</button>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12  wow fadeInUp" data-wow-delay="0.9s">
-          <div class="pri_table_list active">
-            <span class="saleon">top sale</span>
-            <h3>standard <br/> <span>$110 / month</span></h3>
-            <ol>
-              <li class="check">Online system</li>
-              <li class="check">Full access</li>
-              <li class="check">Free apps</li>
-              <li class="check">Multiple slider</li>
-              <li class="check cross">Free domin</li>
-              <li class="check">Support unlimited</li>
-              <li class="check">Payment online</li>
-              <li class="check cross">Cash back</li>
-            </ol>
-            <button>sign up now</button>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-delay="0.5s">
-          <div class="pri_table_list">
-            <h3>premium <br/> <span>$150 / month</span></h3>
-            <ol>
-              <li class="check">Online system</li>
-              <li class="check">Full access</li>
-              <li class="check">Free apps</li>
-              <li class="check">Multiple slider</li>
-              <li class="check">Free domin</li>
-              <li class="check">Support unlimited</li>
-              <li class="check">Payment online</li>
-              <li class="check">Cash back</li>
-            </ol>
-            <button>sign up now</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- TESTIMONIALS -->
 {% if testimonials %}

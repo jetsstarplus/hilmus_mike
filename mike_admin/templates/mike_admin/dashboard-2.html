@@ -55,8 +55,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% if musics and user.is_staff %}
+                                                {% if musics %}
                                                 {% for music in musics %}
+                                                {% if music.artist == user or user.is_staff %}
                                                 <tr>
                                                     <td></td>
                                                     <td>{{music.title}}</td>
@@ -70,10 +71,11 @@
                                                     </td>
                                                 </tr>
                                                 </a>
+                                                {% endif %}
                                                 {% endfor %}
                                                 
                                                 {% else %}
-                                                     <tr>There are musics here</tr>
+                                                     <tr>There are no musics here</tr>
                                                 {% endif %}
                                             </tbody>
                                         </table>
@@ -114,8 +116,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% if upload and user.is_staff %}
+                                                {% if upload%}
                                                 {% for music in upload %}
+                                                {% if music.artist == user or user.is_staff %}
                                                 <tr>
                                                     <td></td>
                                                     <td>{{music.title}}</td>
@@ -128,11 +131,12 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                {% endif %}
                                                 
                                                 {% endfor %}
                                                 
                                                 {% else %}
-                                                     <tr>There are musics here</tr>
+                                                     <tr>There are no musics here</tr>
                                                 {% endif %}
                                             </tbody>
                                         </table>

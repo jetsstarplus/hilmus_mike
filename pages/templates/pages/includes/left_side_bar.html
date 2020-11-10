@@ -14,11 +14,28 @@
         </form>
         <!-- search option end -->
       </div>
+      {% if service_list %}
+      <div class="single-blog-page">
+        <div class="left-blog">
+          <h4>Services </h4>
+          <ul>
+            {% for service_single in service_list %}
+            <li>
+              <a href="{% url 'pages:services' service_single.id %}">{{service_single.title}}</a>
+            </li>
+           
+            {% endfor %}
+           
+          </ul>
+        </div>
+      </div>
+      {% endif %}
       <div class="single-blog-page">
         <!-- recent start -->
         <div class="left-blog">
           <h4>recent post</h4>
           <div class="recent-post">
+
             {% if post_list %}
             {% for poster in post_list %}
             <!-- start single post -->
@@ -77,34 +94,7 @@
         <!-- recent end -->
         </div>
       <!-- </div>
-      <div class="single-blog-page">
-        <div class="left-blog">
-          <h4>categories</h4>
-          <ul>
-            <li>
-              <a href="#">Portfolio</a>
-            </li>
-            <li>
-              <a href="#">Project</a>
-            </li>
-            <li>
-              <a href="#">Design</a>
-            </li>
-            <li>
-              <a href="#">wordpress</a>
-            </li>
-            <li>
-              <a href="#">Joomla</a>
-            </li>
-            <li>
-              <a href="#">Html</a>
-            </li>
-            <li>
-              <a href="#">Website</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      
       <div class="single-blog-page">
         <div class="left-blog">
           <h4>archive</h4>

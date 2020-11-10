@@ -46,9 +46,13 @@
                 </div>
             </div>
         </div>
+        {% if form %}
         <div class="login-button-pro">
            {% if form.is_bound %} {% else %} <button type="submit" class="login-button login-button-lg"> Create Music </button> {% endif %}
           </div>
+          {% else %}
+          <p>You cannot upload if you have not payed</p>
+          {% endif %}
           
     </form>
 </div>

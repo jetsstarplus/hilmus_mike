@@ -5,12 +5,30 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    <meta name="description" content="">
-    {% block meta %} {% endblock %}
+    <meta name="description" content="">    
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block meta %} {% endblock %}
+     <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'icons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'icons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'icons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'icons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'icons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'icons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'icons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'icons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'icons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'icons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'icons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="msapplication-TileImage" content="{% static 'icons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#000">
     <!-- favicon
 		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'mike_admin/img/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i,800" rel="stylesheet">
@@ -60,13 +78,11 @@
     <link rel="stylesheet" href="{% static "mike_admin/css/form/all-type-forms.css" %}">
 
     <!--Users Phone number for uploading-->
-
-    <link href="{% static 'home/js/build/css/intlTelInput.css' %}" rel="stylesheet">
-    <!-- <link href="{% static 'home/js/build/css/demo.css' %}" rel="stylesheet"> -->
-    <link href="{% static 'home/js/build/isValidNumber.css' %}" rel = "stylesheet">
+      {% block cssblock %}
+    {% endblock %}
       <!-- modernizr JS
       ============================================ -->
-    
+  
     
     <script src="{% static "mike_admin/js/vendor/modernizr-2.8.3.min.js" %}"></script>
 </head>
@@ -147,10 +163,8 @@
     <script src="{% static "mike_admin/js/jquery.form.min.js" %}"></script>
     <script src="{% static "mike_admin/js/jquery.validate.min.js" %}"></script>
     <script src="{% static "mike_admin/js/form-active.js" %}"></script>
-
-     <!-- The phone number field -->
-  <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
-  
+    {% block jsblock%}
+  {% endblock %}
     <!-- main JS
 		============================================ -->
     <script src="{% static "mike_admin/js/main.js" %}"></script>
