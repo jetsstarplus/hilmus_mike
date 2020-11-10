@@ -47,6 +47,7 @@ django-summernote==0.8.11.6
 django-thumbs==0.4
 django-versatileimagefield==2.0
 djangorestframework==3.11.0
+docutils==0.16
 docx2txt==0.8
 easy-thumbnails==2.7
 EbookLib==0.17.1
