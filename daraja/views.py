@@ -1,12 +1,16 @@
+import ast
+import json
+import requests
+
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
 # from django.contrib.auth.models import User
 from rest_framework import viewsets
 from . import serializers
-import requests
 from mpesa.daraja import lipa_na_mpesa
-import json
 from mike_admin.models import Service
+from .models import Initiate
 
 # #viewsets define the behavior of the view
 # class UserViewSet(viewsets.ModelViewSet):
@@ -76,8 +80,12 @@ def lipa_mpesa(request):
     if request.method=='POST' and user:
         phone_number = str(request.POST.get("phone", None))
         service = request.POST.get("amount", None)
+        # messages.add_message(request, messages.INFO, f"Hello {username}")
+
+        # print(service)
         
-        selected_service = Service.objects.filter(id=service)
+        selected_service = Service.objects.get(id=service)
+        # print(selected_service)
                                 
         phone_number=phone_number.strip()
         phone = len(phone_number)
@@ -93,7 +101,8 @@ def lipa_mpesa(request):
                 phone_number= phone_number
                 state=True
             else:
-                error=" Enter the correct phone number"
+                error=" Enter the correct phone number"                
+                messages.add_message(request, messages.WARNING,  "Enter the correct phone number")
                 state=False
         else:
             if phone==13:
@@ -102,20 +111,47 @@ def lipa_mpesa(request):
                 state=True
             else:
                 error=" Enter the correct phone number"
+                messages.add_message(request, messages.WARNING,  "Enter the correct phone number")
                 state=False
         if state:  
             try:      
                 phone_number=int('254'+phone_number) 
             except:
-                error="Phone number was not correct"           
-            try:
-                test = lipa_na_mpesa(phone_number, selected_service.pricing, user, selected_service.title)
-                               
+                error="Phone number was not correct"                 
+                messages.add_message(request, messages.WARNING,  "Enter the correct phone number")
+            
+            test = lipa_na_mpesa(phone_number, str(selected_service.pricing), str(user.id), str(selected_service.title))
+            if test.status_code ==200:                        
                 message = " You can now enter the pin in your phone to finish the payment"
-                print(test)
-                print(test.MerchantRequestID)
-            except:
-                error=" There was a connection error"
+                messages.add_message(request, messages.SUCCESS,  " You can now enter the pin in your phone to finish the payment")                
+                r_json=test.json()
+                merchant= r_json['MerchantRequestID']
+                code=r_json['ResponseCode']
+                description= r_json['ResponseDescription']
+                checkout= r_json['CheckoutRequestID']
+                
+                initiated = Initiate(
+                    MerchantRequestID=merchant, 
+                    CheckoutRequestID=checkout, 
+                    ResultCode=code, 
+                    ResultDescription=description, 
+                    user=user, 
+                    service=selected_service)
+                initiated.save()
+                # print(initiated.user)
+                # print(r_json)         
+            else:
+                error="Enter a Valid Phone Number"
+                messages.add_message(request, messages.WARNING,  "Enter the correct phone number")
+                
+       
+            # print(jfile)
+            # new_data=ast.literal_eval(test)
+            # print(new_data)
+            # # result = json.loads(jfile)
+            # print(result)
+           
+            # print(merchant)
         
     context={
         'error':error,

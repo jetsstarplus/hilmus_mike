@@ -50,6 +50,9 @@
                                 {% endif %}
                                 {% if error %}
                                 <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
+                                    </button>
                                     <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
                                     <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
                                 </div>
@@ -60,7 +63,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="login-input-head">
-                                        <p><strong>Phone Number</strong></p>
+                                        <p><strong>Phone Number:</strong></p>
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
@@ -77,14 +80,14 @@
                             <div class="row">
                               <div class="col-lg-4">
                                   <div class="login-input-head">
-                                      <p><strong>Service</strong></p>
+                                      <p><strong>Service:</strong></p>
                                   </div>
                               </div>
                               <div class="col-lg-8">
                                   <div class="row">
                                       <div class="col-lg-12">
                                         <div class="form-select-list">
-                                            <select class="form-control custom-select-value" name="account">
+                                            <select class="form-control custom-select-value" name="amount">
                                                 {% if services %}
                                                      {% for service in services %}
                                                         <option value='{{service.id}}'>{{service.title}}  - Ksh {{service.pricing}}</option>
@@ -119,7 +122,7 @@
         </div>
     </div>
    
-      <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
+      <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
       <script>
         let input = document.querySelector("#phone"),
         errorMsg = document.querySelector("#error-msg"),
@@ -195,7 +198,7 @@
   {% endblock %}
   {% block jsblock %}
      <!-- The phone number field -->
-  <script src="{% static 'home/js/build/js/intlTelInput.js' %}"></script>
+  <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
   
   <link href="{% static 'home/contactform/phone.js' %}" rel="stylesheet">
   {% endblock %}

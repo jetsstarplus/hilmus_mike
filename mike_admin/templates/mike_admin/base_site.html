@@ -283,7 +283,37 @@
             </div>
         </div>
         <!-- Breadcome End-->
-        <!-- income order visit user Start -->
+        {% if messages %}       
+            <div class="col-md-12">
+            <ul>
+                
+            {% for message in messages %}
+                <li {% if message.tags %} class="alert alert-{{message.tags}} alert-success-style1 alert-success-stylenone" {% endif %}>
+                    <div class=>
+                        <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+                            <span class="icon-sc-cl" aria-hidden="true">×</span>
+                        </button>
+                        {% if message.tags == "warning"%}
+                             <span class="adminpro-icon adminpro-checked-pro admin-check-sucess admin-check-pro-none"></span>
+                        {% elif message.tags == "Success" %}
+                            <span class="adminpro-icon adminpro-checked-pro admin-check-sucess admin-check-pro-none"></span>
+                        {% elif message.tags == "Info"%}
+                          <span class="adminpro-icon adminpro-warning-danger admin-check-sucess admin-check-pro-none"></span>
+                        {% else %}
+                            
+                        <span class="adminpro-icon adminpro-danger-error admin-check-sucess admin-check-pro-none"></span>
+                        {% endif%}
+                        <p><strong>
+                            {%if message.tags == "warning"%} Warning!
+                             {%elif message.tags == "success" %} Success!  
+                             {%elif message.tags == "info"%} Info! {% else %} Error! {%endif%}</strong>{{message}}</p>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
+
         {% if user.is_staff %}
         {% block statistics %}
         {% endblock statistics %}

@@ -37,3 +37,6 @@ class UserPayment(models.Model):
     service= models.ForeignKey(Service, on_delete=models.PROTECT)
     date_submitted=models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return("{} - {} for {}".format(self.user, self.transaction_id, self.service))
+    

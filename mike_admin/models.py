@@ -31,7 +31,7 @@ class Music(models.Model):
     def updated_recently(self):
         pass
     
-    def __repr__(self):
+    def __str__(self):
         return(self.music, " by ", self.artist)
     
 class Testimonial(models.Model):
@@ -44,7 +44,7 @@ class Testimonial(models.Model):
     date_added= models.DateTimeField(auto_now_add=True)
     date_updated= models.DateTimeField(auto_now=True)
     
-    def __repr__(self):
+    def __str__(self):
         return(self.name)
     
 class StaffMember(models.Model):
@@ -58,7 +58,7 @@ class StaffMember(models.Model):
     twitter=models.CharField(max_length=50, blank=True, null=True)
     instagram=models.CharField(max_length=50, blank=True, null=True)
     
-    def __repr__(self):
+    def __str__(self):
         return(self.name)
     
 
@@ -68,6 +68,9 @@ class TermsOfService(models.Model):
     content= models.TextField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
+    
+    def _str__(self):
+        return(self.title)
     
 
 class Service(models.Model):
@@ -81,6 +84,6 @@ class Service(models.Model):
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
     
-    def __repr__(self):
+    def __str__(self):
         return self.title
 # Create your models here.

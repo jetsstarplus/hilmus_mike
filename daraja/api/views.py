@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from daraja.api.serializers import Lipa_na_mpesaSerializer, C2BPaymentSerializer
 from daraja import models
 from mike_admin.models import Service
-from account.models import UserPayment
+# from account.models import UserPayment
 
 
 class Lipa_List(CreateAPIView):
@@ -54,12 +54,14 @@ class Lipa_List(CreateAPIView):
                 phonenumber = phone_number, 
         
             )
-            
-            user= get_user_model().objects.get()
-            
-            user_payment=UserPayment.objects.create(
-                user
-            )
+            initiated=models.Initiate.objects.filter(checkoutRequestId=checkout_request_id)
+            if  int(result_code)==0: 
+               initiated.update(ResultCode=1)
+               user=get_user_model().objects.filter(pk=initiated.pk)
+               user.update(is_payed=True)
+               
+            else:
+                initiated.update(ResultCode=0)
             
             mpesa_model.save()
             return Response({'ResultDescription': "Yey it worked"})

@@ -68,5 +68,12 @@ class Initiate(models.Model):
     MerchantRequestID = models.CharField(max_length = 30, null = True)
     ResultCode = models.IntegerField(null = True)
     ResultDescription = models.TextField(max_length = 200,null = True)
-    user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="initiated")
     service= models.ForeignKey(Service, on_delete=models.PROTECT)
+    date_added= models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    
+    def __str__(self):
+        return self.CheckoutRequestID
+    class Meta:
+        verbose_name_plural="Initiated Transactions"
+        verbose_name="Initiated Transaction"

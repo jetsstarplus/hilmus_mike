@@ -37,4 +37,22 @@ class Customer_to_Business_Admin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
 
+
 admin.site.register(models.C2BPaymentModel, Customer_to_Business_Admin)
+
+class Initiate_Admin(admin.ModelAdmin):
+    
+    list_display = ('CheckoutRequestID', "MerchantRequestID",'ResultCode', "user", "service")
+    list_filter = ('user', 'service')
+    search_fields = ('CheckoutRequestID', 'MerchantRequestID', 'user', 'service',)
+    
+    def has_add_permission(self, request):
+        return False
+    
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+admin.site.register(models.Initiate, Initiate_Admin)

@@ -39,12 +39,11 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
 
     #sending the request and expecting back a response
     try:
-        response = requests.post(api_url, json = request, headers=headers)
+        response = requests.post(api_url, json = request, headers=headers, stream=True)
     except:
-        response = requests.post(api_url, json = request, headers=headers, verify=False)
+        response = requests.post(api_url, json = request, headers=headers, verify=False, stream=True)
     
-    
-    return(response.json)
+    return(response)
     # print (response.json)
   
   

@@ -3,15 +3,16 @@ from django.views.generic import ListView, DetailView, UpdateView, CreateView, D
 from django.conf import settings
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views import generic
+from django.contrib import messages
 
 from .models import Music, Testimonial, StaffMember, TermsOfService
 from article.models import Post
-from daraja.models import Lipa_na_mpesa, C2BPaymentModel
+from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate
 
 from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm
 
@@ -26,7 +27,9 @@ def home(request):
     lipa_transactions=None
     inactive_users=None
     if request.user.is_staff:
-        
+        if request.user.get_full_name()==None:             
+            messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")  
+           
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
         inactive_users = get_user_model().objects.filter(is_active=False).order_by('-date_joined')
         musics=Music.objects.filter(is_sent=False).order_by('-date_added')
@@ -40,7 +43,11 @@ def home(request):
         lipa_transactions=Lipa_na_mpesa.objects.all().order_by('-TransationDate')
     
     elif request.user:
-        
+        if request.user.is_payed==False:            
+            messages.add_message(request, messages.INFO,  "Please Complete Your Payment First Inorder To Proceed")
+        if request.user.first_name==None or request.user.last_name==None or request.user.avatar==None:             
+            messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")  
+                
         musics=Music.objects.filter(artist=request.user, is_sent=False).order_by('-date_added') 
         upload=Music.objects.filter(artist=request.user, is_sent=True).order_by('-date_added') 
     
@@ -117,13 +124,18 @@ def update_profile(request):
 
 
 # The testimonial controllers
-class TestimonialList(generic.ListView, LoginRequiredMixin):
+class TestimonialList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = Testimonial.objects.filter(is_published=True).order_by('-date_added')
     template_name = 'mike_admin/testimonials/index.html'
     context_object_name='testimonials'
     paginate_by=10
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+    
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def create_testimonial(request):
     template_name='mike_admin/testimonials/create_testimonial.html'
     new_post=None
@@ -154,6 +166,7 @@ def create_testimonial(request):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def update_testimonial(request, id):
     template_name='mike_admin/testimonials/edit_testimonial.html'
     post = get_object_or_404(Testimonial, pk=id)
@@ -189,6 +202,7 @@ def update_testimonial(request, id):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def delete_testimonial(request, id):
     template_name='mike_admin/testimonials/confirm_delete.html'
     final_template='mike_admin/testimonials/delete_testimonial.html'
@@ -223,6 +237,7 @@ def delete_testimonial(request, id):
     return render(request, template_name, context=context)
     
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def testimonial_detail(request, id):
     template_name = 'mike_admin/testimonials/testimonial_detail.html'
     post = get_object_or_404(Testimonial, pk=id)     # Comment posted
@@ -233,13 +248,16 @@ def testimonial_detail(request, id):
     return render(request, template_name, context=context)
 
 # The Staff Members controllers
-class StaffList(generic.ListView, LoginRequiredMixin):
+class StaffList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = StaffMember.objects.filter(is_published=True).order_by('-rank')
     template_name = 'mike_admin/staff/index.html'
     context_object_name='staffs'
     paginate_by=10
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def create_staff(request):
     template_name='mike_admin/staff/create_staff.html'
     new_post=None
@@ -268,6 +286,7 @@ def create_staff(request):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def update_staff(request, id):
     template_name='mike_admin/staff/edit_staff.html'
     post = get_object_or_404(StaffMember, pk=id)
@@ -303,6 +322,7 @@ def update_staff(request, id):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def delete_staff(request, id):
     template_name='mike_admin/staff/confirm_delete.html'
     final_template='mike_admin/staff/delete_staff.html'
@@ -338,6 +358,7 @@ def delete_staff(request, id):
     return render(request, template_name, context=context)
     
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def staff_detail(request, id):
     template_name = 'mike_admin/staff/staff_detail.html'
     post = get_object_or_404(Testimonial, pk=id)     # Comment posted
@@ -348,13 +369,16 @@ def staff_detail(request, id):
     return render(request, template_name, context=context)
 
 # The Tos controllers
-class TermsList(generic.ListView, LoginRequiredMixin):
+class TermsList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = TermsOfService.objects.all().order_by('-date_added')
     template_name = 'mike_admin/terms/index.html'
     context_object_name= "terms"
     paginate_by=10
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def create_terms(request):
     template_name='mike_admin/terms/create_terms.html'
     new_post=None
@@ -383,6 +407,7 @@ def create_terms(request):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def update_terms(request, id):
     template_name='mike_admin/terms/edit_terms.html'
     terms = get_object_or_404(TermsOfService, pk=id)
@@ -418,6 +443,7 @@ def update_terms(request, id):
     return render(request, template_name, context=context)
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def delete_terms(request, id):
     template_name='mike_admin/terms/confirm_delete.html'
     final_template='mike_admin/terms/delete_terms.html'
@@ -587,12 +613,15 @@ def music_detail(request, pk, **kwargs):
     return render(request, template_name, context=context)
 
 # The Users controllers
-class UserList(generic.ListView, LoginRequiredMixin):
+class UserList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = get_user_model().objects.all().order_by('-date_joined')
     template_name = 'mike_admin/users/users.html'
     context_object_name= "accounts"
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 @login_required
+@user_passes_test(lambda user: user.is_staff)
 def user_detail(request, username, **kwargs):
     template_name = 'mike_admin/users/user_details.html'
     account = None    # Comment posted
@@ -604,15 +633,31 @@ def user_detail(request, username, **kwargs):
     return render(request, template_name, context=context)
 
 # The Transactions controllers
-class LipaTransactionList(generic.ListView, LoginRequiredMixin):
+class LipaTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
+    """A class based view for showing all the transactions to the logged in user"""
     queryset = Lipa_na_mpesa.objects.all().order_by('-TransationDate')
     template_name = 'mike_admin/transactions/transactions.html'
     context_object_name= "lipa_transactions"
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff    
+     
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the the successful and failed transactions
+        context['lipa_successful'] = Initiate.objects.filter(ResultCode=1).order_by('-date_added')
+        context['lipa_unsuccessful'] = Initiate.objects.filter(ResultCode=0).order_by('-date_added')
+        return context
+    
 
 # The Transactions controllers
-class C2BTransactionList(generic.ListView, LoginRequiredMixin):
+class C2BTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = C2BPaymentModel.objects.all().order_by('-TransTime')
     template_name = 'mike_admin/transactions/users.html'
     context_object_name= "cust_transactions"
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
 
 
