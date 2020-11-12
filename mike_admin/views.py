@@ -70,10 +70,12 @@ def profile(request):
     if request.user.is_authenticated:
         profile = get_object_or_404(get_user_model(), pk=request.user.pk)
         musics = Music.objects.filter(artist=request.user.pk).all()
-        boomplay= Music.objects.filter(artist=request.user.pk, is_sent=True).count()
+        boomplay= Music.objects.filter(artist=request.user.pk, is_boompay=True).count()
         music_number= musics.count()
         articles = Post.objects.filter(author=request.user.pk, status=1)
-        
+        skiza=Music.objects.filter(artist=request.user.pk, is_skiza=True).count()
+        transactions=Initiate.objects.filter(ResultCode=1, user=request.user)
+                
     else:
         profile=None
     context={
@@ -81,7 +83,9 @@ def profile(request):
         'musics': musics, 
         'music_number':music_number,
         'boomplay':boomplay,
-        'article':articles
+        'article':articles,
+        'skiza': skiza,
+        'transactions':transactions
         }
     return render(request, template_name="mike_admin/profiles/profile.html", context=context)
 
@@ -606,7 +610,7 @@ def music_detail(request, pk, **kwargs):
         if request.user.is_staff:
             post = get_object_or_404(Music, pk=pk) 
         else:
-            post = Music.objects.filter(pk=pk, artist=request.user)
+            post = get_object_or_404(Music, pk=pk, artist=request.user) 
     context = {
         'post': post
     }

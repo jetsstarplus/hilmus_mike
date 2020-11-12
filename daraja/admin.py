@@ -43,7 +43,7 @@ admin.site.register(models.C2BPaymentModel, Customer_to_Business_Admin)
 class Initiate_Admin(admin.ModelAdmin):
     
     list_display = ('CheckoutRequestID', "MerchantRequestID",'ResultCode', "user", "service")
-    list_filter = ('user', 'service')
+    list_filter = ('ResultCode', 'user', 'service')
     search_fields = ('CheckoutRequestID', 'MerchantRequestID', 'user', 'service',)
     
     def has_add_permission(self, request):
