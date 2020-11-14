@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views import generic
 from django.contrib import messages
+from django.http import HttpResponse
 
 from .models import Music, Testimonial, StaffMember, TermsOfService
 from article.models import Post
@@ -664,4 +665,17 @@ class C2BTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMix
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
 
+# sendemail
+from django.core.mail import send_mail
+
+def sendemail(request):
+    """this is a test email sender"""
+    send_mail(
+        'Subject here',
+        'Here is the message.',
+        'from@example.com',
+        ['jets.starplus@gmail.com'],
+        fail_silently=False,
+    )
+    return HttpResponse("success")
 

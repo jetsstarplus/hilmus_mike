@@ -70,15 +70,15 @@ Supports Thumbs: true
 
 .layer-1-3 a.ready-btn:hover {
   color: #fff;
-  background: #ce2029;
-  border: 1px solid #ce2029;
+  background: #198902 !important;
+  border: 1px solid #198902;
   text-decoration: none;
 }
 
 .ready-btn.right-btn {
   margin-right: 15px;
-  background: #ce2029;
-  border: 1px solid #ce2029 !important;
+  background: #198902 !important;
+  border: 1px solid #198902 !important;
 }
 
 .ready-btn.right-btn:hover {
@@ -115,7 +115,7 @@ Supports Thumbs: true
 
 .nivo-controlNav a:hover, .nivo-controlNav a.active {
   background: #fff none repeat scroll 0 0;
-  border-color: #ce2029;
+  border-color: #198902;
   -moz-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -o-transform: rotate(180deg);
@@ -370,9 +370,9 @@ preview-2
 }
 
 .preview-2 .nivo-directionNav a.nivo-nextNav:hover:before, .preview-2 .nivo-directionNav a.nivo-prevNav:hover:before {
-  border-color: #ce2029;
+  border-color: #198902;
   color: #fff;
-  background: #ce2029;
+  background: #198902;
 }
 
 .preview-2 .nivo-directionNav a.nivo-nextNav::before {

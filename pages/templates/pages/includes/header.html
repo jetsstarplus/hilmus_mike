@@ -1,4 +1,4 @@
-
+{% load static %}
   <header>
     <!-- header-area start -->
     <div id="sticker" class="header-area">
@@ -18,9 +18,10 @@
 									</button>
                 <!-- Brand -->
                 <a class="navbar-brand page-scroll sticky-logo" href="/">
-                  <h1><span>MIKE</span>Creatives</h1>
+                  <!-- <h1><span>MIKE</span>Creatives</h1> -->
                   <!-- Uncomment below if you prefer to use an image logo -->
-                  <!-- <img src="img/logo.png" alt="" title=""> -->
+                  <!-- <img src="{% static 'img/logo.png' %}" alt="" title=""> -->
+                  <img src="{% static "icons/mike_admin.png" %}" alt="Mike creatives logo"  width="" title="Mike creatives"/>
 								</a>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->

@@ -140,7 +140,6 @@ THUMBNAIL_HIGH_RESOLUTION = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Email configurations
 EMAIL_BACKEND = "mailer.backend.DbBackend"
-MAILER_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 THUMBNAIL_ALIASES = {

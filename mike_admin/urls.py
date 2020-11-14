@@ -9,6 +9,7 @@ urlpatterns = [
     path('profile/', views.profile, name="profile"),
     path('profile/update/', views.update_profile, name="update_profile"),
     path('', include(auth_urls)),
+    path('send/', views.sendemail),
 
     # Testimonials urls
     path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),
