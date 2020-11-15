@@ -24,10 +24,13 @@
       <div class="card-body white">
         <div class="income-dashone-pro">
             {% if user.is_staff %}
-                <a href = "{% url 'mike_admin:update_service' post.id %}"><button class="btn btn-primary">Edit Services</button></a>
-                <a href = "{% url 'mike_admin:delete_service' post.id %}"><button class="btn btn-danger">Delete Services</button></a>
-            {% endif%}
-            <h1>{{post.title}}</h1>  
+            <div class = "row">
+                <a href = "{% url 'mike_admin:update_service' post.id %}"><button class="btn btn-primary btn-sm">Edit Services</button></a>
+                <a href = "{% url 'mike_admin:delete_service' post.id %}"><button class="btn btn-danger btn-sm">Delete Services</button></a>
+            </div>
+              {% endif%}
+            <h1>{{post.title}}</h1> 
+            <hr /> 
             <div class="clear"></div>
         </div>
         <div>

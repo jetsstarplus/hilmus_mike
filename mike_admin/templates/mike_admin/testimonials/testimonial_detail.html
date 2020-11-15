@@ -24,9 +24,11 @@
     <div class="col-md-9 card mb-6  mt-3">
       <div class="card-body white">
         {% if user.is_staff %}
-            <a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary">Edit Testimonial</button></a>
-            <a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger">Delete Testimonial</button></a>
-        {% endif%}
+        <div class = "row">
+            <a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary btn-sm">Edit Testimonial</button></a>
+            <a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger btn-sm">Delete Testimonial</button></a>
+        </div>
+          {% endif%}
         <div class="income-dashone-pro">
             <h1>{{post.title}}</h1>  
             <div class="clear"></div>

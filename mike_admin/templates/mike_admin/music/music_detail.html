@@ -26,8 +26,8 @@
         <div class="income-dashone-">
             {% if user.is_staff or user == post.artist%}
             <div class = "row">
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit Music</button></a>
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete Music</button></a>
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary btn-sm">Edit Music</button></a>
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger btn-sm">Delete Music</button></a>
             </div>
             {% endif%}
             <hr />
@@ -73,7 +73,7 @@
                  {% if post.is_sent %}
                  <div class="row">
                     <div class="col-md-6"><strong>State:</strong></div>
-                    <div class="col-md-6"><button class ="btn  btn-success">Sent</button></div>
+                    <div class="col-md-6"><button class ="btn  btn-info">Sent</button></div>
                  </div>
                      
                      {% if user.is_staff %}
