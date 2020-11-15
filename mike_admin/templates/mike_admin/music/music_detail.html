@@ -21,28 +21,32 @@
 {% block content %}
 {% if user.is_staff or user == post.artist %}
 <div class="container">
-    <div class="col-md-9 card mb-6  mt-3">
+    <div class="col-md-11 card mb-10  mt-6">
       <div class="card-body white">
-        <div class="income-dashone-pro">
+        <div class="income-dashone-">
             {% if user.is_staff or user == post.artist%}
-                <a href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit Music</button></a>
-                <a href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete Music</button></a>
+            <div class = "row">
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit Music</button></a>
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete Music</button></a>
+            </div>
             {% endif%}
+            <hr />
             <h1>{{post.title}}</h1>  
             <div class="clear"></div>
         </div>
         <div class = 'row'>
             <br />
             <div class = 'col-md-6'>
-                <img src="{% thumbnail post.picture 200x170 crop %}" alt="post picture">
+                <a href="{{post.picture.url}}" target="_blank"><img src="{% thumbnail post.picture 400x250 crop %}" alt="post picture" style="padding-bottom: 2rem;"></a>
              </div>
              <div class="income-dashone-pro col-md-6">
                  <div>
-                    <h1>{{post.title}}</h1>  
+                    <h1>{{post.title}}</h1> 
+                    <hr /> 
                     <p class=" text-muted">{{ post.artist.first_name }} {{post.artist.last_name}} | {{ post.date_added }}</p> 
                  
                  </div>
-                 <a href="{{post.music.url}}"><p>{{post.music.name}}</p></a> 
+                 <a class="btn btn-primary" href="{{post.music.url}}">Download    <i style="color:#ce2920" class="fa fa-download"></i></a> <span>{{post.music.name}}</span>
                  <div class = "card">
                      <table class="table">
                         <thead>
@@ -67,7 +71,11 @@
 
                  </div>
                  {% if post.is_sent %}
-                     <button class ="btn  btn-success">Sent</button>
+                 <div class="row">
+                    <div class="col-md-6"><strong>State:</strong></div>
+                    <div class="col-md-6"><button class ="btn  btn-success">Sent</button></div>
+                 </div>
+                     
                      {% if user.is_staff %}
                      <br />
                      <form method = "POST">
@@ -91,7 +99,8 @@
                         <button class = "btn btn-success">Mark as Sent</button>
                     </form> 
                 {% else %}
-                <button class ="btn  btn-danger">Pending</button>
+                <div class="col-md-6"><strong>State:</strong></div>
+                <div class="col-md-6"><button class ="btn  btn-warning">Pending...</button></div>
                  {% endif %}  
                 <br />         
                  <div class="income-range low-value-cl">
