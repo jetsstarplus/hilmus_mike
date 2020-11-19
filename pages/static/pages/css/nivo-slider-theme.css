@@ -126,7 +126,7 @@ Supports Thumbs: true
 
 @media (min-width: 1400px) and (max-width:1920px) {
   .slider-content {
-    padding: 340px 0;
+    padding: 240px 0;
   }
 }
 
@@ -202,7 +202,7 @@ preview-1
 
 .preview-1 .nivoSlider {
   position: relative;
-  background: url(../lib/nivo-slider/img/loading.gif) no-repeat 50% 50%;
+  background: url(../lib/nivo-slider/img/126.svg) no-repeat 50% 50%;
 }
 
 .preview-1 .nivoSlider img {
