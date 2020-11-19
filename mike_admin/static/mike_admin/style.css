@@ -25,7 +25,15 @@
 /*  1.  Theme default CSS
 /*----------------------------------------*/
 html, body {font-family: 'Open Sans', sans-serif;font-weight:400;background: #198902}
-html, body.materialdesign {background: #ebebeb}
+html, body.materialdesign {
+	background-image: url('./bgg.jpg');
+	background-repeat:no-repeat; 
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	backface-visibility: hidden;
+	background-color: radial-gradient(#23d56d, #021f07, #bae421);
+}
 .floatleft {float:left}
 .floatright {float:right}
 .alignleft {float:left;margin-right:15px;margin-bottom: 15px}
@@ -689,7 +697,7 @@ ul.setting-panel-list li{
 	padding:10px 0px;
 }
 .header-top-area{
-	background:#303030;
+	background:#0a0a0a;
 	
 }
 .header-top-menu ul.header-top-nav{
@@ -728,7 +736,7 @@ ul.setting-panel-list li{
 	top:130%;
 	left:-10px;
 	width:200px;
-	background:#303030;
+	background:#0c0c0c;
 	opacity:0;
 	transition: all 0.5s ease 0s;
 	z-index:999;

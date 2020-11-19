@@ -8,16 +8,24 @@
                 
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2"></div>
                         <form id="adminpro-register-form" class="adminpro-form" method="POST">
                             {% csrf_token %}
                           <!-- {{form}} -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-8">
                                 <div class="login-bg">
-                                    <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-xs-6 d-flex justify-content-center">
+                                        <br />
+                                        <div class="align-middle" style="text-align: center;">
+                                            <h1 class="align-middle" style="font-size: 3rem"><b class="align-middle">Register With Us</b></h1>
+                                        </div>
+                                        
+                                    <hr style="border: 0.2rem #ccc solid;"/>
+                                    </div>
+                                    <!-- <div class="row">
                                         <div class="col-lg-12">
                                             <div class="logo">
-                                                <a href="/"><img src="{% static "icons/long_logo_stroke.png" %}" alt="Mike creatives logo"  width="350"/>
+                                                <a href="/"><img src="{% static  "icons/Mike1.png" %}" alt="Mike creatives logo"  width="350"/>
                                                 </a>
                                             </div>
                                         </div>
@@ -29,141 +37,149 @@
                                                 <h1 style="font-size: xx-large;"><b>Register With Us</b></h1>
                                             </div>
                                         </div>
-                                    </div>
-                                    {% if form.errors %}
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 col-xs-6 align-middle" >
+                                            <a href="/"><img src="{% static "icons/original.png" %}" style="border-radius: 50%; box-shadow:1.0px 0.1rem 0.7rem 0.2rem #000" alt="Mike creatives logo"  width="300"/></a>
+                                               
+                                        </div>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            {% if form.errors %}
+                                                    <div class="row">
+                                                        <div class= "alert alert-danger d-flex justify-content-center " role="alert">                              
+                                                            <em class="invalid center">Please correct the errors in the fields</em>                      
+                                                        </div>
+                                                    </div>
+                                            {% endif %}
+                                        
                                             <div class="row">
-                                                <div class= "alert alert-danger d-flex justify-content-center " role="alert">                              
-                                                    <em class="invalid center">Please correct the errors in the fields</em>                      
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p><strong>Username:</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-input-area">
+                                                        {{form.username}}
+                                                        <i class="fa fa-user login-user"></i>
+                                                        {% if form.errors %}
+                                                        <div class="row">
+                                                            <em class="invalid">{{form.errors.username}}</em>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
-                                     {% endif %}
-                                   
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p><strong>Username:</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                {{form.username}}
-                                                <i class="fa fa-user login-user"></i>
-                                                {% if form.errors %}
-                                                <div class="row">
-                                                    <em class="invalid">{{form.errors.username}}</em>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p><strong>Email Address:</strong></p>
+                                                    </div>
                                                 </div>
-                                                {% endif %}
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p><strong>Email Address:</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                {{form.email}}
-                                                <i class="fa fa-envelope login-user" aria-hidden="true"></i>
-                                                {% if form.errors %}
-                                                    <div class="row">
-                                                        <em class="invalid">{{form.errors.email}}</em>
+                                                <div class="col-lg-8">
+                                                    <div class="login-input-area">
+                                                        {{form.email}}
+                                                        <i class="fa fa-envelope login-user" aria-hidden="true"></i>
+                                                        {% if form.errors %}
+                                                            <div class="row">
+                                                                <em class="invalid">{{form.errors.email}}</em>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                {% endif %}
+                                                    
+                                                </div>
                                             </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p><strong>Password:</strong></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                {{form.password1}}
-                                                <i class="fa fa-lock login-user"></i>
-                                                {% if form.errors %}
-                                                    <div class="row">
-                                                        <em class="invalid">{{form.errors.password1}}</em>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p><strong>Password:</strong></p>
                                                     </div>
-                                                 {% endif %}
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class = "rows">
-                                        <div class = "col-lg-4">
-                                        </div>
-                                        <div class  ="col-lg-8">                                            
-                                            <ul>                                                
-                                                <li style="color: gray; font-size:80%">{{form.password1.help_text}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p><strong>Confirm Password</strong></p>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                {{form.password2}}
-                                                <!-- <input type="password" name="confarm_password" /> -->
-                                                <i class="fa fa-lock login-user"></i>
-                                                
-                                                {% if form.errors %}
-                                                    <div class="row">
-                                                        <em class="invalid">{{form.errors.password2}}</em>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-input-area">
+                                                        {{form.password1}}
+                                                        <i class="fa fa-lock login-user"></i>
+                                                        {% if form.errors %}
+                                                            <div class="row">
+                                                                <em class="invalid">{{form.errors.password1}}</em>
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                {% endif %}
+                                                    
+                                                </div>
                                             </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="row">
-                                        <div class = "col-lg-4"></div>
-                                        <div class="col-lg-8">
-                                            <div class="">
-                                                <a href="{% url 'pages:terms' %}">MIKE Creatives Terms Of Service</a>
+                                            <div class = "rows">
+                                                <div class = "col-lg-4">
+                                                </div>
+                                                <div class  ="col-lg-8">                                            
+                                                    <ul>                                                
+                                                        <li style="color: gray; font-size:80%">{{form.password1.help_text}}</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8">
-                                            <div class="login-keep-me register-check">
-                                                <label class="checkbox">
-                                                    {{form.tos}}<i></i>{{form.tos.label}} of MIKE Creatives Portal
-                                                </label>
-                                                {% if form.errors %}
-                                                    <div class="row">
-                                                        <em class="invalid">{{form.errors.tos}}</em>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="login-input-head">
+                                                        <p><strong>Confirm Password</strong></p>
                                                     </div>
-                                                {% endif %}
+                                                    
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-input-area">
+                                                        {{form.password2}}
+                                                        <!-- <input type="password" name="confarm_password" /> -->
+                                                        <i class="fa fa-lock login-user"></i>
+                                                        
+                                                        {% if form.errors %}
+                                                            <div class="row">
+                                                                <em class="invalid">{{form.errors.password2}}</em>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="row">
+                                                <div class = "col-lg-4"></div>
+                                                <div class="col-lg-8">
+                                                    <div class="">
+                                                        <a href="{% url 'pages:terms' %}">MIKE Creatives Terms Of Service</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-keep-me register-check">
+                                                        <label class="checkbox">
+                                                            {{form.tos}}<i></i>{{form.tos.label}} of MIKE Creatives Portal
+                                                        </label>
+                                                        {% if form.errors %}
+                                                            <div class="row">
+                                                                <em class="invalid">{{form.errors.tos}}</em>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    
+                                                </div>
                                             </div>
                                             
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8">
-                                            <div class="login-button-pro">
-                                                <a href="{% url 'mike_admin:login' %}" class="login-button login-button-rg">Log In</a>
-                                                <button type="submit" class="login-button login-button-lg">Register</button>
+                                            <div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-button-pro">
+                                                        <a href="{% url 'mike_admin:login' %}" class="login-button login-button-rg">Log In</a>
+                                                        <button type="submit" class="login-button login-button-lg">Register</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        <div class="col-lg-3"></div>
+                        <div class="col-lg-2"></div>
                     </div>
                 </div>
             </div>

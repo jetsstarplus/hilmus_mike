@@ -18,8 +18,8 @@ def register_url():
     headers = {"Authorization": "Bearer %s" % access_token}
     request = { "ShortCode":keys.business_shortcode,
         "ResponseType": "Completed",
-        "ConfirmationURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/confirm/",
-        "ValidationURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/validate/"}
+        "ConfirmationURL": "https://mikecreatives.com/payments/lmmapi/confirm/",
+        "ValidationURL": "https://mikecreatives.com/payments/lmmapi/validate/"}
 
     try:
         response = requests.post(api_url, json = request, headers=headers)
