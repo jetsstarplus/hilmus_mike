@@ -18,40 +18,55 @@
       </li>
   {% endblock %}
 {% block content %}
-<div class="container">
-    <form method='POST' enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-6 card mb-4  mt-3 left  top">
-                {% if form.is_bound %}
-                {% if slug != None%}
-                
-                <div class="alert alert-success alert-st-one" role="alert">
-                    <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
-                    <p class="message-mg-rt"><strong>Well done!</strong>Your post was successfully created</p>
-                </div>   
-                  <div class="row">                                            
-                        <a class="col-md-5 mb-4" href="{% url 'article:update_post' slug %}"><button type="button" class="btn btn-primary btn-sm">Edit Post</button></a>
-                        <a class="col-md-5 mb-4" href="{% url 'article:delete_post' slug %}"><button type="button" class="btn btn-danger btn-sm">Delete Post</button></a>
-                  </div>
-                  <br />
-                  {% endif %}
-                  {% endif %}
+<div class="container-fluid">
+    <div class="container-fluid align-center" >
+        <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row" >
+                <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top" >
+                   <br />
+                    {% if form.is_bound %}
+                    {% if slug != None%}
+                    <br />
+                    <div class="alert alert-success alert-st-one" role="alert">
+                        <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
+                        <p class="message-mg-rt"><strong>Well done!</strong>Your post was successfully created</p>
+                    </div>   
+                    <hr/>
 
-                <div class = "card-body"> 
-                    {% if not form.is_bound%}
-                     <h1>Create A New Post</h1> 
+                    <div class="row">                                            
+                            <a class="col-md-5 mb-4" href="{% url 'article:update_post' slug %}"><button type="button" class="btn btn-primary btn-sm">Edit Post</button></a>
+                            <a class="col-md-5 mb-4" href="{% url 'article:delete_post' slug %}"><button type="button" class="btn btn-danger btn-sm">Delete Post</button></a>
+                    </div>
+                    <br />
                     {% endif %}
-                                  
-                {{form | crispy}}
+                    {% endif %}
+                    
+                    {% if error %}
+                        <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+                            <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
+                            <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
+                        </div>                    
+                    <br />
+                    {% endif %}
+
+                    <div class = "card-body"> 
+                        <h1 class = "center"><strong>Create A New Post</strong></h1>
+                        <hr />
+                        <br />                                    
+                    {{form | crispy}}
+                    </div>
+
+                    <div class="login-button-pro">
+                        <button type="submit" class="login-button login-button-lg"> Create Post </button>
+                    </div>
                 </div>
+            
             </div>
-        </div>
-        <div class="login-button-pro">
-           {% if form.is_bound %} {% else %} <button type="submit" class="login-button login-button-lg"> Create Post </button> {% endif %}
-          </div>
-          
-    </form>
+            
+            
+        </form>
+    </div>
 </div>
 
 {% endblock content %}

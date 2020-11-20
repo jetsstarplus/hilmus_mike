@@ -25,12 +25,13 @@ def create_post(request):
     if user.is_staff:   
         if request.method=='POST':
             form = PostForm(request.FILES, request.POST)
-            if form.is_valid():
-               
+            if form.is_valid():               
                 new_post= form.save(commit=False)
                 new_post.author= request.user
                 new_post.save()
+                print('passed')
                 slug=new_post.slug
+                print("last")
             else:
                 error="There was a problem with your submission"
         else:

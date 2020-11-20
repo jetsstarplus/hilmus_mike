@@ -53,7 +53,7 @@ class StaffMemberForm(forms.ModelForm):
 class MusicForm(forms.ModelForm):
     class Meta:
         model = Music
-        fields=['description', 'title', 'music', 'picture', 'is_boompay', 'is_skiza']
+        fields=['title', 'music', 'picture', 'is_boompay', 'is_skiza', 'description']
         
         widgets = {'music': forms.FileInput(
             attrs={

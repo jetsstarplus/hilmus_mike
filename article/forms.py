@@ -1,6 +1,7 @@
 from .models import Comment, Post
 from django import forms
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -14,9 +15,9 @@ class CommentForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields=('title', 'image', 'content', 'status')   
+        fields=('title', 'image', 'content', 'status') 
         widgets ={
-            'content': SummernoteWidget,
+            'content':  SummernoteWidget(),
         }  
         
 class PostUpdateForm(forms.ModelForm):

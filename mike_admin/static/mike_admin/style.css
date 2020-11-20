@@ -29,10 +29,13 @@ html, body.materialdesign {
 	background-image: url('./bgg.jpg');
 	background-repeat:no-repeat; 
 	background-attachment: fixed;
+	height: 100vh;
+	width:100%;
+	overflow-x: hidden;
 	background-size: cover;
 	background-position: center;
 	backface-visibility: hidden;
-	background-color: radial-gradient(#23d56d, #021f07, #bae421);
+	background-color: radial-gradient(#07140d, #021f07, #026821ce);
 }
 .floatleft {float:left}
 .floatright {float:right}
@@ -129,6 +132,18 @@ padding: 0
 }
 .shadow-reset{
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+}
+
+.homeback{
+	background-color: rgba(129, 241, 43, 0.65);
+}
+
+.white{
+	color:#b9b6b6
+}
+
+.center{
+	text-align: center;
 }
 /*----------------------------------------*/
 /*  2.  Header top Customize CSS
@@ -3960,14 +3975,14 @@ ul.breadcome-menu {
 	margin:0px;
 }
 .materialdesign #sidebar .sidebar-header{
-	background: #f3f3f3;
+	background: #bbb9b9;
 }
 .materialdesign .footer-copyright-area{
 	background: #fff;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
 }
 .materialdesign #sidebar{
-	background: #fff;
+	background: #d3caca;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 .materialdesign .sidebar-header h3, .materialdesign #sidebar .sidebar-header strong, .materialdesign .sidebar-header p, .materialdesign .footer-copy-right p, .materialdesign .footer-copy-right a{
