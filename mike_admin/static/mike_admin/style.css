@@ -136,11 +136,27 @@ padding: 0
 
 .homeback{
 	background-color: rgba(129, 241, 43, 0.65);
+	border-radius: 7px;
 }
 
-.white{
-	color:#b9b6b6
+.title-my{
+	background-color: rgba(210, 240, 206, 0.795);
 }
+.box-my{
+	border-radius: 10px;
+	box-shadow: 1.5px 0.5rem 1rem 0.4rem rgb(0, 0, 0);
+}
+.white-title{
+	color:#f8f6f6;
+	font-size: 3.5rem;
+	text-shadow: 1.2px 0.4rem rgb(0, 0, 0);
+}
+/* 
+.white-title{
+	color:#f8f6f6;
+	font-size:12%
+	text-shadow: 1.2px 0.4rem rgb(0, 0, 0);
+} */
 
 .center{
 	text-align: center;
