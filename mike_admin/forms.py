@@ -28,17 +28,17 @@ class TermsForm(forms.ModelForm):
     class Meta:
         model=TermsOfService
         fields=('title', 'content')   
-        widgets ={
-            'content': SummernoteWidget,
-        }
+        # widgets ={
+        #     'content': SummernoteWidget,
+        # }
   
 class ServiceForm(forms.ModelForm):
     class Meta:
         model=Service
         exclude=('date_added', 'date_modified')   
-        widgets ={
-            'content': SummernoteWidget,
-        }  
+        # widgets ={
+        #     'content': SummernoteWidget,
+        # }  
   
 class TestimonialForm(forms.ModelForm):
      class Meta:

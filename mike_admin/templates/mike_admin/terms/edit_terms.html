@@ -18,47 +18,53 @@
       </li>
   {% endblock %}
 {% block content %}
-<div class="container">
-    <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_terms' terms.id %}">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-6 card mb-4  mt-3 left  top">
-                {% if message %}
-                <div class="alert alert-success alert-st-one" role="alert">
-                    <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
-                    <p class="message-mg-rt"><strong>Well done!     </strong>{{message}}</p>
-                </div>   
-                
-                  <div class="row">                                            
-                        <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_terms' terms.id %}"><button type="button" class="btn btn-danger btn-sm">Delete Terms</button></a>
-                  </div>
-                  <br />
-                  {% endif %}
-
-                  {% if error %}
-                    <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
-                        <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
-                        <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
+<div class="container-fluid">
+    <div class="container-fluid">
+        <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_terms' terms.id %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
+                    {% if message %}
+                    <br />
+                    <div class="alert alert-success alert-st-one" role="alert">
+                        <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
+                        <p class="message-mg-rt"><strong>Well done!     </strong>{{message}}</p>
+                    </div>   
+                    
+                    <div class="row">                                            
+                            <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_terms' terms.id %}"><button type="button" class="btn btn-danger btn-sm">Delete Term</button></a>
                     </div>
-                
-                  <br />
-                  {% endif %}
-
-                <div class = "card-body"> 
-                    {% if not form.is_bound%}
-                     <h1><strong style="color:blue">Edit Term</strong></h1> 
-                     <br />
+                    <br />
                     {% endif %}
-                              
-                {{form | crispy}}
+
+                    {% if error %}
+                    <br />
+                        <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+                            <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
+                            <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
+                        </div>
+                    
+                    <br />
+                    {% endif %}
+
+                    <div class = "card-body"> 
+                        {% if not form.is_bound%}
+                        <br />
+                        <h1 class="center"><strong>Edit Term Of Service</strong></h1> 
+                        <hr />
+                        {% endif %}
+                                
+                    {{form | crispy}}
+                    </div>
+                    <div class="login-button-pro">
+                        <button type="submit" class="login-button login-button-lg"> Update Term </button> 
+                    </div>
+                        
                 </div>
             </div>
-        </div>
-        <div class="login-button-pro">
-           <button type="submit" class="login-button login-button-lg"> Update Term </button> 
-          </div>
-          
-    </form>
+            
+        </form>
+    </div>
 </div>
-
+<br />
 {% endblock content %}

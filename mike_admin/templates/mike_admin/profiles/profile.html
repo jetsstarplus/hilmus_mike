@@ -19,7 +19,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="user-profile-wrap shadow-reset">
+                            <div class="user-profile-wrap border-radius shadow-reset">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="row">
@@ -31,7 +31,7 @@
                                             <div class="col-lg-9">
                                                 <div class="user-profile-content">
                                                     
-                                                    <h2>{% if profile.full_name %} {{profile.name}} {% else %} Please complete your profile {{profile.username}} {% endif %}</h2>
+                                                    <p class="alert alert-warning">{% if profile.full_name %} {{profile.name}} {% else %} Please complete your profile <em class="text-primary">{{profile.username}}</em> {% endif %}</p>
                                                     <p class="profile-founder">{{profile.email}}
                                                     </p>
                                                     <h3 class="profile-des">{% if profile.is_superuser %} Super User {% elif profile.is_staff %} Staff Member {% else %} user {% endif %}</h3>
@@ -45,10 +45,10 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <strong>{{music_number}}</strong> Uploaded Music content
+                                                            <strong>{{music_number}} </strong> <em>Uploaded Music content</em>
                                                         </td>
                                                         <td>
-                                                            <strong>{{boomplay}}</strong> Content on boomplay
+                                                            <strong>{{boomplay}} </strong> <em>Content on boomplay</em>
                                                         </td>
 
                                                     </tr>
@@ -56,11 +56,11 @@
                                                         {% if user.is_staff %}
                                                        
                                                         <td>
-                                                            <strong>{{article.count}}</strong> Articles
+                                                            <strong>{{article.count}} </strong><em>Articles</em>
                                                         </td>
                                                         {% endif %}
                                                         <td>
-                                                            <strong>{{skiza}}</strong>Generated Skiza Code
+                                                            <strong>{{skiza}} </strong><em>Generated Skiza Code</em>
                                                         </td>
                                                     </tr>
                                                    
@@ -83,11 +83,11 @@
                     </div>
                 </div>
             </div>
-            <div class="user-prfile-activity-area mg-b-40 mg-t-30">
+            <div class="user-profile-activity-area mg-b-40 mg-t-30">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3">
-                            <div class="user-profile-about shadow-reset">
+                            <div class="user-profile-about border-radius shadow-reset">
                                 <h2>About {% if profile.full_name %} {{profile.name}} {% else %} {{profile.username}} {% endif %} </h2>
                                 <p>{% if user.information %}{{user.information}} {% else %} No extra information {% endif %}</p>
                                 <div class="button-style-four btn-mg-b-10">
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                                <div class="sparkline9-list shadow-reset mg-tb-30">
+                                <div class="sparkline9-list shadow-reset border-radius">
                                     <div class="sparkline9-hd">
                                         <div class="main-sparkline9-hd">
                                             <h1>Paid Services</h1>

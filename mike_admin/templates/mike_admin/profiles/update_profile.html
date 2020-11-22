@@ -1,6 +1,7 @@
 {% extends '../base_site.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load thumbnail %}
 {% block title %}  Mike Creatives Portal {% endblock%}
             {% block breadcrump %}
           <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
@@ -23,11 +24,11 @@
     <div class="login-form-area mg-t-30 mg-b-15">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3"></div>
+                <div class="col-lg-2"></div>
                 <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="col-lg-6">
-                        <div class="login-bg">
+                    <div class="col-lg-8">
+                        <div class="login-bg border-radius">
                             
                             <div class="row">
                                 <div class="col-lg-12">
@@ -56,12 +57,12 @@
                                 {% endif %}
                             </div>
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="login-input-head">
                                         <p><strong>Full Name:</strong></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-9">
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="login-input-area register-mg-rt">
@@ -84,14 +85,14 @@
                             <br />
                             
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="login-input-head">
                                         <p><strong>Profile Picture:</strong></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-5">
                                     <div class="login-input-area">
-<!--                                         
+                                                                                    
                                         <div class="file-upload-inner ts-forms">
                                             <div class="input prepend-big-btn">
                                                 <label class="icon-right" for="prepend-big-btn">
@@ -99,27 +100,31 @@
                                                 </label>
                                                 <div class="file-button">
                                                     Browse
-                                                    <input type="file" onchange="document.getElementById('prepend-big-btn').value = this.value;">
+                                                    <input type="file" name="avatar" onchange="document.getElementById('prepend-big-btn').value = this.value;">
                                                 </div>
                                                 <input type="text" id="prepend-big-btn" placeholder="no file selected">
                                             </div>
-                                        </div> -->
-                                        {{form.avatar}}
+                                        </div>
+                                        <!-- {{form.avatar}} -->
                                         <!-- <i class="fa fa-envelope login-user" aria-hidden="true"></i> -->
                                     </div>
                                 </div>
+                                <div class="col-lg-4 sidebar-header">
+                                    <img src="{% if user.avatar %} {{user.avatar |thumbnail_url:'avatar2'  }} {%else%} {% static 'mike_admin/img/message/1.jpg' %} {% endif %}" alt="user avatar" />
+                                     <p class="text-primary"><em>Current</em></p>
+                                </div>
                             </div>
-                            <br />
+                            
                             <hr />
                             <br />
                             
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="login-input-head">
                                         <p><Strong>Tell us About Yourself:</Strong></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-9">
                                     <div class="login-input-area">
                                         {{form.information}}
                                         <!-- <i class="fa fa-envelope login-user" aria-hidden="true"></i> -->
@@ -129,7 +134,7 @@
                             
                            
                             <div class="row">
-                                <div class="col-lg-4"></div>
+                                <div class="col-lg-3"></div>
                                 <div class="col-lg-8">
                                     <div class="login-button-pro">
                                         <button type="submit" class="login-button login-button-lg">Update Profile</button>

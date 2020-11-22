@@ -5,7 +5,7 @@ from django.utils import timezone
 import uuid
 
 from .upload_handler import validate_file_extension
-
+from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 # from account.models import SeoModel
 
 class Music(models.Model):
@@ -38,7 +38,7 @@ class Testimonial(models.Model):
     """A model for creating a testimonial person/ member"""
     name=models.CharField(max_length=30)
     picture=models.ImageField(upload_to="testimonials", blank=True, null=True)
-    is_published= models.BooleanField(default=False)
+    is_published= models.BooleanField(default=False, verbose_name="Publish Testimonial?")
     content= models.TextField()
     added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
     date_added= models.DateTimeField(auto_now_add=True)
@@ -53,10 +53,10 @@ class StaffMember(models.Model):
     role=models.CharField(max_length=15)
     rank= models.IntegerField(default=1)
     picture=models.ImageField(upload_to="testimonials", blank=True, null=True)
-    is_published= models.BooleanField(default=False)
-    facebook= models.CharField(max_length=50, blank=True, null=True)
-    twitter=models.CharField(max_length=50, blank=True, null=True)
-    instagram=models.CharField(max_length=50, blank=True, null=True)
+    is_published= models.BooleanField(default=False, verbose_name="Publish Testimonial?")
+    facebook= models.CharField(max_length=50, blank=True, null=True, verbose_name="Facebook Link")
+    twitter=models.CharField(max_length=50, blank=True, null=True, verbose_name="Twitter Link")
+    instagram=models.CharField(max_length=50, blank=True, null=True, verbose_name="Instagram Link")
     
     def __str__(self):
         return(self.name)
@@ -65,7 +65,7 @@ class StaffMember(models.Model):
 class TermsOfService(models.Model):
     """A model representing the terms of service contents"""
     title= models.CharField(max_length=30)
-    content= models.TextField()
+    content= SummernoteTextField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
     
@@ -80,7 +80,7 @@ class Service(models.Model):
     home_page_text= models.TextField()
     pricing= models.CharField(max_length=10)
     title= models.CharField(max_length=30)
-    content= models.TextField()
+    content= SummernoteTextField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
     

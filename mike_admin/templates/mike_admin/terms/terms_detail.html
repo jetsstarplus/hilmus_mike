@@ -19,26 +19,31 @@
       </li>
   {% endblock %}
 {% block content %}
-<div class="container">
-    <div class="col-md-9 card mb-6  mt-3">
-      <div class="card-body white">
+<div class="container-fluid">
+    <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left top">
+      <div class="card-body  border-radius">
         <div class="income-dashone-pro">
+            <div class="row container-fluid">
+                <!-- <div class="col-md-12 center homeback alert primary-alert">
+                    <h1><strong>Term of Service</strong></h1>
+                </div> -->
+            </div>
             {% if user.is_staff %}
             <div class = "row">
                 <a href = "{% url 'mike_admin:update_terms' post.id %}"><button class="btn btn-primary btn-sm">Edit Term</button></a>
                 <a href = "{% url 'mike_admin:delete_terms' post.id %}"><button class="btn btn-danger btn-sm">Delete Term</button></a>
             </div>
-             {% endif%}
-             <hr />
-            <h1>{{post.title}}</h1>  
             <hr />
+             {% endif%}
+             
             <div class="clear"></div>
         </div>
         <div>
             
         </div>
         <div class="income-dashone-pro">
-            <h1>{{post.title}}</h1>                
+            <h1><strong>{{post.title}}</strong></h1>  
+            <hr />              
             <div class="income-range low-value-cl">
                 {{ post.content | safe }}
             </div>

@@ -15,96 +15,93 @@
   {% endblock %}
 {% block content %}
 <div class="feed-mesage-project-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="col-lg-12">
-        <div class="row">
-            <div class="col-md-5 alert primary-alert">
-                <h1><strong>All Users</strong></h1>
-            </div>
-        </div>
-
-                        <div class="col-lg-12">
-                            <div class="sparkline9-list shadow-reset mg-tb-30">
-                                <div class="sparkline9-hd">
-                                    <div class="main-sparkline9-hd">
-                                        <h1>Active Users</h1>
-                                        <div class="sparkline9-outline-icon">
-                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sparkline9-graph dashone-comment">
-                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
-                                        <div id="toolbar1">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
-                                            <thead>
-
-                                                <tr>
-                                                    <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="Username">Username</th>
-                                                    <th data-field="Full Name" data-editable="false">Full Name</th>
-                                                    <th data-field="Email" data-editable="false">Email</th>
-                                                    <th data-field="Phone Number" data-editable="false">Phone Number</th>
-                                                    <th data-field="Musics" data-editable="false">Musics</th>
-                                                    <th data-field="Active" data-editable="false">Active</th>
-                                                    <th data-field="Has Payed" data-editable="false">Has Payed</th>
-                                                    <th data-field="Date Joined" data-editable="false">Date Joined</th>
-                                                    <th data-field="Staff Member" data-editable="false">Staff Member</th>
-                                                    <th data-field="Avatar" data-editable="false">Avatar</th>  
-                                                    <th data-field="Action" data-editable="false">Action</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% if accounts %}
-                                                {% for account in accounts %}
-                                                {% if user.is_staff %}
-                                                <tr>
-                                                    <td></td>
-                                                    <td>{{account.username}}</td>
-                                                    <td>{{account.get_full_name}}</td>
-                                                    <td>{{account.email}}</td>
-                                                    <td>{{account.phone}}</td>
-                                                    <td>{{account.musics.count}}</td>
-                                                    <td>{% if account.is_active %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
-                                                    <td>{% if account.is_payed %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
-                                                    <td>{{account.date_joined}}</td>
-                                                    <td>{% if account.is_staff or account.is_superuser%}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td>
-                                                    <td><img src="{{ account.avatar | thumbnail_url:'avatar_small' }}" alt="picture"/></td>                                    
-                                                    <td style="">
-                                                        <div class="btn-group project-list-action">
-                                                            <a href="{% url 'mike_admin:user_detail' account.username %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                                {% endif %}
-                                                {% endfor %}
-                                                
-                                                {% endif %}
-                                            </tbody>
-                                        </table>
-                                        {% if not accounts %}
-                                        <div class= "alert alert-primary" role="alert">
-                                            <h2>There are no users to see here</h2>
-                                            
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
+            <div class="col-xl-12">
+                <div class="sparkline9-list shadow-reset mg-tb-30 border-radius">
+                    <div class="sparkline9-hd">
+                        <div class="main-sparkline9-hd">
+                            <h1>All Users</h1>
+                            <div class="sparkline9-outline-icon">
+                                <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
                             </div>
-                        </div>     
-                                                
-                <br />
-                <br />          
+                        </div>
+                    </div>
+                    <div class="sparkline9-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="Username">Username</th>
+                                        <th data-field="Full Name" data-editable="false">Full Name</th>
+                                        <th data-field="Email" data-editable="false">Email</th>
+                                        <th data-field="Phone Number" data-editable="false">Phone Number</th>
+                                        <th data-field="Musics" data-editable="false">Musics</th>
+                                        <th data-field="Active" data-editable="false">Active</th>
+                                        <th data-field="Has Payed" data-editable="false">Has Payed</th>
+                                        <th data-field="Date Joined" data-editable="false">Date Joined</th>
+                                        <th data-field="Staff Member" data-editable="false">Staff Member</th>
+                                        <th data-field="Avatar" data-editable="false">Avatar</th>  
+                                        <th data-field="Action" data-editable="false">Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if accounts %}
+                                    {% for account in accounts %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{account.username}}</td>
+                                        <td>{{account.get_full_name}}</td>
+                                        <td>{{account.email}}</td>
+                                        <td>{{account.phone}}</td>
+                                        <td>{{account.musics.count}}</td>
+                                        <td>{% if account.is_active %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
+                                        <td>{% if account.is_payed %}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td> 
+                                        <td>{{account.date_joined}}</td>
+                                        <td>{% if account.is_staff or account.is_superuser%}<i style="color:green; font-size:2rem" class="fa fa-check"></i> {% else %}<i style="color:red; font-size:2rem" class="fa fa-times">{% endif %}</i></td>
+                                        <td><img style="border-radius:50%" src="{{ account.avatar | thumbnail_url:'avatar_small' }}" alt="picture"/></td>                                    
+                                        <td style="">
+                                            <div class="btn-group project-list-action">
+                                                <a href="{% url 'mike_admin:user_detail' account.username %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not accounts %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no users to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>     
+                 
+            
+            <!-- These are the inactive Users that their emails have not been active -->
+            
+            <br />
+            <br />          
         </div>
     </div>
     

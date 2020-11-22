@@ -35,6 +35,9 @@ html, body.materialdesign {
 	background-size: cover;
 	background-position: center;
 	backface-visibility: hidden;
+	/* background-color: -ie-radial-gradient(#07140d, #021f07, #026821ce);	 */
+	background-color: -webkit-radial-gradient(#07140d, #021f07, #026821ce);
+	background-color: -moz-radial-gradient(#07140d, #021f07, #026821ce);
 	background-color: radial-gradient(#07140d, #021f07, #026821ce);
 }
 .floatleft {float:left}
@@ -134,23 +137,46 @@ padding: 0
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
 }
 
+/* My styling */
 .homeback{
 	background-color: rgba(129, 241, 43, 0.65);
-	border-radius: 7px;
+	border-radius: 7px;	
+	box-shadow: 1.5px 0.15rem 0.51rem 0.4rem rgba(0, 0, 0, .5);
 }
 
+/* preloader styling */
+div#preloader {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 99999;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	background: #fff url('img/126.svg') no-repeat center center;
+  }
+.hometitle{
+	background-color: rgba(256, 256, 256, 0.65);
+	border-radius: 7px;	
+	box-shadow: 1.5px 0.15rem 0.51rem 0.4rem rgba(0, 0, 0, .5);
+}
 .title-my{
 	background-color: rgba(210, 240, 206, 0.795);
 }
 .box-my{
 	border-radius: 10px;
-	box-shadow: 1.5px 0.5rem 1rem 0.4rem rgb(0, 0, 0);
+	box-shadow: 1.5px 0.15rem 0.51rem 0.4rem rgba(0, 0, 0, 0.5);
 }
 .white-title{
 	color:#f8f6f6;
 	font-size: 3.5rem;
 	text-shadow: 1.2px 0.4rem rgb(0, 0, 0);
 }
+.border-radius{
+	border-radius: 5px;	
+	box-shadow: 1.5px 0.5rem 0.5rem 0.4rem rgba(0, 0, 0,.5);
+}
+/* Endof my styling */
 /* 
 .white-title{
 	color:#f8f6f6;
@@ -4098,4 +4124,10 @@ ul.breadcome-menu {
 }
 .materialdesign .progress-circular4 p{
 	font-size:12px;
+}
+
+/* My styling */
+.border-radius{
+	border-radius: 5px;	
+	box-shadow: 1.5px 0.5rem 0.5rem 0.4rem rgba(0, 0, 0,.5);
 }

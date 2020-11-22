@@ -20,22 +20,18 @@
   {% endblock %}
 {% block content %}
 {% if user.is_staff%}
-<div class="container">
-    <div class="col-md-9 card mb-6  mt-3">
-      <div class="card-body white">
-        <div class="income-dashone-pro">
-          
-            <h1>{{account.username}}</h1>  
-            <div class="clear"></div>
-        </div>
+<div class="container-fluid">
+    <div class="col-md-10 col-sm-12 col-xs-12 col-xl-9 col-lg-10 card mb-4  mt-30 left homeback top">
+      <div class="card-body white" style="padding:0 1rem 1rem 0">
+        
         <div class = 'row'>
             <br />
-            <div class = 'col-md-6'>
-                <img src="{% thumbnail account.avatar 270x370 crop %}" alt="post picture">
+            <div class = 'col-md-4'>
+                <img class="border-radius" src="{% thumbnail account.avatar 350x500 crop %}" alt="post picture">
              </div>
-             <div class="income-dashone-pro col-md-6">
+             <div class="income-dashone-pro border-radius col-md-8">
                  <div>
-                    <h1>{{account.username}}</h1>  
+                    <h2>{{account.username | title}} - <em class="text-muted">{{account.email}}</em></h2>
                     <p class=" text-muted">{{ account.get_full_name }} | Joined on {{ account.date_joined }}</p>
                  
                  </div>
@@ -86,7 +82,127 @@
         </div>
         
       </div>
-    </div> 
+      <div style="padding:2rem; color:rgb(253, 235, 235)" class="center">
+          <hr />
+          <h3><strong>{{account.get_full_name}}'s Artwork</strong></h3>
+          <hr />
+      </div>
+        <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
+            <div class="sparkline9-hd">
+                <div class="main-sparkline9-hd">
+                    <h1>Pending...</h1>
+                    <div class="sparkline9-outline-icon">
+                        <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                        <span><i class="fa fa-wrench"></i></span>
+                        <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="sparkline9-graph dashone-comment">
+                <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                    <div id="toolbar1">
+                        <select class="form-control">
+                            <option value="">Export Basic</option>
+                            <option value="all">Export All</option>
+                            <option value="selected">Export Selected</option>
+                        </select>
+                    </div>
+                    <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                        <thead>
+
+                            <tr>
+                                <th data-field="state" data-checkbox="true"></th>
+                                <th data-field="Username">Title</th>
+                                <th data-field="Email" data-editable="false">Music</th>
+                                <th data-field="Phone Number" data-editable="false">Date Uploaded</th>
+                                
+                                <th data-field="Actions" data-editable="false">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if musics %}
+                            {% for music in musics %}
+                            {% if music.artist == user or user.is_staff %}
+                            <tr>
+                                <td></td>
+                                <td>{{music.title}}</td>
+                                <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
+                                <td>{{music.date_added}}</td>                                                    
+                                <td>
+                                    <div class="btn-group project-list-action">
+                                        <a href="{% url 'mike_admin:music_detail' music.id %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                            
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
+            <div class="sparkline9-hd">
+                <div class="main-sparkline9-hd">
+                    <h1>Uploaded Music</h1>
+                    <div class="sparkline9-outline-icon">
+                        <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                        <span><i class="fa fa-wrench"></i></span>
+                        <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="sparkline9-graph dashone-comment">
+                <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                    <div id="toolbar1">
+                        <select class="form-control">
+                            <option value="">Export Basic</option>
+                            <option value="all">Export All</option>
+                            <option value="selected">Export Selected</option>
+                        </select>
+                    </div>
+                    <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="5" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                        <thead>
+
+                            <tr>
+                                <th data-field="state" data-checkbox="true"></th>
+                                <th data-field="Username">Title</th>
+                                <th data-field="Email" data-editable="false">Music</th>
+                                <th data-field="Phone Number" data-editable="false">Date Uploaded</th>
+                                
+                                <th data-field="Actions" data-editable="false">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if upload%}
+                            {% for music in upload %}
+                            {% if music.artist == user or user.is_staff %}
+                            <tr>
+                                <td></td>
+                                <td>{{music.title}}</td>
+                                <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
+                                <td>{{music.date_added}}</td>                                                    
+                                <td>
+                                    <div class="btn-group project-list-action">
+                                        <a href="{% url 'mike_admin:music_detail' music.id %}" class="btn btn-white btn-action btn-xs"><i class="fa fa-folder"></i> View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            
+                            {% endfor %}
+                            
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>  
 {% endif %}
 <br />

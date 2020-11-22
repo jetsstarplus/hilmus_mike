@@ -4,23 +4,24 @@
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Staffs</span>
+      <li><span class="bread-blod">Staff Members</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Staffs</span>
+      <li><span class="bread-blod">Staff Members</span>
       </li>
   {% endblock %}
 {% block content %}
 <div class="feed-mesage-project-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="col-lg-8">
         <div class="row">
-            <div class="col-md-5 alert primary-alert">
+            <!-- <div class="col-md-1"></div>
+            <div class="col-md-10 hometitle center alert primary-alert">
                 <h1><strong>Staff Members</strong></h1>
-            </div>
+            </div> -->
         </div>
         
             <!-- Blog Entries Column -->
@@ -28,10 +29,10 @@
                 {% if staffs %}
                 {% for post in staffs %}
                 <div class="card col-lg">
-                    <div class="card-body">
+                    <div class="card-body border-radius">
                         <div class="income-title">
                             <div class="main-income-head">
-                                <h2>{{ post.title }}</h2>
+                                <h2>{{post.name.first_name}} {{post.name.last_name}} : {{ post.name }}</h2>
                                 <div class="income-rate-total">
                                     <div class="price-adminpro-rate">
                                         <p class="card-text text-muted h6">{{ post.rank }} | {{ post.role}} </p>
@@ -43,11 +44,15 @@
                         <div class="income-dashone-pro">  
                             <div class= "row">
                                 <div class="col-md-3">
-                                    {% if post.image %}
+                                    {% if post.picture %}
                                         <img src="{% thumbnail post.picture 200x150 crop%}" alt="staff image">
                                     {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
+                                    <div class="container-fluid">
+                                        <h5>{% if post.is_published %} <strong style="color:green">😊 
+                                            Published </strong>{% else %} <strong style="color:red">😒 Not Published</strong> {% endif %}</h5>
+                                    </div>
                                     <p class="card-text">{{post.content | safe |slice:":200" }}</p>...</p></i></em>
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">

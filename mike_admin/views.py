@@ -130,7 +130,7 @@ def update_profile(request):
 
 # The testimonial controllers
 class TestimonialList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
-    queryset = Testimonial.objects.filter(is_published=True).order_by('-date_added')
+    queryset = Testimonial.objects.all().order_by('-date_added')
     template_name = 'mike_admin/testimonials/index.html'
     context_object_name='testimonials'
     paginate_by=10
@@ -147,6 +147,7 @@ def create_testimonial(request):
     error=None
     slug=None
     user=request.user
+    message=None
     
     if user.is_staff:   
         if request.method=='POST':
@@ -155,6 +156,8 @@ def create_testimonial(request):
                
                 new_post= form.save(commit=False)
                 new_post.added_by= request.user
+                
+                message=" Testimonial Successfully created!"
                 new_post.save()
             else:
                 error="There was a problem with your submission"
@@ -166,7 +169,8 @@ def create_testimonial(request):
         'new_post':new_post,
         'form':form,
         'slug':slug,
-        'error':error
+        'error':error,
+        'message':message,
         }
     return render(request, template_name, context=context)
 
@@ -188,7 +192,7 @@ def update_testimonial(request, id):
                     form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=post.id
-                    message="Testimonials Update successful"
+                    message="Testimonial Update successful"
                 except:
                     error="There was a problem with your submission"
             else:
@@ -254,7 +258,7 @@ def testimonial_detail(request, id):
 
 # The Staff Members controllers
 class StaffList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
-    queryset = StaffMember.objects.filter(is_published=True).order_by('-rank')
+    queryset = StaffMember.objects.all().order_by('-rank')
     template_name = 'mike_admin/staff/index.html'
     context_object_name='staffs'
     paginate_by=10
@@ -269,6 +273,7 @@ def create_staff(request):
     error=None
     id=None
     user=request.user
+    message= None
     
     if user.is_staff:   
         if request.method=='POST':
@@ -276,6 +281,8 @@ def create_staff(request):
             if form.is_valid():
                new_post =form.save()
                id= new_post.id
+               
+               message=" Staff Member Successfully created!"
             else:
                 error="There was a problem with your submission"
         else:
@@ -286,7 +293,8 @@ def create_staff(request):
         'new_post':new_post,
         'form':form,
         'id':id,
-        'error':error
+        'error':error,
+        'message':message
         }
     return render(request, template_name, context=context)
 
@@ -308,7 +316,7 @@ def update_staff(request, id):
                     form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=post.id
-                    message="Staff Update successful"
+                    message="Staff Information Updated successful"
                 except:
                     error="There was a problem with your submission"
             else:
@@ -366,7 +374,7 @@ def delete_staff(request, id):
 @user_passes_test(lambda user: user.is_staff)
 def staff_detail(request, id):
     template_name = 'mike_admin/staff/staff_detail.html'
-    post = get_object_or_404(Testimonial, pk=id)     # Comment posted
+    post = get_object_or_404(StaffMember, pk=id)     # Comment posted
     
     context = {
         'post': post
@@ -390,12 +398,14 @@ def create_terms(request):
     error=None
     id=None
     user=request.user
+    message=None
     
     if user.is_staff:   
         if request.method=='POST':
             form = TermsForm(request.POST)
             if form.is_valid():
                new_post= form.save()
+               message=" Terms Of Service Successfully created!"
                id= new_post.id
             else:
                 error="There was a problem with your submission"
@@ -407,7 +417,8 @@ def create_terms(request):
         'new_post':new_post,
         'form':form,
         'id':id,
-        'error':error
+        'error':error,
+        'message':message,
         }
     return render(request, template_name, context=context)
 
@@ -506,6 +517,7 @@ def create_music(request, **kwargs):
     id=None
     user=request.user
     form=None
+    message=None
     
     if user.is_payed or user.is_staff:   
         if request.method=='POST':
@@ -515,6 +527,8 @@ def create_music(request, **kwargs):
                new_post.artist= user
                new_post.save()
                id= new_post.pk
+               
+               message="Your Music Has Been Successfully Uploaded!"
             else:
                 error="There was a problem with your submission"
         else:
@@ -527,7 +541,8 @@ def create_music(request, **kwargs):
         'new_post':new_post,
         'form':form,
         'id':id,
-        'error':error
+        'error':error,
+        'message':message,
         }
     return render(request, template_name, context=context)
 
@@ -622,6 +637,7 @@ class UserList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = get_user_model().objects.all().order_by('-date_joined')
     template_name = 'mike_admin/users/users.html'
     context_object_name= "accounts"
+    
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
 
@@ -630,10 +646,16 @@ class UserList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
 def user_detail(request, username, **kwargs):
     template_name = 'mike_admin/users/user_details.html'
     account = None    # Comment posted
+    musics=None
+    upload=None
     if request.user.is_staff:
             account = get_object_or_404(get_user_model(), username=username) 
+            musics=Music.objects.filter(artist=account, is_sent=False)
+            upload=Music.objects.filter(artist=account, is_sent=True)
     context = {
-        'account': account
+        'account': account,
+        'musics':musics,
+        'upload':upload
     }
     return render(request, template_name, context=context)
 

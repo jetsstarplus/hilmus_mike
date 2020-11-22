@@ -1,6 +1,6 @@
 {% extends 'mike_admin/base_site.html' %} 
 {% load thumbnail %}
-{% block title %} {{ post.title }} | Mike Creatives {% endblock title %}
+{% block title %} {{ post.name }} | Mike Creatives {% endblock title %}
 {% block breadcrump %}
 
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
@@ -20,39 +20,43 @@
   {% endblock %}
 {% block content %}
 
-<div class="container">
-    <div class="col-md-9 card mb-6  mt-3">
-      <div class="card-body white">
-        <div class="income-dashone-pro">
-            {% ifequal user post.author %}
-            <div class="row">
-                <div class = "col-md-6">
-                    <a href = "{% url 'mike_admin:update_staff' post.id %}"><button class="btn btn-primary btn-sm">Edit Staff</button></a>     
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
+            <div class="card-body">
+                    <br />
+                    {% if user.is_staff %}
+                    <div class="row">
+                        <div class = "col-md-6">
+                            <a href = "{% url 'mike_admin:update_staff' post.id %}"><button class="btn btn-primary btn-sm">Edit Staff</button></a>     
+                        </div>
+                        <div class="col-md-6">
+                            <a href = "{% url 'mike_admin:delete_staff' post.id %}"><button class="btn btn-danger btn-sm">Delete Staff</button></a> 
+                        </div>
+                        <hr />
+                    </div>
+                    {% endif%}
+               <div class="row" style="padding: 0 1rem 1rem 0;">
+                    <div class="col-md-4">
+                        {% if post.picture %}
+                            <img  class="border-radius" src="{% thumbnail post.picture 500x600 crop%}" alt="testimonial image">
+                            <br />
+                        {% endif%}
+                    </div>  
+                    <div class="income-dashone-pro border-radius col-md-8">
+                        <h1><strong>{{post.name}}</h1></strong> 
+                        <p class=" text-muted">{{ post.rank }} | {{ post.role }}</p>
+                        <hr />
+                                      
+                        <div class="income-range low-value-cl">
+                            {{ post.content | safe }}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <a href = "{% url 'mike_admin:delete_staff' post.id %}"><button class="btn btn-danger btn-sm">Delete Staff</button></a> 
-                </div>
-            </div>               
-                
-            {% endifequal%}
-            <h1>{{post.title}}</h1>  
-            <div class="clear"></div>
-        </div>
-        <div>
-            {% if post.picture %}
-                <img src='{% thumbnail post.picture 850x400 crop %}' alt = "post image" />
-            {% endif%}
-        </div>
-        <p class=" text-muted">{{ post.rank }} | {{ post.role }}</p>
-        <div class="income-dashone-pro">
-            <h1>{{post.name}}</h1>                
-            <div class="income-range low-value-cl">
-                {{ post.content | safe }}
             </div>
-            <div class="clear"></div>
         </div>
-        
-      </div>
     </div>
 </div>
+<br />
 {% endblock content %}

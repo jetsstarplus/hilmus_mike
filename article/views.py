@@ -21,10 +21,11 @@ def create_post(request):
     error=None
     slug=None
     user=request.user
+    message=None
     
     if user.is_staff:   
         if request.method=='POST':
-            form = PostForm(request.FILES, request.POST)
+            form = PostForm(request.POST, request.FILES)
             if form.is_valid():               
                 new_post= form.save(commit=False)
                 new_post.author= request.user
@@ -32,6 +33,7 @@ def create_post(request):
                 print('passed')
                 slug=new_post.slug
                 print("last")
+                message="Article Successfully Created"
             else:
                 error="There was a problem with your submission"
         else:
@@ -42,7 +44,8 @@ def create_post(request):
         'new_post':new_post,
         'form':form,
         'slug':slug,
-        'error':error
+        'error':error,
+        'message':message,
         }
     return render(request, template_name, context=context)
 

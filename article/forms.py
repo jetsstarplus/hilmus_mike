@@ -16,14 +16,14 @@ class PostForm(forms.ModelForm):
     class Meta:
         model=Post
         fields=('title', 'image', 'content', 'status') 
-        widgets ={
-            'content':  SummernoteWidget(),
-        }  
+        # widgets ={
+        #     'content':  SummernoteWidget,
+        # }  
         
 class PostUpdateForm(forms.ModelForm):
      class Meta:
         model=Post
         fields=('image', 'content', 'status')   
-        widgets ={
-            'content': SummernoteWidget,
-        } 
+        # widgets ={
+        #     'content': SummernoteWidget,
+        # } 

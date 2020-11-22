@@ -1,11 +1,11 @@
 {% extends 'mike_admin/base_site.html' %} 
 {% load thumbnail %}
-{% block title %} {{ post.title }} | Mike Creatives {% endblock title %}
+{% block title %} {{ post.name }} | Mike Creatives {% endblock title %}
 {% block breadcrump %}
 
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><a href="{% url "mike_admin:testimonials" %}">Testimonialss</a> <span class="bread-slash">/</span>
+      <li><a href="{% url "mike_admin:testimonials" %}">Testimonials</a> <span class="bread-slash">/</span>
       </li>
       <li><span class="bread-blod">{{post.name}}</span>
       </li>
@@ -20,35 +20,47 @@
   {% endblock %}
 {% block content %}
 
-<div class="container">
-    <div class="col-md-9 card mb-6  mt-3">
-      <div class="card-body white">
-        {% if user.is_staff %}
-        <div class = "row">
-            <a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary btn-sm">Edit Testimonial</button></a>
-            <a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger btn-sm">Delete Testimonial</button></a>
-        </div>
-          {% endif%}
-        <div class="income-dashone-pro">
-            <h1>{{post.title}}</h1>  
-            <div class="clear"></div>
-        </div>
-        <div>
-            {% if post.image %}
-                <img src='{% thumbnail post.image 400x600 crop %}' alt = "post image" />
-            {% endif%}
-        </div>
-        <p class=" text-muted">{{ post.created_by }} | {{ post.date_added }}</p>
-        <div class="income-dashone-pro">
-            <h1>{{post.name}}</h1>                
-            <div class="income-range low-value-cl">
-                {{ post.content | safe }}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
+        <div class="card-body">
+            <br />
+            {% if user.is_staff %}
+            <div class = "row container-fluid">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary btn-sm">Edit Testimonial</button></a></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger btn-sm">Delete Testimonial</button></a></div>
             </div>
-            <div class="clear"></div>
+            <hr />
+            {% endif%}
+            
+            <br />
+            <div class="row">
+                <div class="row col-md-4">
+                    <div class="col-md-10">
+                        {% if post.picture %}
+                            <img  class="border-radius" src="{% thumbnail post.picture 500x600 crop%}" alt="testimonial image">
+                        {% endif%}
+                        <br />
+                    </div>                
+                    <br />
+                </div>
+                <div class="income-dashone-pro col-md-8 border-radius">
+                    <h1>{{post.name}}</h1> 
+                    <p class=" text-muted">Added On | {{ post.date_added }}</p>  
+                    <hr />         
+                    <div class="income-range low-value-cl">
+                        {{ post.content | safe }}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <br />
+
+            
         </div>
-        
-      </div>
+        </div>
     </div>
  </div> 
+ <br />
 
 {% endblock content %}

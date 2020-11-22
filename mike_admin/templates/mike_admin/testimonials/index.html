@@ -15,12 +15,13 @@
   {% endblock %}
 {% block content %}
 <div class="feed-mesage-project-area">
-    <div class="container">
+    <div class="container-fluid">
         <div class="col-lg-8">
         <div class="row">
-            <div class="col-md-5 alert primary-alert">
-                <h1><strong>Testimonials</strong></h1>
-            </div>
+            <!-- <div class="col-md-1"></div>
+            <div class="col-md-10 hometitle alert primary-alert "  style="background-color:rgba(256, 256, 256, 0.7)">
+                <h1 class="center"><strong>Testimonials</strong></h1>
+            </div> -->
         </div>
         
             <!-- Blog Entries Column -->
@@ -28,7 +29,7 @@
                 {% if testimonials %}
                 {% for testimonial in testimonials %}
                 <div class="card col-lg">
-                    <div class="card-body">
+                    <div class="card-body border-radius">
                         <div class="income-title">
                             <div class="main-income-head">
                                 <h2>{{ testimonial.name }}</h2>
@@ -44,10 +45,14 @@
                             <div class= "row">
                                 <div class="col-md-3">
                                     {% if testimonial.picture %}
-                                        <img src="{% thumbnail testimonial.picture 200x300 crop%}" alt="testimonial image">
+                                        <img src="{% thumbnail testimonial.picture 200x200 crop%}" alt="testimonial image">
                                     {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
+                                    <div class="container-fluid">
+                                        <h5>{% if testimonial.is_published %} <strong style="color:green">😊 
+                                            Published </strong>{% else %} <strong style="color:red">😒 Not Published</strong> {% endif %}</h5>
+                                    </div>
                                     <p class="card-text">{{testimonial.content | safe |slice:":200" }}</p>...</p></i></em>
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">
@@ -63,6 +68,7 @@
                                         </a>
                                         {% endifequal%}
                                       </div>
+                                    
                                 </div>
                             </div>                          
                             
