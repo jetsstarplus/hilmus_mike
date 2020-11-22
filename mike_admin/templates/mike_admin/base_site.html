@@ -209,6 +209,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    
                                     {% if user.is_staff %}
                                     <li><a data-toggle="collapse" data-target="#demo" href="#">Testimonials <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                         <ul id="demo" class="collapse dropdown-header-top">
@@ -241,10 +242,10 @@
                                     {% endif %}
                                     <li><a data-toggle="collapse" data-target="#demo" href="#">Uploaded Content<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                         <ul id="demo" class="collapse dropdown-header-top">
-                                            <li><a href="{% url 'mike_admin:music' %}" class="dropdown-item">Musics</a>
+                                            <li><a href="{% url 'mike_admin:music' %}" class="dropdown-item">Uploaded Musics</a>
                                             </li>
                                             <li>
-                                                <a href="{% url 'mike_admin:create_music' %}" class="dropdown-item">Upload New/a>                                              
+                                                <a href="{% url 'mike_admin:create_music' %}" class="dropdown-item">Upload New</a>                                              
                                             </li>                                           
                                         </ul>
                                     </li>
