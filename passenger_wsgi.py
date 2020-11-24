@@ -1,0 +1,1 @@
+from hilmus_mike.wsgi import application
