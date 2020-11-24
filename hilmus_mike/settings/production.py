@@ -13,14 +13,15 @@ CSRF_COOKIE_SECURE              = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
 SECURE_HSTS_SECONDS             = 1000000
 SECURE_FRAME_DENY               = True
+X_FRAME_OPTIONS                 = 'DENY'
 
 #MY EMAIL SETTING
 MAILER_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.mikecreatives.com'  #Hosted on namecheap Ex: mail.pure.com
+EMAIL_HOST = 'rs2.noc254.com'  #Hosted on namecheap Ex: mail.pure.com
 EMAIL_USE_TLS = False
-EMAIL_PORT = 26 #This will be different based on your Host, for Namecheap I use this`
+EMAIL_PORT = 465 #This will be different based on your Host, for Namecheap I use this`
 EMAIL_HOST_USER = 'connect@mikecreatives.com' # Ex: info@pure.com
-EMAIL_HOST_PASSWORD = 'connectmikecreativesemail' #
+EMAIL_HOST_PASSWORD = 'Ekimsevitearc' #
 
 
 # CACHES = {

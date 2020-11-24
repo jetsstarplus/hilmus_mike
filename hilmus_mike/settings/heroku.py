@@ -14,14 +14,23 @@ env = environ.Env(
 # False if not in os.environ
 DEBUG = env('DEBUG')
 
-
-# Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
-DATABASES = {
-    # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
-    'default': env.db(),
-}
-
-
+try:
+    # Parse database connection url strings like psql://user:pass@127.0.0.1:8458/db
+    DATABASES = {
+        # read os.environ['DATABASE_URL'] and raises ImproperlyConfigured exception if not found
+        'default': env.db(),
+    }
+except:
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'mikecrea_mikecrea',
+                'USER': env('user'), #mikecrea_mike
+                'PASSWORD': env('pass'),
+                'HOST': 'localhost',
+                'PORT': '5232',
+            }
+        }
 # CACHES = {
 #     # read os.environ['CACHE_URL'] and raises ImproperlyConfigured exception if not found
 #     'default': env.cache(),

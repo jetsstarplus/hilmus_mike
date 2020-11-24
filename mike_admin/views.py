@@ -695,7 +695,7 @@ def sendemail(request):
     send_mail(
         'Subject here',
         'Here is the message.',
-        'from@example.com',
+        'connect@mikecreatives.com',
         ['jets.starplus@gmail.com'],
         fail_silently=False,
     )
