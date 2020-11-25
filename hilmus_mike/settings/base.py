@@ -140,6 +140,7 @@ THUMBNAIL_HIGH_RESOLUTION = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Email configurations
 EMAIL_BACKEND = "mailer.backend.DbBackend"
+DEFAULT_FROM_EMAIL=os.environ.get('EMAIL_USER')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 THUMBNAIL_ALIASES = {

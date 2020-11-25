@@ -25,10 +25,10 @@ except:
             'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
                 'NAME': 'mikecrea_mikecrea',
-                'USER': env('user'), #mikecrea_mike
-                'PASSWORD': env('pass'),
+                'USER': env('DATABASE_USER'), #mikecrea_mike
+                'PASSWORD': env('DATABASE_PASSWORD'),
                 'HOST': 'localhost',
-                'PORT': '5232',
+                'PORT': '5432',
             }
         }
 # CACHES = {

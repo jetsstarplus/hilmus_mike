@@ -27,8 +27,8 @@ DATABASES = {
         }
     }
 
-# MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.mikecreatives.com'
 EMAIL_HOST_USER = 'connect@mikecreatives.com'
