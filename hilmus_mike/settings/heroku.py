@@ -24,7 +24,7 @@ except:
     DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'mikecrea_mikecrea',
+                'NAME': 'mikecrea_mike',
                 'USER': env('DATABASE_USER'), #mikecrea_mike
                 'PASSWORD': env('DATABASE_PASSWORD'),
                 'HOST': 'localhost',
