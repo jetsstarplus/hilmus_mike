@@ -16,16 +16,27 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'mike',
+#             'USER': 'postgres',
+#             'PASSWORD': 'Otieno',
+#             'HOST': 'localhost',
+#             'PORT': '',
+#         }
+#     }
+
 DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'mike',
-            'USER': 'postgres',
-            'PASSWORD': 'Otieno',
+            'NAME': 'mikecrea_mike',
+            'USER': os.environ.get('DATABASE_USER'), #mikecrea_mike
+            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
             'HOST': 'localhost',
-            'PORT': '',
+            'PORT': '5432',
         }
-    }
+        }
 
 MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
