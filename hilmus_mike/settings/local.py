@@ -27,15 +27,16 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 #         }
 #     }
 
+
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': 'mikecrea_mike',
             'USER': os.environ.get('DATABASE_USER'), #mikecrea_mike
             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
             'HOST': 'localhost',
-            'PORT': '5432',
-        }
+            'PORT': '',
+            }
         }
 
 MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -43,7 +44,7 @@ MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.mikecreatives.com'
 EMAIL_HOST_USER = 'connect@mikecreatives.com'
-EMAIL_HOST_PASSWORD = 'Ekimsevitearc'
+EMAIL_HOST_PASSWORD = '^?c3^MtP6M9M'
 EMAIL_PORT = 26
 
 

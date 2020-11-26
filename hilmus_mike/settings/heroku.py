@@ -22,13 +22,13 @@ try:
     }
 except:
     DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'mikecrea_mike',
-                'USER': env('DATABASE_USER'), #mikecrea_mike
-                'PASSWORD': env('DATABASE_PASSWORD'),
-                'HOST': 'localhost',
-                'PORT': '5432',
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'mikecrea_mike',
+            'USER': env('DATABASE_USER'), #mikecrea_mike
+            'PASSWORD': env('DATABASE_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '',
             }
         }
 # CACHES = {
