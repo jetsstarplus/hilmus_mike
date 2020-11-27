@@ -2,10 +2,12 @@ from django.urls import path, include, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
-from django_registration.backends.activation.views import RegistrationView, ActivationView
+from django_registration.backends.activation.views import ActivationView
 
 from mike_admin import views
 from mike_admin.forms import AccountForm
+
+from .myRegistration import MyRegisterView as RegistrationView
 
 # app_name='mike_admin'
 urlpatterns = [
@@ -16,13 +18,14 @@ urlpatterns = [
             template_name='mike_admin/auth/register.html',
             success_url='/account/register/complete/', 
             email_subject_template='mike_admin/emails/activation_email_header.txt',
-            email_body_template='mike_admin/emails/activation_email_body.html',  
+            # email_body_template='mike_admin/emails/placeholder.txt', 
+            html_email_template='mike_admin/emails/activation_email_body.html', 
         ),
         name='django_registration_register'),
     # FIXME
     path('activate/<str:activation_key>/', ActivationView.as_view(
-        template_name='mike_admin/auth/activate.html', 
-        success_url='/account/activate/complete/',
+        template_name='mike_admin/auth/activation_failed.html', 
+        success_url=reverse_lazy('django_registration_activation_complete'),
     ), name='activate'),
    
     path("activate/complete/",

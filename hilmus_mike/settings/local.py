@@ -16,37 +16,44 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'mike',
-#             'USER': 'postgres',
-#             'PASSWORD': 'Otieno',
-#             'HOST': 'localhost',
-#             'PORT': '',
-#         }
-#     }
-
-
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'mikecrea_mike',
-            'USER': os.environ.get('DATABASE_USER'), #mikecrea_mike
-            'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mike',
+            'USER': 'postgres',
+            'PASSWORD': 'Otieno',
             'HOST': 'localhost',
             'PORT': '',
-            }
         }
+    }
 
-MAILER_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = False
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'mikecrea_mike',
+#             'USER': os.environ.get('DATABASE_USER'), #mikecrea_mike
+#             'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+#             'HOST': 'localhost',
+#             'PORT': '',
+#             }
+#         }
+
+# EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+# MAILER_EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+# MAILER_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.mikecreatives.com'
-EMAIL_HOST_USER = 'connect@mikecreatives.com'
+EMAIL_HOST_USER = 'accounts@mikecreatives.com'
 EMAIL_HOST_PASSWORD = '^?c3^MtP6M9M'
 EMAIL_PORT = 26
 
+DEFAULT_FROM_EMAIL='connect@mikecreatives.com'
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '812aee1cfc75ed'
+# EMAIL_HOST_PASSWORD = '699bc7b3cf7c96'
+# EMAIL_PORT = '2525'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

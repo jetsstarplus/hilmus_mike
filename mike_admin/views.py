@@ -688,11 +688,14 @@ class C2BTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMix
         return self.request.user.is_superuser or self.request.user.is_staff
 
 # sendemail
-from django.core import mail
-
+if "mailer" in settings.INSTALLED_APPS:
+    from mailer import send_mail
+else:
+    from django.core.mail import send_mail
+ 
 def sendemail(request):
     """this is a test email sender"""
-    email=mail.send_mail(
+    email=send_mail(
         'Subject here',
         'Here is the message.',
         'connect@mikecreatives.com',

@@ -1,6 +1,11 @@
 {% extends '../base.html' %}
 {% load static %}      
             {% block title %}Account activation error | Mike Creatives Portal {% endblock%}
+            {% block meta %}
+                <!-- NOTE(joshblum): This prevents leaking the password reset token via the
+                Referer header to any 3rd party apps on the page. -->
+                <meta name="referrer" content="origin">
+            {% endblock%}
             {% block content %}
             <div class="login-form-area mg-t-30 mg-b-40">
                 <div class="container-fluid">
@@ -41,7 +46,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-button-pro">
-                                                <a href = "{% url "mike_admin:login" %}" class="login-button login-button-lg"><button type="button" >Login</button>
+                                                <a href = "{% url "mike_admin:login" %}" class="login-button login-button-lg">Login</a>
                                                 <a href="/"  class="login-button login-button-lg">Home</a>
                                                 
                                             </div>
