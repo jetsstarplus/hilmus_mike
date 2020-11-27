@@ -46,10 +46,10 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_USE_TLS = False
 EMAIL_HOST = 'mail.mikecreatives.com'
 EMAIL_HOST_USER = 'accounts@mikecreatives.com'
-EMAIL_HOST_PASSWORD = '^?c3^MtP6M9M'
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 26
 
-DEFAULT_FROM_EMAIL='connect@mikecreatives.com'
+DEFAULT_FROM_EMAIL='accounts@mikecreatives.com'
 # EMAIL_HOST = 'smtp.mailtrap.io'
 # EMAIL_HOST_USER = '812aee1cfc75ed'
 # EMAIL_HOST_PASSWORD = '699bc7b3cf7c96'
