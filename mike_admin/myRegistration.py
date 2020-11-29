@@ -20,7 +20,7 @@ class MyRegisterView(RegistrationView):
         activation_key = self.get_activation_key(user)
         context = self.get_email_context(activation_key)
         context["user"] = user
-        context['domain']= self.request.host
+        context['domain']= self.request.get_host()
         context['protocol']=protocol
         subject = render_to_string(
             template_name=self.email_subject_template,
