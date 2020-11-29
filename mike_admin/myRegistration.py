@@ -20,7 +20,7 @@ class MyRegisterView(RegistrationView):
         activation_key = self.get_activation_key(user)
         context = self.get_email_context(activation_key)
         context["user"] = user
-        context['domain']= settings.ALLOWED_HOSTS[1]
+        context['domain']= self.request.host
         context['protocol']=protocol
         subject = render_to_string(
             template_name=self.email_subject_template,
@@ -35,7 +35,7 @@ class MyRegisterView(RegistrationView):
             context=context,
             request=self.request,
         )
-        message=EmailMessage(subject, email_message, settings.DEFAULT_FROM_EMAIL, [user.email])
+        message=EmailMessage(subject, email_message, settings.DEFAULT_FROM_EMAIL, [user.email,])
         message.content_subtype = 'html' # this is required because there is no plain text email message
         message.send()
         

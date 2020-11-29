@@ -20,7 +20,6 @@ INSTALLED_APPS = [
     # downloaded applications
     # 'versatileimagefield',
     'mailer',
-    'django_registration',
     'django_summernote',
     'crispy_forms',
     'easy_thumbnails',
@@ -28,6 +27,8 @@ INSTALLED_APPS = [
     'filer',
     'rest_framework',
     
+    # Edited libraries for django-registration    
+    'account_registration',
     # Installed applications
     'pages.apps.PagesConfig',
     'account.apps.AccountConfig',
