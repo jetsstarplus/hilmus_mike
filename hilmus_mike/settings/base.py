@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     
     # downloaded applications
     # 'versatileimagefield',
+    'django_registration',
     'mailer',
     'django_summernote',
     'crispy_forms',
