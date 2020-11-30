@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 mediafiles/
 account_registration/
+mediafiles
 
 # C extensions
 *.so
