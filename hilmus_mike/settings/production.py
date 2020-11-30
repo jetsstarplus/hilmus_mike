@@ -22,6 +22,7 @@ X_FRAME_OPTIONS                 = 'DENY'
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.mikecreatives.com'  #Hosted on namecheap Ex: mail.pure.com
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL='accounts@mikecreatives.com'
 # EMAIL_USE_SSL= True
 EMAIL_PORT = 465 #This will be different based on your Host, for Namecheap I use this`
 EMAIL_HOST_USER = env('EMAIL_USER') # Ex: info@pure.com
