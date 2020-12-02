@@ -260,13 +260,14 @@ div#preloader {
 /*--------------------------------*/
 
 .header-area {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  background: rgba(33,88,11,.5);
+  background: rgba(33,88,11);
   z-index: 9;
+  /* margin-bottom:1rem; */
 }
 
 .navbar-header a.navbar-brand {

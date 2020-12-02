@@ -177,7 +177,7 @@ SUMMERNOTE_CONFIG = {
         'height': '480',
 
         # Use proper language setting automatically (default)
-        'lang': None,
+        'lang': LANGUAGE_CODE,
         
         'codemirror': {
             'mode': 'htmlmixed',
@@ -198,9 +198,9 @@ SUMMERNOTE_CONFIG = {
 
     # Codemirror as codeview
     # If any codemirror settings are defined, it will include codemirror files automatically.
-    'css': (
-        'cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
-    ),
+    # 'css': (
+    #     'cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
+    # ),
 
     # Lazy initialization
     # If you want to initialize summernote at the bottom of page, set this as True

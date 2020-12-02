@@ -77,6 +77,11 @@
     <link rel="stylesheet" href="{% static "mike_admin/css/form.css" %}">
     <link rel="stylesheet" href="{% static "mike_admin/css/form/all-type-forms.css" %}">
 
+    <!-- include summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
+
+
+
     <!--Users Phone number for uploading-->
       {% block cssblock %}
     {% endblock %}
@@ -99,6 +104,11 @@
     {% block footer %} {% endblock%} 
                      
     <!-- Chat Box End-->
+    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
+    <script>
+      $('#text').summernote();
+    </script>
     <!-- jquery
 		============================================ -->
     <script src="{% static "mike_admin/js/vendor/jquery-1.11.3.min.js" %}"></script>

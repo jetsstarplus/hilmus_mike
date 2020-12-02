@@ -16,7 +16,7 @@ Supports Thumbs: true
 }
 
 .slider-content {
-  padding: 180px 60px;
+  padding: 160px 60px;
 }
 
 .nivo-caption::after {
@@ -126,7 +126,7 @@ Supports Thumbs: true
 
 @media (min-width: 1400px) and (max-width:1920px) {
   .slider-content {
-    padding: 240px 0;
+    padding: 210px 0;
   }
 }
 
@@ -134,7 +134,7 @@ Supports Thumbs: true
 
 @media (min-width: 992px) and (max-width: 1169px) {
   .slider-content {
-    padding: 144px 0;
+    padding: 114px 0;
   }
 }
 
@@ -142,7 +142,7 @@ Supports Thumbs: true
 
 @media (min-width: 768px) and (max-width: 991px) {
   .slider-content {
-    padding: 93px 0;
+    padding: 73px 0;
   }
   .layer-1-2 h1 {
     font-size: 22px;
