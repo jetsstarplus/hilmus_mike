@@ -55,10 +55,11 @@ class Lipa_List(CreateAPIView):
         
             )
             initiated=models.Initiate.objects.filter(CheckoutRequestID=checkout_request_id)
+            user=get_user_model().objects.filter(pk=initiated.user)
             print(initiated)
+            print(user)
             if result_code==0: 
                initiated.update(ResultCode=0)
-               user=get_user_model().objects.filter(pk=initiated.user)
                user.update(is_payed=True)
                print(user)
                
