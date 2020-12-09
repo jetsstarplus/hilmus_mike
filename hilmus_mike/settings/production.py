@@ -24,7 +24,7 @@ EMAIL_HOST = 'mail.mikecreatives.com'  #Hosted on namecheap Ex: mail.pure.com
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL='accounts@mikecreatives.com'
 # EMAIL_USE_SSL= True
-EMAIL_PORT = 465 #This will be different based on your Host, for Namecheap I use this`
+EMAIL_PORT =26 #This will be different based on your Host, for Namecheap I use this`
 EMAIL_HOST_USER = env('EMAIL_USER') # Ex: info@pure.com
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD') #
 
