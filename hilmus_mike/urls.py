@@ -26,7 +26,6 @@ urlpatterns = [
     path('account/', include(mike_admin.urls)),
     path('article/', include('article.urls')),
     path('summernote/', include('django_summernote.urls')),
-    path('tinymce/', include('tinymce.urls')),
     path('', include(pages.urls)),
     path('filer/', include('filer.urls')),
     path('transact/', include('daraja.urls')),
