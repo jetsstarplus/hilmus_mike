@@ -26,9 +26,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'mptt',
     'filer',
-    'rest_framework',
-    'django_quill',
-    'tinymce',  
+    'rest_framework',  
     
     # Edited libraries for django-registration    
     # 'account_registration',
