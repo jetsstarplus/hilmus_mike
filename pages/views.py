@@ -31,6 +31,10 @@ def contact(request):
     template_name='pages/contact.html'
     return render(request, template_name, context={})
 
+def shop(request):
+    template_name='pages/coming.html'
+    return render(request, template_name, context={})
+
 # Create your views here.
 def terms(request):
     template_name='pages/terms.html'    

@@ -30,8 +30,9 @@
                   <li class="active">
                     <a class="page-scroll" href="/">Home</a>
                   </li>
+                  
                   <li>
-                    <a class="page-scroll" href="/#about" title="about">About</a>
+                    <a class="page-scroll" href="/#about">About</a>
                   </li>
                   <!-- <li>
                     <a class="page-scroll" href="/#services">Services</a>
@@ -50,13 +51,18 @@
                       {% endif %}
                     </ul> 
                   </li>
-
+                  
                   <li>
-                    <a class="page-scroll" href="{% url 'pages:articles' %}">News</a>
+                    <a class="page-scroll" href="{% url 'pages:shop' %}" title="Coming Soon...">Shop</a>
                   </li>
                   <li>
                     <a class="page-scroll" href="{% url 'pages:contact' %}">Contact</a>
                   </li>
+                  
+                  <li>
+                    <a class="page-scroll" href="{% url 'pages:articles' %}">Blog</a>
+                  </li>
+                  
                   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       <li>
@@ -67,7 +73,6 @@
                       </li>
                     </ul> 
                   </li>
-                  
                 </ul>
               </div>
               <!-- navbar-collapse -->
