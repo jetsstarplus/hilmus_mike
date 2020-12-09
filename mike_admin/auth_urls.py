@@ -27,8 +27,7 @@ urlpatterns = [
         TemplateView.as_view(
             template_name="mike_admin/auth/activation_complete.html"
         ),
-        name="django_registration_activation_complete",
-    ),
+        name="django_registration_activation_complete"),
     path('activate/<str:activation_key>/', ActivationView.as_view(
         template_name='mike_admin/auth/activation_failed.html', 
         success_url=reverse_lazy('django_registration_activation_complete'),
