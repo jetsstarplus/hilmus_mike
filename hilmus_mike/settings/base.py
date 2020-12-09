@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'mptt',
     'filer',
     'rest_framework',
+    'django_quill',
+    'tinymce',  
     
     # Edited libraries for django-registration    
     # 'account_registration',
@@ -145,6 +147,27 @@ EMAIL_BACKEND = "mailer.backend.DbBackend"
 DEFAULT_FROM_EMAIL=os.environ.get('EMAIL_USER')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'font': []},
+                    {'header': []},
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    {'color': []},
+                    {'background': []},
+                ],
+                ['code-block', 'link'],
+                ['clean'],
+            ]
+        }
+    }
+}
+
 THUMBNAIL_ALIASES = {
     '': {
         'avatar': {'size': (90, 90), 'crop': True},
@@ -198,9 +221,9 @@ SUMMERNOTE_CONFIG = {
 
     # Codemirror as codeview
     # If any codemirror settings are defined, it will include codemirror files automatically.
-    # 'css': (
-    #     'cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
-    # ),
+    'css': (
+        'cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
+    ),
 
     # Lazy initialization
     # If you want to initialize summernote at the bottom of page, set this as True

@@ -28,8 +28,7 @@ EMAIL_PORT = 465 #This will be different based on your Host, for Namecheap I use
 EMAIL_HOST_USER = env('EMAIL_USER') # Ex: info@pure.com
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD') #
 
-
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # CACHES = {
 #     "default": {

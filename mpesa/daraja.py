@@ -32,7 +32,7 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
         "PartyA":phone_number,
         "PartyB":keys.business_shortcode,
         "PhoneNumber": phone_number ,
-        "CallBackURL": "https://mikecreatives.com/payments/lmmapi/",
+        "CallBackURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/",
         "AccountReference": account,
         "TransactionDesc": transaction
     }

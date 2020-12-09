@@ -113,7 +113,48 @@
                         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
                             <div class="header-right-info">
                                 <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                   
+                                    {% if user.is_staff %}
+                                    <li class="nav-item dropdown">
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="nav-link dropdown-toggle"><span class="adminpro-icon adminpro-chat-pro"></span><span class="indicator-ms"></span></a>
+                                        <div role="menu" class="author-message-top dropdown-menu animated flipInX">
+                                            <div class="message-single-top">
+                                                <h1>New Comments</h1>
+                                            </div>
+                                            <ul class="message-menu mCustomScrollbar _mCS_1 mCS-autoHide" style="position: relative; overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-light-1 mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px;" dir="ltr">
+                                                {% if new_comments %}
+                                                {% for comment in new_comments %}
+                                                
+                                                <li>
+                                                    <a href="#">
+                                                        <div class="message-img">
+                                                            <img src="img/message/4.jpg" alt="" class="mCS_img_loaded">
+                                                        </div>
+                                                        <div class="message-content">
+                                                            <span class="message-date">{{comment.created_on.date}}</span>
+                                                            <h2>{{comment.name}}</h2>
+                                                            <p>{{comment}}</p>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                {% endfor%}
+                                                {% else %}
+                                                <li>
+                                                    <a href="#">
+                                                        
+                                                        <div class="message-content">
+                                                            <h2>No Comments</h2>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                {% endif %}
+                                                
+                                            </div></div><div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-light-1 mCSB_scrollTools_vertical" style="display: block;"><div class="mCSB_draggerContainer"><div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; top: 0px; display: block; height: 102px; max-height: 180px;"><div class="mCSB_dragger_bar" style="line-height: 30px;"></div></div><div class="mCSB_draggerRail"></div></div></div></ul>
+                                            <div class="message-view">
+                                                <a href="">{{comments}} Comments</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endif %}
                                     <li class="nav-item">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                             <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>

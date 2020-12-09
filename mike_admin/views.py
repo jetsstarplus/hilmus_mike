@@ -12,7 +12,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 
 from .models import Music, Testimonial, StaffMember, TermsOfService
-from article.models import Post
+from article.models import Post, Comment
 from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate
 
 from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm
@@ -27,6 +27,8 @@ def home(request):
     user_percentage=0
     lipa_transactions=None
     inactive_users=None
+    comments=None
+    new_comments=None
     if request.user.is_staff:
         if request.user.get_full_name()==None:             
             messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")  
@@ -34,6 +36,9 @@ def home(request):
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
         inactive_users = get_user_model().objects.filter(is_active=False).order_by('-date_joined')
         musics=Music.objects.filter(is_sent=False).order_by('-date_added')
+        items=Comment.objects.filter(active=False)
+        comments=items.count()
+        new_comments=items.order_by('-created_on')
         # Checking for new users of the system
         for user in users:
             if timezone.now() - user.date_joined <= timedelta(days=30):
@@ -62,12 +67,16 @@ def home(request):
         'upload':upload,
         'inactive_users':inactive_users,
         'lipa_transactions':lipa_transactions,
+        'comments':comments,
+        'new_comments':new_comments,
     }
     return render(request, template_name='mike_admin/dashboard-2.html', context=context )
 
 @login_required
 def profile(request):
-    profile=None
+    profile=None    
+    comments=None
+    new_comments=None
     if request.user.is_authenticated:
         profile = get_object_or_404(get_user_model(), pk=request.user.pk)
         musics = Music.objects.filter(artist=request.user.pk).all()
@@ -75,7 +84,10 @@ def profile(request):
         music_number= musics.count()
         articles = Post.objects.filter(author=request.user.pk, status=1)
         skiza=Music.objects.filter(artist=request.user.pk, is_skiza=True).count()
-        transactions=Initiate.objects.filter(ResultCode=1, user=request.user)
+        transactions=Initiate.objects.filter(ResultCode=0, user=request.user)  
+        items=Comment.objects.filter(active=False)    
+        comments=items.count()
+        new_comments=items.order_by('-created_on')
                 
     else:
         profile=None
@@ -86,7 +98,9 @@ def profile(request):
         'boomplay':boomplay,
         'article':articles,
         'skiza': skiza,
-        'transactions':transactions
+        'transactions':transactions,        
+        'comments':comments,
+        'new_comments':new_comments,
         }
     return render(request, template_name="mike_admin/profiles/profile.html", context=context)
 
@@ -101,7 +115,7 @@ def update_profile(request):
     user = request.user
     error= None
     message=None
-    form=None
+    form=None    
     template_name = 'mike_admin/profiles/update_profile.html'
     # user=request.user
    
@@ -673,8 +687,8 @@ class LipaTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMi
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the the successful and failed transactions
-        context['lipa_successful'] = Initiate.objects.filter(ResultCode=1).order_by('-date_added')
-        context['lipa_unsuccessful'] = Initiate.objects.filter(ResultCode=0).order_by('-date_added')
+        context['lipa_successful'] = Initiate.objects.filter(ResultCode=0).order_by('-date_added')
+        context['lipa_unsuccessful'] = Initiate.objects.filter(ResultCode=1).order_by('-date_added')
         return context
     
 

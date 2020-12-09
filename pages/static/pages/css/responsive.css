@@ -269,6 +269,12 @@
   li.threaded-comments {
     margin-left: 0;
   }
+
+  .dont-appear{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
 /* Large Mobile :480px. */
@@ -295,5 +301,10 @@
   }
   .tab-menu ul.nav li a {
     padding: 8px 20px;
+  }
+  .dont-appear{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
   }
 }

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.db.models import Q
 from django.http import JsonResponse
+from django.core.mail import EmailMessage
 
 from article.models import Post
 from mike_admin.models import Testimonial, StaffMember, TermsOfService, Service
@@ -136,7 +137,10 @@ def submit_contacts(request):
                     
         try:
             contact = Contact.objects.create(email=email, full_name = name, subject=subject, content=message)
+            final="Sender: {} \n Message: \n {}".format(name, message)
+            mail = EmailMessage(subject=subject, body=final, from_email=email, to=['connect@mikecreatives'])
             contact.save()
+            mail.send()
             data = {
                 'message': "OK"
             }

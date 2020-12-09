@@ -40,7 +40,7 @@
                     <ul class="dropdown-menu" role="menu">
                       {% if service_list %}
                       {% for service_single in service_list %}
-                        <li><a href="{% url 'pages:services' service_single.id %}" >{{service_single.title}}</a></li>
+                        <li><a href="{% url 'pages:services' service_single.id %}" style="padding:10px 0; border-bottom:1px solid gray">{{service_single.title}}</a></li>
                       {% endfor %}
                       {% else %}
                       <li><a href=# >Youtube</a></li>
@@ -60,10 +60,10 @@
                   <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       <li>
-                        <a class="page-scroll" href="{% url 'mike_admin:login' %}">Login</a>
+                        <a class="page-scroll" href="{% url 'mike_admin:login' %}" style="padding:10px 0; border-bottom:1px solid gray">Login</a>
                       </li>
                       <li>
-                        <a class="page-scroll" href="{% url 'mike_admin:django_registration_register' %}">SignUp</a>
+                        <a class="page-scroll" href="{% url 'mike_admin:django_registration_register' %}" style="padding:10px 0; border-bottom:1px solid gray">SignUp</a>
                       </li>
                     </ul> 
                   </li>

@@ -1,7 +1,7 @@
 from .models import Comment, Post
 from django import forms
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
-from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
+from django_quill.fields import QuillField
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

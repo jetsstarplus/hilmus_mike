@@ -51,17 +51,20 @@ class Lipa_List(CreateAPIView):
                 MpesaReceiptNumber = mpesa_receipt_no,
                 Balance = balance,
                 TransationDate = aware_transaction_datetime,
-                phonenumber = phone_number, 
+                phonenumber = phone_number,
         
             )
-            initiated=models.Initiate.objects.filter(checkoutRequestId=checkout_request_id)
-            if  int(result_code)==0: 
-               initiated.update(ResultCode=1)
-               user=get_user_model().objects.filter(pk=initiated.pk)
+            initiated=models.Initiate.objects.filter(CheckoutRequestID=checkout_request_id)
+            print(initiated)
+            if result_code==0: 
+               initiated.update(ResultCode=0)
+               user=get_user_model().objects.filter(pk=initiated.user)
                user.update(is_payed=True)
+               print(user)
                
             else:
-                initiated.update(ResultCode=0)
+                initiated.update(ResultCode=1)
+                initiated.save(force_update=True)
             
             mpesa_model.save()
             return Response({'ResultDescription': "Yey it worked"})
