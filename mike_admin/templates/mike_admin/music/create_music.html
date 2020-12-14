@@ -20,7 +20,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="container-fluid">
-        <form method='POST' enctype="multipart/form-data">
+        <form method='POST' enctype="multipart/form-data" id="upload">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
@@ -51,7 +51,8 @@
                         
                         <h1 class="center"><strong>Create A New Music</strong></h1> 
                         
-                        <hr />                                 
+                        <hr /> 
+                        {{form.media}}                                
                     {{form | crispy}}
                     </div>
                     {% if form %}
@@ -59,7 +60,7 @@
                             <button type="submit" class="login-button login-button-lg"> Create Music </button>
                         </div>
                     {% else %}
-                        <p>You  cannot upload unless you have payed for a service</p>
+                        <p>You  cannot upload unless you have paid for a service</p>
                     {% endif %}
                 </div>
             </div>

@@ -21,13 +21,12 @@
 <div class="container-fluid">
     <div class="container-fluid">
 
-        <form method='POST' enctype="multipart/form-data">
+        <form method='POST' enctype="multipart/form-data" id="upload">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
                     {% if form.is_bound %}
-                    {% if id != None%}
-                    
+                    <br />
                     <div class="alert alert-success alert-st-one" role="alert">
                         <span class="adminpro-icon adminpro-checked-pro admin-check-pro"></span>
                         <p class="message-mg-rt"><strong>Well done!</strong> The testimonial was successfully created</p>
@@ -37,7 +36,6 @@
                             <a class="col-md-5 mb-4" href="{% url 'mike_admin:delete_testimonial' id %}"><button type="button" class="btn btn-danger btn-sm">Delete Testimonial</button></a>
                     </div>
                     <br />
-                    {% endif %}
                     {% endif %}
                     {% if error %}
                     <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">

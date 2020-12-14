@@ -19,7 +19,7 @@
   {% endblock %}
 {% block content %}
 <div class="container">
-    <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_services' services.id %}">
+    <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_services' services.id %}" id="upload">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6 card mb-4  mt-3 left  top">

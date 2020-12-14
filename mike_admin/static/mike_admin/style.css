@@ -3626,7 +3626,7 @@ ul.profile-contact-menu {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
+    /* padding: 0px; */
     background: #393939;
 }
 

@@ -54,16 +54,11 @@ class Lipa_List(CreateAPIView):
                 phonenumber = phone_number,
         
             )
-            initiated=models.Initiate.objects.get(CheckoutRequestID=checkout_request_id)
-            print(initiated) 
-            print(initiated.user.pk)           
+            initiated=models.Initiate.objects.get(CheckoutRequestID=checkout_request_id)                     
             user=get_user_model().objects.get(pk=initiated.user.pk)
-            print(user)
             if result_code==0: 
                user.is_payed= True
-               user.save(update_fields=['is_payed'])
-               print(usecase)
-               
+               user.save(update_fields=['is_payed'])               
             else:
                 initiated.ResultCode=1
                 initiated.save(update_fields=['ResultCode'])

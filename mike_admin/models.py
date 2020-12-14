@@ -12,10 +12,10 @@ class Music(models.Model):
     """A model that represents a particular Music uploaded by an artist, This particular music is checked whether
      it has already been sent to boomplay or skiza
     """
-    # id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # id=models.UUIDField(primary_key=True, default=uuid.uuids4, editable=False)
     artist=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=False, blank=True, related_name="musics")
-    description= models.TextField(blank=True, null=True, verbose_name="More Information")
-    title= models.CharField(blank=False, max_length=30)
+    description= models.TextField(blank=True, null=True, verbose_name="More Information",)
+    title= models.CharField(blank=True, max_length=30, null=True)
     music=models.FileField(upload_to="Musics", validators=[validate_file_extension], verbose_name="Audio File")
     picture=models.ImageField(upload_to="Music-pics", null=True, blank=True)
     is_sent=models.BooleanField(default=False, verbose_name="Has been sent")

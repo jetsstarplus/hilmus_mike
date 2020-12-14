@@ -32,6 +32,7 @@ urlpatterns = [
     path('payments/', include('daraja.api.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
+    path('', include('upload_handler.urls')),
     # path('editor/<int:id>)/', xframe_options_sameorigin(SummernoteEditor.as_view()),
     #     name='django_summernote-editor'),
     # path('upload_attachment/', xframe_options_sameorigin(SummernoteUploadAttachment.as_view()),

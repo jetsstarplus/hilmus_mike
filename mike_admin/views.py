@@ -159,20 +159,21 @@ def create_testimonial(request):
     template_name='mike_admin/testimonials/create_testimonial.html'
     new_post=None
     error=None
-    slug=None
     user=request.user
     message=None
+    id = None
     
     if user.is_staff:   
         if request.method=='POST':
             form = TestimonialForm(request.POST, request.FILES)
             if form.is_valid():
-               
+                # id=2
+                # pass
                 new_post= form.save(commit=False)
                 new_post.added_by= request.user
-                
-                message=" Testimonial Successfully created!"
+                message=" Testimonial Successfully Created!"
                 new_post.save()
+                id=new_post.id
             else:
                 error="There was a problem with your submission"
         else:
@@ -182,8 +183,8 @@ def create_testimonial(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'slug':slug,
         'error':error,
+        'id':id,
         'message':message,
         }
     return render(request, template_name, context=context)
@@ -236,19 +237,17 @@ def delete_testimonial(request, id):
     message= None
     
     if user.is_staff:   
-        if request.method=='POST':
-            if request.user == post.author:                           
-                    post=post.delete()
-                    message="The testimonial has been successfully deleted"                   
-            else:
-                error ="You are not authorized to edit this post"   
-                
+        if request.method=='POST':                         
+            post=post.delete()
+            message="The testimonial has been successfully deleted"                   
+            id=post.id
             return render(request, final_template, {'post': post})    
                     
-        else:
-            
+        else:            
             form= TestimonialForm(instance=post)
-    
+    else:
+        error ="You are not authorized to edit this post"   
+             
     context={
         'user':user,
         'post':post,
@@ -373,7 +372,9 @@ def delete_staff(request, id):
         else:
             
             form= StaffMemberForm(instance=post)
-    
+            
+    else:
+        error ="You are not authorized to edit this staff"     
     context={
         'user':user,
         'post':post,

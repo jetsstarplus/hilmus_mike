@@ -20,7 +20,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="container-fluid">
-        <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_music' music.id %}">
+        <form method='POST' enctype="multipart/form-data" action="{% url 'mike_admin:update_music' music.id %}" id="upload">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">

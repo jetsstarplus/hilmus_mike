@@ -26,7 +26,8 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'mptt',
     'filer',
-    'rest_framework',  
+    'rest_framework',
+    'upload_form',  
     
     # Edited libraries for django-registration    
     # 'account_registration',
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'article.apps.ArticleConfig',
     'daraja',
     'mpesa',
+    'upload_handler',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +105,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -144,27 +145,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 EMAIL_BACKEND = "mailer.backend.DbBackend"
 DEFAULT_FROM_EMAIL=os.environ.get('EMAIL_USER')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
-
-QUILL_CONFIGS = {
-    'default':{
-        'theme': 'snow',
-        'modules': {
-            'syntax': True,
-            'toolbar': [
-                [
-                    {'font': []},
-                    {'header': []},
-                    {'align': []},
-                    'bold', 'italic', 'underline', 'strike', 'blockquote',
-                    {'color': []},
-                    {'background': []},
-                ],
-                ['code-block', 'link'],
-                ['clean'],
-            ]
-        }
-    }
-}
 
 THUMBNAIL_ALIASES = {
     '': {
@@ -228,3 +208,9 @@ SUMMERNOTE_CONFIG = {
     # and call `initSummernote()` on your page.
     'lazy': True,    
 }
+
+
+FILE_UPLOAD_HANDLERS = [
+    "upload_handler.uploadhandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler"]

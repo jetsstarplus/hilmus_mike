@@ -1,0 +1,54 @@
+"""
+Copied from:
+http://djangosnippets.org/snippets/678/
+"""
+from django.core.files.uploadhandler import FileUploadHandler
+from django.core.cache import cache
+
+class UploadProgressCachedHandler(FileUploadHandler):
+    """
+    Tracks progress for file uploads.
+    The http post request must contain a header or query parameter, 'X-Progress-ID'
+    which should contain a unique string to identify the upload to be tracked.
+
+    Copied from:
+    http://djangosnippets.org/snippets/678/
+
+    See views.py for upload_progress function...
+    """
+
+    def __init__(self, request=None):
+        super(UploadProgressCachedHandler, self).__init__(request)
+        self.progress_id = None
+        self.cache_key = None
+
+    def handle_raw_input(self, input_data, META, content_length, boundary, encoding=None):
+        self.content_length = content_length
+        if 'X-Progress-ID' in self.request.GET :
+            self.progress_id = self.request.GET['X-Progress-ID']
+        elif 'X-Progress-ID' in self.request.META:
+            self.progress_id = self.request.META['X-Progress-ID']
+        if self.progress_id:
+            self.cache_key = "{}_{}".format(self.request.META['REMOTE_ADDR'], self.progress_id )
+            cache.set(self.cache_key, {
+                'length': self.content_length,
+                'uploaded' : 0
+            })
+
+    def new_file(self, *args, **kwargs):
+        super().new_file(*args, **kwargs)
+        pass
+
+    def receive_data_chunk(self, raw_data, start):
+        if self.cache_key:
+            data = cache.get(self.cache_key)
+            data['uploaded'] += self.chunk_size
+            cache.set(self.cache_key, data)
+        return raw_data
+
+    def file_complete(self, file_size):
+        pass
+
+    def upload_complete(self):
+        if self.cache_key:
+            cache.delete(self.cache_key)

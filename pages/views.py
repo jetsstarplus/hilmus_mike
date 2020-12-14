@@ -4,6 +4,7 @@ from django.views import generic
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.mail import EmailMessage
+from django.conf import settings
 
 from article.models import Post
 from mike_admin.models import Testimonial, StaffMember, TermsOfService, Service
@@ -141,9 +142,14 @@ def submit_contacts(request):
                     
         try:
             contact = Contact.objects.create(email=email, full_name = name, subject=subject, content=message)
-            final="Sender: {} \n Message: \n {}".format(name, message)
-            mail = EmailMessage(subject=subject, body=final, from_email=email, to=['connect@mikecreatives'])
+            final="Sender: {}\n Email: {}\n Message: \n {}".format(name,email, message)
+            mail = EmailMessage(
+                subject=subject, body=final, 
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                headers={'Message-ID': 'MIKE Creatives'},
+                to=['connect@mikecreatives.com','jets.starplus@gmail.com', 'hilmus.software@gmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
             contact.save()
+            # mail.content_subtype = ''
             mail.send()
             data = {
                 'message': "OK"

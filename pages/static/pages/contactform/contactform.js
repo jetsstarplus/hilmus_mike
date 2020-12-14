@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
     else var str = $(this).serialize();
     var action = $(this).attr('action');
     
-  //var csrftoken = Cookies.get('csrftoken');
+  // var csrftoken = Cookies.get('csrftoken');
     if( ! action ) {
       action = '{% url "pages:contacts-submit"%}';
     }
