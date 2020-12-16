@@ -3,6 +3,14 @@
   <title>Articles Mike Creatives - The Home of Kenyan Brands</title>  
   <meta content="Latest news as pertaining to the music industry" name="description">
 {% endblock %}
+{% block meta %}
+  <meta property="og:url"           content="https://mikecreatives.com/articles/" />
+  <meta property="og:type"          content="website" />
+  <meta property="og:title"         content="Articles Mike Creatives - The Home Of Kenyan Brands" />
+  <meta property="og:description"   content="Latest news as pertaining to the music industry" />
+  <meta property="og:image"         content="https://hilmus-mike.s3.af-south-1.amazonaws.com/icons/android-icon-192x192.png" />
+
+{% endblock %}
 {% load static %}
 {% block content %}
   <!-- Start Bottom Header -->
@@ -50,7 +58,8 @@
 										</span>
                   <span class="date-type">
 											<i class="fa fa-calendar"></i>{{post.created_on.date}} / {{post.created_on.time}}
-										</span>
+                    </span>
+                  <div class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                 </div>
                 <div class="blog-text">
                   <h4>

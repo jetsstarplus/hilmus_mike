@@ -4,6 +4,16 @@
   <meta content=" We believe in the gift of art and the creative economy in Kenya as a catalyst  for the attainment of the Sustainable Development Goals. " name="description">
 {% endblock %}
 {% load static %}
+{% block meta %}
+{% if post %}
+  <meta property="og:url"                content="https://mikecreatives.com/contacts/" />
+  <meta property="og:type"               content="website" />
+  <meta property="og:title"              content="Contact us - Mike Creatives" />
+  <meta property="og:description"        content="We believe in the gift of art and the creative economy in Kenya as a catalyst  for the attainment of the Sustainable Development Goals."/>
+  <meta property="og:image"              content="https://hilmus-mike.s3.af-south-1.amazonaws.com/icons/android-icon-192x192.png" />
+  {% endif %}
+{% endblock%}
+
 
 {% block content %}
  <!-- Start Bottom Header -->
@@ -59,7 +69,7 @@
                 <i class="fa fa-envelope-o"></i>
                 <p>
                   Email: connect@mikecreatives.com<br>
-                  <span>Web: www.mikecreatives.com</span>
+                  <!-- <div class="fb-like" data-href="https://mikecreatives.com/contacts/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div> -->
                 </p>
               </div>
             </div>

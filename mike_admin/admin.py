@@ -56,6 +56,7 @@ class ServiceAdmin(SummernoteModelAdmin):
     list_display=('title', 'font_image', 'pricing')
     summernote_fields=('content')
     search_fields=('title', 'content')
-    ordering=('-date_added', '-date_modified')
+    ordering=('-date_added', '-date_modified')    
+    prepopulated_fields = {'slug': ('title',)}
     
 admin.site.register(Service, ServiceAdmin)

@@ -14,9 +14,13 @@ from django.conf.urls.static import static
 import mike_admin.urls
 import pages.urls
 
-from article.sitemap import PostSitemap
+from pages.sitemap import PostSitemap, StaticViewSitemap, ServiceSitemap, ImportantSitemap, AuthViewSitemap
 
 sitemaps = {
+    'importantSitemap':ImportantSitemap, 
+    'authSitemap':AuthViewSitemap,   
+    'static':StaticViewSitemap,    
+    'service':ServiceSitemap,
     'PostSitemap':PostSitemap,
 }
 
@@ -31,7 +35,7 @@ urlpatterns = [
     path('transact/', include('daraja.urls')),
     path('payments/', include('daraja.api.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-     name='django.contrib.sitemaps.views.sitemap'),
+     name='sitemap'),
     path('', include('upload_handler.urls')),
     # path('editor/<int:id>)/', xframe_options_sameorigin(SummernoteEditor.as_view()),
     #     name='django_summernote-editor'),

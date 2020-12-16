@@ -1,9 +1,17 @@
 {% extends './base.html' %}
 {% block title %}
-
   <title>{{service.title}} - Articles Mike Creatives</title>  
-  <meta content="{{post.content | safe }}" name="description">
+  <meta content="{{service.home_page_text | safe }}" name="description">
 {% endblock %}
+{% block meta %}
+{% if post %}
+  <meta property="og:url"                content="https://mikecreatives.com/services/{% if service.slug %}{{service.slug}}{% endif %}/" />
+  <meta property="og:type"               content="article" />
+  <meta property="og:title"              content="{% if service.title %}{{service.title}}{% endif %}" />
+  <meta property="og:description"        content="{% if service.home_page_text %} {{service.home_page_text | slice:':100'| safe {% endif %}" />
+  <meta property="og:image"              content="{% if service.image %} {{service.image.url}} {% endif %}" />
+  {% endif %}
+{% endblock%}
 {% load static %}
 {% block content %}
   <!-- Start Bottom Header -->
@@ -43,7 +51,8 @@
                 </div>
                 <div class="post-information">
                   <h2>{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h2>
-                  
+                      <div class="fb-like" data-href="https://mikecreatives.com/services/{{service.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                  <br />
                   {% if service.content %}
                   <div class = "entry-content">
                     {{service.content | safe}}

@@ -18,7 +18,7 @@ def index(request):
     testimonials = Testimonial.objects.filter(is_published=True).order_by('-date_added')[:10]
     teams= StaffMember.objects.filter(is_published=True).order_by('-rank')[:4]
     terms= TermsOfService.objects.all().order_by('-date_added')[:1]
-    service_list=Service.objects.all().order_by('-date_added')[:6]
+    service_list=Service.objects.all().order_by('title')[:6]
     context={
         'testimonials': testimonials,
         'teams':teams,
@@ -41,7 +41,7 @@ def terms(request):
     template_name='pages/terms.html'    
     post_list = Post.objects.filter(status=1).order_by('-created_on')
     terms= TermsOfService.objects.all().order_by('-date_added')[:1]    
-    service_list=Service.objects.all().order_by('-date_added')[:6]
+    service_list=Service.objects.all().order_by('title')[:6]
     context={
         'terms':terms,
         'post_list':post_list,
@@ -60,7 +60,7 @@ class PostList(generic.ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['service_list'] = Service.objects.all().order_by('-date_added')[:6]
+        context['service_list'] = Service.objects.all().order_by('-title')[:6]
         return context
     # def get_queryset(self): # new
     #     return(Posts.objects.filter(
@@ -81,7 +81,7 @@ class PostSearchList(generic.ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['service_list'] = Service.objects.all().order_by('-date_added')[:6]
+        context['service_list'] = Service.objects.all().order_by('title')[:6]
         return context
 
 
@@ -90,7 +90,7 @@ def post_detail(request, slug):
     post_list=Post.objects.filter(status=1).order_by('-created_on')[: 5]
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)       
-    service_list=Service.objects.all().order_by('-date_added')[:6]
+    service_list=Service.objects.all().order_by('title')[:6]
     new_comment = None
     # Comment posted
     if request.method == 'POST':
@@ -117,11 +117,11 @@ def post_detail(request, slug):
     return render(request, template_name, context=context)
 
 
-def service(request, id):
+def service(request, slug):
     template_name = 'pages/services.html'
     services=Service.objects.all()
-    service = get_object_or_404(Service, id=id)    
-    service_list=Service.objects.all().order_by('-date_added')[:6]
+    service = get_object_or_404(Service, slug=slug)    
+    service_list=Service.objects.all().order_by('title')[:6]
     
     context = {
         'service': service,
@@ -186,3 +186,5 @@ def submit_subscription(request):
             
         finally:              
             return JsonResponse(data)
+
+       

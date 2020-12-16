@@ -3,6 +3,7 @@ from django.conf import settings
 from datetime import datetime
 from django.utils import timezone
 import uuid
+from django.template.defaultfilters import slugify
 
 from .upload_handler import validate_file_extension
 from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
@@ -75,15 +76,26 @@ class TermsOfService(models.Model):
 
 class Service(models.Model):
     """ A model representing the services that are offered by mike creatives """
+    title= models.CharField(max_length=30)
+    slug=models.SlugField(unique=True, max_length=200, null=True, blank=True)
     image= models.ImageField(upload_to='services', blank=True, null=True)
     font_image= models.CharField(max_length=40)
     home_page_text= models.TextField()
-    pricing= models.CharField(max_length=10)
-    title= models.CharField(max_length=30)
+    pricing= models.CharField(max_length=10)    
     content= SummernoteTextField()
     date_added=models.DateTimeField(auto_now_add=True)
     date_modified= models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Service, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+
+        return reverse("pages:services", kwargs={"slug": str(self.slug)})
+    
 # Create your models here.

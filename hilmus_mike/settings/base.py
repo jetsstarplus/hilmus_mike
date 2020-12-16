@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'mptt',
     'filer',
     'rest_framework',
-    'upload_form',  
     
     # Edited libraries for django-registration    
     # 'account_registration',
@@ -91,6 +90,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

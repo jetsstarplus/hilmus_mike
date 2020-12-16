@@ -41,7 +41,7 @@
                     <ul class="dropdown-menu" role="menu">
                       {% if service_list %}
                       {% for service_single in service_list %}
-                        <li><a href="{% url 'pages:services' service_single.id %}" style="padding:10px 0; border-bottom:1px solid gray">{{service_single.title}}</a></li>
+                        <li><a href="{% url 'pages:services' service_single.slug %}" style="padding:10px 0; border-bottom:1px solid gray">{{service_single.title}}</a></li>
                       {% endfor %}
                       {% else %}
                       <li><a href=# >Youtube</a></li>

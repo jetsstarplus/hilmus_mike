@@ -21,7 +21,7 @@
           <ul>
             {% for service_single in service_list %}
             <li>
-              <a href="{% url 'pages:services' service_single.id %}">{{service_single.title}}</a>
+              <a href="{% url 'pages:services' service_single.slug %}">{{service_single.title}}</a>
             </li>
            
             {% endfor %}

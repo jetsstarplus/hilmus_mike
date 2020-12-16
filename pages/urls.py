@@ -13,5 +13,5 @@ urlpatterns=[
     path("terms-of-service/", views.terms, name='terms'),
     path("shop/", views.shop, name="shop"),
     path("contact/", views.contact, name="contact"),
-    path("services/<int:id>/", views.service, name="services"),
+    path("services/<slug:slug>/", views.service, name="services"),
 ] 

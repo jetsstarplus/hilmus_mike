@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://mikecreatives.com/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/services/artist-management/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/services/boomplay/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/services/skiza-code/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/services/youtube/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/shop/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/contact/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/articles/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/account/login/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/account/register/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/account/password_reset/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://mikecreatives.com/terms-of-service/</loc>
+  <lastmod>2020-12-16T12:19:07+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

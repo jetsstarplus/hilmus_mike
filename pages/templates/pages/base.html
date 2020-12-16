@@ -14,7 +14,7 @@
     "@context" : "http://schema.org",
     "@type" : "LocalBusiness",
     "@id": "https://mikecreatives.com",    
-    "logo": "https://mikecreatives.com/static/icons/apple-icon-60x60.png",
+    "logo": "https://hilmus-mike.s3.af-south-1.amazonaws.com/static/icons/apple-icon-60x60.png",
     "name" : "Mike Creatives - The Home Of Kenyan Brands",
     "telephone" : "+254756829620",
     "email" : connect@mikecreatives.com",
@@ -24,14 +24,14 @@
       "ratingCount": "3"
     },
     
-    "description": "We.come to MIKE Creatives; Made In Kenya Exclusively, a Creatives’ 
+    "description": "Welcome to MIKE Creatives; Made In Kenya Exclusively, a Creatives’ 
     Social Enterprise focused on delivering context relevant digital 
     solutions necessary to propel growth and scale the impact of works of 
     Art in Kenya.  We believe in the gift of Art and the Creative Economy in Kenya 
     as a catalyst  for the attainment of the Sustainable Development Goals (SDGs).
     Below are amongst our list of services",
     "image" : [
-          "https://mikecreatives.com/static/icons/apple-icon-60x60.png",
+          "https://hilmus-mike.s3.af-south-1.amazonaws.com/static/icons/apple-icon-60x60.png",
           ],
     "address" : {
       "@type" : "PostalAddress",
@@ -101,6 +101,10 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="{% static 'icons/ms-icon-144x144.png' %}">
   <meta name="theme-color" content="#ffffff">
+  {% block meta %}
+
+  {% endblock %}
+  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet">
 
@@ -128,7 +132,17 @@
 </head>
 
 <body data-spy="scroll" data-target="#navbar-example">
-
+  <!-- facebook's script -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0" nonce="9eRBdvfL"></script>
   <div id="preloader"></div>
     {% block header %} {% include './includes/header.html' %}{% endblock %}
     {% block carousel %} {% endblock %}

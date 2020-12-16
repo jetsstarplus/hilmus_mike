@@ -5,6 +5,7 @@ __pycache__/
 mediafiles/
 account_registration/
 mediafiles
+progressbarupload/
 
 # C extensions
 *.so

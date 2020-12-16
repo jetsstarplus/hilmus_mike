@@ -51,5 +51,6 @@ $(function() {
         window.setTimeout(update_progress_info, freq);
 
         $.data(this, 'submitted', true); // mark form as submitted.
+        return true;
     });
 }).jquery();
