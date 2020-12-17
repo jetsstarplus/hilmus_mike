@@ -72,14 +72,14 @@ class Lipa_List(CreateAPIView):
             #print(result_description)
             return Response({'ResultDescription': result_description})
 
-# class Customer_to_Business_Validate(CreateAPIView):
-#     queryset = models.C2BPaymentModel.objects.all()
-#     serializer_class = C2BPaymentSerializer
-#     permission_classes = [AllowAny]
+class Customer_to_Business_Validate(CreateAPIView):
+    queryset = models.C2BPaymentModel.objects.all()
+    serializer_class = C2BPaymentSerializer
+    permission_classes = [AllowAny]
 
-    # def create(self, request):
-    #     print(request.data + " This is the request")
-    #     return Response({'ResultDesc': 0})
+    def create(self, request):
+        print(request.data + " This is the request")
+        return Response({'ResultDesc': 0})
 
       
 
