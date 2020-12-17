@@ -78,7 +78,7 @@ class Customer_to_Business_Validate(CreateAPIView):
     permission_classes = [AllowAny]
 
     def create(self, request):
-        print(request.data + " This is the request")
+        print(request.data, " This is the request")
         return Response({'ResultDesc': 0})
 
       
@@ -89,7 +89,7 @@ class Customer_to_Business_Confirm(CreateAPIView):
     permission_classes = [AllowAny]
 
     def create(self, request):
-        print(request.data + " This is the request")
+        print(request.data, " This is the request")
         return Response({'ResultDesc': 0})
 
 
