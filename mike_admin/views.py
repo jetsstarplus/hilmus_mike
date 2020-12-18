@@ -26,6 +26,7 @@ def home(request):
     new_users=0
     user_percentage=0
     lipa_transactions=None
+    paybill=None
     inactive_users=None
     comments=None
     new_comments=None
@@ -47,6 +48,7 @@ def home(request):
         testimonials= Testimonial.objects.filter(is_published=True).order_by('-date_added')
         upload=Music.objects.filter(is_sent=True).order_by('-date_added')
         lipa_transactions=Lipa_na_mpesa.objects.all().order_by('-TransationDate')
+        paybill=C2BPaymentModel.objects.all().order_by('-TransTime')
     
     elif request.user:
         if request.user.is_payed==False:            
@@ -69,6 +71,7 @@ def home(request):
         'lipa_transactions':lipa_transactions,
         'comments':comments,
         'new_comments':new_comments,
+        'paybill':paybill
     }
     return render(request, template_name='mike_admin/dashboard-2.html', context=context )
 
@@ -690,6 +693,8 @@ class LipaTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMi
         # Add in a QuerySet of all the the successful and failed transactions
         context['lipa_successful'] = Initiate.objects.filter(ResultCode=0).order_by('-date_added')
         context['lipa_unsuccessful'] = Initiate.objects.filter(ResultCode=1).order_by('-date_added')
+        context['paybill']=C2BPaymentModel.objects.filter(Status=True).order_by('-TransTime')
+        context['paybill_unconfirmed']=C2BPaymentModel.objects.filter(Status=False).order_by('-TransTime')
         return context
     
 

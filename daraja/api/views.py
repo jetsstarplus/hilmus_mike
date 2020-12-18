@@ -79,6 +79,7 @@ class Customer_to_Business_Validate(CreateAPIView):
 
     def create(self, request):
         print(request.data, " This is the request")
+       
         return Response({'ResultDesc': 0})
 
       
@@ -90,6 +91,45 @@ class Customer_to_Business_Confirm(CreateAPIView):
 
     def create(self, request):
         print(request.data, " This is the request")
+         
+        TransactionType=request.data["TransactionType"]
+        TransID=request.data["TransID"]
+        TransTime=request.data["TransTime"]
+        TransAmount=request.data["TransAmount"]
+        BusinessShortCode=request.data["BusinessShortCode"]
+        BillRefNumber=request.data["BillRefNumber"]
+        InvoiceNumber=request.data["InvoiceNumber"]
+        OrgAccountBalance=request.data["OrgAccountBalance"]
+        ThirdPartyTransID=request.data["ThirdPartyTransID"]
+        MSISDN=request.data["MSISDN"]
+        FirstName=request.data["FirstName"]
+        MiddleName=request.data["MiddleName"]
+        LastName=request.data["LastName"]
+        
+        str_transation_date = str(TransTime) #changing int datetime to string
+        transation_date_time = datetime.strptime(str_transation_date, "%Y%m%d%H%M%S")#changing a string to datetime
+
+        #making transaction datetime to be aware of the timezone
+        aware_transaction_datetime = pytz.utc.localize(transation_date_time)
+        
+        mpesa_model=models.C2BPaymentModel(
+            TransactionType=TransactionType,
+            TransID=TransID,
+            TransTime=aware_transaction_datetime,
+            TransAmount=TransAmount,
+            BusinessShortCode=BusinessShortCode,
+            BillRefNumber=BillRefNumber,
+            InvoiceNumber=InvoiceNumber,
+            OrgAccountBalance=OrgAccountBalance,
+            ThirdPartyTransID=ThirdPartyTransID,
+            MSISDN=MSISDN,
+            FirstName=FirstName,
+            MiddleName=MiddleName,
+            LastName=LastName,
+            Status=False
+        )
+        
+        mpesa_model.save()
         return Response({'ResultDesc': 0})
 
 

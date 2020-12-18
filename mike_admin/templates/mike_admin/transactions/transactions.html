@@ -23,206 +23,339 @@
             </div>
         </div>
 
-                        <div class="col-xl-12">
-                            <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
-                                <div class="sparkline9-hd">
-                                    <div class="main-sparkline9-hd">
-                                        <h1>Lipa Na Mpesa</h1>
-                                        <div class="sparkline9-outline-icon">
-                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sparkline9-graph dashone-comment">
-                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
-                                        <div id="toolbar1">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
-                                            <thead>
-                                                <tr>
-                                                    <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="CheckoutRequestID">Checkout Request ID</th>
-                                                    <th data-field="MerchantRequestID" data-editable="false">Merchant Request ID</th>
-                                                    <th data-field="ResultCode" data-editable="false">Result Code</th>
-                                                    <th data-field="ResultDesc" data-editable="false">Result Description</th>
-                                                    <th data-field="MpesaReceiptNumber" data-editable="false">Mpesa Receipt Number</th>
-                                                    <th data-field="TransationDate" data-editable="false">Transaction Date</th>
-                                                    <th data-field="Amount" data-editable="false">Amount</th>  
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% if lipa_transactions %}
-                                                {% for trans in lipa_transactions %}
-                                                {% if user.is_staff %}
-                                                <tr>
-                                                    <td></td>
-                                                    <td>{{trans.CheckoutRequestID}}</td>
-                                                    <td>{{trans.MerchantRequestID}}</td>
-                                                    <td>{{trans.ResultCode}}</td>
-                                                    <td>{{trans.ResultDesc}}</td>
-                                                    <td>{{trans.MpesaReceiptNumber}}</td>
-                                                    <td>{{trans.TransationDate}}</td> 
-                                                    <td>{{trans.Amount}}</td>                                    
-                                                    
-                                                </tr>
-                                                
-                                                {% endif %}
-                                                {% endfor %}
-                                                
-                                                {% endif %}
-                                            </tbody>
-                                        </table>
-                                        {% if not lipa_transactions %}
-                                        <div class= "alert alert-primary" role="alert">
-                                            <h2>There are no Transactions to see here</h2>
-                                            
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
+            <div class="col-xl-12">
+                <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
+                    <div class="sparkline9-hd">
+                        <div class="main-sparkline9-hd">
+                            <h1>Lipa Na Mpesa</h1>
+                            <div class="sparkline9-outline-icon">
+                                <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
                             </div>
-                        </div>     
-                             
-                        
-                        <div class="col-xl-12">
-                            <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
-                                <div class="sparkline9-hd">
-                                    <div class="main-sparkline9-hd">
-                                        <h1>Successfull User Transactions</h1>
-                                        <div class="sparkline9-outline-icon">
-                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sparkline9-graph dashone-comment">
-                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
-                                        <div id="toolbar1">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
-                                            <thead>
-                                                <tr>
-                                                    <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="CheckoutRequestID">Checkout Request ID</th>
-                                                    <th data-field="ResultCode" data-editable="false">Result Code</th>
-                                                    <th data-field="User" data-editable="false">User</th>
-                                                    <th data-field="Service" data-editable="false">Service</th>
-                                                    <th data-field="TransationDate" data-editable="false">Transaction Date</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% if lipa_successful %}
-                                                {% for trans in lipa_successful %}
-                                                {% if user.is_staff %}
-                                                <tr>
-                                                    <td></td>
-                                                    <td>{{trans.CheckoutRequestID}}</td>
-                                                    <td>{{trans.ResultCode}}</td>
-                                                    <td>{{trans.user}}</td>
-                                                    <td>{{trans.service}}</td>
-                                                    <td>{{trans.date_added}}</td>                                     
-                                                    
-                                                </tr>
-                                                
-                                                {% endif %}
-                                                {% endfor %}
-                                                
-                                                {% endif %}
-                                            </tbody>
-                                        </table>
-                                        {% if not lipa_successful %}
-                                        <div class= "alert alert-primary" role="alert">
-                                            <h2>There are no Transactions to see here</h2>
-                                            
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="sparkline9-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
                             </div>
-                        </div>     
-                     
-                        <div class="col-xl-12">
-                            <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
-                                <div class="sparkline9-hd">
-                                    <div class="main-sparkline9-hd">
-                                        <h1>UnSuccessfull Transactions</h1>
-                                        <div class="sparkline9-outline-icon">
-                                            <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sparkline9-graph dashone-comment">
-                                    <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
-                                        <div id="toolbar1">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
-                                            <thead>
-                                                <tr>
-                                                    <th data-field="state" data-checkbox="true"></th>
-                                                    <th data-field="CheckoutRequestID">Checkout Request ID</th>
-                                                    <th data-field="ResultCode" data-editable="false">Result Code</th>
-                                                    <th data-field="User" data-editable="false">User</th>
-                                                    <th data-field="Service" data-editable="false">Service</th>
-                                                    <th data-field="TransationDate" data-editable="false">Transaction Date</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% if lipa_unsuccessful %}
-                                                {% for trans in lipa_unsuccessful %}
-                                                {% if user.is_staff %}
-                                                <tr>
-                                                    <td></td>
-                                                    <td>{{trans.CheckoutRequestID}}</td>
-                                                    <td>{{trans.ResultCode}}</td>
-                                                    <td>{{trans.user}}</td>
-                                                    <td>{{trans.service}}</td>
-                                                    <td>{{trans.date_added}}</td>                                   
-                                                    
-                                                </tr>
-                                                
-                                                {% endif %}
-                                                {% endfor %}
-                                                
-                                                {% endif %}
-                                            </tbody>
-                                        </table>
-                                        {% if not lipa_unsuccessful %}
-                                        <div class= "alert alert-primary" role="alert">
-                                            <h2>There are no Transactions to see here</h2>
-                                            
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>     
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="CheckoutRequestID">Checkout Request ID</th>
+                                        <th data-field="MerchantRequestID" data-editable="false">Merchant Request ID</th>
+                                        <th data-field="ResultCode" data-editable="false">Result Code</th>
+                                        <th data-field="ResultDesc" data-editable="false">Result Description</th>
+                                        <th data-field="MpesaReceiptNumber" data-editable="false">Mpesa Receipt Number</th>
+                                        <th data-field="TransationDate" data-editable="false">Transaction Date</th>
+                                        <th data-field="Amount" data-editable="false">Amount</th>  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if lipa_transactions %}
+                                    {% for trans in lipa_transactions %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{trans.CheckoutRequestID}}</td>
+                                        <td>{{trans.MerchantRequestID}}</td>
+                                        <td>{{trans.ResultCode}}</td>
+                                        <td>{{trans.ResultDesc}}</td>
+                                        <td>{{trans.MpesaReceiptNumber}}</td>
+                                        <td>{{trans.TransationDate}}</td> 
+                                        <td>{{trans.Amount}}</td>                                    
+                                        
+                                    </tr>
                                     
-                    
-                <br />
-                <br />          
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not lipa_transactions %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no Transactions to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>                   
+                        
+            <div class="col-xl-12">
+                <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
+                    <div class="sparkline9-hd">
+                        <div class="main-sparkline9-hd">
+                            <h1>Successfull Online User Transactions</h1>
+                            <div class="sparkline9-outline-icon">
+                                <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline9-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="CheckoutRequestID">Checkout Request ID</th>
+                                        <th data-field="ResultCode" data-editable="false">Result Code</th>
+                                        <th data-field="User" data-editable="false">User</th>
+                                        <th data-field="Service" data-editable="false">Service</th>
+                                        <th data-field="TransationDate" data-editable="false">Transaction Date</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if lipa_successful %}
+                                    {% for trans in lipa_successful %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{trans.CheckoutRequestID}}</td>
+                                        <td>{{trans.ResultCode}}</td>
+                                        <td>{{trans.user}}</td>
+                                        <td>{{trans.service}}</td>
+                                        <td>{{trans.date_added}}</td>                                     
+                                        
+                                    </tr>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not lipa_successful %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no Transactions to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>     
+
+            <div class="col-xl-12">
+                <div class="sparkline9-list border-radius shadow-reset mg-tb-30">
+                    <div class="sparkline9-hd">
+                        <div class="main-sparkline9-hd">
+                            <h1>Lipa Na Mpesa Online UnSuccessfull Transactions</h1>
+                            <div class="sparkline9-outline-icon">
+                                <span class="sparkline9-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline9-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline9-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="CheckoutRequestID">Checkout Request ID</th>
+                                        <th data-field="ResultCode" data-editable="false">Result Code</th>
+                                        <th data-field="User" data-editable="false">User</th>
+                                        <th data-field="Service" data-editable="false">Service</th>
+                                        <th data-field="TransationDate" data-editable="false">Transaction Date</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if lipa_unsuccessful %}
+                                    {% for trans in lipa_unsuccessful %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{trans.CheckoutRequestID}}</td>
+                                        <td>{{trans.ResultCode}}</td>
+                                        <td>{{trans.user}}</td>
+                                        <td>{{trans.service}}</td>
+                                        <td>{{trans.date_added}}</td>                                   
+                                        
+                                    </tr>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not lipa_unsuccessful %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no Transactions to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>     
+                        
+            <div class="col-xl-12">
+                <div class="sparkline10-list shadow-reset mg-tb-30">
+                    <div class="sparkline10-hd">
+                        <div class="main-sparkline10-hd">
+                            <h1>Confirmed Paybill Transactions</h1>
+                            <div class="sparkline10-outline-icon">
+                                <span class="sparkline10-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline10-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="TransactionID">Transaction ID</th>
+                                        <th data-field="Status" data-editable="false">Transaction Status</th>
+                                        <th data-field="MSISDN" data-editable="false">MSISDN</th>
+                                        <th data-field="FullName" data-editable="false">Full Name</th>
+                                        <th data-field="OrganizationsAccountBalance" data-editable="false">Organization's Account Balance</th>
+                                        <th data-field="TransactionTime" data-editable="false">Transaction Time</th>
+                                        <th data-field="Amount" data-editable="false">Transaction Amount</th>  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if paybill %}
+                                    {% for trans in paybill %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{trans.TransID}}</td>
+                                        <td>{% if trans.Status %}Confirmed{% else %}Pending{% endif %}</td>
+                                        <td>{{trans.MSISDN}}</td>
+                                        <td>{{trans.FullName}}</td>
+                                        <td>{{trans.OrgAccountBalance}}</td>
+                                        <td>{{trans.TransTime}}</td> 
+                                        <td>{{trans.TransAmount}}</td>                                    
+                                        
+                                    </tr>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not users %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no Transactions to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="col-xl-12">
+                <div class="sparkline10-list shadow-reset mg-tb-30">
+                    <div class="sparkline10-hd">
+                        <div class="main-sparkline10-hd">
+                            <h1>Unconfirmed Paybill Transactions</h1>
+                            <div class="sparkline10-outline-icon">
+                                <span class="sparkline10-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                <span><i class="fa fa-wrench"></i></span>
+                                <span class="sparkline10-collapse-close"><i class="fa fa-times"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sparkline10-graph dashone-comment">
+                        <div class="datatable-dashv1-list custom-datatable-overright dashtwo-project-list-data">
+                            <div id="toolbar1">
+                                <select class="form-control">
+                                    <option value="">Export Basic</option>
+                                    <option value="all">Export All</option>
+                                    <option value="selected">Export Selected</option>
+                                </select>
+                            </div>
+                            <table id="table1" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-resizable="true" data-cookie="true" data-page-size="15" data-page-list="[5, 10, 15, 20, 25]" data-cookie-id-table="saveId" data-show-export="true">
+                                <thead>
+                                    <tr>
+                                        <th data-field="state" data-checkbox="true"></th>
+                                        <th data-field="TransactionID">Transaction ID</th>
+                                        <th data-field="Status" data-editable="false">Transaction Status</th>
+                                        <th data-field="MSISDN" data-editable="false">MSISDN</th>
+                                        <th data-field="FullName" data-editable="false">Full Name</th>
+                                        <th data-field="OrganizationsAccountBalance" data-editable="false">Organization's Account Balance</th>
+                                        <th data-field="TransactionTime" data-editable="false">Transaction Time</th>
+                                        <th data-field="Amount" data-editable="false">Transaction Amount</th>  
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if paybill_unconfirmed %}
+                                    {% for trans in paybill %}
+                                    {% if user.is_staff %}
+                                    <tr>
+                                        <td></td>
+                                        <td>{{trans.TransID}}</td>
+                                        <td>{% if trans.Status %}Confirmed{% else %}Pending{% endif %}</td>
+                                        <td>{{trans.MSISDN}}</td>
+                                        <td>{{trans.FullName}}</td>
+                                        <td>{{trans.OrgAccountBalance}}</td>
+                                        <td>{{trans.TransTime}}</td> 
+                                        <td>{{trans.TransAmount}}</td>                                    
+                                        
+                                    </tr>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                            {% if not users %}
+                            <div class= "alert alert-primary" role="alert">
+                                <h2>There are no Transactions to see here</h2>
+                                
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />          
         </div>
     </div>
     

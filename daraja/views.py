@@ -1,16 +1,24 @@
 import ast
 import json
 import requests
+import base64
+import environ
 
-from django.shortcuts import render
+env = environ.Env(
+    PAYBILL=(str, '601393')
+)
+
+
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
+from django.urls import reverse
 # from django.contrib.auth.models import User
 from rest_framework import viewsets
 from . import serializers
 from mpesa.daraja import lipa_na_mpesa
 from mike_admin.models import Service
-from .models import Initiate
+from .models import Initiate, C2BPaymentModel
 
 # #viewsets define the behavior of the view
 # class UserViewSet(viewsets.ModelViewSet):
@@ -152,6 +160,74 @@ def lipa_mpesa(request):
             # print(result)
            
             # print(merchant)
+        
+    context={
+        'error':error,
+        'message':message,
+        'services':services
+    }
+    return render(request, template_name=template_name, context=context)
+
+
+def paybill(request, id):
+    template_name="paybill.html"
+    error=None
+    message=None
+    user=request.user
+    id=None
+    
+    service = Service.objects.get(pk=id)
+    account='{}+{}'.format(user.id,service.id)
+    # account='959090+10'
+    string=base64.b64encode(account.encode('utf-8')).decode("utf-8") 
+    paybill=env('PAYBILL')
+    # print(string)
+    # base=base64.b64decode(string.encode('ascii')).decode('ascii')
+    # print(base)
+    if request.method=='POST' and user:
+        id=service.id
+        trans = str(request.POST.get("trans", None))
+        # messages.add_message(request, messages.INFO, f"Hello {username}")
+        transaction=C2BPaymentModel.objects.filter(TransID=trans)        
+        if transaction:
+            if transaction.Status:
+                error="The transaction had already been confirmed"                   
+                messages.add_message(request, messages.WARNING,  "The transaction had already been confirmed")
+            else:
+                transaction.update(Status=True)
+                user.is_payed= True
+                user.save(update_fields=['is_payed'])
+                message = " You Can Now Proceed with uploading your content"
+                messages.add_message(request, messages.SUCCESS,  " Confirmation Successful")                 
+                
+        else:
+            error="Transaction ID Not Found!"
+            messages.add_message(request, messages.WARNING,  "Transaction ID Not Found!")
+
+        
+    context={
+        'error':error,
+        'message':message,
+        'service':service,
+        'account':string,
+        'paybill':paybill,
+        'id':id,
+    }
+    return render(request, template_name=template_name, context=context)
+
+
+def select_service(request):
+    template_name="select.html"
+    error=None
+    message=None
+    user=request.user
+    services= Service.objects.all()
+        
+    if request.method=='POST' and user:          
+        service = request.POST.get("amount", None)   
+        selected_service = Service.objects.get(id=service)
+        # print(selected_service)
+        return redirect('home:paybill',id = selected_service.id)
         
     context={
         'error':error,

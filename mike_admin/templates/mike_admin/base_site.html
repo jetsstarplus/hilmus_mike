@@ -29,8 +29,14 @@
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a href="{% url "home:lipa_na_mpesa_form" %}"  role="button"  class="nav-link"><i class="fa big-icon fa-money"></i> <span class="mini-dn">Lipa Na Mpesa Online</span></a>
                         
+                        
+                    </li>
+                    <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-money"></i> <span class="mini-dn">Lipa Na Mpesa</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a href="{% url "home:lipa_na_mpesa_form" %}"  class="dropdown-item">Mpesa Online Payment</a>
+                            <a href="{% url "home:select-service" %}"  class="dropdown-item">Paybill</a>
+                        </div>
                     </li>
                     <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-user"></i> <span class="mini-dn">Profile</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
@@ -227,6 +233,14 @@
                                     {% endif %}
                                     <li> <a href="{% url "home:lipa_na_mpesa_form" %}">Lipa Na Mpesa Online<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                        
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#demo" href="#">Lipa Na Mpesa <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="demo" class="collapse dropdown-header-top">
+                                            <li><a href="{% url 'home:lipa_na_mpesa_form' %}" class="dropdown-item">Mpesa Online Payment</a>
+                                            </li>
+                                            <li><a href="{% url 'home:select-service' %}">Paybill</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li><a data-toggle="collapse" data-target="#demo" href="#">Profile <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                         <ul id="demo" class="collapse dropdown-header-top">

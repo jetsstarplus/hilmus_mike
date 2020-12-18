@@ -5,22 +5,17 @@
             {% block breadcrump %}
           <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
                 </li>
-                <li><span class="bread-blod">Lipa Na Mpesa</span>
+                <li><span class="bread-blod">Select Service</span>
                 </li>
             {% endblock %}
             {% block m-breadcrump %}
                 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
                 </li>
-                <li><span class="bread-blod">Lipa Na Mpesa</span>
+                <li><span class="bread-blod">Select Service</span>
                 </li>
             {% endblock %}
 {% block content %}
-    
-{% block cssblock %}
-<link href="{% static 'home/js/build/css/intlTelInput.css' %}" rel="stylesheet">
-<link href="{% static 'home/js/build/css/demo.css' %}" rel="stylesheet">
-<link href="{% static 'home/js/build/isValidNumber.css' %}" rel = "stylesheet">
-{% endblock %}
+
 <!-- <input type="tel" id="phone" name="phone"> -->
     <div class="login-form-area mg-t-30 mg-b-15">
         <div class="container-fluid">
@@ -34,7 +29,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="login-title">
-                                        <h1><strong>Lipa Na Mpesa Online</strong></h1>
+                                        <h1><strong>Select A Service To Pay For</strong></h1>
                                         <hr />
                                     </div>
                                 </div>
@@ -61,27 +56,12 @@
                                 <br />
                                 {% endif %}
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <div class="login-input-head">
-                                        <p><strong>Phone Number:</strong></p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="login-input-area register-mg-rt">
-                                                <input type="tel" id="phone" name="phone">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="row">
                               <div class="col-lg-4">
                                   <div class="login-input-head">
-                                      <p><strong>Service:</strong></p>
+                                      <p><strong>Select Service:</strong></p>
                                   </div>
                               </div>
                               <div class="col-lg-8">
@@ -94,10 +74,10 @@
                                                         <option value='{{service.id}}'>{{service.title}}  - Ksh {{service.pricing}}</option>
                                                         {% endfor %}
                                                 {% else %}
-                                                    <option>Select 1</option>
-                                                    <option>Select 2</option>
-                                                    <option>Select 3</option>
-                                                    <option>Select 4</option>
+                                                    <option value="1">Select 1</option>
+                                                    <option value="2" >Select 2</option>
+                                                    <option value="3">Select 3</option>
+                                                    <option value="4">Select 4</option>
                                                 {% endif %}
                                             </select>
                                         </div>                                          
@@ -111,7 +91,7 @@
                                 <div class="col-lg-4"></div>
                                 <div class="col-lg-8">
                                     <div class="login-button-pro">
-                                        <button type="submit" class="login-button login-button-lg">Submit Payment</button>
+                                        <button type="submit" class="login-button login-button-lg">Submit Selection</button>
                                     </div>
                                 </div>
                             </div>
@@ -123,83 +103,6 @@
         </div>
     </div>
    
-      <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
-      <script>
-        let input = document.querySelector("#phone"),
-        errorMsg = document.querySelector("#error-msg"),
-        validMsg = document.querySelector("#valid-msg"),
-        select = document.querySelector(".selectBox");
       
-      // here, the index maps to the error code returned from getValidationError - see readme
-      var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-      
-        
-        window.intlTelInput(input, {
-          utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.3/build/js/utils.js",
-          allowDropdown: false,
-          // autoHideDialCode: false,
-          autoPlaceholder: "aggressive",
-          // dropdownContainer: document.body,
-          // excludeCountries: ["us"],
-          // formatOnDisplay: false,
-          // geoIpLookup: function(callback) {
-          //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-          //     var countryCode = (resp && resp.country) ? resp.country : "";
-          //     callback(countryCode);
-          //   });
-          // },
-          // hiddenInput: "full_number",
-          initialCountry: "ke",
-          // localizedCountries: { 'de': 'Deutschland' },
-          // nationalMode: false,
-          // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-          // placeholderNumberType: "MOBILE",
-          // preferredCountries: ['cn', 'jp'],
-          separateDialCode: true,
-          
-        });
 
-                
-        let reset = function() {
-            input.classList.remove("error");
-            errorMsg.innerHTML = "";
-            errorMsg.classList.add("hide");
-            validMsg.classList.add("hide");
-        };
-
-        // on blur: validate
-        input.addEventListener('blur', function() {
-            reset();
-            if (input.value.trim()) {
-            if (iti.isValidNumber()) {
-                validMsg.classList.remove("hide");
-            } else {
-                input.classList.add("error");
-                var errorCode = iti.getValidationError();
-                errorMsg.innerHTML = errorMap[errorCode];
-                errorMsg.classList.remove("hide");
-            }
-            }
-        });
-
-        select.addEventListener('submit', function(){
-        reset();
-        if(select.value == "1"){
-            errorMsg.innerHTML = "please select an option";
-            errorMsg.classList.remove("hide");
-        }
-        })
-
-        // on keyup / change flag: reset
-        input.addEventListener('change', reset);
-        input.addEventListener('keyup', reset);
-  
-      </script>
-
-  {% endblock %}
-  {% block jsblock %}
-     <!-- The phone number field -->
-  <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
-  
-  <link href="{% static 'home/contactform/phone.js' %}" rel="stylesheet">
   {% endblock %}
