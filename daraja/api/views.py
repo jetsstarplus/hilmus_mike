@@ -87,7 +87,7 @@ def Customer_to_Business_Validate(request):
     if service.Price==float(TransAmount):
         return HttpResponse(content="Success", status=200, reason="Amount Matches", content_type='application/json', charset=utf-8)
     else:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden(content_type="application/json")
       
 
 class Customer_to_Business_Confirm(CreateAPIView):
