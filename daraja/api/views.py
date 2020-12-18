@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from datetime import datetime
 import pytz
 from django.views import View
+from django.http import HttpResponse, HttpResponseForbidden
 
 #for handling responses
 from rest_framework.response import Response
@@ -73,20 +74,20 @@ class Lipa_List(CreateAPIView):
             #print(result_description)
             return Response({'ResultDescription': result_description})
 
-class Customer_to_Business_Validate(View):
-    def post(self, request):
-        print(request.data, " This is the request") 
-        TransAmount=request.data["TransAmount"]
-        BillRefNumber=request.data["BillRefNumber"]
-        
-        payed_service=base64.b64decode(BillRefNumber.encode('ascii')).decode('ascii')
-        payed_service=payed_service.split('+')[1]
-        
-        service=Service.objects.filter(id=payed_service)
-        if service.Price==float(TransAmount):
-            return True
-        else:
-            return False
+
+def Customer_to_Business_Validate(request):
+    print(request.data, " This is the request") 
+    TransAmount=request.data["TransAmount"]
+    BillRefNumber=request.data["BillRefNumber"]
+    
+    payed_service=base64.b64decode(BillRefNumber.encode('ascii')).decode('ascii')
+    payed_service=payed_service.split('+')[1]
+    
+    service=Service.objects.filter(id=payed_service)
+    if service.Price==float(TransAmount):
+        return HttpResponse(content="Success", status=200, reason="Amount Matches", content_type='application/json', charset=utf-8)
+    else:
+        return HttpResponseForbidden()
       
 
 class Customer_to_Business_Confirm(CreateAPIView):
