@@ -31,18 +31,18 @@ class Lipa_na_mpesa(models.Model):
 class C2BPaymentModel(models.Model):
     #Confirmation Respose
         TransactionType = models.CharField(max_length = 13)
-        TransID = models.CharField(max_length=12)
-        TransTime = models.CharField(max_length = 20)
+        TransID = models.CharField(max_length=50)
+        TransTime = models.CharField(max_length = 50)
         TransAmount = models.FloatField()
-        BusinessShortCode = models.CharField(max_length = 12)
-        BillRefNumber = models.CharField(max_length = 20)
-        InvoiceNumber = models.CharField(max_length = 20)
+        BusinessShortCode = models.CharField(max_length = 50)
+        BillRefNumber = models.CharField(max_length = 50)
+        InvoiceNumber = models.CharField(max_length = 50)
         OrgAccountBalance = models.FloatField()
-        ThirdPartyTransID = models.CharField(max_length = 20)
-        MSISDN = models.CharField(max_length = 20)
-        FirstName = models.CharField(max_length = 20)
-        MiddleName = models.CharField(max_length = 20)
-        LastName = models.CharField(max_length = 20)
+        ThirdPartyTransID = models.CharField(max_length = 50)
+        MSISDN = models.CharField(max_length = 50)
+        FirstName = models.CharField(max_length = 50)
+        MiddleName = models.CharField(max_length = 50)
+        LastName = models.CharField(max_length = 50)
         Status = models.BooleanField(default=False)
         class Meta:
             ordering = ['TransTime']
