@@ -44,6 +44,8 @@ class C2BPaymentModel(models.Model):
         MiddleName = models.CharField(max_length = 50)
         LastName = models.CharField(max_length = 50)
         Status = models.BooleanField(default=False)
+        user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
+        Service=models.ForeignKey(Service, on_delete=models.PROTECT, null=True, blank=True)
         class Meta:
             ordering = ['TransTime']
             verbose_name_plural = "Customer To Business Payment"

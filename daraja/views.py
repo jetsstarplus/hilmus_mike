@@ -174,13 +174,13 @@ def paybill(request, id):
     error=None
     message=None
     user=request.user
-    id=None
-    
+      
     service = Service.objects.get(pk=id)
     account='{}+{}'.format(user.id,service.id)
     # account='959090+10'
     string=base64.b64encode(account.encode('utf-8')).decode("utf-8") 
     paybill=env('PAYBILL')
+    
     # print(string)
     # base=base64.b64decode(string.encode('ascii')).decode('ascii')
     # print(base)
@@ -194,7 +194,11 @@ def paybill(request, id):
                 error="The transaction had already been confirmed"                   
                 messages.add_message(request, messages.WARNING,  "The transaction had already been confirmed")
             else:
-                transaction.update(Status=True)
+                payed_service=base64.b64decode(transaction.BillRefNumber.encode('ascii')).decode('ascii')
+                payed_service=payed_service.split('+')
+                # print(payed_service)
+                payed_service=Service.objects.filter(pk=payed_service[1])
+                transaction.update(Status=True, user=user, service=payed_service)
                 user.is_payed= True
                 user.save(update_fields=['is_payed'])
                 message = " You Can Now Proceed with uploading your content"

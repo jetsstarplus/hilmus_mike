@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAdminUser, AllowAny
 from datetime import datetime
 import pytz
+from django.views import View
 
 #for handling responses
 from rest_framework.response import Response
@@ -72,16 +73,20 @@ class Lipa_List(CreateAPIView):
             #print(result_description)
             return Response({'ResultDescription': result_description})
 
-class Customer_to_Business_Validate(CreateAPIView):
-    queryset = models.C2BPaymentModel.objects.all()
-    serializer_class = C2BPaymentSerializer
-    permission_classes = [AllowAny]
-
-    def create(self, request):
-        print(request.data, " This is the request")
-       
-        return Response({'ResultDesc': 0})
-
+class Customer_to_Business_Validate(View):
+    def post(self, request):
+        print(request.data, " This is the request") 
+        TransAmount=request.data["TransAmount"]
+        BillRefNumber=request.data["BillRefNumber"]
+        
+        payed_service=base64.b64decode(BillRefNumber.encode('ascii')).decode('ascii')
+        payed_service=payed_service.split('+')[1]
+        
+        service=Service.objects.filter(id=payed_service)
+        if service.Price==float(TransAmount):
+            return True
+        else:
+            return False
       
 
 class Customer_to_Business_Confirm(CreateAPIView):
@@ -153,6 +158,4 @@ class Lipa_na_Mpesa_QeueTimeOut(CreateAPIView):
     def create(self, request):
         print(request.data + " This is the qeue time out request")
         return Response({'ResultDesc': 0})
-
- 
-        
+    
