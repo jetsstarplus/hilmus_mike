@@ -30,7 +30,7 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
         "TransactionType": "CustomerPayBillOnline",
         "Amount": amount,
         "PartyA":phone_number,
-        "PartyB":keys.business_shortcode,
+        "PartyB":keys.LipaNaMpesaOnlineShortcode,
         "PhoneNumber": phone_number ,
         "CallBackURL": "https://hilmus-mike.herokuapp.com/payments/lmmapi/",
         "AccountReference": account,
@@ -43,9 +43,9 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
     except:
         response = requests.post(api_url, json = request, headers=headers, verify=False, stream=True)
     
-    # return(response)
-    print (response.text)
+    return(response)
+    # print (response.text)
   
   
-#authentication() 
-lipa_na_mpesa('254701850242', '1', '1234', "trial")
+authentication() 
+# lipa_na_mpesa('254701850242', '10', '123488', "trial instance")
