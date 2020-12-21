@@ -24,7 +24,7 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
     api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
     headers = { "Authorization": "Bearer %s" % access_token }
     request = {
-        "BusinessShortCode": keys.business_shortcode,
+        "BusinessShortCode": keys.LipaNaMpesaOnlineShortcode,
         "Password": data_encryption(timestamp()),
         "Timestamp": timestamp(),
         "TransactionType": "CustomerPayBillOnline",
@@ -43,9 +43,9 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
     except:
         response = requests.post(api_url, json = request, headers=headers, verify=False, stream=True)
     
-    return(response)
-    # print (response.json)
+    # return(response)
+    print (response.text)
   
   
 #authentication() 
-# lipa_na_mpesa('254729408251', '1', '1234', "trial")
+lipa_na_mpesa('254701850242', '1', '1234', "trial")

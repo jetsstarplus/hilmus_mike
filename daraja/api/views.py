@@ -136,7 +136,7 @@ class Customer_to_Business_Confirm(CreateAPIView):
         )
         
         mpesa_model.save()
-        return Response({'ResultDesc': 0})
+        return HttpResponse("success")
 
 
 #this method is used to get the balance
