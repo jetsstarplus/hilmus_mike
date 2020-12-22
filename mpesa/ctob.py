@@ -16,7 +16,7 @@ def simulate_transaction():
   headers = {"Authorization": "Bearer %s" % access_token}
   request = { "ShortCode":keys.business_shortcode,
     "CommandID":"CustomerPayBillOnline",
-    "Amount":"10",
+    "Amount":"1000",
     "Msisdn":keys.TestMSISDN,
     "BillRefNumber":"12345678" }
   

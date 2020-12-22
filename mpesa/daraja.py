@@ -47,5 +47,5 @@ def lipa_na_mpesa(phone_number, amount, account, transaction):
     # print (response.text)
   
   
-authentication() 
+# authentication() 
 # lipa_na_mpesa('254701850242', '10', '123488', "trial instance")
