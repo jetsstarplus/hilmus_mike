@@ -22,7 +22,7 @@
                 <h1><strong>Terms of Service</strong></h1>
             </div>
         </div>
-        
+            {% if user.is_staff %}
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
                 {% if terms %}
@@ -51,14 +51,14 @@
                                         <a href="{% url 'mike_admin:terms_detail' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
                                         </a>
-                                        {% ifequal user post.author %}
+                                        {% if user.is_staff %}
                                         <a href="{% url 'mike_admin:update_terms' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-success">Edit</button> 
                                         </a>
                                         <a href="{% url 'mike_admin:delete_terms' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
                                         </a>
-                                        {% endifequal%}
+                                        {% endif %}
                                       </div>
                                 </div>
                             </div>                          
@@ -80,7 +80,7 @@
                 </div>
                 {% endif %}
             </div>
-      
+            {% endif %}
         </div>
     </div>
     <div class = "container">

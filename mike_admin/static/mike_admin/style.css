@@ -301,6 +301,9 @@ div#preloader {
 .header-right-info ul.header-right-menu li{
 	display:inline-block;
 }
+#block-displayer{
+	display:block;
+}
 .header-right-info ul.header-right-menu li .author-message-top, .header-right-info ul.header-right-menu li .notification-author, .header-right-info ul.header-right-menu li .author-log{
    position:absolute;
    top:160%;
@@ -333,7 +336,7 @@ div#preloader {
    background:#2b2a2a;
 }
 .header-right-info ul.header-right-menu li .author-message-top{
-   left:-133px;
+   left:-150px;
 }
 .header-right-info ul.header-right-menu li .notification-author{
    left:-134px;
@@ -4039,20 +4042,20 @@ ul.breadcome-menu {
 	color: #303030;
 }
 .materialdesign .header-top-area, .materialdesign .fixed-header-top{
-	background: #;
+	background: #303030;
 }
 .materialdesign .header-top-menu .navbar-nav>li .dropdown-menu, .materialdesign .header-right-info ul.header-right-menu li .author-message-top, .materialdesign .header-right-info ul.header-right-menu li .notification-author, .materialdesign .header-right-info ul.header-right-menu li .author-log, .materialdesign .header-right-info ul.header-right-menu li .admintab-wrap.menu-setting-wrap.menu-setting-wrap-bg.dropdown-menu{
-	background: #;
+	background: #303030;
 }
 .materialdesign .header-right-info .author-message-top:before, .materialdesign .header-right-info .notification-author:before{
-	border-bottom: 10px solid #;
+	border-bottom: 10px solid #303030;
 }
 .materialdesign .header-top-menu .navbar-nav>li .dropdown-menu a:hover, .materialdesign .header-right-info ul.header-right-menu li .dropdown-header-top.author-log li a:hover, .materialdesign  .header-right-info ul.header-right-menu li .dropdown-header-top.author-log li a:focus, .materialdesign  .header-drl-controller-btn.btn-info:active:focus, .btn-info:active:hover{
-    background: #;
+    background: #303030;
 }
 .materialdesign .header-drl-controller-btn.btn-info {
-    background-color: #;
-    border-color: #;
+    background-color: #303030;
+    border-color: #303030;
 }
 .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:hover, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:focus, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:active, .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li a:visited{
 	background: #ebebeb;
@@ -4064,13 +4067,13 @@ ul.breadcome-menu {
 	color: #fff;
 }
 .materialdesign .message-single-top h1, .materialdesign .notification-single-top h1{
-	border-bottom: 1px solid #;
+	border-bottom: 1px solid #303030;
 }
 .materialdesign .header-right-info ul.header-right-menu li .message-view a, .materialdesign .header-right-info ul.header-right-menu li .notification-view a{
-	border-top: 1px solid #;
+	border-top: 1px solid #303030;
 }
 .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a, .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a:focus, .materialdesign .menu-setting-wrap.menu-setting-wrap-bg .nav-tabs>li.active>a:hover .notes-img{
-	background: #;
+	background: #303030;
 }
 .materialdesign .breadcome-heading .form-control, .breadcome-heading .form-control:focus {
     border: 1px solid #ececec;
@@ -4133,3 +4136,65 @@ ul.breadcome-menu {
 	border-radius: 5px;	
 	box-shadow: 1.5px 0.5rem 0.5rem 0.4rem rgba(0, 0, 0,.5);
 }
+
+.article-title{
+	font-weight: 500; 
+	font-family:verdana;
+	letter-spacing:0.4rem; 
+	text-transform:uppercase;
+	font-size: 2.2rem;
+}
+
+.marginate{
+	margin:2rem auto;
+}
+/* ****************************
+Ajax form styling
+************************/
+
+.ajax-form  #sendmessage {
+	color: rgb(0, 195, 255);;
+	border: 2px solid rgb(0, 195, 255);;	
+	background: #083316;
+	box-shadow: 0 .5rem 1rem #07eb4b7c;
+	display: none;
+	text-align: center;
+	padding: 15px;
+	font-weight: 600;
+	margin-bottom: 15px;
+	visibility: hidden;	
+	transition: all ease-in-out .5s;
+  }
+  
+  .ajax-form #errormessage {
+	color: rgb(0, 132, 255);
+	display: none;
+	border: 2px solid red;
+	background: #33010180;
+	box-shadow: 0 .5rem 1rem #e70c0c72;
+	text-align: center;
+	visibility: hidden;
+	padding: 15px;
+	font-weight: 600;
+	margin-bottom: 15px;	
+	transition: all ease-in-out .5s;
+  }
+  
+  .ajax-form #sendmessage.show, .ajax-form #errormessage.show, .ajax-form .show {
+	display: block;
+	visibility: visible;
+  }
+
+  .progress-container{
+	  width:100%;
+  }
+
+  .progress-bar{
+	  background-color: rgb(20, 40, 255);
+	  border-radius: 2px;
+	  height: 1rem;	  
+  }
+  
+	.invalid{
+		color:red;
+	}

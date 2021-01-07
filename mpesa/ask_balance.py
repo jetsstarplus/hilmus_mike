@@ -14,8 +14,8 @@ request = { "Initiator":keys.initiatorName,
     "PartyA":keys.PartyA,
     "IdentifierType":"4",
     "Remarks":"This is a balance query",
-    "QueueTimeOutURL":"https://thawing-spire-41307.herokuapp.com/payments/lmmapi/qeuetimeout/",
-    "ResultURL":"https://thawing-spire-41307.herokuapp.com/payments/lmmapi/balance/"
+    "QueueTimeOutURL":"https://hilmus-mike.herokuapp.com/payments/lmmapi/qeuetimeout/",
+    "ResultURL":"https://hilmus-mike.herokuapp.com/payments/lmmapi/balance/"
     }
 
 try:

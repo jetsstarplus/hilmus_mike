@@ -40,10 +40,18 @@ urlpatterns = [
     path('music/<int:pk>/change/', views.update_music, name="update_music"), 
     path('music/<int:pk>/delete/', views.delete_music, name="delete_music"),
     
+    # Services urls
+    path('services/', views.ServicesList.as_view(), name='services'),
+    path('service/<slug:slug>/', views.service_detail, name='service_detail'),
+    path('service/create/', views.create_service, name="create_service"),
+    path('service/<slug:slug>/change/', views.update_service, name="update_service"), 
+    path('service/<slug:slug>/delete/', views.delete_service, name="delete_service"),
+    
     #Users urls
     path('users/', views.UserList.as_view(), name='users'),
     path('user/<str:username>/', views.user_detail, name='user_detail'),
     
     #Users urls
     path('transactions/', views.LipaTransactionList.as_view(), name='lipa'),
+    path('messages/',  views.requestMessages, name='post_messages'),
 ]

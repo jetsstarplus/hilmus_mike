@@ -15,18 +15,13 @@
                 </li>
             {% endblock %}
 {% block content %}
-    
-{% block cssblock %}
-<link href="{% static 'home/js/build/css/intlTelInput.css' %}" rel="stylesheet">
-<link href="{% static 'home/js/build/css/demo.css' %}" rel="stylesheet">
-<link href="{% static 'home/js/build/isValidNumber.css' %}" rel = "stylesheet">
-{% endblock %}
+ 
 <!-- <input type="tel" id="phone" name="phone"> -->
     <div class="login-form-area mg-t-30 mg-b-15">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
+                <form id="ajax-form" class="adminpro-form" action="{% url 'home:paybill' id %}" novalidate="novalidate" method='POST' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-lg-6">
                         <div class="login-bg border-radius">
@@ -40,26 +35,7 @@
                                 </div>
                             </div>
                             <div>
-                                {% if message %}
-                                <div class="alert alert-success alert-success-style1">
-                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
-                                    </button>
-                                    <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
-                                    <p><strong>Success! </strong>{{message}}</p>
-                                </div>
-                                {% endif %}
-                                {% if error %}
-                                <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
-                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
-                                    </button>
-                                    <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
-                                    <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
-                                </div>
-                                
-                                <br />
-                                {% endif %}
+                               
                             </div>
                             <ol class="list-group">
                                 <li class="list-group-item"><strong style="color:blue;">1.  </strong>Select <strong>"Pay bill"</strong> from your Safaricom MPesa Menu.</li>
@@ -71,7 +47,12 @@
                                 <li class="list-group-item"><strong style="color:blue;">7.  </strong>Press <strong>"OK"</strong> Only when you are sure of all the details You entered.</li>                                
                                 <li class="list-group-item" style="text-align: center;"> <strong style="color:#ff4933; text-transform:uppercase; text-align:center">Enter the transaction ID on the form below:</strong></li>                                
                             </ol>
-                     
+                            <div class="row">
+                                <div class="ajax-form">                
+                                    <div id="sendmessage"></div>
+                                    <div id="errormessage"></div>
+                                </div>
+                            </div> 
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="login-input-head">
@@ -82,7 +63,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="login-input-area register-mg-rt">
-                                                <input type="text" id="trans" name="trans">
+                                                <input type="text" id="trans" name="trans" onkeyup='resetForm()'>
                                             </div>
                                         </div>
                                     </div>

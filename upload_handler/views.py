@@ -27,7 +27,7 @@ def upload_progress(request):
     if progress_id:
         cache_key = "{}_{}".format(request.META['REMOTE_ADDR'], progress_id)
         data = cache.get(cache_key)
-        print(json.dumps(data))
+        # print(json.dumps(data))
         return HttpResponse(json.dumps(data))
     else:
         return HttpResponseServerError(

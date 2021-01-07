@@ -18,6 +18,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Account
         fields=('first_name', 'last_name', 'phone', 'avatar', 'information')
+        
     # def save(self, user=None):
     #     user_profile = super(ProfileForm, self).save(commit=False)
     #     if user:            
@@ -27,15 +28,26 @@ class ProfileForm(forms.ModelForm):
 class TermsForm(forms.ModelForm):
     class Meta:
         model=TermsOfService
-        fields=('title', 'content')   
-        # widgets ={
-        #     'content': SummernoteWidget,
-        # }
+        fields=('title', 'content')
+        widgets={
+            'title':forms.TextInput(
+                attrs={'onkeyup':'resetForm()'}),
+            'content': SummernoteWidget(
+                attrs={'onkeyup':'resetForm()'}
+            )
+            } 
   
 class ServiceForm(forms.ModelForm):
     class Meta:
         model=Service
-        exclude=('date_added', 'date_modified')   
+        exclude=('date_added', 'date_modified', 'slug')
+        widgets={
+            'title':forms.TextInput(
+                attrs={'onkeyup':'resetForm()'}),
+            'content': SummernoteWidget(
+                attrs={'onkeyup':'resetForm()'}
+            )
+            }  
         # widgets ={
         #     'content': SummernoteWidget,
         # }  
@@ -44,11 +56,17 @@ class TestimonialForm(forms.ModelForm):
      class Meta:
          model= Testimonial
          fields = ('name', 'picture', 'is_published', 'content')
+         widgets={
+             'name':forms.TextInput(
+                 attrs={'onkeyup':'resetForm()'}),
+             }
          
 class StaffMemberForm(forms.ModelForm):
     class Meta:
         model= StaffMember
         fields='__all__'
+       
+         
         
 class MusicForm(forms.ModelForm):
     class Meta:
@@ -57,4 +75,9 @@ class MusicForm(forms.ModelForm):
         
         widgets = {'music': forms.FileInput(
             attrs={
-                'accept': 'audio/mpeg, audio/mpeg-4, audio/aac, audio/ogg, audio/m4a, audio/flac, audio/wav'})}
+                'accept': 'audio/*',
+                'onselect':'resetForm()'}),
+             'title':forms.TextInput(
+                 attrs={'onkeyup':'resetForm()'}),
+             }
+         

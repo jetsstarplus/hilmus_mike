@@ -16,7 +16,7 @@
 {% block content %}
   <!-- Start Bottom Header -->
   <div class="header-bg page-area">
-    <div class="home-overly"></div>
+    <!-- <div class="home-overly"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -32,10 +32,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!-- END Header -->
-  <div class="blog-page area-padding">
+  <div class="blog-page area-padding" style="margin:1rem auto">
+    <!-- <div class="home-overly"></div> -->
     <div class="container">
       <div class="row">
         {% include './includes/left_side_bar.html' %}
@@ -46,11 +47,14 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
               <!-- single-blog start -->
               <article class="blog-post-wrapper">
+                
+                <div class="post-information">
+                  <h1>{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h1>
+                </div>
                 <div class="post-thumbnail">
                   <img {% if service.image %} src="{{service.image.url}}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %}/>
                 </div>
                 <div class="post-information">
-                  <h2>{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h2>
                       <div class="fb-like" data-href="https://mikecreatives.com/services/{{service.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                   <br />
                   {% if service.content %}

@@ -3,10 +3,11 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
 from .models import Post, Comment
 from .forms import CommentForm, PostForm, PostUpdateForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 class PostList(generic.ListView, LoginRequiredMixin):
@@ -16,12 +17,18 @@ class PostList(generic.ListView, LoginRequiredMixin):
 
 @login_required
 def create_post(request):
-    template_name='article/create_post.html'
+    template_name='mike_admin/admin_forms/create.html'
     new_post=None
     error=None
     slug=None
     user=request.user
     message=None
+    callbackurl=reverse('article:create_post')
+    name='Post'
+    breadcrum={
+        'url': reverse('article:post'),
+        'name':'Posts'
+    }
     
     if user.is_staff:   
         if request.method=='POST':
@@ -34,8 +41,17 @@ def create_post(request):
                 slug=new_post.slug
                 print("last")
                 message="Article Successfully Created"
+                data={
+                    'message':message,
+                    'status':200,
+                }
             else:
                 error="There was a problem with your submission"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
         else:
             form= PostForm()
     
@@ -43,24 +59,34 @@ def create_post(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'slug':slug,
-        'error':error,
-        'message':message,
+        'slug':slug,      
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
         }
     return render(request, template_name, context=context)
 
  
 @login_required
 def update_post(request, slug):
-    template_name='article/edit_post.html'
+    template_name='mike_admin/admin_forms/edit.html'
     post = get_object_or_404(Post, slug=slug)
     error=None
     user=request.user
     slug=None
     message=None
     
+    callbackurl=reverse('article:update_post', args = (post.slug, ))
+    name='Post'
+    breadcrum={
+        'url': reverse('article:post'),
+        'name':'Posts'
+    }
+    create_url=reverse('article:create_post')
+    delete_url=reverse('article:delete_post', args=(post.slug, ))
+    
     if user.is_staff:   
-        if request.method=='POST':
+        if request.is_ajax():
             if request.user == post.author:
                 form = PostUpdateForm(request.POST, request.FILES, instance=post)
                 if form.is_valid():
@@ -69,10 +95,23 @@ def update_post(request, slug):
                         # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                         slug=post.slug
                         message="Post Update successful"
+                        data={
+                            'message':message,
+                            'status':200
+                        }
                     except:
                         error="There was a problem with your submission"
+                        data={
+                            'message':error,
+                            'status':503,
+                        }
                 else:
                     error = "Your data is not complete"
+                    data={
+                            'message':error,
+                            'status':503,
+                        }
+                return JsonResponse(data)
         else:
             form= PostUpdateForm(instance=post)
     
@@ -81,30 +120,44 @@ def update_post(request, slug):
         'post':post,
         'form':form,
         'slug': slug,
-        'error': error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
         }
     return render(request, template_name, context=context)
 
 @login_required
 def delete_post(request, slug):
-    template_name='article/confirm_delete.html'
-    final_template='article/delete_post.html'
+    template_name='mike_admin/admin_forms/delete.html'
     post= get_object_or_404(Post, slug=slug)
     error=None
     user=request.user
     slug=None
     message= None
-    
+    callbackurl=reverse('article:delete_post', args=(post.slug, ))
+    name='Blog'
+    breadcrum={
+        'url': reverse('article:post'),
+        'name':'Blogs' 
+    } 
     if user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             if request.user == post.author:                           
                     post=post.delete()
-                    message="The post has been successfully deleted"                   
+                    message="The post has been successfully deleted"  
+                    data={
+                        'message':message,
+                        'status':200,
+                    }                 
             else:
                 error ="You are not authorized to edit this post"   
-                
-            return render(request, final_template, {'post': post})    
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)    
                     
         else:
             
@@ -113,42 +166,51 @@ def delete_post(request, slug):
     context={
         'user':user,
         'post':post,
-        'form':form,
-        'slug': slug,
-        'error': error,
-        'message':message
+        'form':form,             
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
         }
     return render(request, template_name, context=context)
     
 @login_required
 def post_detail(request, slug):
+    """This post detail view will show the post and all its comments, let’s break it down to see what’s happening.
+
+First, we assigned the HTML """
     template_name = 'article/post_detail.html'
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)
     new_comment = None
-    # Comment posted
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
+      
+    if request.is_ajax():
+        email = request.POST.get("email", None)
+        name = request.POST.get("name", None)
+        body = request.POST.get("body", None)
+        try:
+            comment=Comment(name=name, email=email, body=body, post=post)           
+            comment.save()
+            data = {
+                'message': "Your Comment is Awaiting Moderation, Thank you !",
+                'status':200                
+            }
+        except:
+            data = {
+                'message': "There Was an Error in Your Reply !",
+                'status':500                
+            }
+        finally:            
+            return JsonResponse(data)
     else:
         comment_form = CommentForm()
 
     context = {
         'post': post,
-        'comments': comments,
+        'comments':comments,
         'new_comment': new_comment,
         'comment_form': comment_form
     }
     return render(request, template_name, context=context)
-"""This post detail view will show the post and all its comments, let’s break it down to see what’s happening.
 
-First, we assigned the HTML """
 
 # Create your views here.

@@ -35,7 +35,7 @@ class MyRegisterView(RegistrationView):
             context=context,
             request=self.request,
         )
-        message=EmailMessage(subject, email_message, settings.DEFAULT_FROM_EMAIL, [user.email,])
+        message=EmailMessage(subject, email_message, 'Confirm Email <{}>'.format(settings.DEFAULT_FROM_EMAIL), [user.email,])
         message.content_subtype = 'html' # this is required because there is no plain text email message
         message.send()
         

@@ -43,11 +43,15 @@
                             <div class= "row">
                                 <div class="col-md-3">
                                     {% if post.image %}
-                                        <img src="{% thumbnail post.image 200x150 crop%}" alt="post image">
+                                        <img src="{% thumbnail post.image 200x150 crop %}" alt="post image">
                                     {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
-                                    <p class="card-text">{{post.content | safe |slice:":200" }}</p>...</p></i></em>
+                                    <div class="container-fluid">
+                                        <h5>{% ifequal post.status 1 %} <strong style="color:green">😊 
+                                            Published </strong>{% else %} <strong style="color:red">😒 Not Published</strong> {% endifequal %}</h5>
+                                    </div>
+                                    <!-- <p class="card-text">{{post.content | safe  }}</p>...</p></i></em> -->
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">
                                         <a href="{% url 'article:post_detail' post.slug  %}" >
@@ -61,7 +65,7 @@
                                             <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
                                         </a>
                                         {% endifequal%}
-                                      </div>
+                                    </div>
                                 </div>
                             </div>                          
                             

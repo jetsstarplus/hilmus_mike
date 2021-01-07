@@ -5,8 +5,9 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.views.decorators.csrf import ensure_csrf_cookie
 
-from article.models import Post
+from article.models import Post, Comment
 from mike_admin.models import Testimonial, StaffMember, TermsOfService, Service
 from article.forms import CommentForm
 from .models import Contact
@@ -93,16 +94,33 @@ def post_detail(request, slug):
     service_list=Service.objects.all().order_by('title')[:6]
     new_comment = None
     # Comment posted
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
+    if request.is_ajax():
+        email = request.POST.get("email", None)
+        name = request.POST.get("name", None)
+        body = request.POST.get("body", None)
+        try:
+            comment=Comment(name=name, email=email, body=body, post=post)           
+            comment.save()
+            data = {
+                'message': "Your Comment is Awaiting Moderation, Thank you !",
+                'status':200                
+            }
+        except:
+            data = {
+                'message': "There Was an Error in Your Reply !",
+                'status':500                
+            }
+        finally:            
+            return JsonResponse(data)
+        # comment_form = CommentForm(data=request.POST)
+        # if comment_form.is_valid():
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
+        #     # Create Comment object but don't save to database yet
+        #     new_comment = comment_form.save(commit=False)
+        #     # Assign the current post to the comment
+        #     new_comment.post = post
+        #     # Save the comment to the database
+        #     new_comment.save()
     else:
         comment_form = CommentForm()
 
@@ -132,6 +150,7 @@ def service(request, slug):
 
 
 #This is the form submission view
+# @ensure_csrf_cookie(submit_contacts())
 def submit_contacts(request):
     if request.is_ajax():
         email = request.POST.get("email", None)
@@ -145,20 +164,23 @@ def submit_contacts(request):
             final="Sender: {}\n Email: {}\n Message: \n {}".format(name,email, message)
             mail = EmailMessage(
                 subject=subject, body=final, 
-                from_email=settings.DEFAULT_FROM_EMAIL,
+                from_email= 'Website Contact <{}>'.format(settings.DEFAULT_FROM_EMAIL),
                 headers={'Message-ID': 'MIKE Creatives'},
                 to=['connect@mikecreatives.com','jets.starplus@gmail.com', 'hilmus.software@gmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
             contact.save()
             # mail.content_subtype = ''
             mail.send()
             data = {
-                'message': "OK"
+                'message': "Your Message has been Sent, Thank You!",
+                'status':200
+                
             }
             # print("This is executed as ok")
             
         except:
             data = {
-                'message': "There was an error in our side"
+                'message': "There was an error in your submission!",
+                'status':500
             }
             # print("this is executed")
         

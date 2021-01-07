@@ -39,15 +39,15 @@ DATABASES = {
 #             }
 #         }
 
-# EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
 # MAILER_EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
 # MAILER_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = False
-EMAIL_HOST = 'mail.mikecreatives.com'
-EMAIL_HOST_USER = 'accounts@mikecreatives.com'
-EMAIL_HOST_PASSWORD = '6Fvz1RX7mEu4)]'
-EMAIL_PORT = 26
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = False
+# EMAIL_HOST = 'mail.mikecreatives.com'
+# EMAIL_HOST_USER = 'accounts@mikecreatives.com'
+# EMAIL_HOST_PASSWORD = '6Fvz1RX7mEu4)]'
+# EMAIL_PORT = 26
 
 DEFAULT_FROM_EMAIL='accounts@mikecreatives.com'
 # EMAIL_HOST = 'smtp.mailtrap.io'

@@ -25,10 +25,10 @@ admin.site.register(Music, MusicAdmin)
 
 class StaffAdmin(admin.ModelAdmin):
     """A staffs Admin class"""
-    list_display = ('name', 'role', 'rank', 'is_published')
-    list_filter=('name', 'role', 'rank', 'is_published')
+    list_display = ('username', 'role', 'rank', 'is_published')
+    list_filter=('username', 'role', 'rank', 'is_published')
     ordering=('-rank', 'is_published')
-    search_fields=['name', 'role']
+    search_fields=['username', 'role']
 
 admin.site.register(StaffMember, StaffAdmin)
 

@@ -27,8 +27,8 @@
             <br />
             {% if user.is_staff %}
             <div class = "row container-fluid">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary btn-sm">Edit Testimonial</button></a></div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger btn-sm">Delete Testimonial</button></a></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:update_testimonial' post.id %}"><button class="btn btn-primary">Edit Testimonial</button></a></div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:delete_testimonial' post.id %}"><button class="btn btn-danger">Delete Testimonial</button></a></div>
             </div>
             <hr />
             {% endif%}

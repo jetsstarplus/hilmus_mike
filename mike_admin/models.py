@@ -16,7 +16,7 @@ class Music(models.Model):
     # id=models.UUIDField(primary_key=True, default=uuid.uuids4, editable=False)
     artist=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=False, blank=True, related_name="musics")
     description= models.TextField(blank=True, null=True, verbose_name="More Information",)
-    title= models.CharField(blank=True, max_length=30, null=True)
+    title= models.CharField(blank=True, max_length=50, null=True)
     music=models.FileField(upload_to="Musics", validators=[validate_file_extension], verbose_name="Audio File")
     picture=models.ImageField(upload_to="Music-pics", null=True, blank=True)
     is_sent=models.BooleanField(default=False, verbose_name="Has been sent")
@@ -50,8 +50,8 @@ class Testimonial(models.Model):
     
 class StaffMember(models.Model):
     """A model for creating a testimonial person/ member"""
-    name= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    role=models.CharField(max_length=15)
+    username= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="Username Of the staff Member")
+    role=models.CharField(max_length=35)
     rank= models.IntegerField(default=1)
     picture=models.ImageField(upload_to="testimonials", blank=True, null=True)
     is_published= models.BooleanField(default=False, verbose_name="Publish Testimonial?")

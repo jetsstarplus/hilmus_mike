@@ -1,16 +1,16 @@
 {% extends 'mike_admin/base_site.html' %}
 {% load thumbnail %}
-{% block title %}Testimonials | Mike Creatives {% endblock%}
+{% block title %}{{name}} | MIKE Creatives {% endblock%}
 {% block breadcrump %}
 <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Testimonials</span>
+      <li><span class="bread-blod">{{name}}</span>
       </li>
   {% endblock %}
   {% block m-breadcrump %}
       <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
       </li>
-      <li><span class="bread-blod">Testimonials</span>
+      <li><span class="bread-blod">{{name}}</span>
       </li>
   {% endblock %}
 {% block content %}
@@ -19,23 +19,23 @@
         <div class="col-lg-8">
         <div class="row">
             <!-- <div class="col-md-1"></div>
-            <div class="col-md-10 hometitle alert primary-alert "  style="background-color:rgba(256, 256, 256, 0.7)">
-                <h1 class="center"><strong>Testimonials</strong></h1>
+            <div class="col-md-10 hometitle center alert primary-alert">
+                <h1><strong>Staff Members</strong></h1>
             </div> -->
         </div>
-        {% if user.is_staff %}
+        
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
-                {% if testimonials %}
-                {% for testimonial in testimonials %}
+                {% if list %}
+                {% for item in list %}
                 <div class="card col-lg">
                     <div class="card-body border-radius">
                         <div class="income-title">
                             <div class="main-income-head">
-                                <h2>{{ testimonial.name }}</h2>
+                                <h2>{{item.username.first_name}} {{item.username.last_name}} : {{ item.username }}</h2>
                                 <div class="income-rate-total">
                                     <div class="price-adminpro-rate">
-                                        <p class="card-text text-muted h6">{{testimonial.added_by }} | {{ testimonial.date_added}} </p>
+                                        <p class="card-text text-muted h6">{{ item.rank }} | {{ item.role}} </p>
                                     </div>
                                     
                                 </div>
@@ -44,31 +44,30 @@
                         <div class="income-dashone-pro">  
                             <div class= "row">
                                 <div class="col-md-3">
-                                    {% if testimonial.picture %}
-                                        <img src="{% thumbnail testimonial.picture 200x200 crop%}" alt="testimonial image">
+                                    {% if item.picture %}
+                                        <img src="{% thumbnail item.picture 200x150 crop%}" alt="{{name}} image">
                                     {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
                                     <div class="container-fluid">
-                                        <h5>{% if testimonial.is_published %} <strong style="color:green">😊 
+                                        <h5>{% if item.is_published %} <strong style="color:green">😊 
                                             Published </strong>{% else %} <strong style="color:red">😒 Not Published</strong> {% endif %}</h5>
                                     </div>
-                                    <p class="card-text">{{testimonial.content | safe |slice:":200" }}</p>...</p></i></em>
+                                    <p class="card-text">{{item.content | safe |slice:":200" }}</p>...</p></i></em>
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">
-                                        <a href="{% url 'mike_admin:testimonial_detail' testimonial.id  %}" >
-                                            <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
+                                        <a href="/account/{{urls.plural}}/{{item.id}}/" >
+                                            <button id = "basicInfoNoSound" class="btn btn-info">More &rarr;</button> 
                                         </a>
-                                        {% ifequal user testimonial.added_by %}
-                                        <a href="{% url 'mike_admin:update_testimonial' testimonial.id %}" >
+                                        {% if user.is_staff %}
+                                        <a href="/account/{{urls.name}}/{{item.id}}/change/" >
                                             <button id = "basicInfoNoSound" class="btn btn-success">Edit</button> 
                                         </a>
-                                        <a href="{% url 'mike_admin:delete_testimonial' testimonial.id  %}" >
+                                        <a href="/account/{{urls.name}}/{{item.id}}/change/" >
                                             <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
                                         </a>
-                                        {% endifequal%}
+                                        {% endif%}
                                       </div>
-                                    
                                 </div>
                             </div>                          
                             
@@ -81,37 +80,35 @@
                 <br />
                 {% endfor %}
                 {% else %}
-                <div class = "alert alert-warning">
-                    <h2>There are no Testimonials To See here</h2>
+                <div class= "alert alert-primary">
+                    <h2>There are no {{name}} to see here</h2>
+                    <div>
+                        <a href="{{urls.create}}"><button class="btn btn-primary">Create New</button></a>
+                    </div>
                 </div>
-                {% if user.is_staff %}
-                <div>
-                    <a href="{% url 'mike_admin:create_testimonial' %}"><button class="btn btn-primary">Create New</button></a>
-                </div>
-                {% endif %}
                 {% endif %}
             </div>
-      {% endif %}
+      
         </div>
     </div>
-    <div class = "container">
-        <div class="">
+    <div class = "container-fluid center">
+        <div class="col-md-9 center" >
         {% if is_paginated %}
             <nav aria-label="Page navigation conatiner">
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                 <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
                 {% endif %}
+                
                 {% if page_obj.has_next %}
                 <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
 
                 {% endif %}
             </ul>
             </nav>
-       
-        {% endif %}
         </div>
     
+    {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -26,7 +26,17 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3"></div>
-                <form id="adminpro-register-form" class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
+                <div class="ajax-form col-lg-6">                
+                    <div id="sendmessage"></div>
+                    <div id="errormessage"></div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>            
+            
+            <div class="row">
+                <div class="col-lg-3"></div>
+                
+                <form id="ajax-form" class="adminpro-form" action='{% url "home:lipa_na_mpesa_form" %}' novalidate="novalidate" method='POST' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-lg-6">
                         <div class="login-bg border-radius">
@@ -40,26 +50,7 @@
                                 </div>
                             </div>
                             <div>
-                                {% if message %}
-                                <div class="alert alert-success alert-success-style1">
-                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
-                                    </button>
-                                    <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
-                                    <p><strong>Success! </strong>{{message}}</p>
-                                </div>
-                                {% endif %}
-                                {% if error %}
-                                <div class="alert alert-danger alert-mg-b alert-st-four" role="alert">
-                                    <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
-                                        <span class="icon-sc-cl" aria-hidden="true">×</span>
-                                    </button>
-                                    <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
-                                    <p class="message-mg-rt"><strong>Oh snap!</strong> {{error}}</p>
-                                </div>
                                 
-                                <br />
-                                {% endif %}
                             </div>
                             <div class="row">
                                 <div class="col-lg-4">
@@ -71,11 +62,13 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="login-input-area register-mg-rt">
-                                                <input type="tel" id="phone" name="phone">
+                                                <input type="tel" id="phone" name="phone" style="width:100%" onkeyup='resetForm()' >
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="valid-msg" class="hide">✓ Valid</div>
+                                 <div id="error-msg" class="hide"></div>
                             </div>
 
                             <div class="row">
@@ -88,7 +81,7 @@
                                   <div class="row">
                                       <div class="col-lg-12">
                                         <div class="form-select-list">
-                                            <select class="form-control custom-select-value" name="amount">
+                                            <select class="form-control custom-select-value" name="amount" onclick="resetForm()">
                                                 {% if services %}
                                                      {% for service in services %}
                                                         <option value='{{service.id}}'>{{service.title}}  - Ksh {{service.pricing}}</option>
@@ -125,13 +118,13 @@
    
       <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
       <script>
-        let input = document.querySelector("#phone"),
-        errorMsg = document.querySelector("#error-msg"),
-        validMsg = document.querySelector("#valid-msg"),
-        select = document.querySelector(".selectBox");
+        let input = document.getElementById("phone"),
+        errorMsg = document.getElementById("error-msg"),
+        validMsg = document.getElementById("valid-msg"),
+        select = document.getElementById(".selectBox");
       
       // here, the index maps to the error code returned from getValidationError - see readme
-      var errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+      let errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
       
         
         window.intlTelInput(input, {
@@ -168,7 +161,7 @@
         };
 
         // on blur: validate
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', () => {
             reset();
             if (input.value.trim()) {
             if (iti.isValidNumber()) {
@@ -182,14 +175,14 @@
             }
         });
 
-        select.addEventListener('submit', function(){
+       /* select.addEventListener('submit', function(){
         reset();
         if(select.value == "1"){
             errorMsg.innerHTML = "please select an option";
             errorMsg.classList.remove("hide");
         }
         })
-
+*/
         // on keyup / change flag: reset
         input.addEventListener('change', reset);
         input.addEventListener('keyup', reset);
@@ -201,5 +194,5 @@
      <!-- The phone number field -->
   <script src="{% static 'home/js/build/js/intlTelInput.min.js' %}"></script>
   
-  <link href="{% static 'home/contactform/phone.js' %}" rel="stylesheet">
+  <script href="{% static 'home/contactform/phone.js' %}"></script>
   {% endblock %}

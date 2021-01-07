@@ -34,7 +34,7 @@ class UploadProgressCachedHandler(TemporaryFileUploadHandler):
             cache.set(self.cache_key, {
                 'length': self.content_length,
                 'uploaded' : 0
-            }, 30)
+            })
 
     def new_file(self, field_name, file_name, content_type, content_length, charset=None, content_typ_extra=None):
         self.original_file_name = file_name
@@ -44,7 +44,7 @@ class UploadProgressCachedHandler(TemporaryFileUploadHandler):
         if self.cache_key:
             data = cache.get(self.cache_key)
             data['uploaded'] += self.chunk_size
-            cache.set(self.cache_key, data, 30)
+            cache.set(self.cache_key, data)
         return raw_data
 
     def file_complete(self, file_size):

@@ -1,10 +1,10 @@
-jQuery(document).ready(function($) {
+jquery3(document).ready(function($) {
   "use strict";
 
   //Contact
-  $('form.contactForm').submit(function(event) {
+  jquery3('form#ajaxForm').submit(function(event) {
     event.preventDefault();
-    var f = $(this).find('.form-group'),
+    var f = jquery3(this).find('.form-group'),
       ferror = false,
       emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
 
@@ -90,30 +90,74 @@ jQuery(document).ready(function($) {
       }
     });
     if (ferror) return false;
-    else var str = $(this).serialize();
-    var action = $(this).attr('action');
-    
-  // var csrftoken = Cookies.get('csrftoken');
-    if( ! action ) {
-      action = '{% url "pages:contacts-submit"%}';
-    }
-    $.ajax({
+    else var str = jquery3(this).serialize();
+    var action = jquery3(this).attr('action');
+    console.log(action)
+    // This method gets the csrf token from the cookies
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          let cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+             }
+         }
+      }
+      return cookieValue;
+      }
+
+      let csrftoken = getCookie('csrftoken');  
+   
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+    jquery3.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+         }
+      }
+    });
+    jquery3.ajax({
       type: "POST",
       url: action,
       data: str,
       dataType:'json',
+      statusCode: {
+        403: function(responseObject, textStatus) {
+          document.getElementById('sendmessage').classList.remove('show');
+          document.getElementById('errormessage').innerHTML="Not Permitted!"+' '+textStatus;          
+          document.getElementById('errormessage').classList.add('show');
+        },
+        404:  function(responseObject, textStatus) {
+          document.getElementById('sendmessage').classList.remove('show');
+          document.getElementById('errormessage').innerHTML="Not Found! 404"+' '+textStatus;          
+          document.getElementById('errormessage').classList.add('show');
+        },
+        500:  function(responseObject, textStatus) {
+          document.getElementById('sendmessage').classList.remove('show');
+          document.getElementById('errormessage').innerHTML="Internal Server 500!"+' '+textStatus;          
+          document.getElementById('errormessage').classList.add('show');
+        },
+      },
       success: function(data) {
         // console.log(data.message)
-        if (data.message == 'OK') {
-          $("#sendmessage").addClass("show");
-          $("#errormessage").removeClass("show");
-          $("#successmessage").addClass("show");
-          $("#successmessage").html("Success");
-          $('.contactForm').find("input, textarea").val("");
-        } else {
-          $("#sendmessage").removeClass("show");
-          $("#errormessage").addClass("show");
-          $('#errormessage').html("There was an error");
+        if (data.status === 200) {
+          document.getElementById('errormessage').classList.remove('show')
+          document.getElementById('sendmessage').innerHTML=data.message
+          document.getElementById('sendmessage').classList.add('show')
+          $('.contactForm').find( "input, textarea").val("");
+        } 
+        else {
+          document.getElementById('sendmessage').classList.remove('show')
+          document.getElementById('errormessage').innerHTML=data.message          
+          document.getElementById('errormessage').classList.add('show')
         }
 
       }

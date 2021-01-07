@@ -1,0 +1,51 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load crispy_forms_tags %}
+{% block title %} Confirm {{name}} Delete | MIKE Creatives{% endblock %}
+{% block breadcrump %}
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{{breadcrum.url}}">{{breadcrum.name}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Confirm</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{{breadcrum.url}}">{{breadcrum.name}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Confirm</span>
+      </li>
+  {% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <form method='POST' enctype="multipart/form-data" id = "ajax-form" action='{{url}}'>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 col-sm-9 col-xs-12 mb-4  mt-3 left  top">
+                
+                  {% if post %}
+                <div class="alert alert-danger border-radius" role="alert">
+                    <div class=" ajax-form" style="margin:2rem auto">        
+                        <div id="sendmessage"></div>
+                        <div id="errormessage"></div>
+                    </div>
+                   <h3>Are you sure you want to delete this {{name}}?</h3>
+                   <hr />
+                   <h4 style="color:rgb(2, 40, 200)">{% if post.title %}{{post.title}}{% elif post.username %}{{post.username}}{% elif post.name %} {{post.name}}{%endif%}</h4>
+                   <hr />
+                   <p>Once deleted you will not be able to undo the process</p>
+                  </div>
+                  {% endif %}
+                <div class="login-button-pro">
+                    <button type="submit" class="login-button login-button-lg"> Delete {{name}} </button> 
+                </div>
+            </div>
+            
+        </div>
+        
+          
+    </form>
+</div>
+
+{% endblock content %}

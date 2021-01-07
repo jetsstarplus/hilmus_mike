@@ -1,6 +1,7 @@
 from django.urls import path, include, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
+from django.conf import settings
 
 from django_registration.backends.activation.views import ActivationView
 
@@ -56,6 +57,7 @@ urlpatterns = [
                         email_template_name="mike_admin/emails/password_reset.html",
                         html_email_template_name="mike_admin/emails/password_reset.html", 
                         subject_template_name="mike_admin/emails/password_reset.txt",
+                        from_email='Reset Password <{}>'.format(settings.DEFAULT_FROM_EMAIL),
                         success_url="/account/password_reset/done/"), 
          name="password_reset"),
     

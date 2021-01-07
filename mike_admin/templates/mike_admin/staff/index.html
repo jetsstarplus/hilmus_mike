@@ -32,7 +32,7 @@
                     <div class="card-body border-radius">
                         <div class="income-title">
                             <div class="main-income-head">
-                                <h2>{{post.name.first_name}} {{post.name.last_name}} : {{ post.name }}</h2>
+                                <h2>{{post.username.first_name}} {{post.username.last_name}} : {{ post.username }}</h2>
                                 <div class="income-rate-total">
                                     <div class="price-adminpro-rate">
                                         <p class="card-text text-muted h6">{{ post.rank }} | {{ post.role}} </p>
@@ -91,14 +91,15 @@
       
         </div>
     </div>
-    <div class = "container">
-        <div class="">
+    <div class = "container-fluid center">
+        <div class="col-md-9 center" >
         {% if is_paginated %}
             <nav aria-label="Page navigation conatiner">
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
                 <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
                 {% endif %}
+                
                 {% if page_obj.has_next %}
                 <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
 
@@ -106,7 +107,8 @@
             </ul>
             </nav>
         </div>
-    </div>
- </div>
+    
     {% endif %}
+    </div>
+</div>
 {% endblock %}

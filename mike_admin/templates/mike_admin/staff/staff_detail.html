@@ -27,11 +27,11 @@
                     <br />
                     {% if user.is_staff %}
                     <div class="row">
-                        <div class = "col-md-6">
-                            <a href = "{% url 'mike_admin:update_staff' post.id %}"><button class="btn btn-primary btn-sm">Edit Staff</button></a>     
+                        <div class = "col-md-6 col-sm-6 col-xs-6">
+                            <a href = "{% url 'mike_admin:update_staff' post.id %}"><button class="btn btn-primary btn-sm">Edit</button></a>     
                         </div>
-                        <div class="col-md-6">
-                            <a href = "{% url 'mike_admin:delete_staff' post.id %}"><button class="btn btn-danger btn-sm">Delete Staff</button></a> 
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <a href = "{% url 'mike_admin:delete_staff' post.id %}"><button class="btn btn-danger btn-sm">Deletef</button></a> 
                         </div>
                         <hr />
                     </div>

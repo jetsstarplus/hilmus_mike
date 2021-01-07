@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView, TemplateView, RedirectView
 from django.conf import settings
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -9,13 +9,13 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views import generic
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
-from .models import Music, Testimonial, StaffMember, TermsOfService
+from .models import Music, Testimonial, StaffMember, TermsOfService, Service
 from article.models import Post, Comment
 from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate
 
-from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm
+from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm
 
 @login_required
 def home(request): 
@@ -28,8 +28,6 @@ def home(request):
     lipa_transactions=None
     paybill=None
     inactive_users=None
-    comments=None
-    new_comments=None
     if request.user.is_staff:
         if request.user.get_full_name()==None:             
             messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")  
@@ -37,9 +35,6 @@ def home(request):
         users=get_user_model().objects.filter(is_active=True).order_by('-date_joined')
         inactive_users = get_user_model().objects.filter(is_active=False).order_by('-date_joined')
         musics=Music.objects.filter(is_sent=False).order_by('-date_added')
-        items=Comment.objects.filter(active=False)
-        comments=items.count()
-        new_comments=items.order_by('-created_on')
         # Checking for new users of the system
         for user in users:
             if timezone.now() - user.date_joined <= timedelta(days=30):
@@ -50,11 +45,12 @@ def home(request):
         lipa_transactions=Lipa_na_mpesa.objects.all().order_by('-TransationDate')
         paybill=C2BPaymentModel.objects.all().order_by('-TransTime')
     
-    elif request.user:
-        if request.user.is_payed==False:            
-            messages.add_message(request, messages.INFO,  "Please Complete Your Payment First Inorder To Proceed")
+    elif request.user:        
         if request.user.first_name==None or request.user.last_name==None or request.user.avatar==None:             
-            messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")  
+            messages.add_message(request, messages.WARNING,  "Please Ensure You Complete Your Profile")
+            
+            if request.user.is_payed==False:            
+                messages.add_message(request, messages.INFO,  "Please Complete Your Payment First Inorder To Proceed")  
                 
         musics=Music.objects.filter(artist=request.user, is_sent=False).order_by('-date_added') 
         upload=Music.objects.filter(artist=request.user, is_sent=True).order_by('-date_added') 
@@ -69,8 +65,6 @@ def home(request):
         'upload':upload,
         'inactive_users':inactive_users,
         'lipa_transactions':lipa_transactions,
-        'comments':comments,
-        'new_comments':new_comments,
         'paybill':paybill
     }
     return render(request, template_name='mike_admin/dashboard-2.html', context=context )
@@ -159,15 +153,20 @@ class TestimonialList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin)
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def create_testimonial(request):
-    template_name='mike_admin/testimonials/create_testimonial.html'
+    template_name='mike_admin/admin_forms/create.html'
     new_post=None
     error=None
     user=request.user
     message=None
-    id = None
+    callbackurl=reverse('mike_admin:create_testimonial')
+    name='Testimonial'
+    breadcrum={
+        'url': reverse('mike_admin:testimonials'),
+        'name':'Testimonials'
+    }
     
     if user.is_staff:   
-        if request.method=='POST':
+        if request.is_ajax() and request.method=='POST':
             form = TestimonialForm(request.POST, request.FILES)
             if form.is_valid():
                 # id=2
@@ -177,8 +176,18 @@ def create_testimonial(request):
                 message=" Testimonial Successfully Created!"
                 new_post.save()
                 id=new_post.id
+                data={
+                    'message':message,
+                    'status':200,
+                    'id':id
+                }
             else:
                 error="There was a problem with your submission"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
         else:
             form= TestimonialForm()
     
@@ -186,35 +195,56 @@ def create_testimonial(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'error':error,
-        'id':id,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def update_testimonial(request, id):
-    template_name='mike_admin/testimonials/edit_testimonial.html'
+    template_name='mike_admin/admin_forms/edit.html'
     post = get_object_or_404(Testimonial, pk=id)
     error=None
     user=request.user
-    id=None
     message=None
+    callbackurl=reverse('mike_admin:update_testimonial', args = (post.id, ))
+    name='Testimonial'
+    breadcrum={
+        'url': reverse('mike_admin:testimonials'),
+        'name':'Testimonials'
+    }
+    create_url=reverse('mike_admin:create_testimonial')
+    delete_url=reverse('mike_admin:delete_testimonial', args=(post.id, ))
+    
     
     if user.is_staff:   
-        if request.method=='POST':
+        if request.is_ajax() and request.method=='POST':
             form = TestimonialForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 try:  
                     form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=post.id
-                    message="Testimonial Update successful"
+                    message="Testimonial Update successful!"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
                 except:
-                    error="There was a problem with your submission"
+                    error="There was a problem with your submission!"
+                    data={
+                        'message':error,
+                        'status':503
+                    }
             else:
-                error = "Your data is not complete"
+                error = "Your data is not complete!"
+                data={
+                        'message':error,
+                        'status':400
+                    }
+            return JsonResponse(data)
         else:
             form= TestimonialForm(instance=post)
     
@@ -222,29 +252,38 @@ def update_testimonial(request, id):
         'user':user,
         'post':post,
         'form':form,
-        'id': id,
-        'error': error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def delete_testimonial(request, id):
-    template_name='mike_admin/testimonials/confirm_delete.html'
-    final_template='mike_admin/testimonials/delete_testimonial.html'
+    template_name='mike_admin/admin_forms/delete.html'
     post= get_object_or_404(Testimonial, id=id)
-    error=None
     user=request.user
-    slug=None
     message= None
     
+    callbackurl=reverse('mike_admin:delete_testimonial', args=(post.id, ))
+    name='Testimonial'
+    breadcrum={
+        'url': reverse('mike_admin:testimonials'),
+        'name':'Testimonial' 
+    } 
+    
     if user.is_staff:   
-        if request.method=='POST':                         
+        if request.method=='POST' and request.is_ajax():                         
             post=post.delete()
             message="The testimonial has been successfully deleted"                   
-            id=post.id
-            return render(request, final_template, {'post': post})    
+            data={
+                'message':message,
+                'status':200   
+            }
+            return JsonResponse(data)  
                     
         else:            
             form= TestimonialForm(instance=post)
@@ -254,10 +293,10 @@ def delete_testimonial(request, id):
     context={
         'user':user,
         'post':post,
-        'form':form,
-        'id': id,
-        'error': error,
-        'message':message
+        'form':form,      
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
         }
     return render(request, template_name, context=context)
     
@@ -284,23 +323,36 @@ class StaffList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def create_staff(request):
-    template_name='mike_admin/staff/create_staff.html'
+    template_name='mike_admin/admin_forms/create.html'
     new_post=None
     error=None
-    id=None
     user=request.user
     message= None
+    callbackurl=reverse('mike_admin:create_staff')
+    name='Staff Member'
+    breadcrum={
+        'url': reverse('mike_admin:staffs'),
+        'name':'Staff'
+    }
     
     if user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             form = StaffMemberForm(request.POST, request.FILES)
             if form.is_valid():
                new_post =form.save()
-               id= new_post.id
-               
+               id= new_post.id               
                message=" Staff Member Successfully created!"
+               data={
+                   'message':message,
+                   'status':200
+               }
             else:
                 error="There was a problem with your submission"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
         else:
             form= StaffMemberForm()
     
@@ -308,24 +360,33 @@ def create_staff(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'id':id,
-        'error':error,
-        'message':message
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def update_staff(request, id):
-    template_name='mike_admin/staff/edit_staff.html'
+    template_name='mike_admin/admin_forms/edit.html'
     post = get_object_or_404(StaffMember, pk=id)
     error=None
     user=request.user
-    id=None
     message=None
     
+    callbackurl=reverse('mike_admin:update_staff', args = (post.id, ))
+    name='Staff Member'
+    breadcrum={
+        'url': reverse('mike_admin:staffs'),
+        'name':'Staff'
+    }
+    create_url=reverse('mike_admin:create_staff')
+    delete_url=reverse('mike_admin:delete_staff', args=(post.id, ))
+    
+    
     if user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             form = StaffMemberForm(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 try:  
@@ -333,10 +394,23 @@ def update_staff(request, id):
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=post.id
                     message="Staff Information Updated successful"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
                 except:
                     error="There was a problem with your submission"
+                    data={
+                        'message':error,
+                        'status':400
+                    }
             else:
                 error = "Your data is not complete"
+                data={
+                    'message':error,
+                    'status':500
+                }
+            return JsonResponse(data)
         else:
             form= StaffMemberForm(instance=post)
     
@@ -344,33 +418,48 @@ def update_staff(request, id):
         'user':user,
         'post':post,
         'form':form,
-        'id': id,
-        'error': error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def delete_staff(request, id):
-    template_name='mike_admin/staff/confirm_delete.html'
-    final_template='mike_admin/staff/delete_staff.html'
+    template_name='mike_admin/admin_forms/delete.html'
     post= get_object_or_404(StaffMember, id=id)
     error=None
     user=request.user
     id=None
     message= None
+     
+    callbackurl=reverse('mike_admin:delete_staff', args=(post.id, ))
+    name='Staff Member'
+    breadcrum={
+        'url': reverse('mike_admin:staffs'),
+        'name':'Staff' 
+    } 
     
     if user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             if request.user:                           
                     post=post.delete()
                     message="The staff member has been successfully deleted"  
-                    id=post.id                 
+                    data={
+                        'message':message,
+                        'status':200
+                    }                
             else:
-                error ="You are not authorized to edit this staff"   
+                error ="You are not authorized to edit this staff" 
+                data={
+                    'message':error,
+                    'status':400
+                }  
                 
-            return render(request, final_template, {'post': post})    
+            return JsonResponse(data)   
                     
         else:
             
@@ -381,10 +470,10 @@ def delete_staff(request, id):
     context={
         'user':user,
         'post':post,
-        'form':form,
-        'id': id,
-        'error': error,
-        'message':message
+        'form':form,      
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
         }
     return render(request, template_name, context=context)
     
@@ -411,22 +500,36 @@ class TermsList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def create_terms(request):
-    template_name='mike_admin/terms/create_terms.html'
+    template_name='mike_admin/admin_forms/create.html'
     new_post=None
     error=None
-    id=None
     user=request.user
     message=None
+    callbackurl=reverse('mike_admin:create_terms')
+    name='Term Of Service'
+    breadcrum={
+        'url': reverse('mike_admin:terms'),
+        'name':'Terms Of Service'
+    }
+    
     
     if user.is_staff:   
-        if request.method=='POST':
-            form = TermsForm(request.POST)
+        if request.method=='POST' and request.is_ajax():
+            form = TermsForm(request.POST, request.FILES)
             if form.is_valid():
                new_post= form.save()
                message=" Terms Of Service Successfully created!"
-               id= new_post.id
+               data={
+                   'message':message,
+                   'status':200
+               }
             else:
                 error="There was a problem with your submission"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
         else:
             form= TermsForm()
     
@@ -434,35 +537,56 @@ def create_terms(request):
         'user':user,
         'new_post':new_post,
         'form':form,
-        'id':id,
-        'error':error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def update_terms(request, id):
-    template_name='mike_admin/terms/edit_terms.html'
+    template_name='mike_admin/admin_forms/edit.html'
     terms = get_object_or_404(TermsOfService, pk=id)
     error=None
     user=request.user
-    id=None
     message=None
+    callbackurl=reverse('mike_admin:update_terms', args = (terms.id, ))
+    name='Terms Of Service'
+    breadcrum={
+        'url': reverse('mike_admin:terms'),
+        'name':'Terms Of Service'
+    }
+    create_url=reverse('mike_admin:create_terms')
+    delete_url=reverse('mike_admin:delete_terms', args=(terms.id, ))
     
     if user.is_staff:   
-        if request.method=='POST':
-            form = TermsForm(request.POST, instance=terms)
+        if request.method=='POST' and request.is_ajax():
+            form = TermsForm(request.POST, request.FILES, instance=terms)
             if form.is_valid():
                 try:  
                     terms = form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     id=terms.id
                     message="Terms Update successful"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
                 except:
                     error="There was a problem with your submission"
+                    data={
+                        'message':error,
+                        'status':400
+                    }
             else:
                 error = "Your data is not complete"
+                data={
+                            'message':error,
+                            'status':400
+                        } 
+            return JsonResponse(data)
+               
         else:
             form= TermsForm(instance=terms)
     
@@ -470,32 +594,46 @@ def update_terms(request, id):
         'user':user,
         'terms':terms,
         'form':form,
-        'id': id,
-        'error': error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
         }
     return render(request, template_name, context=context)
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
 def delete_terms(request, id):
-    template_name='mike_admin/terms/confirm_delete.html'
-    final_template='mike_admin/terms/delete_terms.html'
+    template_name='mike_admin/admin_forms/delete.html'
     post= get_object_or_404(TermsOfService, id=id)
     error=None
     user=request.user
     id=None
-    message= None
+    message= None  
+    callbackurl=reverse('mike_admin:delete_terms', args=(post.id, ))
+    name='Terms Of Service'
+    breadcrum={
+        'url': reverse('mike_admin:terms'),
+        'name':'Terms Of Service' 
+    } 
     
     if user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             if request.user:                           
                     post=post.delete()
-                    message="The term of service has been successfully deleted"                   
+                    message="The term of service has been successfully deleted" 
+                    data={
+                    'message':message,
+                    'status':200
+                     }                   
             else:
-                error ="You are not authorized to edit this page"   
-                
-            return render(request, final_template, {'post': post})    
+                error ="You are not authorized to edit this page"                 
+                data={
+                    'message':error,
+                    'status':200
+                } 
+            return JsonResponse(data)      
                     
         else:
             
@@ -504,10 +642,10 @@ def delete_terms(request, id):
     context={
         'user':user,
         'post':post,
-        'form':form,
-        'id': id,
-        'error': error,
-        'message':message
+        'form':form,        
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
         }
     return render(request, template_name, context=context)
     
@@ -529,26 +667,38 @@ class MusicList(generic.ListView, LoginRequiredMixin):
 
 @login_required
 def create_music(request, **kwargs):
-    template_name='mike_admin/music/create_music.html'
+    template_name='mike_admin/admin_forms/create.html'
     new_post=None
     error=None
-    id=None
     user=request.user
     form=None
     message=None
+    callbackurl=reverse('mike_admin:create_music')
+    name='Music'
+    breadcrum={
+        'url': reverse('mike_admin:music'),
+        'name':'Musics'
+    }
     
     if user.is_payed or user.is_staff:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():           
             form = MusicForm(request.POST, request.FILES)
             if form.is_valid():
                new_post= form.save(commit=False)
                new_post.artist= user
                new_post.save()
-               id= new_post.pk
-               
                message="Your Music Has Been Successfully Uploaded!"
+               data={
+                   'message':message,
+                   'status':200
+               }
             else:
                 error="There was a problem with your submission"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
         else:
             form= MusicForm()
     else:
@@ -557,35 +707,54 @@ def create_music(request, **kwargs):
     context={
         'user':user,
         'new_post':new_post,
-        'form':form,
-        'id':id,
-        'error':error,
-        'message':message,
+        'form':form,        
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
         }
     return render(request, template_name, context=context)
 
 @login_required
 def update_music(request, pk, **kwargs):
-    template_name='mike_admin/music/edit_music.html'
+    template_name='mike_admin/admin_forms/edit.html'
     music = get_object_or_404(Music, pk=pk)
     error=None
     user=request.user
-    id=None
     message=None
+    callbackurl=reverse('mike_admin:update_music', args = (music.id, ))
+    name='Music'
+    breadcrum={
+        'url': reverse('mike_admin:music'),
+        'name':'Musics'
+    }
+    create_url=reverse('mike_admin:create_music')
+    delete_url=reverse('mike_admin:delete_music', args=(music.id, ))
     
     if user.is_staff or user == music.artist:   
-        if request.method=='POST':
+        if request.method=='POST' and request.is_ajax():
             form = MusicForm(request.POST, request.FILES, instance=music)
             if form.is_valid():
                 try:  
                     music = form.save()         
-                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
-                    id=music.id
-                    message="Music Update successful"
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])                    
+                    message="Music Updated successfully!"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
                 except:
-                    error="There was a problem with your submission"
+                    error="There was a problem with your submission!"
+                    data={
+                        'message':error,
+                        'status':400
+                    }
             else:
-                error = "Your data is not complete"
+                error = "Your data is not complete!"
+                data={
+                        'message':error,
+                        'status':400
+                    }
+            return JsonResponse(data)
         else:
             form= MusicForm(instance=music)
     
@@ -593,41 +762,56 @@ def update_music(request, pk, **kwargs):
         'user':user,
         'music':music,
         'form':form,
-        'id': id,
-        'error': error,
-        'message':message,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
         }
     return render(request, template_name, context=context)
 
 @login_required
 def delete_music(request, pk, **kwargs):
-    template_name='mike_admin/music/confirm_delete.html'
-    final_template='mike_admin/music/delete_music.html'
+    template_name='mike_admin/admin_forms/delete.html'
     post= get_object_or_404(Music, pk=pk)
     error=None
     user=request.user
-    id=None
     message= None
+    callbackurl=reverse('mike_admin:delete_music', args=(post.id, ))
+    name='Music'
+    breadcrum={
+        'url': reverse('mike_admin:music'),
+        'name':'Musics'
+    }
     
     if user.is_staff or user==post.artist:   
-        if request.method=='POST':                          
+        if request.method=='POST' and request.is_ajax():                          
             post=post.delete()
-            message="The music has been successfully deleted"                   
-            return render(request, final_template, {'post': post})    
-                    
+            message="The music has been successfully deleted!"  
+            data={
+                'message':message,
+                'status':200
+            } 
+            return JsonResponse(data)                
+                  
         else:
             
             form= MusicForm(instance=post)
     else:
-        error="Your are not authorize to delete this music"
+        error="Your are not authorized to delete this music!"
+        data={
+                'message':error,
+                'status':200
+            } 
+        return JsonResponse(data)
     
     context={
         'user':user,
         'post':post,
         'form':form,
-        'id': id,
-        'error': error,
-        'message':message
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
         }
     return render(request, template_name, context=context)
     
@@ -635,11 +819,16 @@ def delete_music(request, pk, **kwargs):
 def music_detail(request, pk, **kwargs):
     template_name = 'mike_admin/music/music_detail.html'
     post = None    # Comment posted
-    if request.method == 'POST' and request.user.is_staff:
+    if request.method == 'POST' and request.user.is_staff and request.is_ajax():
         skiza_code = request.POST.get('skiza')
         post = Music.objects.filter(pk=pk)
         post.update(is_sent=True, skiza_code=skiza_code)
         post=get_object_or_404(Music, pk=pk)
+        data={
+            'message':'Successfully Published',
+            'status':200
+        }
+        return JsonResponse(data)
     else:
         if request.user.is_staff:
             post = get_object_or_404(Music, pk=pk) 
@@ -649,6 +838,172 @@ def music_detail(request, pk, **kwargs):
         'post': post
     }
     return render(request, template_name, context=context)
+
+# The services controllers
+class ServicesList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
+    queryset = Service.objects.all().order_by('-date_added')
+    template_name = 'mike_admin/services/index.html'
+    context_object_name= "services"
+    paginate_by=10
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def create_service(request):
+    template_name='mike_admin/admin_forms/create.html'
+    service=None
+    error=None
+    user=request.user
+    message=None
+    callbackurl=reverse('mike_admin:create_service')
+    name='Service'
+    breadcrum={
+        'url': reverse('mike_admin:services'),
+        'name':'Services'
+    }
+    
+    
+    if user.is_staff:   
+        if request.method=='POST' and request.is_ajax():
+            form = ServiceForm(request.POST, request.FILES)
+            if form.is_valid():
+               service = form.save()
+               message=" Service Successfully created!"
+               data={
+                   'message':message,
+                   'status':200
+               }
+            else:
+                error="Your Information is Incomplete!"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
+        else:
+            form= ServiceForm()
+    
+    context={
+        'user':user,
+        'form':form,
+        'service':service,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def update_service(request, slug):
+    template_name='mike_admin/admin_forms/edit.html'
+    service = get_object_or_404(Service, slug=slug)
+    error=None
+    user=request.user
+    message=None
+    callbackurl=reverse('mike_admin:update_service', args = (service.id, ))
+    name='Service'
+    breadcrum={
+        'url': reverse('mike_admin:services'),
+        'name':'Services'
+    }
+    create_url=reverse('mike_admin:create_service')
+    delete_url=reverse('mike_admin:delete_service', args=(service.id, ))
+    
+    if user.is_staff:   
+        if request.method=='POST' and request.is_ajax():
+            form = ServiceForm(request.POST, request.FILES, instance=service)
+            if form.is_valid():
+                try:  
+                    form.save()         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    
+                    message="Service Update successful!"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
+                except:
+                    error="There was a problem with your submission!"
+                    data={
+                        'message':error,
+                        'status':400
+                    }
+            else:
+                error = "Your data is not complete"
+                data={
+                            'message':error,
+                            'status':400
+                        } 
+            return JsonResponse(data)
+               
+        else:
+            form= ServiceForm(instance=service)
+    
+    context={
+        'user':user,
+        'form':form,
+        'service':service,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def delete_service(request, slug):
+    template_name='mike_admin/admin_forms/delete.html'
+    service= get_object_or_404(Service, slug=slug)
+    error=None
+    user=request.user
+    message= None  
+    callbackurl=reverse('mike_admin:delete_service', args=(service.slug, ))
+    name='Service'
+    breadcrum={
+        'url': reverse('mike_admin:services'),
+        'name':'Services' 
+    } 
+      
+    if request.method=='POST' and request.is_ajax():
+        if request.user.is_staff:                           
+                service.delete()
+                message="The term of service has been successfully deleted" 
+                data={
+                'message':message,
+                'status':200
+                    }                   
+        else:
+            error ="You are not authorized to edit this page"                 
+            data={
+                'message':error,
+                'status':200
+            } 
+        return JsonResponse(data)      
+         
+    
+    context={
+        'user':user,
+        'post':service,        
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
+def service_detail(request, slug):
+    template_name = 'mike_admin/services/se_detail.html'
+    service = get_object_or_404(Service, slug=slug)     # Comment posted
+    
+    context = {
+        'service': service
+    }
+    return render(request, template_name, context=context)
+
 
 # The Users controllers
 class UserList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
@@ -697,7 +1052,6 @@ class LipaTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMi
         context['paybill_unconfirmed']=C2BPaymentModel.objects.filter(Status=False).order_by('-TransTime')
         return context
     
-
 # The Transactions controllers
 class C2BTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = C2BPaymentModel.objects.all().order_by('-TransTime')
@@ -715,7 +1069,7 @@ def sendemail(request):
     email=send_mail(
         'Subject here',
         'Here is the message.',
-        'accounts@mikecreatives.com',
+        'Test <{}>'.format(settings.DEFAULT_FROM_EMAIL),
         ['jets.starplus@gmail.com'],
         fail_silently=False,
     )
@@ -723,4 +1077,26 @@ def sendemail(request):
         return HttpResponse("success")
     else:
         return HttpResponse('Failed')
-
+   
+"""This method returns a response to the ajax-request.js with the relevant data""" 
+def requestMessages(request):
+    # initializing an empty list
+    com=[]
+    """This is an ajax request for displaying the uncommented on messages"""
+    if request.is_ajax() and request.user.is_staff:
+        if request.method=='POST':
+            pass
+        else:
+            items=Comment.objects.filter(active=False)
+            comments=items.count()
+            new_comments=items.order_by('-created_on')
+            for comment in new_comments:
+                # Adding the comments to a dictionary inside a list
+                com_dic=[{'id':comment.id},{'body':comment.body}, {'name':comment.name}, {'date': comment.created_on}]
+                com.append(com_dic)                
+                # print(com)
+            data={
+                'comments':comments,
+                'new_comments':com,
+            }
+            return JsonResponse(data)

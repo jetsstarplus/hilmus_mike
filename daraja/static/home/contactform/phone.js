@@ -1,4 +1,6 @@
-let input = document.querySelector("#phone"),
+jQuery(document).ready(function($) {
+
+  let input = document.querySelector("#phone"),
   errorMsg = document.querySelector("#error-msg"),
   validMsg = document.querySelector("#valid-msg"),
   select = document.querySelector(".selectBox");
@@ -67,4 +69,4 @@ input.addEventListener('blur', function() {
   // on keyup / change flag: reset
   input.addEventListener('change', reset);
   input.addEventListener('keyup', reset);
-  
+})

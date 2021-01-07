@@ -19,27 +19,32 @@
       </li>
   {% endblock %}
 {% block content %}
-<div class ="container">
-    <div class="col-md-9 card mb-6  mt-3">
-      <div class="card-body homeback">
-        <div class="income-dashone-pro">
-            {% ifequal user post.author %}
-            <div class = "row">
-                <a href = "{% url 'article:update_post' post.slug %}"><button class="btn btn-primary btn-sm">Edit Post</button></a>
-                <a href = "{% url 'article:delete_post' post.slug %}"><button class="btn btn-danger btn-sm">Delete Post</button></a>
+<div class ="container-fluid">
+    {% ifequal user post.author %}
+            <div class = "col-md-9 center" style="margin-bottom:1rem">
+                <a href = "{% url 'article:update_post' post.slug %}" class="col-md-6 col-sm-6 col-xs-6"><button class="btn btn-primary">Edit Post</button></a>
+                <a href = "{% url 'article:delete_post' post.slug %}" class="col-md-6 col-sm-6 col-xs-6"><button class="btn btn-danger">Delete Post</button></a>
            </div>
-                {% endifequal%}
-            <h1>{{post.title}}</h1>  
+           <br />
+    {% endifequal%}
+    <div class="col-md-9 mb-6  mt-3 homeback" style='margin-bottom:2rem'>
+      <div style="margin:2.5rem auto">
+        <div class="center">
+            <br />
+            <h1 class='article-title'>{{post.title}}</h1>  
             <div class="clear"></div>
         </div>
-        <div>
+        <hr />
+        <div >
             {% if post.image %}
-                <img src='{% thumbnail post.image 850x400 crop %}' alt = "post image" />
+                <img src='{% thumbnail post.image 850x400 crop %}' alt = "post image" class="box-my"/>
             {% endif%}
         </div>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-        <div class="income-dashone-pro">
-            <h1>{{post.title}}</h1>                
+        <div style="margin:1rem auto">
+            <p class=" text-muted" style="color:#ccc">{{ post.author }} | {{ post.created_on }}</p>
+        </div>
+        <div class="income-dashone-pro box-my">
+            <h3>{{post.title}}</h3> <hr/>               
             <div class="income-range low-value-cl">
                 {{ post.content | safe }}
             </div>
@@ -47,21 +52,26 @@
         </div>
         
       </div>
+      
+      <div class='col' style="margin:1.4rem auto" ><hr />
+        <em style="padding:1rem; background-color:None; color: #001010;">{{ comments.count }} Comment{{comments.count|pluralize}}</em>
     </div>
-
-    <div class="col-md-9 card mb-4  mt-3 ">
+     <br />
+    </div>
+    <br />
+    {% if comments %}
+    <div class="col-md-9 card mb-4  mt-3 homeback ">
         <div class="card-body">
         <!-- comments -->
-            <div class='col-lg-10'>
-                <em style="padding:1rem; background-color:None; color: #001010;">{{ comments.count }} {% ifequal comments.count 1%}Comment {%else%} Comments{% endifequal %}</em>
+            <br />
+            <div class = 'marginate' >           
+                <h2 class="text-center title uppercase article-title"><strong>Comments</strong></h2> 
             </div>
-            <div class = 'col-md-8'>           
-                <h2 class="text-center"><strong>Comments</strong></h2> 
-            </div>
-            <div class="col-md-8 income-dashone-total">
+            <hr />
+            <div class="row income-dashone-total">
                 {% for comment in comments %}
-                <div class="card col-lg">
-                    <div class="card-body">
+                <div class="card col-lg-6 col-md-6 marginate">
+                    <div class="card-body box-my">
                         <div class="income-title">
                             <div class="main-income-head">
                                 <h4>{{ comment.name }}</h4>
@@ -83,74 +93,73 @@
                         
                     </div>
                 </div>
-                <br />
                 {% endfor %}
             </div>
 
         </div>
     </div>
-    <div class="col-md-8 card mb-4  mt-3 ">
-        <div class="card-body">
-        {% if new_comment %}
-        <div class="alert alert-success" role="alert">
-            Your comment is successfully sent and is awaiting moderation
-        </div>
-        {% else %}
-        <form id="adminpro-form" class="adminpro-form" method="POST" style="margin-top: 1.3em;">
+    {% endif %}
+    <div class="col-md-9 col-sm-9 col-xs-12 mb-4  mt-3 form">
+        <div class="box-my">        
+        
+        <form id="ajax-form" class="adminpro-form" action='{% url "article:post_detail" post.slug %}' method="POST" style="margin-top: 1.3em; padding:0; width:100%">
             {% csrf_token %}
-            <div class="col-lg-8">
-                <div class="login-bg">
-                    
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="login-title">
-                                <h1 style="font-size: 3rem"><b>Leave a comment</b></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="login-input-head">
-                                <p><strong>Full Name:</strong></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="login-input-area">
-                                {{comment_form.name}}
-                                <i class="fa fa-user login-user" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="login-input-head">
-                                <p>{{comment_form.email.label_tag}}</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="login-input-area">
-                                {{comment_form.email}}
-                                <i class="fa fa-envelope login-user"></i>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-lg-4">
-                        <div class="login-input-head">
-                            <h4><Strong>Comment:</Strong></h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="input-group-text">
-                            {{comment_form.body}}
-                        </div>
-                        {% if form.errors %}
+            <div class=" ajax-form">        
+                <div id="sendmessage"></div>
+                <div id="errormessage"></div>
+                </div>
+            <div class="">
+                <div class="login-bg">                    
                         <div class="row">
-                            <em class="invalid">Please write us a message</em>
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1 style="font-size: 3rem"><b>Leave a comment</b></h1>
+                                </div>
+                            </div>
                         </div>
-                        {% endif %}
-                        
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p><strong>Full Name:</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="text" name="name" maxlength="80" required="" id="id_name" class="valid" editable=False value='{{user.get_full_name}}'>
+                                    <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="login-input-head">
+                                    <p>{{comment_form.email.label_tag}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="login-input-area">
+                                    <input type="email" name="email" maxlength="254" required="" id="id_email" editable=False value='{{user.email}}'>
+                                    <i class="fa fa-envelope login-user"></i>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="row container-fluid">
+                        <div class="col-lg-2">
+                            <div class="login-input-head">
+                                <p style="font-weight: 500; font-family:sans-serif; font-size:1.5rem">Comment:</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="form-group">
+                                {{comment_form.body}}
+                            </div>
+                            
+                        </div>
                 </div>
             </div>
             <!-- {{ comment_form.as_p }} -->
@@ -160,9 +169,11 @@
             
             <!-- <button type="submit" class="btn btn-primary  btn-lg">Submit</button> -->
         </form>
-        {% endif %}
         </div>
     </div>
+    
+</div>
+<div class="clear"></div>
 
 
 

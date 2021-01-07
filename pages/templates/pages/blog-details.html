@@ -107,39 +107,7 @@
                         </div>
                       </li>
                       {% endfor %}
-                      {% else %}
-                      <!-- <li>
-                        <div class="comments-details">
-                          <div class="comments-list-img">
-                            <img src="{% static 'pages/img/blog/b02.jpg' %}" alt="post-author">
-                          </div>
-                          <div class="comments-content-wrap">
-                            <span>
-																<b><a href="#">admin</a></b>
-																Post author
-																<span class="post-time">October 6, 2014 at 6:18 pm </span>
-                            <a href="#">Reply</a>
-                            </span>
-                            <p>Quisque orci nibh, porta vitae sagittis sit amet, vehicula vel mauris. Aenean at justo dolor. Fusce ac sapien bibendum, scelerisque libero nec</p>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="threaded-comments">
-                        <div class="comments-details">
-                          <div class="comments-list-img">
-                            <img src="{% static 'pages/img/blog/b02.jpg' %}" alt="post-author">
-                          </div>
-                          <div class="comments-content-wrap">
-                            <span>
-																<b><a href="#">demo</a></b>
-																Post author
-																<span class="post-time">October 6, 2014 at 7:25 pm</span>
-                            <a href="#">Reply</a>
-                            </span>
-                            <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur</p>
-                          </div>
-                        </div>
-                      </li> -->
+                      
                       {% endif %}
                     </ul>
                   </div>
@@ -152,31 +120,39 @@
                     </div>
                     {% else %}
                     
-                  <h3 class="comment-reply-title">Leave a Reply </h3>
-                  <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
-                  <form action="{% url 'pages:article_detail' post.slug %}" method='POST'>
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <p>Full Name <span style="color:red">*</span></p>
-                        {{comment_form.name}}
-                      </div>
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <p>Email <span style="color:red">*</span></p>
-                        {{comment_form.email}}
-                      </div>
-                      <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <p>Website</p>
-                        <input type="text" />
-                      </div> -->
-                      <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
-                        <p>Comment</p>
-                        {{comment_form.body}}
-                        <!-- <textarea id="message-box" cols="30" rows="10"></textarea> -->
-                        <input type="submit" value="Post Comment" />
-                      </div>
-                    </div>
-                  </form>
+                  <div class="form contact-form">
+                    <div id="sendmessage"></div>
+                    <div id="errormessage"></div>
+                    <h3 class="comment-reply-title">Leave a Reply </h3>
+                    <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
+                    
+                    <form action="{% url 'pages:article_detail' post.slug %}" method='POST' id='ajaxForm'>
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <p>Full Name <span style="color:red">*</span></p>
+                          {{comment_form.name}}
+                          <div class="validation"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <p>Email <span style="color:red">*</span></p>
+                          {{comment_form.email}}
+                          <div class="validation"></div>
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                          <p>Website</p>
+                          <input type="text" />
+                        </div> -->
+                        <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
+                          <p>Comment</p>
+                          {{comment_form.body}}
+                          <div class="validation"></div>
+                          <!-- <textarea id="message-box" cols="30" rows="10"></textarea> -->
+                          <input type="submit" value="Post Comment" />
+                        </div>
+                      </div>  
+                    </form>
+                  </div>
                 </div>
                 {% endif %}
               </div>

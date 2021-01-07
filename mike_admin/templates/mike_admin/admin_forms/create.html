@@ -1,0 +1,51 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load crispy_forms_tags %}
+{% block title %} Create a New {{name}} - Mike Creatives{% endblock %}
+{% block breadcrump %}
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{{breadcrum.url}}">{{breadcrum.name}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Create</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{{breadcrum.url}}">{{breadcrum.name}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">Create</span>
+      </li>
+  {% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="container-fluid">
+        <form method='POST' enctype="multipart/form-data" id="ajax-form" action="{{url}}" class="upload">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
+                     
+                    <div class = "card-body"> 
+                        <br />
+                            <h1 class='center'><strong>Create A New {{name}}</strong></h1> 
+                        <hr />     
+                    {{form | crispy}}
+                    </div>
+                    <div id="progress-home"></div>
+                    <div class=" ajax-form" style="margin:2rem auto">        
+                        <div id="sendmessage"></div>
+                        <div id="errormessage"></div>
+                    </div>
+                    <div class="login-button-pro">
+                        <button type="submit" class="login-button login-button-lg"> Create </button> 
+                    </div>
+
+                    
+                </div>
+            </div>
+           
+        </form>
+    </div>
+</div>
+<br />
+{% endblock content %}

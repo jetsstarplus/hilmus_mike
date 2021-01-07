@@ -17,11 +17,6 @@
 <div class="feed-mesage-project-area">
     <div class="container">
         <div class="col-lg-8">
-        <div class="row">
-            <div class="col-md-5 alert primary-alert">
-                <h1><strong>Services</strong></h1>
-            </div>
-        </div>
         
             <!-- Blog Entries Column -->
             <div class="col-lg-15 income-dashone-total">
@@ -43,22 +38,25 @@
                         <div class="income-dashone-pro">  
                             <div class= "row">
                                 <div class="col-md-3">
+                                    {% if post.image %}
+                                        <img src="{% thumbnail post.image 200x200 crop%}" alt="testimonial image">
+                                    {% endif %}
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
-                                    <p class="card-text">{{post.content | safe |slice:":400" }}</p>...</p></i></em>
+                                    <p class="card-text">{{post.home_page_text | safe |slice:":400" }}</p>...</p></i></em>
                                    
                                     <div style="padding-top:2rem" class="notification-bt responsive-bt">
-                                        <a href="{% url 'mike_admin:terms_detail' post.id  %}" >
+                                        <a href="{% url 'mike_admin:service_detail' post.slug  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
                                         </a>
-                                        {% ifequal user post.author %}
-                                        <a href="{% url 'mike_admin:update_terms' post.id  %}" >
+                                        {% if user.is_staff %}
+                                        <a href="{% url 'mike_admin:update_service' post.slug  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-success">Edit</button> 
                                         </a>
-                                        <a href="{% url 'mike_admin:delete_terms' post.id  %}" >
+                                        <a href="{% url 'mike_admin:delete_service' post.slug  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-danger">Delete</button> 
                                         </a>
-                                        {% endifequal%}
+                                        {% endif %}
                                       </div>
                                 </div>
                             </div>                          
@@ -76,7 +74,7 @@
                     <h2>There are no services to see here</h2>
                     {% if user.is_staff %}
                     <div>
-                        <a href="{% url 'mike_admin:create_services' %}"><button class="btn btn-primary">Create New</button></a>
+                        <a href="{% url 'mike_admin:create_service' %}"><button class="btn btn-primary">Create New</button></a>
                     </div>
                     {% endif %}
                 </div>
@@ -99,8 +97,9 @@
                 {% endif %}
             </ul>
             </nav>
+        
+        {% endif %}
         </div>
     </div>
- </div>
-    {% endif %}
+</div>
 {% endblock %}

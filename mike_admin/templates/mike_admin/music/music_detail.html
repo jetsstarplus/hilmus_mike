@@ -20,14 +20,14 @@
   {% endblock %}
 {% block content %}
 {% if user.is_staff or user == post.artist %}
-<div class="container-fluid">
+<div class="container-fluid" style="padding:0;">
     <div class="col-md-12 card mb-10  mt-6">
       <div class="card-body white">
         <div class="income-dashone-">
             {% if user.is_staff or user == post.artist%}
-            <div class = "row">
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary btn-sm">Edit Music</button></a>
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger btn-sm">Delete Music</button></a>
+            <div class = "row center">
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit</button></a>
+                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete</button></a>
             </div>
             {% endif%}
             <br />
@@ -40,7 +40,7 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     
-                    <h1 class="white-title">{{post.title}}</h1>  
+                    <h1 class="white-title center">{{post.title}}</h1>  
                     <div class="clear"></div>
                 </div>
                 <div class="col-md-2"></div>
@@ -48,12 +48,12 @@
             </div>
             <hr /> 
             <div class="row container-fluid">
-                <div class = 'col-md-6'>
-                    <br />
-                    <a href="{{post.picture.url}}" target="_blank"><img class="box-my" src="{% thumbnail post.picture 400x250 crop %}" alt="post picture" style="padding-bottom: 2rem;"></a>
-                    <br />
+                <div class = 'col-md-6 col-sm-9 col-xs-12' >                 
+                    <a href="{{post.picture.url}}" target="_blank"><img class="box-my" src="{% thumbnail post.picture 400x250 crop %}" alt="post picture" style="margin:2rem auto;"></a>
+                   
                 </div>
-                <div class="income-dashone-pro col-md-6 box-my" >
+                <div class="income-dashone-pro col-md-6 box-my col-sm-9 col-xs-12" >
+                    
                     <div>
                         <h1>{{post.title}}</h1> 
                         <hr /> 
@@ -84,32 +84,43 @@
                         </table>
 
                     </div>
+                    <!-- if the music has already been uploaded then this is executed -->
+                    <div class=" ajax-form" style="margin:2rem auto">        
+                        <div id="sendmessage"></div>
+                        <div id="errormessage"></div>
+                    </div>
+                    
                     {% if post.is_sent %}
                     <div class="row">
-                        <div class="col-md-6"><strong>State:</strong></div>
-                        <div class="col-md-6"><button class ="btn  btn-info">Sent</button></div>
+                        <div class="col-md-6 col-sm-6 col-xs-6"><strong>State:</strong></div>
+                        <div class="col-md-6 col-sm-6 col-xs-6"><button class ="btn  btn-info">Sent</button></div>
                     </div>
-                        
+                        <!-- A staff member to make changes on the skiza code -->
                         {% if user.is_staff %}
                         <br />
-                        <form method = "POST">
+                        <form method = "POST" action="{% url "mike_admin:music_detail" post.id %}" id='ajax-form'>
                             {% csrf_token %}
+                            {% if post.is_skiza %}
                             <div class="md-form">
                                 <label for="skiza">Enter the Skiza Code</label>
-                                <input type="text" class="form-control" id="skiza" placeholder="{{post.skiza_code}}" name="skiza"/>
+                                <input type="text" class="form-control" id="skiza" placeholder="{{post.skiza_code}}" name="skiza" onkeyup='resetForm()'/>
                             
                             </div>
                             <br />
                             <button class = "btn btn-primary">Add Skiza</button>
+                            {% endif %}
                         </form>
                         {% endif %} 
+                        <!-- If the music is not yet uploaded then this code is executed -->
                     {% elif user.is_staff %}  
-                        <form method = "POST">
+                        <form method = "POST" action="{% url "mike_admin:music_detail" post.id %}" id='ajax-form'>
                             {% csrf_token %}
+                            {% if post.is_skiza %}
                             <div class="md-form">
                                 <input type="text" class="form-control" id="skiza" placeholder="{{post.skiza_code}}" name="skiza"/>
                                 <label for="skiza">Enter the Skiza Code</label>
                             </div>
+                            {% endif %}
                             <button class = "btn btn-success">Mark as Sent</button>
                         </form> 
                     {% else %}
