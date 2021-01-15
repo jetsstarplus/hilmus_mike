@@ -54,4 +54,5 @@ urlpatterns = [
     #Users urls
     path('transactions/', views.LipaTransactionList.as_view(), name='lipa'),
     path('messages/',  views.requestMessages, name='post_messages'),
+    path('payments/', views.paymentsPage, name="payments")
 ]

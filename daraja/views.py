@@ -13,12 +13,14 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.urls import reverse
+from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_sameorigin
+
 # from django.contrib.auth.models import User
 from rest_framework import viewsets
 from . import serializers
 from mpesa.daraja import lipa_na_mpesa
 from mike_admin.models import Service
-from .models import Initiate, C2BPaymentModel
+from .models import Initiate, C2BPaymentModel, Paypal
 
 # #viewsets define the behavior of the view
 # class UserViewSet(viewsets.ModelViewSet):
@@ -194,8 +196,8 @@ def select_service(request):
     error=None
     message=None
     user=request.user
-    services= Service.objects.all()
-        
+    services= Service.objects.exclude(pricing=0).all()
+     
     if request.method=='POST' and user:          
         service = request.POST.get("amount", None)   
         selected_service = Service.objects.get(id=service)
@@ -208,3 +210,47 @@ def select_service(request):
         'services':services
     }
     return render(request, template_name=template_name, context=context)
+
+@xframe_options_sameorigin
+def paypal(request):
+    """A method that is used to get the transaction after a successfull paypall transaction"""
+    
+    # print(json.load(request)['name'])
+    if request.is_ajax() and request.method=='POST':
+        # getting the data from the ajax json
+        data=json.load(request)['data']
+        
+        name=data['name']
+        amount=data['amount']
+        user=request.user
+        id= data['id']
+        status=data['status']
+        currency=data['currency']
+        service=data['service']
+        
+        service=Service.objects.get(pk=service)
+        service_amount=round((float(service.pricing)/109), 2)
+        print(service_amount)
+        if service_amount == float(amount):
+            transaction=Paypal(user=user, name=name, amount=amount, currency=currency, paypal_id=id, service=service)
+            print(transaction)
+            if status=='COMPLETED':                
+                transaction.save()
+                user.is_payed=True
+                user.save(update_fields=['is_payed'])
+                data={
+                    'message':'Payment Successful!',
+                    'status':200
+                }
+            else:
+                data={
+                    'message':'Payment Failed!',
+                    'status':400
+                }
+        else:
+            data={
+                'message':'Payment Error! The Amount Was Not Correct',
+                'status':403,
+            }
+        return JsonResponse(data)
+        

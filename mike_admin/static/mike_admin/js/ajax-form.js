@@ -177,7 +177,7 @@
                     },
                 },
                 success: function(data) {
-                    console.log(data.message)
+                    // console.log(data.message)
                     if (data.status === 200) {
                         // document.getElementById('message').innerHTML=data.message
                         // alert(data.message)
@@ -205,7 +205,7 @@
                 })
                 .fail(function(jqXHR, textStatus){
                     document.getElementById('sendmessage').classList.remove('show')
-                    document.getElementById('errormessage').innerHTML="Please Try Again!"         
+                    document.getElementById('errormessage').innerHTML=`Failed, ${jqXHR} Please Try Again ${textStatus}!`         
                     document.getElementById('errormessage').classList.add('show')
                     })
 

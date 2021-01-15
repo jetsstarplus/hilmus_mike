@@ -21,13 +21,14 @@
                   <!-- <h1><span>MIKE</span>Creatives</h1> -->
                   <!-- Uncomment below if you prefer to use an image logo -->
                   <!-- <img src="{% static 'img/logo.png' %}" alt="" title=""> -->
-                  <img src="{% static "icons/mike_admin.png" %}" alt="Mike creatives logo"  width="" title="Mike creatives"/>
+                  <img src="{% static "icons/original2.png" %}" alt="Mike creatives logo"  width="" title="Mike creatives" class="border-radius laptop-logo" id="laptop-logo"/>
+                  <img src="{% static "icons/white_logo2.png" %}" alt="Mike creatives logo"  title="Mike creatives" id="mobile-logo"/>
 								</a>
               </div>
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
                 <ul class="nav navbar-nav navbar-right">
-                  <li class="active">
+                  <li class="{{active}}">
                     <a class="page-scroll" href="/">Home</a>
                   </li>
                   
@@ -37,7 +38,7 @@
                   <!-- <li>
                     <a class="page-scroll" href="/#services">Services</a>
                   </li> -->
-                  <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<span class="caret"></span></a>
+                  <li class="dropdown {{service_active}}"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       {% if service_list %}
                       {% for service_single in service_list %}
@@ -52,14 +53,14 @@
                     </ul> 
                   </li>
                   
-                  <li>
+                  <li class="{{shop_active}}">
                     <a class="page-scroll" href="{% url 'pages:shop' %}" title="Coming Soon...">Shop</a>
                   </li>
-                  <li>
+                  <li class="{{contact_active}}">
                     <a class="page-scroll" href="{% url 'pages:contact' %}">Contact</a>
                   </li>
                   
-                  <li>
+                  <li class="{{post_active}}">
                     <a class="page-scroll" href="{% url 'pages:articles' %}">Blog</a>
                   </li>
                   

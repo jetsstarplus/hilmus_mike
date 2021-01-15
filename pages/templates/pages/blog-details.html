@@ -2,7 +2,7 @@
 {% block title %}
 
   <title>{{post.title}} - Articles Mike Creatives</title>  
-  <meta content="{{post.content | safe }}" name="description">
+  <meta content="{{post.content | safe }}" name="description" />
 {% endblock %}
 {% block meta %}
 {% if post %}
@@ -16,7 +16,7 @@
 {% load static %}
 {% block content %}
   <!-- Start Bottom Header -->
-  <div class="header-bg page-area">
+  <!-- <div class="header-bg page-area">
     <div class="home-overly"></div>
     <div class="container">
       <div class="row">
@@ -34,30 +34,37 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- END Header -->
-  <div class="blog-page area-padding">
+  <div class="blog-page area-padding" style="margin:1rem auto">
+    <!-- <div class="home-overly"></div> -->
     <div class="container">
       <div class="row">
-        {% include './includes/left_side_bar.html' %}
+        {# {% include './includes/left_side_bar.html' %} #}
         <!-- End left sidebar -->
         <!-- Start single blog -->
-        <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="col-md-2 col-sm-1"></div>
+        <div class="col-md-8 col-sm-10 col-xs-12">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <!-- single-blog start -->
+              <div class="post-information">
+                <div class="section-headline text-center ">
+                  <h1 class="service-title">{% if post.title %}{{post.title}}{% else %} Blog Page Title {% endif %}</h1>
+                </div>
+              </div>
               <article class="blog-post-wrapper">
                 <div class="post-thumbnail">
-                  <img {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}/>
+                  <img class="border-radius services-image" {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}/>
                 </div>
                 <div class="post-information">
-                  <h2>{% if post.title %}{{post.title}}{% else %} Blog Page Title {% endif %}</h2>
+                  
                   <div class="entry-meta">
                     <span class="author-meta"><i class="fa fa-user"></i> <a href="#">{% if post.author %} {{post.author}} {% else %}user{% endif %}</a></span>
                     <span><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on }} {% else%}march 28, 2016 {% endif %}</span>
                     
 											</span>
-                    <span><i class="fa fa-comments-o"></i> <a href="#">{% if post %} {{comments.count}} comments{% else %}5 comments {% endif %}</a></span>
+                    <span><i class="fa fa-comments-o"></i> <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a></span>
                     
                     <div style = "margin-left:1rem" class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                   </div>
@@ -84,7 +91,7 @@
               <div class="single-post-comments">
                 <div class="comments-area">
                   <div class="comments-heading">
-                    <h3>{% if comments %} {{comments.count}} comments{% else %} 0 comments {% endif %}</h3>
+                    <h3>{{comments.count}} comment{{comments.count|pluralize}}</h3>
                   </div>
                   <div class="comments-list">
                     <ul>
@@ -123,7 +130,7 @@
                   <div class="form contact-form">
                     <div id="sendmessage"></div>
                     <div id="errormessage"></div>
-                    <h3 class="comment-reply-title">Leave a Reply </h3>
+                    <h3 class="comment-reply-title">Leave us a comment </h3>
                     <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
                     
                     <form action="{% url 'pages:article_detail' post.slug %}" method='POST' id='ajaxForm'>

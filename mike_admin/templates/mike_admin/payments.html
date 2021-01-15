@@ -1,0 +1,238 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load thumbnail %}
+{% load static %}
+{% block title %} Payments | Mike Creatives {% endblock title %}
+{% block breadcrump %}
+
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:testimonials" %}">Payments</a>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:testimonials" %}">Payments</a>
+      </li>
+  {% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 mb-4  mt-30 left top border-radius" style="background-color:white;">
+        <div style="margin:1rem auto">
+            <div class="col-md-12 center" style="margin:1rem auto">
+                <h1 class="title" style="font-weight: 900;">Make A Payment</h1>
+            </div>
+            <div class="clear"></div>
+            <div class=" ajax-form col-md-12" style="margin:2rem auto">        
+                <div id="sendmessage"></div>
+                <div id="errormessage"></div>
+            </div>
+            <form id="adminpro-register-form" class="adminpro-form col-md-12" novalidate="novalidate" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-lg-12">
+                    <div class="login-bg border-radius">
+                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="login-title">
+                                    <h1><strong>Select A Service To Pay For</strong></h1>
+                                    <hr />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-lg-4">
+                              <div class="login-input-head">
+                                  <p><strong>Select Service:</strong></p>
+                              </div>
+                          </div>
+                          <div class="col-lg-8">
+                              <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="form-select-list">
+                                        <select class="form-control custom-select-value" name="amount" id="amount">
+                                            {% if services %}
+                                                 {% for service in services %}
+                                                    <option value='{{service.pricing}}-{{service.id}}'>{{service.title}}  - KSH {{service.pricing}}</option>
+                                                    {% endfor %}
+                                            {% else %}
+                                                <option value="1">Select 1</option>
+                                                <option value="2" >Select 2</option>
+                                                <option value="3">Select 3</option>
+                                                <option value="4">Select 4</option>
+                                            {% endif %}
+                                        </select>
+                                    </div>                                          
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                    </div>
+                </div>
+            </form>
+            <div class="col-md-12" style="margin: 2rem auto;">
+                <div id="paypal-button-container" class="mt-30 col-md-6"></div>
+                <div class="col-md-6">
+                    <img width=312 alt="M-PESA LOGO-01" src="{% static 'mpesa.png' %} ">
+                    <div class="buttons" style="margin:1rem auto">
+                        <a href="{% url 'home:lipa_na_mpesa_form' %}" class="btn btn-primary btn-big">Lipa Na Mpesa Online</a>
+                        <a href="{% url 'home:select-service' %}" class="btn btn-success btn-large">Paybill</a>
+                    </div>
+                </div>
+            </div>
+            <br />
+            
+        </div>
+    </div>
+ </div> 
+ <br />
+
+{% endblock content %}
+{% block jsblock %}
+<script src="https://www.paypal.com/sdk/js?client-id=AcazeDDN_IFU5aBtWys86Ast2SnXN892XOq42rhTWKg-xnE_bHHMheDWPD0-9A_JM4DlQZVpezJFsVYw&currency=USD"></script>
+<script>
+    // Render the PayPal button into #paypal-button-container
+    let service;
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            amount=document.getElementById('amount')
+            selected=amount.options[amount.selectedIndex].value
+            selected=selected.split('-')
+            service=selected[1]
+            selected=(parseInt(selected[0])/109).toFixed(2)
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: selected
+                    }
+                }]
+            });
+        },
+        
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                let send=document.getElementById('sendmessage')
+                document.getElementById('errormessage').classList.remove('show')
+                send.classList.add('show')
+
+                let full_name=details.payer.name.given_name + ' ' + details.payer.name.surname+'!'
+                send.innerHTML='Transaction completed by ' + full_name
+               
+                // Submitting the form data to the ser using ajax
+                let action='/transact/payment/paypal/'
+                let form_data=JSON.stringify({ 
+                'data':{
+                    'name':full_name,
+                    'id':details.id,
+                    'status':details.status,
+                    'amount':details.purchase_units[0].amount.value,
+                    'currency':details.purchase_units[0].amount.currency_code,
+                    'service':service,
+                }
+                })
+                console.log(form_data)
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        let cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            let cookie = cookies[i].trim();
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                    }
+                    let csrftoken = getCookie('csrftoken');  
+                    // console.log(csrftoken)
+                    function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                    }
+                
+                    jquery3.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                    });
+                    jquery3.ajax({
+                    type: "POST",
+                    url: action,
+                    data:form_data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType:'json',
+                    statusCode: {
+                        403: function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Not Permitted!"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Not Permitted!"+' '+textStatus)
+                        },
+                        404:  function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Not Found! 404"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Not Found! 404"+' '+textStatus)
+                        },
+                        500:  function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Internal Server 500!"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Internal Server 500! "+textStatus)
+                        },
+                    },
+                    success: function(data) {
+                        console.log(data.message)
+                        if (data.status === 200) {
+                            // document.getElementById('message').innerHTML=data.message
+                            // alert(data.message)
+                            // form.appendChild(document.createElement('p').innerHTML=data.message)
+                            document.getElementById('errormessage').classList.remove('show')
+                        document.getElementById('sendmessage').innerHTML=data.message          
+                        document.getElementById('sendmessage').classList.add('show')
+                        
+                        // form.find( "textarea").val("");
+                        } 
+                        else {
+                        document.getElementById('sendmessage').classList.remove('show')
+                        document.getElementById('errormessage').innerHTML=data.message          
+                        document.getElementById('errormessage').classList.add('show')
+                        // alert(data.message)
+                        }
+                
+                    },
+                    error: () =>{
+                        document.getElementById('sendmessage').classList.remove('show')
+                        document.getElementById('errormessage').innerHTML='There Was An Error In Your Submission'         
+                        document.getElementById('errormessage').classList.add('show')
+                    },                                
+                    
+                    })
+                    .fail(function(jqXHR, textStatus){
+                        document.getElementById('sendmessage').classList.remove('show')
+                        document.getElementById('errormessage').innerHTML=`Failed, ${jqXHR[0]} Please Try Again ${textStatus}!`         
+                        document.getElementById('errormessage').classList.add('show')
+                        })
+    
+                // $.data(form, 'submitted', true); // mark form as submitted.
+               
+               // <!-- alert('Transaction completed by ' + details.payer.given_name + '!'); -->
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

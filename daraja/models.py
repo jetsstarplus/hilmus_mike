@@ -79,3 +79,14 @@ class Initiate(models.Model):
     class Meta:
         verbose_name_plural="Initiated Transactions"
         verbose_name="Initiated Transaction"
+        
+class Paypal(models.Model):
+    """A model that is used to store paypal transactions"""
+    name=models.CharField(max_length=50)
+    amount=models.FloatField(null=True, blank=True)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    paypal_id=models.CharField(max_length=100, null=True, blank=True)
+    service=models.ForeignKey(Service, on_delete=models.PROTECT, null=True, blank=True)
+    currency=models.CharField(max_length=50, null=True, blank=True)
+    date_added= models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    

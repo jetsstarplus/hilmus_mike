@@ -2,7 +2,19 @@
   .work-right-text {
     padding: 150px 150px;
   }
+
+  #mobile-logo{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+  #laptop-logo{
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
 }
+
 
 /* Normal desktop :992px. */
 
@@ -17,11 +29,31 @@
     font-size: 18px;
     line-height: 28px;
   }
+  #mobile-logo{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+  #laptop-logo{
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 /* Tablet desktop :768px. */
 
 @media (min-width: 768px) and (max-width: 991px) {
+  #mobile-logo{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+  #laptop-logo{
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
   .main-menu ul.navbar-nav li {
     display: inline-block;
     padding: 0 8px;
@@ -119,18 +151,27 @@
 /* small mobile :320px. */
 
 @media (max-width: 767px) {
-
+  #laptop-logo{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+  #mobile-logo{
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
   .header-area {
-    height: 60px !important;
-    background:rgba(33, 88, 11);;
+    height: 65px !important;
+    background:rgb(224, 64, 17);
   }
   .navbar-header a.navbar-brand, .stick .navbar-header a.navbar-brand {
     display: inline-block;
-    height: 60px  !important;
+    height: 65px  !important;
     padding: 9px 0;
   }
   .navbar-default .navbar-toggle, .stick .navbar-default .navbar-toggle {
-    padding: 15px 0;
+    padding: 18px 0;
   }
   .nav.navbar-nav.navbar-right, .stick .nav.navbar-nav.navbar-right {
     background-color: #252525;
@@ -257,7 +298,7 @@
     margin-bottom: 0;
   }
   .page-area .slider-content {
-    padding: 100px 0;
+    padding: 120px 0 80px 0;
   }
   .search-option input {
     width: 74%;
@@ -280,6 +321,16 @@
 /* Large Mobile :480px. */
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
+  #laptop-logo{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+  #mobile-logo{
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
   .submitbtn {
     float: none;
     width: 99.8%;

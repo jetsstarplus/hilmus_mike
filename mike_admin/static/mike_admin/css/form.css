@@ -54,7 +54,7 @@
 	color:#888;
 }
 .login-input-area input[type="email"]:focus, .login-input-area input[type="password"]:focus, .login-input-area input[type="text"]:focus{
-	border:1px solid rgb(34, 104, 56);
+	border:1px solid rgba(224, 64, 17, 1);
 }
 .login-input-head p {
 	padding:16px 0px;
@@ -67,7 +67,7 @@
 .login-button-pro .login-button{
 	padding:10px 20px;
 	border:none;
-	background:rgb(34, 104, 56);
+	background: rgba(224, 64, 17, 1);
 	color:#fff;
 	font-weight:14px;
 	transition: all .4s ease 0s;
@@ -85,7 +85,7 @@
 	transition: all .4s ease 0s;
 }
 .forgot-password a{
-	color:rgb(34, 104, 56);
+	color: rgba(224, 64, 17, 1);
 	font-size:13px;
 	padding-bottom:10px;
 	display:inline-block;
@@ -97,10 +97,10 @@
 	display:none;
 }
 .login-keep-me .login-check i {
-    border: 2px solid rgb(34, 104, 56);
+    border: 2px solid  rgba(224, 64, 17, 1);
     font-size: 12px;
     padding: 2px;
-	color:rgb(34, 104, 56);
+	color: rgba(224, 64, 17, 1);
 }
 .register-mg-rt{
 	margin-right:0;
@@ -146,7 +146,7 @@
     border-style: solid;
     background: #fff;
     line-height: 20px;
-    color: rgb(34, 104, 56);
+    color:  rgba(224, 64, 17, 1);
 }
 .adminpro-form .checkbox input + i:after {
 	position: absolute;
@@ -176,7 +176,7 @@
     height: 5px;
     text-align: center;
     line-height: 5px;
-	background:rgb(34, 104, 56);
+	background: rgba(224, 64, 17, 1);
 	border-radius:50%;
 	opacity: 0;
     position: absolute;
@@ -194,7 +194,7 @@
     border-width: 2px;
     border-style: solid;
     background: #fff;
-	border-color:rgb(34, 104, 56);
+	border-color: rgba(224, 64, 17, 1);
 	border-radius: 50%;
 }
 .cart-group input{
@@ -239,11 +239,11 @@
   float: right;
 }
 .rating > input:checked ~ label, .rating:not(:checked) > label:hover, .rating:not(:checked) > label:hover ~ label {
-  color: rgb(34, 104, 56);
+  color:  rgba(224, 64, 17, 1);
 } 
 .rating > input:checked + label:hover, .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, .rating > input:checked ~ label:hover ~ label {
-  color: rgb(34, 104, 56);
+  color:  rgba(224, 64, 17, 1);
 }
 
 /****** Order Details *****/

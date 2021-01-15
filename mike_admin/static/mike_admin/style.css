@@ -4167,7 +4167,7 @@ Ajax form styling
   }
   
   .ajax-form #errormessage {
-	color: rgb(0, 132, 255);
+	color: rgb(89, 234, 15);
 	display: none;
 	border: 2px solid red;
 	background: #33010180;

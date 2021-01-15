@@ -4,12 +4,13 @@
     <div class="page-head-blog">
       <div class="single-blog-page">
         <!-- search option start -->
-        <form action="{% url 'pages:post_search' %}" method = "get">
+        <form action="" method = "get">
+          <!-- {% csrf_token %} -->
           <div class="search-option">
             <input type="text" name="q" placeholder="Search...">
             <button class="button" type="submit">
-                                      <i class="fa fa-search"></i>
-                                  </button>
+              <i class="fa fa-search"></i>
+          </button>
           </div>
         </form>
         <!-- search option end -->
@@ -42,7 +43,7 @@
             <div class="recent-single-post">
               <div class="post-img">
                 <a href="{% url 'pages:article_detail'  poster.slug %}">
-                    <img {% if post.image %} src="{% thumbnail poster.image 180x150 crop%}" alt="{{poster.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}>
+                    <img {% if poster.image %} src="{% thumbnail poster.image 180x120 crop%}" alt="{{poster.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}>
                 </a>
               </div>
               <div class="pst-content">

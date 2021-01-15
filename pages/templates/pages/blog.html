@@ -1,7 +1,7 @@
 {% extends './base.html' %}
 {% block title %}     
   <title>Articles Mike Creatives - The Home of Kenyan Brands</title>  
-  <meta content="Latest news as pertaining to the music industry" name="description">
+  <meta content="Latest news as pertaining to the music industry" name="description" />
 {% endblock %}
 {% block meta %}
   <meta property="og:url"           content="https://mikecreatives.com/articles/" />
@@ -22,7 +22,7 @@
           <div class="slider-content text-center">
             <div class="header-bottom">
               <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">Mike Creatives News</h1>
+                <h1 class="title2">MIKE Creatives News</h1>
               </div>
               <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
                 <h2 class="title3">Latest news as pertaining to the music industry</h2>
@@ -46,15 +46,18 @@
             {% for post in post_list %}
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="single-blog">
+                <div class="section-headline text-center ">
+                  <h2>{{post.title}}</h2>
+                </div> 
                 <div class="single-blog-img">
                   <a href="{% url 'pages:article_detail'  post.slug %}">
-											<img {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}>
+											<img style="width:100%;" {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}>
 										</a>
                 </div>
                 <div class="blog-meta">
                   <span class="comments-type">
 											<i class="fa fa-comment-o"></i>
-											<a href="#">{{post.comments.count}} comments</a>
+											<a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a>
 										</span>
                   <span class="date-type">
 											<i class="fa fa-calendar"></i>{{post.created_on.date}} / {{post.created_on.time}}
@@ -62,9 +65,7 @@
                   <div class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                 </div>
                 <div class="blog-text">
-                  <h4>
-											<a href="{% url 'pages:article_detail'  post.slug %}">{{post.title}}</a>
-										</h4>
+                  
                   <p>
                     {{post.content | safe | slice:'300'}}</p></em>
                   </p>
@@ -76,124 +77,18 @@
             </div>
             {% endfor %}
             {% else %}
-            <!-- End single blog -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="single-blog">
-                <div class="single-blog-img">
-                  <a href="blog-details.html">
-											<img src="{% static 'pages/img/blog/2.jpg' %}" alt="">
-										</a>
-                </div>
-                <div class="blog-meta">
-                  <span class="comments-type">
-											<i class="fa fa-comment-o"></i>
-											<a href="#">7 comments</a>
-										</span>
-                  <span class="date-type">
-											<i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-										</span>
-                </div>
-                <div class="blog-text">
-                  <h4>
-											<a href="#">Post my imagine Items</a>
-										</h4>
-                  <p>
-                    Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit.
-                  </p>
-                </div>
-                <span>
-										<a href="blog-details.html" class="ready-btn">Read more</a>
-									</span>
-              </div>
-            </div>
+           
+           
             <!-- Start single blog -->
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="single-blog">
-                <div class="single-blog-img">
-                  <a href="blog-details.html">
-											<img src="{% static 'pages/img/blog/3.jpg' %}" alt="">
-										</a>
-                </div>
-                <div class="blog-meta">
-                  <span class="comments-type">
-											<i class="fa fa-comment-o"></i>
-											<a href="#">13 comments</a>
-										</span>
-                  <span class="date-type">
-											<i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-										</span>
-                </div>
-                <div class="blog-text">
+               
+                <div class="blog-text text-center">
                   <h4>
-											<a href="#">Post my imagine Items</a>
+											<a href="#">No post matches your search</a>
 										</h4>
-                  <p>
-                    Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit.
-                  </p>
+                  
                 </div>
-                <span>
-										<a href="blog-details.html" class="ready-btn">Read more</a>
-									</span>
-              </div>
-            </div>
-            <!-- End single blog -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="single-blog">
-                <div class="single-blog-img">
-                  <a href="blog-details.html">
-											<img src="{% static 'pages/img/blog/4.jpg' %}" alt="">
-										</a>
-                </div>
-                <div class="blog-meta">
-                  <span class="comments-type">
-											<i class="fa fa-comment-o"></i>
-											<a href="#">1 comments</a>
-										</span>
-                  <span class="date-type">
-											<i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-										</span>
-                </div>
-                <div class="blog-text">
-                  <h4>
-											<a href="#">Post my imagine Items</a>
-										</h4>
-                  <p>
-                    Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit.
-                  </p>
-                </div>
-                <span>
-										<a href="blog-details.html" class="ready-btn">Read more</a>
-									</span>
-              </div>
-            </div>
-            <!-- Start single blog -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="single-blog">
-                <div class="single-blog-img">
-                  <a href="blog-details.html">
-											<img src="{% static 'pages/img/blog/5.jpg' %}" alt="">
-										</a>
-                </div>
-                <div class="blog-meta">
-                  <span class="comments-type">
-											<i class="fa fa-comment-o"></i>
-											<a href="#">10 comments</a>
-										</span>
-                  <span class="date-type">
-											<i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-										</span>
-                </div>
-                <div class="blog-text">
-                  <h4>
-											<a href="#">Post my imagine Items</a>
-										</h4>
-                  <p>
-                    Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit.
-                  </p>
-                </div>
-                <span>
-										<a href="blog-details.html" class="ready-btn">Read more</a>
-									</span>
               </div>
             </div>
             {% endif %}

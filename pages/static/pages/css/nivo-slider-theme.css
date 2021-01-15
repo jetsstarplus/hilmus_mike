@@ -19,6 +19,10 @@ Supports Thumbs: true
   padding: 160px 60px;
 }
 
+.slider-content-1{
+  padding: 60px 60px;
+}
+
 .nivo-caption::after {
   background: #444 none repeat scroll 0 0;
   content: "";
@@ -126,13 +130,19 @@ Supports Thumbs: true
 
 @media (min-width: 1400px) and (max-width:1920px) {
   .slider-content {
-    padding: 210px 0;
+    padding: 210px 30px;
+  }
+  .slider-content-1{
+    padding: 160px 30px;
   }
 }
 
 /* Normal desktop :992px. */
 
 @media (min-width: 992px) and (max-width: 1169px) {
+  .slider-content-1{
+    padding: 60px 0;
+  }
   .slider-content {
     padding: 114px 0;
   }
@@ -143,6 +153,9 @@ Supports Thumbs: true
 @media (min-width: 768px) and (max-width: 991px) {
   .slider-content {
     padding: 73px 0;
+  }
+  .slider-content-1{
+    padding: 45px 0;
   }
   .layer-1-2 h1 {
     font-size: 22px;
@@ -160,7 +173,10 @@ Supports Thumbs: true
     display: none;
   }
   .slider-content {
-    padding: 46px 0px;
+    padding: 26px 0px;
+  }
+  .slider-content-1{
+    padding: 5px 0;
   }
   .layer-1-2 {
     margin: 10px 0;
@@ -182,13 +198,16 @@ Supports Thumbs: true
     margin: 10px 0 0;
   }
   .nivo-controlNav {
-    bottom: -8px;
+    bottom: 0px;
   }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
   .slider-content {
     padding: 70px 0px;
+  }
+  .slider-content-1{
+    padding: 30px 0;
   }
   .layer-1-1 h2, .layer-1-2 h1 {
     font-size: 24px;

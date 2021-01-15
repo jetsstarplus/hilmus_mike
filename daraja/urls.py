@@ -13,5 +13,6 @@ urlpatterns = [
     # path("users/", include(router.urls)),
      path('lipa/stkpush/', views.lipa_mpesa, name="lipa_na_mpesa_form"),
      path('lipa/paybill/<int:id>/confirm/', views.paybill, name="paybill"),
-     path('lipa/select-service/', views.select_service, name="select-service")
+     path('lipa/select-service/', views.select_service, name="select-service"),
+     path('payment/paypal/',views.paypal, name="paypal" ),
 ]

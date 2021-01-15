@@ -1,0 +1,6 @@
+CACHE MANIFEST
+/
+/contact/
+/articles/
+/services/<slug:slug>/
+/articles/<slug:slug>/

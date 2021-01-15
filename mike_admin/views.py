@@ -902,14 +902,14 @@ def update_service(request, slug):
     error=None
     user=request.user
     message=None
-    callbackurl=reverse('mike_admin:update_service', args = (service.id, ))
+    callbackurl=reverse('mike_admin:update_service', args = (slug, ))
     name='Service'
     breadcrum={
         'url': reverse('mike_admin:services'),
         'name':'Services'
     }
     create_url=reverse('mike_admin:create_service')
-    delete_url=reverse('mike_admin:delete_service', args=(service.id, ))
+    delete_url=reverse('mike_admin:delete_service', args=(slug, ))
     
     if user.is_staff:   
         if request.method=='POST' and request.is_ajax():
@@ -1100,3 +1100,11 @@ def requestMessages(request):
                 'new_comments':com,
             }
             return JsonResponse(data)
+
+def paymentsPage(request):
+    template_name="mike_admin/payments.html"
+    services= Service.objects.exclude(pricing=0).all()
+    context={
+        'services':services
+    }
+    return render(request, template_name, context)

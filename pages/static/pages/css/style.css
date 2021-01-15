@@ -243,6 +243,45 @@ div#preloader {
   right: 0;
   width: 40%;
 }
+.section-headline-white h2 {
+  display: inline-block;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 70px;
+  position: relative;
+  text-transform: capitalize;
+  color:white;
+}
+
+.section-headline-white h2::after {
+  border: 1px solid rgb(196, 192, 192);
+  bottom: -20px;
+  content: "";
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 40%;
+}
+.section-headline h1 {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 60px;
+  position: relative;
+  text-transform: capitalize;
+}
+
+.section-headline h1::after {
+  border: 1px solid #333;
+  bottom: -20px;
+  content: "";
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  width: 40%;
+}
 
 .sec-head {
   display: inline-block;
@@ -265,8 +304,10 @@ div#preloader {
   left: 0;
   width: 100%;
   height: auto;
-  background: rgba(33,88,11);
+  background: rgba(224, 64, 17, 1);
   z-index: 9;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .4);
+  transition: all .5s ease;
   /* margin-bottom:1rem; */
 }
 
@@ -306,7 +347,9 @@ div#preloader {
 
 .main-menu ul.navbar-nav li.active a:hover {
   background: none;
-  color: #fff;
+  color:#198902;
+  /* transform:translateY(-2); */
+  backface-visibility:hidden;
 }
 
 .main-menu ul.navbar-nav li.active a:focus {
@@ -346,7 +389,7 @@ div#preloader {
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
   background-color: transparent;
-  color: #fff;
+  color: #000;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
@@ -372,11 +415,12 @@ div#preloader {
 }
 
 .top-right.text-right li a {
-  color: #fff;
+  color:rgb(224, 64, 17);
 }
 
 .main-menu .dropdown ul {
-  background:rgba(33, 88, 11);;
+  background:rgb(224, 64, 17);
+  box-shadow: 0 .4rem .8rem rgba(0, 0, 0, 0.4);
 }
 
 .main-menu .dropdown ul li {
@@ -389,12 +433,14 @@ div#preloader {
 /*--------------------------------*/
 
 .header-area.stick {
-  background-color: rgb(33, 88, 11);
+  background-color: rgb(224, 64, 17);
   height: 70px;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1000;  
+  transition: all .5s ease-in-out;
+  box-shadow: 0 .4rem .8rem rgba(0, 0, 0, .3);
 }
 
 .stick .navbar-header a.navbar-brand {
@@ -420,7 +466,7 @@ div#preloader {
 }
 
 .sticky-logo h1 span {
-  color: #fcfcfc;
+  color: #fff;
 }
 
 .stick .main-menu ul.navbar-nav li.active > a::after {
@@ -433,12 +479,12 @@ div#preloader {
 }
 
 .stick .main-menu ul.nav>li>a:hover {
-  color: #fff;
+  color: rgba(33, 88, 11);
 }
 
 .stick .main-menu ul.navbar-nav li.active a {
   background: rgba(33, 88, 11,0) none repeat scroll 0 0;
-  color: #fff;
+  /* color: #fff; */
   position: relative;
 }
 
@@ -484,6 +530,7 @@ div#preloader {
 
 .about-area {
   background-color: #f9f9f9;
+  margin-top:-2rem;
 }
 
 .single-well>a {
@@ -733,13 +780,13 @@ div#preloader {
  7.Wellcome Area Css
 ----------------------------------------*/
 
-/* .wellcome-area {
+.wellcome-area {
   background: rgba(248, 248, 248, 0.8) url("../img/background/bg1.jpg");
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
-} */
+}
 
 .well-bg {
   position: relative;
@@ -834,7 +881,7 @@ div#preloader {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
-  transition: 5s;
+  transition: all ease-in-out 5s;
   transform: scale(1);
 }
 
@@ -844,6 +891,8 @@ div#preloader {
 
 .single-team-member {
   border: 1px solid #ddd;
+  box-shadow: 0 .5rem .8rem rgba(0, 0, 0, 0.5);
+  border-radius:5px;
 }
 
 .team-left-text h4 {
@@ -1609,7 +1658,7 @@ div#preloader {
 .sus-btn {
   background: #fff none repeat scroll 0 0;
   border: 2px solid #fff;
-  color: #198902;
+  color: #e04011;
   display: inline-block;
   font-size: 16px;
   font-weight: 700;
@@ -1748,15 +1797,15 @@ div#preloader {
 
 .footer-area {
   padding: 40px 0;
-  background: #f9f9f9;
+  background: #e04011;
 }
 
 .footer-head p {
-  color: #444;
+  color: #fff;
 }
 
 .footer-head h4 {
-  color: #444;
+  color: #fff;
   font-size: 16px;
   letter-spacing: 2px;
   padding-bottom: 10px;
@@ -1768,7 +1817,7 @@ div#preloader {
 }
 
 .footer-logo h2 {
-  color: #222;
+  color: #fcfcfc;
   padding: 0;
   margin: 0;
   font-size: 36px;
@@ -1777,7 +1826,7 @@ div#preloader {
 }
 
 .footer-logo h2 span {
-  color: #198902;
+  color: blue;
 }
 
 .footer-icons ul li {
@@ -1785,8 +1834,8 @@ div#preloader {
 }
 
 .footer-icons ul li a {
-  border: 1px solid #444;
-  color: #444;
+  border: 1px solid #fff;
+  color: #fff;
   display: block;
   font-size: 16px;
   height: 40px;
@@ -1808,7 +1857,7 @@ div#preloader {
 }
 
 .footer-contacts p span {
-  color: #198902;
+  color: #fff;
   font-weight: 700;
 }
 
@@ -1828,9 +1877,9 @@ div#preloader {
 }
 
 .popular-tag ul li a {
-  border: 1px solid #444;
+  border: 1px solid #fff;
   border-radius: 30px;
-  color: #444;
+  color: #fff;
   display: block;
   font-size: 13px;
   font-weight: 600;
@@ -1845,29 +1894,30 @@ div#preloader {
 }
 
 .footer-area-bottom {
-  background: #f1f1f1 none repeat scroll 0 0;
+  background: #d83e04 none repeat scroll 0 0;
   padding: 15px 0;
 }
 
 .copyright-text a:hover {
   text-decoration: underline;
-  color: #198902;
+  color: #134e07;
 }
 
 .copyright-text a {
-  color: #444;
+  color: #fff;
 }
 
 .copyright>p {
   margin-bottom: 0;
-  color: #444;
+  color: #fff;
 }
 
 .copyright a, .credits a {
-  color: #198902;
+  color: #000;
 }
 
 .credits {
+  color:#fff;
   padding-top: 5px;
   text-align: center;
 }
@@ -1880,7 +1930,7 @@ div#preloader {
 .header-bg {
   background: url(../mike/home3.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: top center;
   background-attachment: fixed;
 }
@@ -1892,7 +1942,7 @@ div#preloader {
 }
 
 .home-overly {
-  background: rgba(0, 0, 0, 0.50);
+  background: rgba(26, 18, 41, 0.5);
   height: 100%;
   position: absolute;
   width: 100%;
@@ -2358,3 +2408,55 @@ span.email-notes {
 /*----------------------------------------
  .End CSS
 ----------------------------------------*/
+.border-radius{
+  border-radius:0.5rem;
+  box-shadow:.1rem .2rem .6rem rgba(0, 0, 0, .7)
+}
+
+.services-image{
+  height: 400px;
+  width: 100%;
+}
+
+@media only screen and (max-width:500px){
+  .services-image{
+    width:100%;
+    height:auto
+  }
+ 
+}
+#mobile-logo{
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+#laptop-logo{
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+#flex-item{
+  display:flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
+
+.contact-btn{
+  border:2px solid #e04011;
+  color:white;
+  background: #198902;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .8);
+  transition:all .2s ease-out;
+}
+.contact-btn:hover{
+  border:2px solid #198902;
+  color:white;
+  background: #e04011;
+  transform: scale(1.05, 1.1);
+  backface-visibility: hidden;
+}
+
+#sdg{
+  
+}

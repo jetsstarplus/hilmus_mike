@@ -25,17 +25,30 @@ def index(request):
         'teams':teams,
         'terms':terms,
         'service_list': service_list,
+        'active':'active',
         }
     return render(request, template_name, context=context)
 
 # The contact page controler
 def contact(request):
     template_name='pages/contact.html'
-    return render(request, template_name, context={})
+    service_list=Service.objects.all().order_by('title')[:6]
+    
+    context={
+        'service_list': service_list,
+        'contact_active':'active',        
+    }
+    return render(request, template_name, context)
 
 def shop(request):
-    template_name='pages/coming.html'
-    return render(request, template_name, context={})
+    template_name='pages/coming.html'      
+    service_list=Service.objects.all().order_by('title')[:6]
+    
+    context={
+        'service_list': service_list,
+        'shop_active':'active',        
+    }
+    return render(request, template_name, context)
 
 # Create your views here.
 def terms(request):
@@ -46,7 +59,8 @@ def terms(request):
     context={
         'terms':terms,
         'post_list':post_list,
-        'service_list':service_list
+        'service_list':service_list,
+        'terms_active':'active', 
         }
     return render(request, template_name, context=context)
 
@@ -62,20 +76,27 @@ class PostList(generic.ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['service_list'] = Service.objects.all().order_by('-title')[:6]
+        context['post_active']='active'
         return context
-    # def get_queryset(self): # new
-    #     return(Posts.objects.filter(
-    #         Q(name__icontains='Boston') | Q(state__icontains='NY')
-    #     ), Post.objects.filter(status=1).order_by('-created_on'))
-    
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        if query:
+            queryset=Post.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)).order_by('-created_on')
+            queryset.filter(status=1)
+            print(queryset)
+            return queryset
+        
+        else:
+            return self.queryset
     
 
 class PostSearchList(generic.ListView):
     template_name = 'pages/search.html'    
     paginate_by=10
     def get_queryset(self): # new
-        query = self.request.GET.get('q')
-        return Posts.objects.filter(
+        
+        return Post.objects.filter(
             Q(title__icontains=query) | Q(content__icontains=query)).order_by('-created_on')
         
     def get_context_data(self, **kwargs):
@@ -83,6 +104,7 @@ class PostSearchList(generic.ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['service_list'] = Service.objects.all().order_by('title')[:6]
+        context['post_active']='active'
         return context
 
 
@@ -131,6 +153,7 @@ def post_detail(request, slug):
         'comment_form': comment_form,
         'post_list': post_list,
         'service_list':service_list,
+        'post_active':'active', 
     }
     return render(request, template_name, context=context)
 
@@ -145,6 +168,7 @@ def service(request, slug):
         'service': service,
         'services': services,
         'service_list':service_list,
+        'service_active':'active', 
     }
     return render(request, template_name, context=context)
 

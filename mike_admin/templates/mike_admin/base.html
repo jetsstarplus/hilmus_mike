@@ -7,6 +7,8 @@
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="">    
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     {% block meta %} {% endblock %}
      <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'icons/apple-icon-57x57.png' %}">
@@ -23,9 +25,10 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icons/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'icons/manifest.json' %}">
-    <meta name="msapplication-TileColor" content="#000">
+    <meta name="msapplication-TileColor" content="rgb(224, 64, 17)">
     <meta name="msapplication-TileImage" content="{% static 'icons/ms-icon-144x144.png' %}">
-    <meta name="theme-color" content="#000">
+    <meta name="theme-color" content="rgb(224, 64, 17)">
+    <meta name="apple-mobile-web-app-status-bar-style" content="rgb(224, 64, 17)">
     <!-- favicon
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">

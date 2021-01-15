@@ -1,7 +1,7 @@
 {% extends './base.html' %}
 {% block title %}
-  <title>{{service.title}} - Articles Mike Creatives</title>  
-  <meta content="{{service.home_page_text | safe }}" name="description">
+  <title>{{service.title}} - Services Mike Creatives</title>  
+  <meta content="{{service.home_page_text | safe }}" name="description"/>
 {% endblock %}
 {% block meta %}
 {% if post %}
@@ -39,20 +39,24 @@
     <!-- <div class="home-overly"></div> -->
     <div class="container">
       <div class="row">
-        {% include './includes/left_side_bar.html' %}
+        {#{% include './includes/left_side_bar.html' %}#}
         <!-- End left sidebar -->
         <!-- Start single blog -->
-        <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="col-sm-1 col-md-2"></div>
+        <div class="col-md-8 col-sm-10 col-xs-12">
           <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
               <!-- single-blog start -->
               <article class="blog-post-wrapper">
                 
                 <div class="post-information">
-                  <h1>{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h1>
+                  <div class="section-headline text-center ">
+                    <h1 class="service-title">{% if service.title %}{{service.title}}{% else %} Services Page Title {% endif %}</h1>
+                  </div>
+                 
                 </div>
                 <div class="post-thumbnail">
-                  <img {% if service.image %} src="{{service.image.url}}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %}/>
+                  <img {% if service.image %} src="{{service.image.url}}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %} class="border-radius services-image"/>
                 </div>
                 <div class="post-information">
                       <div class="fb-like" data-href="https://mikecreatives.com/services/{{service.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
@@ -81,7 +85,7 @@
               <!-- single-blog end -->
             </div>
           </div>
-          {% if service %}
+          <!-- {% if service %}
           <div class="col-md-8 col-xs-12  wow fadeInUp" data-wow-delay="0.2s">
             <div class="pri_table_list active">
               <span class="saleon">top sale</span>
@@ -92,8 +96,12 @@
               <a href="{% url 'mike_admin:django_registration_register' %}"><button>sign up now</button></a>
             </div>
           </div>
-          {% endif %}
+          {% endif %} -->
+          
         </div>
+      </div>
+      <div class="wow fadeInUp text-center" data-wow-delay="0.2s">
+        <a href="{% url 'pages:contact' %}"><button role="button" class="ready-btn contact-btn ">contact us now</button></a>
       </div>
     </div>
   </div>

@@ -70,7 +70,12 @@
                                                     <td></td>
                                                     <td>{{music.title}}</td>
                                                     <td><a href="{% url 'mike_admin:user_detail' music.artist %}">{{music.artist}}</a></td>
-                                                    <td><a href ='{{music.music.url}}'>{{music.music}}</a></td>
+                                                    <td>
+                                                        <audio controls style="width:100%; background:rgb(224, 64, 17);">
+                                                            <source src="{{music.music.url}}" type="audio/mpeg">
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    </td>
                                                     <td>{{music.date_added}}</td>
                                                     
                                                     <td {% if music.is_sent %}  class="complete-project-dashtwo" style="" {% endif %}>

@@ -24,12 +24,7 @@
     <div class="col-md-12 card mb-10  mt-6">
       <div class="card-body white">
         <div class="income-dashone-">
-            {% if user.is_staff or user == post.artist%}
-            <div class = "row center">
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit</button></a>
-                <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete</button></a>
-            </div>
-            {% endif%}
+            
             <br />
             
         </div>
@@ -40,7 +35,12 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     
-                    <h1 class="white-title center">{{post.title}}</h1>  
+                    {% if user.is_staff or user == post.artist%}
+                    <div class = "row center">
+                        <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:update_music' post.id %}"><button class="btn btn-primary">Edit Music</button></a>
+                        <a class="col-md-6 col-lg-6 col-sm-6 col-xl-6 col-xs-6" href = "{% url 'mike_admin:delete_music' post.id %}"><button class="btn btn-danger">Delete Music</button></a>
+                    </div>
+                    {% endif%}
                     <div class="clear"></div>
                 </div>
                 <div class="col-md-2"></div>
@@ -49,7 +49,7 @@
             <hr /> 
             <div class="row container-fluid">
                 <div class = 'col-md-6 col-sm-9 col-xs-12' >                 
-                    <a href="{{post.picture.url}}" target="_blank"><img class="box-my" src="{% thumbnail post.picture 400x250 crop %}" alt="post picture" style="margin:2rem auto;"></a>
+                    <a href="{{post.picture.url}}" target="_blank"><img class="box-my" src="{% thumbnail post.picture 500x500 crop %}" alt="post picture" style="margin-bottom:2rem;" width='100%'></a>
                    
                 </div>
                 <div class="income-dashone-pro col-md-6 box-my col-sm-9 col-xs-12" >
@@ -60,7 +60,15 @@
                         <p class=" text-muted">{{ post.artist.first_name }} {{post.artist.last_name}} | {{ post.date_added }}</p> 
                     
                     </div>
-                    <a class="btn btn-primary" href="{{post.music.url}}">Download    <i style="color:#ce2920" class="fa fa-download"></i></a> <span>{{post.music.name}}</span>
+                    <div style="margin:1rem auto">
+                        <audio controls style="width:100%; background:rgb(224, 64, 17);">
+                            <source src="{{post.music.url}}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio> 
+                        
+                    </div>
+                    <a class="btn btn-primary" href="{{post.music.url}}">Download    <i style="color:#ce2920" class="fa fa-download"></i></a> 
+                    
                     <div class = "card">
                         <table class="table">
                             <thead>
