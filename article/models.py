@@ -15,6 +15,7 @@ class Post(models.Model):
     slug = models.SlugField(default=slugify(title),max_length=200, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE,related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now= True)
+    brief_information=models.TextField(verbose_name="Write a brief post info here", null=True, blank=True)
     content = SummernoteTextField(verbose_name="Write Your Post Here")
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)

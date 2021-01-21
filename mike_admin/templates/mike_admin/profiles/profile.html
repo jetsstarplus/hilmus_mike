@@ -108,7 +108,7 @@
                                
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class="col-lg-9">
                                 <div class="sparkline9-list shadow-reset border-radius">
                                     <div class="sparkline9-hd">
                                         <div class="main-sparkline9-hd">
@@ -133,10 +133,12 @@
                                                 <thead>
                                                     <tr>
                                                         <th data-field="state" data-checkbox="true"></th>
-                                                        <th data-field="CheckoutRequestID">Checkout Request ID</th>
+                                                        <th data-field="CheckoutRequestID">Transaction ID</th>
                                                         <th data-field="ResultCode" data-editable="false">Result Code</th>
                                                         <th data-field="Service" data-editable="false">Service</th>                                                        
                                                         <th data-field="Amount" data-editable="false">Amount</th>
+                                                        <th data-field="description" data-editable="false">Description</th>                                                        
+                                                        <th data-field="mode" data-editable="false">Mode of Payment</th>                                                        
                                                         <th data-field="TransationDate" data-editable="false">Transaction Date</th>
                                                         
                                                     </tr>
@@ -150,6 +152,8 @@
                                                         <td>{{trans.ResultCode}}</td>
                                                         <td>{{trans.service}}</td>
                                                         <td>{{trans.service.pricing}}</td>
+                                                        <td>{{trans.ResultDescription}}</td>
+                                                        <td>{{trans.mode}}</td>
                                                         <td>{{trans.date_added}}</td>                                     
                                                         
                                                     </tr>

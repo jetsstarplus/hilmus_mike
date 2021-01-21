@@ -31,7 +31,7 @@
 	height:auto;
 	overflow: hidden;
 }
-.nivoSlider .slider-image {
+.nivoSlider img.slider-image {
 	position:absolute;
 	top:0px;
 	left:0px;
@@ -41,7 +41,8 @@
 	display: block !important;
 	position: relative !important; 
 	width: 100% !important;
-	height:80% !important;
+    height:80% !important;
+    object-fit: cover;
 }
 
 /* If an image is wrapped in a link */
@@ -189,7 +190,43 @@ Default Theme
     display: block !important;
     position: relative !important; 
     width: 100% !important;
+    height: 80vh !important;
 }
+
+@media only screen and (min-width: 700px) and (max-width: 1040px){
+    .nivo-main-image {
+        width:100%;
+        height: 40vh !important;
+    }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 700px){
+    .nivo-main-image {
+        width:100%;
+        height: 50vh !important;
+    }
+}
+
+
+@media only screen and (max-width: 400px){
+    .nivo-main-image {
+        width:100%;
+        height: 80vh !important;
+    }
+}
+
+@media only screen and (max-width: 500px) and (min-height: 700px){
+    .nivo-main-image {
+        width:100%;
+        height: 65vh !important;
+    }
+}
+/* @media (max-width:770px){
+    .nivo-main-image {
+        height: 70vh !important;
+        width:auto !important;
+    }
+} */
 /* The slices and boxes in the Slider */
 .nivo-slice {
     display:block;

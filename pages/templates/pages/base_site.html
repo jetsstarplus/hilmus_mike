@@ -7,8 +7,7 @@
       <div id="ensign-nivoslider" class="slides">
         <img class="slider-image" src="{% static 'pages/mike/HOME.jpg' %}" alt="" title="#slider-direction-1"/>
         <img class="slider-image" src="{% static 'pages/mike/home2.jpg' %}" alt="" title="#slider-direction-2" />
-        <!-- {#<img src="{% static 'pages/mike/home3.jpg' %}" alt="" title="#slider-direction-3" />#} -->
-        <img class="slider-image" src="{% static 'pages/mike/artmm.jpg' %}" alt="" title="#slider-direction-4" />
+        <img class="slider-image" src="{% static 'pages/mike/artmm.jpg' %}" alt="" title="#slider-direction-3" />
       </div>
 
       <!-- direction 1 -->
@@ -18,17 +17,26 @@
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="slider-content">
                 <!-- layer 1 -->
-                <div class="layer-1-1 hidden-xs wow fadeInDown" data-wow-duration="2s" data-wow-delay=".2s">
-                  <h2 class="title1">Welcome to MIKE Creatives;</h2>
+                <div class="col-xl-8 col-lg-8 col-sm-8 col-xs-12 slider-item-bg1 wow fadeInLeft" data-wow-duration="1s">
+                  <div class="layer-1-1 wow fadeInDown" data-wow-duration="2s" data-wow-delay=".2s">
+                    <h2 class="title1">Welcome to MIKE Creatives;</h2>
+                  </div>
+                  <!-- layer 2 -->
+                  <div class="layer-1-2 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".1s">
+                    <h1 class="title2" id="margin-edit" style="font-size: 4rem;"> Made In Kenya Exclusively a Creatives’ "Social Enterprise Hub"</h1>
+                  </div>
+                  
+                  <!-- layer 3 -->
+                  <div class="layer-1-3 wow bounceInUp" data-wow-duration="1.5s" data-wow-delay=".35s">
+                    <a class="ready-btn right-btn page-scroll " href="#services">See Services</a>
+                    <a class="ready-btn page-scroll" href="#about">Learn More</a>
+                  </div>
                 </div>
-                <!-- layer 2 -->
-                <div class="layer-1-2 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".1s">
-                  <h1 class="title2"> Made In Kenya Exclusively a Creatives’ "Social Enterprise Hub"</h1>
-                </div>
-                <!-- layer 3 -->
-                <div class="layer-1-3 hidden-xs wow fadeInUp" data-wow-duration="3s" data-wow-delay=".2s">
-                  <a class="ready-btn right-btn page-scroll " href="#services">See Services</a>
-                  <a class="ready-btn page-scroll" href="#about">Learn More</a>
+                
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 wow hidden-xs fadeInRight" data-wow-duration="3s" data-wow-delay=".3s">
+                  <div class="image">
+                    <img id="sdg" src="{% static 'images_africa.jpg' %}" alt="sdg" width="100%" style="box-shadow:0 .8rem 2rem 1rem rgba(0, 0, 0, .4);border-radius:5px" >
+                 </div>
                 </div>
               </div>
             </div>
@@ -42,18 +50,25 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="slider-content text-center">
+                <div class="col-xl-8 col-lg-8 col-sm-8 col-xs-12 slider-item-bg2 wow fadeInLeft" data-wow-duration="1s">
                 <!-- layer 1 -->
-                <div class="layer-1-1 hidden-xs wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                  <h2 class="title1">Artist Growth </h2>
+                  <div class="layer-1-1 wow fadeInDown" data-wow-duration="2s" data-wow-delay=".2s">
+                    <h2 class="title1">Artist Growth </h2>
+                  </div>
+                  <!-- layer 2 -->
+                  <div class="layer-1-2 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".1s">
+                    <h1 class="title2 " id="margin-edit2" style="font-size: 4rem;" >We provide artists with opportunities for brand and audience growth</h1>
+                  </div>
+                  <!-- layer 3 -->
+                  <div class="layer-1-3 wow bounceInUp" data-wow-duration="1.5s" data-wow-delay=".35s">
+                    <a class="ready-btn right-btn page-scroll" href="#services">See Services</a>
+                    <a class="ready-btn page-scroll" href="#about">Learn More</a>
+                  </div>
                 </div>
-                <!-- layer 2 -->
-                <div class="layer-1-2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">We provide artists with opportunities for brand and audience growth</h1>
-                </div>
-                <!-- layer 3 -->
-                <div class="layer-1-3 hidden-xs wow fadeInUp" data-wow-duration="3s" data-wow-delay=".2s">
-                  <a class="ready-btn right-btn page-scroll" href="#services">See Services</a>
-                  <a class="ready-btn page-scroll" href="#about">Learn More</a>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 hidden-xs wow fadeInRight" data-wow-duration="3s" data-wow-delay=".3s">
+                  <div class="image">
+                    <img id="sdg2" src="{% static 'brush.png' %}" alt="sdg" width="150%" style="box-shadow:0 .8rem 2rem 1rem rgba(0, 0, 0, 0);border-radius:5px;" >
+                 </div>
                 </div>
               </div>
             </div>
@@ -61,39 +76,16 @@
         </div>
       </div>
 
-      <!-- direction 3 -->{#
-      <div id="slider-direction-3" class="slider-direction slider-two">
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-              <div class="slider-content">
-                <!-- layer 1 -->
-                <div class="layer-1-1 hidden-xs wow fadeInUp" data-wow-duration="2s" data-wow-delay=".2s">
-                  <h2 class="title1">Market Entry </h2>
-                </div>
-                <!-- layer 2 -->
-                <div class="layer-1-2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".1s">
-                  <h1 class="title2">We utilise digital tools to break market entry barriers guaranteeing you content visibility </h1>
-                </div>
-                <!-- layer 3 -->
-                <div class="layer-1-3 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".2s">
-                  <a class="ready-btn right-btn page-scroll" href="#services">See Services</a>
-                  <a class="ready-btn page-scroll" href="#about">Learn More</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>#}
+      
 
       <!-- direction 4 -->
-      <div id="slider-direction-4" class="slider-direction slider-two">
+      <div id="slider-direction-3" class="slider-direction slider-two">
         <div class="container">
           <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div class="slider-content-1">
                 <!-- layer 1 -->
-                <div class="layer-1-1 wow fadeInUp" data-wow-duration="2s">
+                <div class="layer-1-1 wow fadeInDown" data-wow-duration="2s">
                   <!-- <h2 class="title1">Sustainable Development Goals </h2> -->                  
                   <div class="image">
                      <img id="sdg" src="{% static 'SDG-Logo.png' %}" alt="sdg" width="100%">

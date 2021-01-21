@@ -19,13 +19,25 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="slider-content text-center">
+          <div class="slider-content text-center header-bottom-background">
             <div class="header-bottom">
               <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">MIKE Creatives News</h1>
+                <h1 class="title2">MIKE Creatives Blog</h1>
               </div>
-              <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                <h2 class="title3">Latest news as pertaining to the music industry</h2>
+              <div class="row">
+                <div class="col-md-3 col-sm-2"></div>
+                <div class="col-md-6 col-sm-8 text-center layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
+                  <form action="" method = "get">
+                    <!-- {% csrf_token %} -->
+                    <div class="search-option">
+                      <input type="text" name="q" placeholder="Search...">
+                      <button class="button" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-3 col-sm-2"></div>
               </div>
             </div>
           </div>
@@ -37,45 +49,51 @@
   <div class="blog-page area-padding">
     <div class="container">
       <div class="row">
-        {% include './includes/left_side_bar.html' %}
         <!-- End left sidebar -->
         <!-- Start single blog -->
-        <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="row">
             {% if post_list %}
-            {% for post in post_list %}
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="single-blog">
-                <div class="section-headline text-center ">
-                  <h2>{{post.title}}</h2>
-                </div> 
-                <div class="single-blog-img">
-                  <a href="{% url 'pages:article_detail'  post.slug %}">
-											<img style="width:100%;" {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}>
-										</a>
+              <div class="blog-content">
+              {% for post in post_list %}
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                  <div class="single-blog">
+                    
+                    {% if post.image %}
+                    <div class="single-blog-img">
+                      <a href="{% url 'pages:article_detail'  post.slug %}">
+                          <img class="blog-img border-radius"  src="{{post.image.url}}" alt="{{post.image}}" alt="blog placeholder" >
+                        </a>
+                    </div>
+                    {% endif %}
+                    <a href="{% url 'pages:article_detail'  post.slug %}">
+                      <div class="blog-header">
+                        <h3>{{post.title}}</h3>
+                      </div>
+                    </a>
+                    <div class="blog-meta">
+                      <span class="comments-type" style="margin:auto auto 1rem">
+                          <i class="fa fa-comment-o"></i>
+                          <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a>
+                        </span>
+                      <span class="date-type">
+                          <i class="fa fa-calendar"></i>{{post.created_on.date}} / {{post.created_on.time}}
+                        </span>
+                      <div class="fb-like" style="padding:1rem 0" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                    </div>
+                    <div class="blog-text">
+                      
+                      <!-- <p>
+                        {{post.brief_information}}</p></em>
+                      </p> -->
+                    </div>
+                    <span>
+                        <a href="{% url 'pages:article_detail'  post.slug %}" class="ready-btn">Read more</a>
+                      </span>
+                  </div>
                 </div>
-                <div class="blog-meta">
-                  <span class="comments-type">
-											<i class="fa fa-comment-o"></i>
-											<a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a>
-										</span>
-                  <span class="date-type">
-											<i class="fa fa-calendar"></i>{{post.created_on.date}} / {{post.created_on.time}}
-                    </span>
-                  <div class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
-                </div>
-                <div class="blog-text">
-                  
-                  <p>
-                    {{post.content | safe | slice:'300'}}</p></em>
-                  </p>
-                </div>
-                <span>
-										<a href="{% url 'pages:article_detail'  post.slug %}" class="ready-btn">Read more</a>
-									</span>
-              </div>
+              {% endfor %}
             </div>
-            {% endfor %}
             {% else %}
            
            
@@ -93,7 +111,10 @@
             </div>
             {% endif %}
             <!-- End single blog -->
-            {% if page_obj %}
+            
+          </div>
+          <!-- pagination -->
+          {% if page_obj %}
             <div class="blog-pagination container-fluid">
               <ul class="pagination">
                 {% if page_obj.has_previous %}
@@ -110,7 +131,6 @@
               </ul>
             </div>
             {% endif %}
-          </div>
         </div>
       </div>
     </div>

@@ -2,14 +2,14 @@
 {% block title %}
 
   <title>{{post.title}} - Articles Mike Creatives</title>  
-  <meta content="{{post.content | safe }}" name="description" />
+  <meta content="{{post.brief_information}}" name="description"/>
 {% endblock %}
 {% block meta %}
 {% if post %}
   <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if post.title %}{{post.title}}{% endif %}" />
-  <meta property="og:description"        content="{% if post.content %} {{post.content | slice:':100'| safe {% endif %}" />
+  <meta property="og:description"        content="{% if post.brief_information %} {{post.brief_information}}{% endif %}" />
   <meta property="og:image"              content="{% if post.image %} {{post.image.url}} {% endif %}" />
   {% endif %}
 {% endblock%}
@@ -36,7 +36,7 @@
     </div>
   </div> -->
   <!-- END Header -->
-  <div class="blog-page area-padding" style="margin:1rem auto">
+  <div class="blog-page area-padding-1">
     <!-- <div class="home-overly"></div> -->
     <div class="container">
       <div class="row">

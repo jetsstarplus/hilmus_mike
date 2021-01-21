@@ -69,6 +69,7 @@ class Initiate(models.Model):
     CheckoutRequestID = models.CharField(max_length=50, null = True, unique=True)
     MerchantRequestID = models.CharField(max_length = 30, null = True, unique=True)
     ResultCode = models.IntegerField(null = True)
+    mode=models.CharField(max_length=40, null = True, blank=True)
     ResultDescription = models.TextField(max_length = 200,null = True)
     user =  models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="initiated")
     service= models.ForeignKey(Service, on_delete=models.PROTECT)

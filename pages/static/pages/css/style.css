@@ -94,6 +94,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 48px;
   line-height: 50px;
+  padding:0px;
 }
 
 h2 {
@@ -151,9 +152,9 @@ body {
   display: none;
   background: #198902;
   color: #fff;
-  padding: 6px 12px 9px 12px;
+  padding: 9px 13px 11px 13px;
   font-size: 16px;
-  border-radius: 2px;
+  border-radius: 50%;
   right: 15px;
   bottom: 15px;
   transition: background 0.5s;
@@ -172,7 +173,7 @@ body {
 }
 
 .back-to-top:hover {
-  background: #198902;
+  background: #0b3b02;
   color: #fff;
 }
 
@@ -215,7 +216,9 @@ div#preloader {
 .area-padding {
   padding: 70px 0px 80px;
 }
-
+.area-padding-1{
+  padding:0px 0px 80px;
+}
 .area-padding-2 {
   padding: 70px 0px 50px;
 }
@@ -299,21 +302,21 @@ div#preloader {
 /*--------------------------------*/
 
 .header-area {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-  background: rgba(224, 64, 17, 1);
+  background: rgb(255, 255, 255);
   z-index: 9;
-  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .4);
+  box-shadow: 0 .3rem .5rem rgba(0, 0, 0, .4);
   transition: all .5s ease;
   /* margin-bottom:1rem; */
+  /* rgba(224, 64, 17, 1); */
 }
 
 .navbar-header a.navbar-brand {
   display: inline-block;
-  height: 70px;
+  height: 9rem;
   padding: 15px 0;
 }
 
@@ -324,7 +327,8 @@ div#preloader {
 
 .main-menu ul.navbar-nav li a {
   background: rgba(33, 88, 11,0) none repeat scroll 0 0;
-  color: #fff;
+  color: rgb(0, 0, 0);
+  line-height: 4rem;
   font-size: 15px;
   font-weight: 500;
   padding: 24px 0px;
@@ -333,11 +337,11 @@ div#preloader {
 }
 
 .main-menu ul.navbar-nav li a:hover {
-  color: #198902;
+  color:rgba(224, 64, 17, 1);
 }
 
 .main-menu ul.navbar-nav li.active > a::after {
-  border: 1px solid #fff;
+  border: 1px solid rgba(224, 64, 17, 1);
   bottom: 0px;
   content: "";
   left: 0;
@@ -347,26 +351,27 @@ div#preloader {
 
 .main-menu ul.navbar-nav li.active a:hover {
   background: none;
-  color:#198902;
+  color:rgba(224, 64, 17, 1);
   /* transform:translateY(-2); */
   backface-visibility:hidden;
 }
 
 .main-menu ul.navbar-nav li.active a:focus {
-  color: #fff;
+  color: rgba(224, 64, 17, 1);
 }
 
 .main-menu ul.navbar-nav li.active a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  color: #fff;
+  color: rgba(224, 64, 17, 1);
   position: relative;
 }
 
 .main-menu ul.navbar-nav li a:hover {
-  color:#198a02 ;
+  color:rgba(224, 64, 17, 1);
 }
 
 .navbar {
+  min-height: 9rem;
   border: medium none;
   margin-bottom: 0;
 }
@@ -415,16 +420,31 @@ div#preloader {
 }
 
 .top-right.text-right li a {
-  color:rgb(224, 64, 17);
+  color:rgb(0, 0, 0);
 }
 
 .main-menu .dropdown ul {
-  background:rgb(224, 64, 17);
+  background:rgb(255, 255, 255);
+  /* border-top:2px solid rgb(224, 64, 17); */
   box-shadow: 0 .4rem .8rem rgba(0, 0, 0, 0.4);
 }
 
 .main-menu .dropdown ul li {
   display: block;
+  transition: background .3s ease-out;
+ 
+}
+
+.main-menu .dropdown ul li a{
+  color:#000 !important;
+  line-height: 0;
+}
+
+.main-menu .dropdown ul li:hover {
+  background:#ccc;
+}
+.main-menu .dropdown ul li a:hover{
+  color:rgb(224, 64, 17) !important;
 }
 
 /*--------------------------------*/
@@ -433,19 +453,19 @@ div#preloader {
 /*--------------------------------*/
 
 .header-area.stick {
-  background-color: rgb(224, 64, 17);
+  background-color: rgb(255, 255, 255);
   height: 70px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;  
   transition: all .5s ease-in-out;
-  box-shadow: 0 .4rem .8rem rgba(0, 0, 0, .3);
+  box-shadow: 0 .3rem .5rem rgba(0, 0, 0, .4);
 }
 
 .stick .navbar-header a.navbar-brand {
   display: inline-block;
-  height: 90px;
+  height: 75px;
 }
 
 .stick .navbar-brand>img {
@@ -457,7 +477,7 @@ div#preloader {
 }
 
 .sticky-logo h1 {
-  color: #fff;
+  color: rgb(0, 0, 0);
   padding: 0;
   margin: 0;
   font-size: 36px;
@@ -466,11 +486,11 @@ div#preloader {
 }
 
 .sticky-logo h1 span {
-  color: #fff;
+  color: rgb(0, 0, 0);
 }
 
 .stick .main-menu ul.navbar-nav li.active > a::after {
-  border: 1px solid #fff;
+  border: 1px solid rgb(224, 64, 17);
   bottom: 0px;
   content: "";
   left: 0;
@@ -479,7 +499,7 @@ div#preloader {
 }
 
 .stick .main-menu ul.nav>li>a:hover {
-  color: rgba(33, 88, 11);
+  color: rgb(224, 64, 17);
 }
 
 .stick .main-menu ul.navbar-nav li.active a {
@@ -507,7 +527,7 @@ div#preloader {
 }
 
 .stick .main-menu ul.nav>li>a {
-  color: #fff;
+  color: rgb(0, 0, 0);
   line-height: 22px;
   padding: 24px 0px;
   text-transform: capitalize;
@@ -515,7 +535,7 @@ div#preloader {
 }
 
 .stick .navbar-default .navbar-toggle .icon-bar {
-  background-color: #fff;
+  background-color: rgb(0, 0, 0);
   width: 30px;
   height: 2px;
 }
@@ -1528,6 +1548,30 @@ div#preloader {
   width: 100%;
 }
 
+.blog-content{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.blog-header{
+  height:11rem;
+}
+
+.blog-header h3, .blog-header h1, .blog-header h2{
+  padding: 2rem 1rem;
+  text-transform: capitalize;
+  letter-spacing: .2rem;
+  word-spacing: .5rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.blog-header h3:hover, .blog-header h1:hover, .blog-header h2:hover{
+  color:rgb(224, 64, 17);
+}
+
+
 .blog-text h4 a {
   color: #444;
   text-decoration: none;
@@ -1930,8 +1974,8 @@ div#preloader {
 .header-bg {
   background: url(../mike/home3.jpg);
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top center;
+  background-size: cover;
+  background-position: left center;
   background-attachment: fixed;
 }
 
@@ -1942,7 +1986,7 @@ div#preloader {
 }
 
 .home-overly {
-  background: rgba(26, 18, 41, 0.5);
+  background:rgba(71, 1, 113, 60%);
   height: 100%;
   position: absolute;
   width: 100%;
@@ -1993,6 +2037,17 @@ div#preloader {
   position: relative;
 }
 
+.blog-img{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: all .3s ease-in-out;
+}
+
+.blog-img:hover{
+  box-shadow: -.1rem -.2rem 0.6rem rgba(0, 0, 0, .7);
+}
+
 .blog-page .banner-box {
   margin-bottom: 40px;
 }
@@ -2000,11 +2055,12 @@ div#preloader {
 .search-option input {
   border: medium none;
   padding: 6px 15px;
+  background-color: transparent;
   width: 80%;
 }
 
 .search-option {
-  border: 1px solid #ccc;
+  border: 1px solid rgb(247, 244, 244);
   height: 42px;
   margin-bottom: 30px;
 }
@@ -2014,6 +2070,7 @@ div#preloader {
   border: medium none;
   font-size: 20px;
   padding: 8px 23px;
+  color:rgb(248, 239, 236)
 }
 
 .search-option button:hover {
@@ -2107,11 +2164,20 @@ div#preloader {
   color: #444;
   font-size: 15px;
 }
-
+.header-bottom-background{
+    background-color:rgba(71, 1, 113, 0%);
+    border-radius: 5px;
+}
 .header-bottom h1, .header-bottom h2 {
   color: #fff;
 }
-
+.header-bottom h1{
+  color: rgb(24, 224, 17);
+  font-weight: 600;
+  letter-spacing: .7rem;
+  text-transform: capitalize;
+  line-height: 10rem;
+}
 .blog-tags {
   padding: 1px 0;
 }
@@ -2416,6 +2482,7 @@ span.email-notes {
 .services-image{
   height: 400px;
   width: 100%;
+  object-fit: cover;
 }
 
 @media only screen and (max-width:500px){
@@ -2459,4 +2526,38 @@ span.email-notes {
 
 #sdg{
   
+}
+#sdg2{
+  max-width: 250%;
+  transform: translate(-24px, -25px);
+}
+#margin-edit{
+  color:#41d1de; 
+  margin-top:2rem;
+}
+
+
+#margin-edit2{
+  color:#0a0a0a; 
+  margin-top:2rem;
+}
+.slider-item-bg1{
+  background: rgba(71, 1, 113, 65%);
+   padding:3rem; 
+   box-shadow:0 .8rem 2rem 1rem rgba(0, 0, 0, .4);
+   border-radius:5px
+}
+
+
+.slider-item-bg2{
+  background: rgba(241, 193, 9, 65%);
+   padding:3rem; 
+   box-shadow:0 .8rem 2rem 1rem rgba(0, 0, 0, .4);
+   border-radius:5px;
+   /* rgb(241 191 9 / 65%) */
+}
+@media(max-width:1200){
+  .margin-edit{
+    margin: 2rem 0;
+  }
 }

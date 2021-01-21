@@ -29,6 +29,7 @@ from .models import Initiate, C2BPaymentModel, Paypal
 
  
 def lipa_mpesa(request):
+    """This method confirms the the mpesa online transaction and stores initiates the online mpesa"""
     template_name="lipa.html"
     error=None
     message=None
@@ -36,7 +37,7 @@ def lipa_mpesa(request):
     user=request.user
     services= Service.objects.all()
     
-    
+    """The data is submitted with ajax"""
     if request.is_ajax() and user:
         phone_number = str(request.POST.get("phone", None))
         service = request.POST.get("amount", None)
@@ -87,13 +88,15 @@ def lipa_mpesa(request):
                     description= r_json['ResponseDescription']
                     checkout= r_json['CheckoutRequestID']
                     
+                    """Storing the started transaction for future confirmation with the checkout and merchant Id"""
                     initiated = Initiate(
                         MerchantRequestID=merchant, 
                         CheckoutRequestID=checkout, 
                         ResultCode=code, 
                         ResultDescription=description, 
                         user=user, 
-                        service=selected_service)
+                        service=selected_service,
+                        mode='mpesa-stk-push')
                     initiated.save()
                     # print(initiated.user)
                     # print(r_json)
@@ -136,6 +139,9 @@ def lipa_mpesa(request):
 
 
 def paybill(request, id):
+    """An admin method for taking the mpesa transaction from c2b and confirm with the ones stored
+    in the confirmation endpoint
+    The method also checks if the transaction has already been confirmed for more security reasons"""
     template_name="paybill.html"
     message=None
     user=request.user
@@ -169,6 +175,14 @@ def paybill(request, id):
                 transaction.update(Status=True, user=user, service=payed_service)
                 user.is_payed= True
                 user.save(update_fields=['is_payed'])
+                initiated = Initiate(
+                        CheckoutRequestID=transaction.BillRefNumber,
+                        ResultCode=0, 
+                        ResultDescription=transaction.InvoiceNumber, 
+                        user=user, 
+                        service=payed_service,
+                        mode='mpesa-paybill')
+                initiated.save()
                 message = " You Can Now Proceed with uploading your content!"  
                 data={
                     'message':message,
@@ -192,6 +206,7 @@ def paybill(request, id):
 
 
 def select_service(request):
+    """A method that allows a user to select first a service before paying with mpesa"""
     template_name="select.html"
     error=None
     message=None
@@ -233,7 +248,15 @@ def paypal(request):
         print(service_amount)
         if service_amount == float(amount):
             transaction=Paypal(user=user, name=name, amount=amount, currency=currency, paypal_id=id, service=service)
-            print(transaction)
+            initiated = Initiate(
+                        CheckoutRequestID=id,
+                        ResultCode=0, 
+                        ResultDescription=currency, 
+                        user=user, 
+                        service=service,
+                        mode='paypal')
+            initiated.save()
+            # print(transaction)
             if status=='COMPLETED':                
                 transaction.save()
                 user.is_payed=True

@@ -17,6 +17,7 @@ from mike_admin.models import Service
 
 
 class Lipa_List(CreateAPIView):
+    """This method waits for the response from mpesa and stores the successful transaction information"""
     queryset = models.Lipa_na_mpesa.objects.all()
     serializer_class = Lipa_na_mpesaSerializer
     permission_classes = [AllowAny]
@@ -59,8 +60,12 @@ class Lipa_List(CreateAPIView):
             initiated=models.Initiate.objects.get(CheckoutRequestID=checkout_request_id)                     
             user=get_user_model().objects.get(pk=initiated.user.pk)
             if result_code==0: 
+                # Checking if the transaction was successful with result code 0 and changing the user's information to payed
                user.is_payed= True
-               user.save(update_fields=['is_payed'])               
+               user.save(update_fields=['is_payed'])   
+               initiated.ResultDescription=result_description
+               initiated.CheckoutRequestID=mpesa_receipt_no
+               initiated.save(update_fields=['ResultDescription', 'MpesaReceiptNumber'])            
             else:
                 initiated.ResultCode=1
                 initiated.save(update_fields=['ResultCode'])
@@ -91,6 +96,7 @@ def Customer_to_Business_Validate(request):
       
 
 class Customer_to_Business_Confirm(CreateAPIView):
+    """This method stores the information from the customer to business transaction"""
     queryset = models.C2BPaymentModel.objects.all()
     serializer_class = C2BPaymentSerializer
     permission_classes = [AllowAny]

@@ -76,11 +76,13 @@
             <div class="col-md-12" style="margin: 2rem auto;">
                 <div id="paypal-button-container" class="mt-30 col-md-6"></div>
                 <div class="col-md-6">
+                    {% if mpesa %}
                     <img width=312 alt="M-PESA LOGO-01" src="{% static 'mpesa.png' %} ">
                     <div class="buttons" style="margin:1rem auto">
                         <a href="{% url 'home:lipa_na_mpesa_form' %}" class="btn btn-primary btn-big">Lipa Na Mpesa Online</a>
                         <a href="{% url 'home:select-service' %}" class="btn btn-success btn-large">Paybill</a>
                     </div>
+                    {% endif %}
                 </div>
             </div>
             <br />
@@ -92,10 +94,11 @@
 
 {% endblock content %}
 {% block jsblock %}
-<script src="https://www.paypal.com/sdk/js?client-id=AcazeDDN_IFU5aBtWys86Ast2SnXN892XOq42rhTWKg-xnE_bHHMheDWPD0-9A_JM4DlQZVpezJFsVYw&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AS2w9df6YKcs7TAfg_dM7mCHC30FzfYrHIfgi9vAYQZMBtN0cXs52BH8zfDmTGUgsOhHghnIcIo72rz-&currency=USD"></script>
 <script>
     // Render the PayPal button into #paypal-button-container
     let service;
+
     paypal.Buttons({
 
         // Set up the transaction

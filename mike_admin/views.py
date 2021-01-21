@@ -11,9 +11,15 @@ from django.views import generic
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 
+import environ
+
+env = environ.Env(
+    MPESA = (bool, True)
+)
+
 from .models import Music, Testimonial, StaffMember, TermsOfService, Service
 from article.models import Post, Comment
-from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate
+from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate, Paypal
 
 from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm
 
@@ -1050,16 +1056,9 @@ class LipaTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMi
         context['lipa_unsuccessful'] = Initiate.objects.filter(ResultCode=1).order_by('-date_added')
         context['paybill']=C2BPaymentModel.objects.filter(Status=True).order_by('-TransTime')
         context['paybill_unconfirmed']=C2BPaymentModel.objects.filter(Status=False).order_by('-TransTime')
+        context['paypal']=Paypal.objects.all().order_by('-date_added')
         return context
     
-# The Transactions controllers
-class C2BTransactionList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
-    queryset = C2BPaymentModel.objects.all().order_by('-TransTime')
-    template_name = 'mike_admin/transactions/users.html'
-    context_object_name= "cust_transactions"
-    
-    def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
 
 # sendemail
 from django.core.mail import send_mail
@@ -1101,10 +1100,14 @@ def requestMessages(request):
             }
             return JsonResponse(data)
 
+@login_required
 def paymentsPage(request):
     template_name="mike_admin/payments.html"
     services= Service.objects.exclude(pricing=0).all()
+ 
+    mpesa=env('MPESA')
     context={
-        'services':services
+        'services':services,
+        'mpesa':mpesa
     }
     return render(request, template_name, context)
