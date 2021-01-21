@@ -31,7 +31,7 @@
 	height:auto;
 	overflow: hidden;
 }
-.nivoSlider img.slider-image {
+.nivoSlider img {
 	position:absolute;
 	top:0px;
 	left:0px;
