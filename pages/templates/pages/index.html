@@ -98,7 +98,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12 wow fadeInUp"  data-wow-duration="1.4s" >
-          <div class="section-headline services-head text-center">
+          <div class="section-headline-white services-head text-center">
             <h2>Our Services</h2>
           </div>
         </div>
@@ -108,18 +108,19 @@
           <!-- Start Left services -->
           {% if service_list %}
           {% for service_single in service_list %}
-          <div class="col-md-4 col-sm-5 col-xs-12 wow bounceInUp" data-wow-delay="0.{{service_single.id}}s"  data-wow-duration="1.4s">
+          <div class="col-md-3 service-item col-sm-4 col-xs-12 wow bounceInUp" data-wow-delay="0.{{service_single.id}}s"  data-wow-duration="1.4s">
             <div class="about-move">
               <div class="services-details">
                 <div class="single-services">
                   <a class="services-icon" href="{% url 'pages:services' service_single.slug %}">
 											<i class="{{service_single.font_image}}"></i>
 										</a>
-                    <a href="{% url 'pages:services' service_single.slug %}"><h4>{{service_single.title}}</h4></a>
+                    <a href="{% url 'pages:services' service_single.slug %}"><h4 class="services-title">{{service_single.title}}</h4></a>
                   <p>
                     {{service_single.home_page_text | slice:':150' | safe}}  
 
                   </p>
+                  <a href="{% url 'pages:services' service_single.slug %}" class="services-link">read More</a>
                 </div>
               </div>
               
@@ -279,11 +280,11 @@
 
   <!-- Start team Area -->
   {% if teams %}
-  <div id="team" class="our-team-area area-padding" style="background-color: #e04011;">
+  <div id="team" class="our-team-area area-padding">
     <div class="container">
       <div class="row wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.4s"  >
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="section-headline-white text-center">
+          <div class="section-headline text-center">
             <h2>Our special Team</h2>
           </div>
         </div>
@@ -318,8 +319,8 @@
                 </div>
               </div>
               <div class="team-content text-center wow fadeInUp"  data-wow-delay="0.6s" data-wow-duration="1.4s" >
-                <h4 style="color:white;">{{team.username.first_name}} {{team.username.last_name}}</h4>
-                <p style="color:white">{{team.role}}</p>
+                <h4>{{team.username.first_name}} {{team.username.last_name}}</h4>
+                <p>{{team.role}}</p>
               </div>
             </div>
           </div>

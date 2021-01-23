@@ -1,0 +1,44 @@
+// policy
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicRead",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObjectAcl",
+                "s3:GetObject",
+                "s3:*Object*",
+                "s3:ListMultipartUploadParts",
+                "s3:AbortMultipartUpload",
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::hilmus-mike/*",
+                "arn:aws:s3:::hilmus-mike"
+            ]
+        }
+    ]
+}
+
+
+// cores origin
+[
+    {
+        "AllowedHeaders": [
+            "Authorization"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "PUT",
+            "POST",
+            "DELETE"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]
