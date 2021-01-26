@@ -30,6 +30,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD') #
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+SITE_ID = 1
 # CACHES = {
 #     "default": {
 #          "BACKEND": "redis_cache.RedisCache",

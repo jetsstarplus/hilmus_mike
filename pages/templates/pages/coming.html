@@ -4,6 +4,19 @@
   <meta content="Shop on content as pertaining to the music industry" name="description"/>
 {% endblock %}
 {% load static %}
+{% block meta %}
+{
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "Mike Creatives Shop",
+  "url": "https://mikecreatives.com/shop/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mikecreatives.com/articles?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+{% endblock %}
 {% block content %}
   <!-- Start Bottom Header -->
   <div class="header-bg page-area">

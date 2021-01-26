@@ -10,6 +10,7 @@ from django_summernote.views import (
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 import mike_admin.urls
 import pages.urls
@@ -37,6 +38,14 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='sitemap'),
     path('', include('upload_handler.urls')),
+    path('sw.js', TemplateView.as_view(
+        template_name='sw.js',
+        content_type='application/javascript',
+    ), name='service_worker.js'),
+    path('adminsw.js', TemplateView.as_view(
+        template_name='adminsw.js',
+        content_type='application/javascript',
+    ), name='admin_service_worker.js')
     # path('editor/<int:id>)/', xframe_options_sameorigin(SummernoteEditor.as_view()),
     #     name='django_summernote-editor'),
     # path('upload_attachment/', xframe_options_sameorigin(SummernoteUploadAttachment.as_view()),

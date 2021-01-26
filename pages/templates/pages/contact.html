@@ -6,6 +6,15 @@
 {% load static %}
 {% block meta %}
 {% if post %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Mike Creatives",
+    "url": "https://mikecreatives.com/contact/",
+    "logo": "{% static 'pages/mike/artmm.jpg' %}"
+  }
+  </script>
   <meta property="og:url"                content="https://mikecreatives.com/contacts/" />
   <meta property="og:type"               content="website" />
   <meta property="og:title"              content="Contact us - Mike Creatives" />

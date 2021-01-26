@@ -1,10 +1,33 @@
 {% extends './base.html' %}
+{% load static %}
 {% block title %}
 
   <title>{{post.title}} - Articles Mike Creatives</title>  
   <meta content="{{post.brief_information}}" name="description"/>
 {% endblock %}
 {% block meta %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ post.title}}",
+    "image": "{{ post.image}}",  
+    "author": {
+      "@type": "Person",
+      "name": "{{post.author}}"
+    },  
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{site.name}}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{% static 'pages/mike/artmm.jpg' %}"
+      }
+    },
+    "datePublished": "{{post.created_on}}"
+  }
+  </script>
+  
 {% if post %}
   <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
@@ -13,7 +36,7 @@
   <meta property="og:image"              content="{% if post.image %} {{post.image.url}} {% endif %}" />
   {% endif %}
 {% endblock%}
-{% load static %}
+
 {% block content %}
   <!-- Start Bottom Header -->
   <!-- <div class="header-bg page-area">

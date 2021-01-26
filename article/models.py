@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
+from django.contrib.sitemaps import ping_google
 
 from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 
@@ -28,6 +29,12 @@ class Post(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        try:
+            ping_google(sitemap_url='/sitemap.xml')
+        except Exception:
+            # Bare 'except' because we could get a variety
+            # of HTTP-related exceptions.
+            pass
         return super(Post, self).save(*args, **kwargs)
     
     def get_absolute_url(self):

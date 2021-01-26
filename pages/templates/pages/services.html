@@ -5,6 +5,16 @@
 {% endblock %}
 {% block meta %}
 {% if post %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org/", 
+    "@type": "Product", 
+    "name": "{{service.title}}",
+    "image": "{{service.picture}}",
+    "url":"{% url 'pages:services' service.slug %}"
+  }
+  </script>
+
   <meta property="og:url"                content="https://mikecreatives.com/services/{% if service.slug %}{{service.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if service.title %}{{service.title}}{% endif %}" />

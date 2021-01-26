@@ -383,4 +383,13 @@
         </div>
     </div>
 {% endblock %}
+{% block jsblock %}
+<script type="text/javascript">
+    // service worker registration
+    let script_url= '{% url "admin_service_worker.js" %}';
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(script_url);
+  };
+  </script>
+{% endblock %}
 <!-- {% block content %}{% endblock%}   -->

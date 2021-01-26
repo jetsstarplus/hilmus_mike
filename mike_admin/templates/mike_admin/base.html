@@ -24,7 +24,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icons/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'icons/manifest.json' %}">
+    <!-- <link rel="manifest" href="{% static 'icons/manifest.json' %}"> -->
     <meta name="msapplication-TileColor" content="rgb(224, 64, 17)">
     <meta name="msapplication-TileImage" content="{% static 'icons/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="rgb(224, 64, 17)">
@@ -83,7 +83,7 @@
     <!-- include summernote css/js-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     
-
+    <link rel="manifest" href="{% static 'icons/app.webmanifest' %}" crossorigin="use-credentials">
 
 
     <!--Users Phone number for uploading-->
@@ -191,7 +191,14 @@
 		============================================ -->
     <script src="{% static "mike_admin/js/main.js" %}"></script>
     <script href="{% static "home/contactform/phone.js" %}"></script>
-  
+    <script>
+      // service worker registration
+      let script_url= '{% static "sw.js" %}';
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register(script_url);
+    };
+    </script>
+    <script src="{% static 'sw.js' %}"></script>
 </body>
 
 </html>

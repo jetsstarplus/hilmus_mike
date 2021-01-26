@@ -4,6 +4,20 @@
   <meta content="Latest news as pertaining to the music industry" name="description" />
 {% endblock %}
 {% block meta %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    "name": "Mike Creatives Blog",
+    "url": "https://mikecreatives.com/articles/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://mikecreatives.com/articles?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
   <meta property="og:url"           content="https://mikecreatives.com/articles/" />
   <meta property="og:type"          content="website" />
   <meta property="og:title"         content="Articles Mike Creatives - The Home Of Kenyan Brands" />
