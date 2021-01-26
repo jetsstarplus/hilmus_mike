@@ -55,7 +55,7 @@ ROOT_URLCONF = 'hilmus_mike.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ["templates", os.path.join(BASE_DIR, 'templates'), 'Templates', os.path.join(BASE_DIR, 'Templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

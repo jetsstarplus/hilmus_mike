@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en" manifest="{% static 'icons/app.webmanifest' %}">
+<html lang="en" manifest="{% url 'manifest' %}">
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1EDE2KCQT"></script>
@@ -36,7 +36,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="{% static 'icons/favicon-96x96.png' %}">
   <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
   <!-- manifest -->
-  <link rel="manifest" href="{% static 'icons/app.webmanifest' %}" crossorigin="use-credentials">
+  <link rel="manifest" href="{% url 'manifest' %}" crossorigin="use-credentials">
    <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="{% static 'icons/ms-icon-144x144.png' %}">
   <meta name="theme-color" content="rgb(224, 64, 17)">

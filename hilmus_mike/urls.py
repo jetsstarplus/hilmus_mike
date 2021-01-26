@@ -45,7 +45,11 @@ urlpatterns = [
     path('adminsw.js', TemplateView.as_view(
         template_name='adminsw.js',
         content_type='application/javascript',
-    ), name='admin_service_worker.js')
+    ), name='admin_service_worker.js'),
+    path("app.webmanifest", TemplateView.as_view(
+        template_name='app.webmanifest',
+        content_type='application/manifest+json',
+    ), name='manifest')
     # path('editor/<int:id>)/', xframe_options_sameorigin(SummernoteEditor.as_view()),
     #     name='django_summernote-editor'),
     # path('upload_attachment/', xframe_options_sameorigin(SummernoteUploadAttachment.as_view()),
