@@ -113,11 +113,24 @@
   <script type="text/javascript">
     // service worker registration
     let script_url= '{% url "service_worker.js" %}';
-    if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register(script_url);
-  };
+    if(('serviceWorker' in navigator) && ('caches' in window)) {
+      navigator.serviceWorker.getRegistrations().then(function(registrations){
+        for(let registration of registrations){
+          registration.unregister()
+        }
+      }).then(function(){
+       // navigator.serviceWorker.register(script_url);
+      })
+    };
   </script>
-  
+  <!-- .then(function(){     
+    caches.keys()
+      .then(function(keyList) {
+          return Promise.all(keyList.map(function(key) {
+              return caches.delete(key);
+          }));
+      })         
+  }) -->
 </body>
 
 </html>
