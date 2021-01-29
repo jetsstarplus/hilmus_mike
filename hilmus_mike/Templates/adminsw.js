@@ -1,25 +1,18 @@
-
-var cacheName = 'mikeadmincache';
+{% load static %}
+var cacheName = 'mikeadmincacheV2';
 var appShellFiles = [
   '{% url "home:lipa_na_mpesa_form" %}',
-  '{% url "home:paypal" %}',
-
+  '{% url "mike_admin:login" %}',
+  '{% url "mike_admin:django_registration_register" %}',
+  '{% url "mike_admin:password_reset" %}',
+  '{% url "mike_admin:change_password" %}',
+  '{% static "pages/mike/HOME.webp" %}',
+  "{% static 'pages/mike/home2.webp' %}",
+  "{% static 'pages/mike/artmm.webp' %}",
+  "{% static 'images_africa.jpg' %}",
+  "{% static 'SDG-Logo.png' %}",
+  '{% url "pages:index" %}',
   '{% url "mike_admin:home" %}',
-  '{% url "mike_admin:profile" %}',
-
-  '{% url "mike_admin:testimonials" %}',
-
-  '{% url "mike_admin:terms" %}',
-
-  '{% url "mike_admin:music" %}',
-
-  '{% url "mike_admin:services" %}',
-
-  '{% url "mike_admin:users" %}',
-
-  '{% url "mike_admin:lipa" %}',
-  '{% url "mike_admin:post_messages" %}',
-  '{% url "mike_admin:payments" %}'
 
 ];
 

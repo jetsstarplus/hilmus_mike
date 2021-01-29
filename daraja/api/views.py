@@ -5,6 +5,8 @@ from datetime import datetime
 import pytz
 from django.views import View
 from django.http import HttpResponse, HttpResponseForbidden
+from django.core.mail import send_mail
+from django.conf import settings
 
 #for handling responses
 from rest_framework.response import Response
@@ -71,6 +73,21 @@ class Lipa_List(CreateAPIView):
                 initiated.save(update_fields=['ResultCode'])
             
             mpesa_model.save()
+            send_mail(                                
+                    'Mpesa Transaction Completed',
+                    'Your Mpesa Transaction to Mike Creatives towards payment for Ksh {} of service {} has been successfully received.'.format(amount, initiated.service),
+                    'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                    [request.user.email],
+                    fail_silently=True,
+                )
+                
+            send_mail(                                
+                'Mpesa Transaction Completed',
+                'Mpesa Transaction to Mike Creatives for reference {} towards payment for USD {} of service {} has been successfully received.'.format(mpesa_receipt_no, amount, initiated.service),
+                'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                ['mikecreatives254@gmail.com', 'w.mwangi95@gmail.com', 'edwinkyalo@hotmail.com'],
+                fail_silently=True,
+            )
             return Response({'ResultDescription': "Yey it worked"})
 
         ##to check whether the transaction is cancelled or not

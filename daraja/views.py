@@ -14,6 +14,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt, xframe_options_sameorigin
+from django.core.mail import send_mail
+from django.conf import settings
 
 # from django.contrib.auth.models import User
 from rest_framework import viewsets
@@ -187,7 +189,24 @@ def paybill(request, id):
                 data={
                     'message':message,
                     'status':200
-                }              
+                } 
+                
+                """Sending emails to the user and the responsible personels to take actions on them"""
+                send_mail(                                
+                    'Mpesa Transaction Completed',
+                    'Your Mpesa Transaction to Mike Creatives towards payment for Ksh {} of service {} has been successfully received.'.format(transaction.TransAmount, initiated.service),
+                    'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                    [request.user.email],
+                    fail_silently=True,
+                )
+                
+                send_mail(                                
+                    'Mpesa Transaction Completed',
+                    'Mpesa Transaction to Mike Creatives for reference {} towards payment for USD {} of service {} has been successfully received.'.format(transaction.BillRefNumber, transaction.TransAmount, initiated.service),
+                    'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                    ['mikecreatives254@gmail.com', 'w.mwangi95@gmail.com', 'edwinkyalo@hotmail.com'],
+                    fail_silently=True,
+                )             
                 
         else:
             data={
@@ -231,7 +250,7 @@ def paypal(request):
     """A method that is used to get the transaction after a successfull paypall transaction"""
     
     # print(json.load(request)['name'])
-    if request.is_ajax() and request.method=='POST':
+    if request.is_ajax() and request.method=='POST' and request.user:
         # getting the data from the ajax json
         data=json.load(request)['data']
         
@@ -242,6 +261,11 @@ def paypal(request):
         status=data['status']
         currency=data['currency']
         service=data['service']
+        
+        if request.user.get_full_name():
+            user_name=request.user.get_full_name()
+        else:
+            user_name=request.user.username
         
         service=Service.objects.get(pk=service)
         service_amount=round((float(service.pricing)/109), 2)
@@ -257,10 +281,26 @@ def paypal(request):
                         mode='paypal')
             initiated.save()
             # print(transaction)
-            if status=='COMPLETED':                
+            if status=='COMPLETED':  
+                              
                 transaction.save()
                 user.is_payed=True
                 user.save(update_fields=['is_payed'])
+                send_mail(                                
+                    'Paypal Transaction Completed',
+                    'Your Paypal Transaction to Mike Creatives towards payment for USD {} of service {} has been successfully received.'.format(amount, service),
+                    'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                    [request.user.email],
+                    fail_silently=True,
+                )
+                
+                send_mail(                                
+                    'Paypal Transaction Completed',
+                    'Paypal Transaction to Mike Creatives for user {} towards payment for USD {} of service {} has been successfully received.'.format(user_name, amount, service),
+                    'Transaction Complete <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                    ['mikecreatives254@gmail.com', 'w.mwangi95@gmail.com', 'edwinkyalo@hotmail.com'],
+                    fail_silently=True,
+                )
                 data={
                     'message':'Payment Successful!',
                     'status':200

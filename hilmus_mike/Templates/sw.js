@@ -1,9 +1,15 @@
-
-var cacheName = 'mikecache';
+{% load static %}
+var cacheName = 'mikecacheV2';
 var appShellFiles = [
   '{% url "pages:index" %}',
   '{% url "pages:contact" %}',
   '{% url "pages:shop" %}',
+
+  '{% static "pages/mike/HOME.webp" %}',
+  "{% static 'pages/mike/home2.webp' %}",
+  "{% static 'pages/mike/artmm.webp' %}",
+  "{% static 'images_africa.jpg' %}",
+  "{% static 'SDG-Logo.png' %}",
 
   '{% url "article:post" %}',
 ];
