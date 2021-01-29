@@ -77,9 +77,11 @@
                 </div>
               </div>
               <article class="blog-post-wrapper">
+                {% if post.image %}
                 <div class="post-thumbnail">
-                  <img class="border-radius services-image" {% if post.image %} src="{{post.image.url}}" alt="{{post.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="blog placeholder" {% endif %}/>
+                  <img class="border-radius services-image" src="{{post.image.url}}" alt="{{post.image.name}}"/>
                 </div>
+                {% endif %}
                 <div class="post-information">
                   
                   <div class="entry-meta">
