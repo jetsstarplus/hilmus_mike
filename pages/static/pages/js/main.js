@@ -4,12 +4,14 @@
   /*--------------------------
   preloader
   ---------------------------- */
+
   $(window).on('load', function() {
     var pre_loader = $('#preloader');
     pre_loader.fadeOut('slow', function() {
       $(this).remove();
     });
   });
+
 
   /*---------------------
    TOP Menu Stick
@@ -59,7 +61,13 @@
     pauseOnHover: true,
     manualAdvance: false,
   });
-
+  
+  let image = jquery3('img')
+  image.lazyload
+  // ({
+  //   effect: "fadeIn"
+  // })
+  
   /*----------------------------
    Scrollspy js
   ------------------------------ */

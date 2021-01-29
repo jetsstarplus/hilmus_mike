@@ -83,7 +83,7 @@
     <!-- include summernote css/js-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">
     
-    <link rel="manifest" href="static/icons/app.webmanifest"> 
+    <link rel="manifest" href="/static/icons/app.webmanifest"> 
 
     <!--Users Phone number for uploading-->
       {% block cssblock %}
@@ -190,13 +190,13 @@
 		============================================ -->
     <script src="{% static "mike_admin/js/main.js" %}"></script>
     <script href="{% static "home/contactform/phone.js" %}"></script>
-    <script>
+    <!-- <script>
       // service worker registration
-      let script_url= '{% static "admin_service_worker.js" %}';
+      let new_script_url= '{% url "admin_service_worker.js" %}';
       if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register(script_url);
+        navigator.serviceWorker.register(new_script_url);
     };
-    </script>
+    </script> -->
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 {% extends './base.html' %}
+{% load static %}
 {% block title %}     
   <title>Articles Mike Creatives - The Home of Kenyan Brands</title>  
   <meta content="Latest news as pertaining to the music industry" name="description" />
@@ -10,6 +11,7 @@
     "@type": "WebSite",
     "name": "Mike Creatives Blog",
     "url": "https://mikecreatives.com/articles/",
+    "logo": "{% static 'icons/original.png' %}",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://mikecreatives.com/articles?q={search_term_string}",
@@ -22,7 +24,7 @@
   <meta property="og:type"          content="website" />
   <meta property="og:title"         content="Articles Mike Creatives - The Home Of Kenyan Brands" />
   <meta property="og:description"   content="Latest news as pertaining to the music industry" />
-  <meta property="og:image"         content="https://hilmus-mike.s3.af-south-1.amazonaws.com/icons/android-icon-192x192.png" />
+  <meta property="og:image"         content="{% static 'icons/original.png' %}" />
 
 {% endblock %}
 {% load static %}
@@ -62,6 +64,10 @@
   <!-- END Header -->
   <div class="blog-page area-padding">
     <div class="container">
+      <div class="row">
+        <h2>Latest Posts</h2>
+        <hr>
+      </div>
       <div class="row">
         <!-- End left sidebar -->
         <!-- Start single blog -->

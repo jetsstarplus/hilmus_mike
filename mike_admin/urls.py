@@ -41,9 +41,9 @@ urlpatterns = [
     path('music/<int:pk>/delete/', views.delete_music, name="delete_music"),
     
     # Services urls
-    path('services/', views.ServicesList.as_view(), name='services'),
-    path('service/<slug:slug>/', views.service_detail, name='service_detail'),
     path('service/create/', views.create_service, name="create_service"),
+    path('services/', views.ServicesList.as_view(), name='services'),
+    path('service/<slug:slug>/', views.service_detail, name='service_detail'),    
     path('service/<slug:slug>/change/', views.update_service, name="update_service"), 
     path('service/<slug:slug>/delete/', views.delete_service, name="delete_service"),
     

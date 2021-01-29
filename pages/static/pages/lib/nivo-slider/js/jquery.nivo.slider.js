@@ -75,6 +75,7 @@
         
         // Set first background
         var sliderImg = $('<img/>').addClass('nivo-main-image');
+        sliderImg.attr('alt', "Slider main image")
         sliderImg.attr('src', vars.currentImage.attr('src')).show();
         slider.append(sliderImg);
 
@@ -121,7 +122,7 @@
         
         // Add Direction nav
         if(settings.directionNav){
-            slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+ settings.prevText +'</a><a class="nivo-nextNav">'+ settings.nextText +'</a></div>');
+            slider.append('<div class="nivo-directionNav"><a class="nivo-prevNav" title="Prev">'+ settings.prevText +'</a><a class="nivo-nextNav" title="Next">'+ settings.nextText +'</a></div>');
             
             $(slider).on('click', 'a.nivo-prevNav', function(){
                 if(vars.running) { return false; }
@@ -150,7 +151,7 @@
                     if(!child.is('img')){
                         child = child.find('img:first');
                     }
-                    if(child.attr('data-thumb')) vars.controlNavEl.append('<a class="nivo-control" rel="'+ i +'"><img src="'+ child.attr('data-thumb') +'" alt="" /></a>');
+                    if(child.attr('data-thumb')) vars.controlNavEl.append('<a class="nivo-control" rel="'+ i +'"><img src="'+ child.attr('data-thumb') +'" alt="Selected Image" /></a>');
                 } else {
                     vars.controlNavEl.append('<a class="nivo-control" rel="'+ i +'">'+ (i + 1) +'</a>');
                 }

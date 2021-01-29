@@ -190,7 +190,7 @@ def submit_contacts(request):
                 subject=subject, body=final, 
                 from_email= 'Website Contact <{}>'.format(settings.DEFAULT_FROM_EMAIL),
                 headers={'Message-ID': 'MIKE Creatives'},
-                to=['connect@mikecreatives.com','jets.starplus@gmail.com', 'hilmus.software@gmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
+                to=['edwinkyalo@hotmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
             contact.save()
             # mail.content_subtype = ''
             mail.send()

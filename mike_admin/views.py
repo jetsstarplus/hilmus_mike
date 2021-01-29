@@ -694,6 +694,21 @@ def create_music(request, **kwargs):
                new_post.artist= user
                new_post.save()
                message="Your Music Has Been Successfully Uploaded!"
+               
+               """Sending an email to the administrators after a music has already been successfully uploaded"""
+               send_mail(
+                   subject="Music Uploaded",message="{} has uploaded a music to MIKE Creatives portal to be worked on.".format(user.username), 
+                   from_email="MIKE Creatives Music <{}>".format(settings.DEFAULT_FROM_EMAIL),recipient_list=['mikecreatives254@gmail.com', 'w.mwangi95@gmail.com', 'edwinkyalo@hotmail.com'],
+                   fail_silently=True
+               )
+               
+               """Sending an email to the user after a music has already been successfully uploaded"""
+               send_mail(
+                   subject="Music Uploaded",message="Your Music has been successfully uploaded to MIKE Creatives portal and it's been currently worked on.".format(user.username), 
+                   from_email="MIKE Creatives Music <{}>".format(settings.DEFAULT_FROM_EMAIL),recipient_list=[user.email],
+                   fail_silently=True
+               )
+               
                data={
                    'message':message,
                    'status':200

@@ -17,7 +17,7 @@
       "@context" : "http://schema.org",
       "@type" : "LocalBusiness",
       "@id": "https://mikecreatives.com",    
-      "logo": "https://hilmus-mike.s3.af-south-1.amazonaws.com/static/icons/apple-icon-60x60.png",
+      "logo": "{% static 'icons/original.png' %}",
       "name" : "Mike Creatives - The Home Of Kenyan Brands",
       "telephone" : "+254756829620",
       "email" : "connect@mikecreatives.com",
@@ -27,12 +27,7 @@
         "ratingCount": "3"
       },
       
-      "description": "Welcome to MIKE Creatives; Made In Kenya Exclusively, a Creatives’ 
-      Social Enterprise focused on delivering context relevant digital 
-      solutions necessary to propel growth and scale the impact of works of 
-      Art in Kenya.  We believe in the gift of Art and the Creative Economy in Kenya 
-      as a catalyst  for the attainment of the Sustainable Development Goals (SDGs).
-      Below are amongst our list of services",
+      "description": "Welcome to MIKE Creatives; Made In Kenya Exclusively, a Creatives’ Social Enterprise focused on delivering context relevant digital solutions necessary to propel growth and scale the impact of works of Art in Kenya.  We believe in the gift of Art and the Creative Economy in Kenya as a catalyst  for the attainment of the Sustainable Development Goals (SDGs). Below are amongst our list of services",
       "image" : "{% static 'pages/mike/artmm.jpg' %}",
       "address" : {
         "@type" : "PostalAddress",
@@ -93,7 +88,7 @@
   Art in Kenya.  We believe in the gift of Art and the Creative Economy in Kenya 
   as a catalyst  for the attainment of the Sustainable Development Goals (SDGs).
   Below are amongst our list of services" />
-  <meta property="og:image"         content="https://hilmus-mike.s3.af-south-1.amazonaws.com/icons/android-icon-192x192.png" />
+  <meta property="og:image"         content="{% static 'icons/original.png' %}" />
 
 {% endblock %}
 
@@ -114,7 +109,7 @@
           <div class="well-left wow fadeInUp"  data-wow-duration="2s" data-wow-delay=".1s">
             <div class="single-well">
               <a href="#">
-								  <img src="{% static 'pages/mike/art.jpg' %}" alt="Artist Management">
+								  <img src="{% static 'pages/mike/art.webp' %}" alt="Artist Management">
 								</a>
             </div>
           </div>
@@ -124,7 +119,7 @@
           <div class="well-middle">
             <div class="single-well">
               <a href="#">
-                <h4 class="sec-head">What We Do</h4>
+                <h3 class="sec-head">What We Do</h3>
               </a>
               <p class = " wow slideInUp" data-wow-duration="2s">
                 We are MIKE Creatives; Made In Kenya Exclusively, a Creatives’ 
@@ -185,7 +180,7 @@
             <div class="about-move">
               <div class="services-details">
                 <div class="single-services">
-                  <a class="services-icon" href="{% url 'pages:services' service_single.slug %}">
+                  <a class="services-icon" href="{% url 'pages:services' service_single.slug %}" title="{{service_single.title}}">
 											<i class="{{service_single.font_image}}"></i>
 										</a>
                     <a href="{% url 'pages:services' service_single.slug %}"><h4 class="services-title">{{service_single.title}}</h4></a>
@@ -352,7 +347,7 @@
   <!-- our-skill-area end -->
 
   <!-- Start team Area -->
-  {% if teams %}
+  {% if teamss %}
   <div id="team" class="our-team-area area-padding">
     <div class="container">
       <div class="row wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1.4s"  >
@@ -369,7 +364,7 @@
             <div class="single-team-member">
               <div class="team-img">
                 <a href="#">
-										<img src="{% thumbnail team.picture 500x500 crop %}" class="border-radius" style="border-radius: 5px; object-fit:cover;" width="100%" alt="Team Member Picture">
+										<img src="{% thumbnail team.picture 500x500 crop %}" alt="{{team.username}}" class="border-radius" style="border-radius: 5px; object-fit:cover;" width="100%" alt="Team Member Picture">
 									</a>
                 <div class="team-social-icon text-center">
                   <ul>
@@ -426,7 +421,7 @@
   
 
   <!-- TESTIMONIALS -->
-{% if testimonials %}
+{% if testimonialss %}
 <br />
 <section class="testimonials wow fadeInUp" style="background-color:#f9f9f9;padding-top: 3rem;margin-top: -2rem;">
 	<div class="container">
