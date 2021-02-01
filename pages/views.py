@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
@@ -6,6 +8,7 @@ from django.http import JsonResponse
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.html import strip_tags
 
 from article.models import Post, Comment
 from mike_admin.models import Testimonial, StaffMember, TermsOfService, Service
@@ -110,11 +113,17 @@ class PostSearchList(generic.ListView):
 
 def post_detail(request, slug):
     template_name = 'pages/blog-details.html'
-    post_list=Post.objects.filter(status=1).order_by('-created_on')[: 5]
-    post = get_object_or_404(Post, slug=slug)
+    post = get_object_or_404(Post, slug=slug)    
+    post_list=Post.objects.filter(status=1).order_by('-created_on').exclude(slug=post.slug)[: 6]
     comments = post.comments.filter(active=True)       
-    service_list=Service.objects.all().order_by('title')[:6]
     new_comment = None
+    
+    # generating the keywords for the post
+    post_keywords=strip_tags(post.content).strip()
+    keyword_list = re.split(r'\W', post_keywords)
+    # print(keyword_list)
+    # print(type(keyword_list))
+    
     # Comment posted
     if request.is_ajax():
         email = request.POST.get("email", None)
@@ -152,23 +161,24 @@ def post_detail(request, slug):
         'new_comment': new_comment,
         'comment_form': comment_form,
         'post_list': post_list,
-        'service_list':service_list,
-        'post_active':'active', 
+        'post_active':'active',
+        'keywords':keyword_list,
+        'description':post_keywords, 
     }
     return render(request, template_name, context=context)
 
 
 def service(request, slug):
     template_name = 'pages/services.html'
-    services=Service.objects.all()
-    service = get_object_or_404(Service, slug=slug)    
-    service_list=Service.objects.all().order_by('title')[:6]
-    
+    service = get_object_or_404(Service, slug=slug)  
+     # generating the keywords for the post
+    service_keywords=strip_tags(service.content).strip()
+    keyword_list = re.split(r'\W', service_keywords)
     context = {
         'service': service,
-        'services': services,
-        'service_list':service_list,
-        'service_active':'active', 
+        'service_active':'active',
+        'keywords':keyword_list,
+        'description':service_keywords 
     }
     return render(request, template_name, context=context)
 

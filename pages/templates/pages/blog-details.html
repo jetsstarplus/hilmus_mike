@@ -1,9 +1,11 @@
 {% extends './base.html' %}
 {% load static %}
+{% load thumbnail %}
 {% block title %}
 
   <title>{{post.title}} - Articles Mike Creatives</title>  
-  <meta content="{{post.brief_information}}" name="description"/>
+  <meta content="{{description}}" name="description" >
+  <meta content="{% for keyword in keywords %}{{keyword}},{% endfor %}" name="keywords"> 
 {% endblock %}
 {% block meta %}
 <script type="application/ld+json">
@@ -32,32 +34,13 @@
   <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if post.title %}{{post.title}}{% endif %}" />
-  <meta property="og:description"        content="{% if post.brief_information %} {{post.brief_information}}{% endif %}" />
+  <meta property="og:description"        content="{{description}}" />
   <meta property="og:image"              content="{% if post.image %} {{post.image.url}} {% endif %}" />
   {% endif %}
 {% endblock%}
 
 {% block content %}
-  <!-- Start Bottom Header -->
-  <!-- <div class="header-bg page-area">
-    <div class="home-overly"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="slider-content text-center">
-            <div class="header-bottom">
-              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">{% if post.title %}{{post.title}}{% else %} Blog Page Title {% endif %}</h1>
-              </div>
-              <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                <h2 class="title3"></h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+  
   <!-- END Header -->
   <div class="blog-page area-padding-1">
     <!-- <div class="home-overly"></div> -->
@@ -79,7 +62,7 @@
               <article class="blog-post-wrapper">
                 {% if post.image %}
                 <div class="post-thumbnail">
-                  <img class="border-radius services-image" src="{{post.image.url}}" alt="{{post.image.name}}"/>
+                  <img class="border-radius services-image" src="{% thumbnail post.image 750x400 %}" alt="{{post.image.name}}"/>
                 </div>
                 {% endif %}
                 <div class="post-information">
@@ -87,7 +70,7 @@
                   <div class="entry-meta">
                     <span class="author-meta"><i class="fa fa-user"></i> <a href="#">{% if post.author %} {{post.author}} {% else %}user{% endif %}</a></span>
                     <span><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on }} {% else%}march 28, 2016 {% endif %}</span>
-                    
+                    <span>{% if post.read_time %} {{post.read_time }}{% endif %}</span>
 											</span>
                     <span><i class="fa fa-comments-o"></i> <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a></span>
                     
@@ -97,18 +80,7 @@
                   <div class = "entry-content">
                     {{post.content | safe}}
                   </div>
-                  {% else %}
-                  <div class="entry-content">
-                    <p>Aliquam et metus pharetra, bibendum massa nec, fermentum odio. Nunc id leo ultrices, mollis ligula in, finibus tortor. Mauris eu dui ut lectus fermentum eleifend. Pellentesque faucibus sem ante, non malesuada odio varius nec. Suspendisse
-                      potenti. Proin consectetur aliquam odio nec fringilla. Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit amet ligula condimentum sagittis.</p>
-                    <blockquote>
-                      <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend. Proin dictum
-                        tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque scelerisque.</p>
-                    </blockquote>
-                    <p>Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis elementum.
-                      Curabitur lobortis, elit ut elementum congue, erat ex bibendum odio, nec iaculis lacus sem non lorem. Duis suscipit metus ante, sed convallis quam posuere quis. Ut tincidunt eleifend odio, ac fringilla mi vehicula nec. Nunc vitae
-                      lacus eget lectus imperdiet tempus sed in dui. Nam molestie magna at risus consectetur, placerat suscipit justo dignissim. Sed vitae fringilla enim, nec ullamcorper arcu.</p>
-                  </div>
+                  
                   {% endif %}
                 </div>
               </article>
@@ -196,4 +168,38 @@
       </div>
     </div>
   </div>
+  
+    <!-- More sections to apply -->
+    {% if post_list %}
+    <div class="more-section">
+      <div class="container">
+        <div class="more-section-title">
+          <h5>More From MIKE Creatives</h5>
+        </div>
+        <div class="more-section-page row">
+
+          {% for post in post_list %}
+          <a href="{% url 'pages:article_detail' post.slug %}">
+            <div class="more-section-item col-md-3 col-sm-6 col-xs-12">
+              <div class="section-author col-md-4 col-sm-4 col-xs-4">
+                <img src="{{post.author.avatar | thumbnail_url:'avatar2'}}" alt="{{post.author.avatar.name}}"/>
+                <div class="entry-meta">
+                  <span class="author-meta"><p>{% if post.author %} {{post.author}} {% else %}user{% endif %}</p></span>
+                </div>
+              </div>
+              <div class="section-text col-md-8 col-sm-8 col-xs-8">
+                <h6><a href="{% url 'pages:article_detail' post.slug %}">{{post.title}}</a></h6>
+                <div class="entry-meta">
+                  <div><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on.date}} {% else%}march 28, 2016 {% endif %}</div>                
+                  <div>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</div>                
+                
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
   {% endblock %}

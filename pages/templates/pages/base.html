@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en" manifest="/static/icons/app.webmanifest">
+<html lang="en">
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J1EDE2KCQT"></script>
@@ -13,10 +13,7 @@
 </script>
   <meta charset="utf-8">
   {% block title %} {% endblock %}
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="Mike, Mike Creatives, Creatives, Music, mp3, musica, youtube music, music downloader, song, mp3 download, 
-  music player, mp3 music download, musician, play music, free music download, music, web music, google music, mp3 songs, songs, boomplay, youtube, skiza code, artist, 
-  management, music marketing" name="keywords">  
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"> 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
  
@@ -113,15 +110,9 @@
   <script type="text/javascript">
     // service worker registration
     let script_url= '{% url "service_worker.js" %}';
-    if(('serviceWorker' in navigator) && ('caches' in window)) {
-      navigator.serviceWorker.getRegistrations().then(function(registrations){
-        for(let registration of registrations){
-          registration.unregister()
-        }
-      }).then(function(){
+    if('serviceWorker' in navigator){
        // navigator.serviceWorker.register(script_url);
-      })
-    };
+      }
   </script>
   <!-- .then(function(){     
     caches.keys()

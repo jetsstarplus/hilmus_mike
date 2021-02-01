@@ -15,7 +15,7 @@ class CommentForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields=('title', 'image','brief_information', 'content', 'status') 
+        fields=('title', 'image', 'content', 'status') 
         widgets = {
             'title':forms.TextInput(
                 attrs={'onkeyup':'resetForm()'}),
@@ -26,7 +26,7 @@ class PostForm(forms.ModelForm):
 class PostUpdateForm(forms.ModelForm):
      class Meta:
         model=Post
-        fields=('image', 'content','brief_information','status') 
+        fields=('image', 'content','status') 
         widgets = {  
         'content': SummernoteWidget(
             attrs={'onkeyup':'resetForm()'}

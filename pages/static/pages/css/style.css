@@ -217,7 +217,7 @@ div#preloader {
   padding: 70px 0px 80px;
 }
 .area-padding-1{
-  padding:0px 0px 80px;
+  padding:0px 0px 10px;
 }
 .area-padding-2 {
   padding: 70px 0px 50px;
@@ -504,18 +504,18 @@ div#preloader {
 
 .stick .main-menu ul.navbar-nav li.active a {
   background: rgba(33, 88, 11,0) none repeat scroll 0 0;
-  /* color: #fff; */
+  color: rgb(224, 64, 17);
   position: relative;
 }
 
 .stick .mainmenu ul#nav>li:hover>a, .stick .mainmenu ul#nav li .mega-menu, .stick .mainmenu ul#nav li ul.sub-menu {
   background-color: #f5f5f5;
-  color: #fff;
+  color: rgb(224, 64, 17);
   outline: medium none;
 }
 
 .stick .mainmenu ul#nav li:hover ul.sub-menu li a:hover, .mainmenu ul#nav li .mega-menu span>a:hover, .stick .mainmenu ul#nav li .mega-menu-shop a.mega-menu-title:hover {
-  color: #fff;
+  color: rgb(224, 64, 17);
 }
 
 .stick .logo {
@@ -1601,10 +1601,11 @@ div#preloader {
 .blog-header h3, .blog-header h1, .blog-header h2{
   padding: 2rem 1rem;
   text-transform: capitalize;
-  letter-spacing: .2rem;
-  word-spacing: .5rem;
-  font-size: 2rem;
+  letter-spacing: .12rem;
+  word-spacing: .35rem;
+  font-size: 1.7rem;
   font-weight: 600;
+  text-decoration: none;
 }
 .blog-header h3:hover, .blog-header h1:hover, .blog-header h2:hover{
   color:rgb(224, 64, 17);
@@ -2076,6 +2077,11 @@ div#preloader {
   position: relative;
 }
 
+.blog-hero{
+  background-color:rgb(71, 1, 113);
+  height: 30rem;
+}
+
 .blog-img{
   width: 100%;
   height: 200px;
@@ -2091,11 +2097,17 @@ div#preloader {
   margin-bottom: 40px;
 }
 
+.blog-page-head{
+  font-size: 3rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .search-option input {
   border: medium none;
   padding: 6px 15px;
   background-color: transparent;
   width: 80%;
+  color:rgb(255, 255, 255);
 }
 
 .search-option {
@@ -2606,4 +2618,40 @@ span.email-notes {
   .margin-edit{
     margin: 2rem 0;
   }
+}
+
+/* the more blog sections */
+.more-section{
+  background-color: #eee;
+  padding: 2rem 0 5rem;
+}
+
+.more-section-title{
+  margin:2rem auto;
+}
+
+.section-author img{
+  border-radius: 50%;
+  height: 4rem;
+}
+
+.more-section-page{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.more-section-item{
+  padding: 1.2rem 0;
+  border-radius: 2px;
+  transition: all .5s ease-in;
+  margin: 1rem auto;
+  border: 1px solid #ddd;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, .4);
+  cursor: pointer;
+}
+
+.more-section-item:hover{
+  background: #ddd;
 }

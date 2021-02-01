@@ -1101,18 +1101,24 @@ def requestMessages(request):
         if request.method=='POST':
             pass
         else:
-            items=Comment.objects.filter(active=False)
-            comments=items.count()
-            new_comments=items.order_by('-created_on')
-            for comment in new_comments:
-                # Adding the comments to a dictionary inside a list
-                com_dic=[{'id':comment.id},{'body':comment.body}, {'name':comment.name}, {'date': comment.created_on}]
-                com.append(com_dic)                
-                # print(com)
-            data={
-                'comments':comments,
-                'new_comments':com,
-            }
+            try:
+                items=Comment.objects.filter(active=False)
+                comments=items.count()
+                new_comments=items.order_by('-created_on')
+                for comment in new_comments:
+                    # Adding the comments to a dictionary inside a list
+                    com_dic=[{'id':comment.id},{'body':comment.body}, {'name':comment.name}, {'date': comment.created_on}]
+                    com.append(com_dic)                
+                    # print(com)
+                data={
+                    'comments':comments,
+                    'new_comments':com,
+                }
+            except:
+                data={
+                    'comments':0,
+                    'new_comments': 'None'
+                }
             return JsonResponse(data)
 
 @login_required

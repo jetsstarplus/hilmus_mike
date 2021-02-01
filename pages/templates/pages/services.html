@@ -1,8 +1,13 @@
 {% extends './base.html' %}
 {% block title %}
   <title>{{service.title}} - Services Mike Creatives</title>  
-  <meta content="{{service.home_page_text | safe }}" name="description"/>
+  <meta content="{{description }}" name="description"/>
+  <meta content="Mike, Mike Creatives, Creatives, Music, mp3, musica, youtube music, music downloader, song, mp3 download, 
+  music player, mp3 music download, musician, play music, free music download, music, web music, google music, mp3 songs, songs, boomplay, youtube, skiza code, artist, 
+  management, music marketing,{% for keyword in keywords %} {{keyword}}, {% endfor %} " name="keywords"> 
 {% endblock %}
+{% load thumbnail %}
+{% load static %}
 {% block meta %}
 {% if post %}
 <script type="application/ld+json">
@@ -11,39 +16,21 @@
     "@type": "Product", 
     "name": "{{service.title}}",
     "image": "{{service.image.url}}",
-    "url":"{% url 'pages:services' service.slug %}"
+    "url":"{% url 'pages:services' service.slug %}",
+    "logo": "{% static 'icons/original.png' %}",
   }
   </script>
 
-  <meta property="og:url"                content="https://mikecreatives.com/services/{% if service.slug %}{{service.slug}}{% endif %}/" />
+  <meta property="og:url"                content="{% url 'pages:services' service.slug %}" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if service.title %}{{service.title}}{% endif %}" />
-  <meta property="og:description"        content="{% if service.home_page_text %} {{service.home_page_text | slice:':100'| safe }}{% endif %}" />
+  <meta property="og:description"        content=" {{description}}" />
   <meta property="og:image"              content="{% if service.image %} {{service.image.url}} {% endif %}" />
   {% endif %}
 {% endblock%}
 {% load static %}
 {% block content %}
   <!-- Start Bottom Header -->
-  <div class="header-bg page-area">
-    <!-- <div class="home-overly"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="slider-content text-center">
-            <div class="header-bottom">
-              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">{% if service.title %}{{service.title}}{% else %} Service Title {% endif %}</h1>
-              </div>
-              <div class="layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                <h2 class="title3"></h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-  </div>
   <!-- END Header -->
   <div class="blog-page area-padding-1">
     <!-- <div class="home-overly"></div> -->
@@ -66,7 +53,7 @@
                  
                 </div>
                 <div class="post-thumbnail">
-                  <img {% if service.image %} src="{{service.image.url}}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %} class="border-radius services-image"/>
+                  <img {% if service.image %} src="{% thumbnail service.image 750x400 %}" alt="{{service.image}}" {% else %} src="{% static 'pages/img/blog/1.jpg' %} " alt="service placeholder" {% endif %} class="border-radius services-image"/>
                 </div>
                 <div class="post-information">
                       <div class="fb-like" data-href="https://mikecreatives.com/services/{{service.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>

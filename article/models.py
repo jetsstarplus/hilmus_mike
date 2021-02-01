@@ -1,7 +1,10 @@
+import re
+
 from django.db import models
 from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.sitemaps import ping_google
+from django.utils.html import strip_tags
 
 from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 
@@ -18,6 +21,7 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now= True)
     brief_information=models.TextField(verbose_name="Write a brief post info here", null=True, blank=True)
     content = SummernoteTextField(verbose_name="Write Your Post Here")
+    read_time = models.IntegerField(verbose_name="Read Time", blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
@@ -27,8 +31,19 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
+    def calculate_read_time(self, content_field):
+        '''This method calculates the amount of time to read a blog'''
+        content= strip_tags(content_field).strip()
+        number = re.split(r'/W', content).count()
+        read_time = round((number/100), 0)
+        if read_time > 1:
+            return read_time
+        else:
+            return 1
+    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        self.read_time=self.calculate_read_time(self.content)
         try:
             ping_google(sitemap_url='/sitemap.xml')
         except Exception:

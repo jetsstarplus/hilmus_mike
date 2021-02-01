@@ -183,7 +183,7 @@
     opacity: 0;
   }
   #mobile-logo{
-    width:80%;
+    height: 100%;
     display: block;
     visibility: visible;
     opacity: 1;
