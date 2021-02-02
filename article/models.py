@@ -34,7 +34,7 @@ class Post(models.Model):
     def calculate_read_time(self, content_field):
         '''This method calculates the amount of time to read a blog'''
         content= strip_tags(content_field).strip()
-        number = re.split(r'/W', content).count()
+        number = len(content.split(' '))
         read_time = round((number/100), 0)
         if read_time > 1:
             return read_time

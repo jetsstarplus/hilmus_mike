@@ -70,10 +70,10 @@
                   <div class="entry-meta">
                     <span class="author-meta"><i class="fa fa-user"></i> <a href="#">{% if post.author %} {{post.author}} {% else %}user{% endif %}</a></span>
                     <span><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on }} {% else%}march 28, 2016 {% endif %}</span>
-                    <span>{% if post.read_time %} {{post.read_time }}{% endif %}</span>
-											</span>
-                    <span><i class="fa fa-comments-o"></i> <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a></span>
                     
+                    <span><i class="fa fa-comments-o"></i> <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a></span>
+                    <span><i class="fa fa-time"></i>{% if post.read_time %} {{post.read_time }}{% endif %} Min Read</span>
+											</span>
                     <div style = "margin-left:1rem" class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                   </div>
                   {% if post.content %}
