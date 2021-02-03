@@ -181,6 +181,7 @@ First, we assigned the HTML """
     template_name = 'article/post_detail.html'
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)
+    unpublished_comments= post.comments.filter(active=False)
     new_comment = None
       
     if request.is_ajax():
@@ -208,9 +209,33 @@ First, we assigned the HTML """
         'post': post,
         'comments':comments,
         'new_comment': new_comment,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'unpublished_comments': unpublished_comments,
     }
     return render(request, template_name, context=context)
 
+def publish_comment(request):
+    if request.is_ajax() and request.user.is_staff and request.method=='POST':
+        id = request.POST.get('id')
+        action=request.POST.get('action')       
+        comment = Comment.objects.filter(pk=id)
+        if action=='publish':
+            # print(action)
+            # updating the comment
+            comment.update(active=True)
+            data={
+                'status':200,
+                'message':'published'
+            }
+        elif action=='delete':
+            # print(action)
+            # deleting the comment
+            comment.delete()
+            data={
+                'status':200,
+                'message':'Deleted'
+            }
+        return JsonResponse(data)
+        
 
 # Create your views here.

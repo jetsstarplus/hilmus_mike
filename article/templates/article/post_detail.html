@@ -99,6 +99,51 @@
         </div>
     </div>
     {% endif %}
+    {% if unpublished_comments %}
+    <div class="col-md-9 card mb-4  mt-3 homeback " style="margin: 1rem auto">
+        <div class="card-body">
+        <!-- comments -->
+            <br />
+            <div class = 'marginate' >           
+                <h2 class="text-center title uppercase article-title"><strong>Unpublished Comments</strong></h2> 
+            </div>
+            <hr />
+            <div class="row income-dashone-total">
+                {% for comment in unpublished_comments %}
+                <div class="card col-lg-6 col-md-6 marginate">
+                    <div class="card-body box-my">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h4>{{ comment.name }}</h4>
+                                <div class="income-rate-total">
+                                    <div class="price-adminpro-rate">
+                                        <p class="card-text text-muted h6">{{ comment.created_on}} </p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            
+                            <div class="income-range low-value-cl">
+                                <p class="card-text">{{comment.body| linebreaks | safe }}</p>
+                            </div>
+                            <div class="clear"></div>
+                            <form class="comment-unpublished"  action="{% url 'article:publish_comment' %}" id="comments-form{{comment.id}}" method="POST">
+                                <input type="hidden" name="id" value='{{comment.id}}'>
+                                <button class="btn btn-primary btn-sm " id="publish{{comment.id}}" onclick="submit_{{comment.id}}()" type="button">Publish</button>
+                                <button class="btn btn-danger btn-sm" id="delete{{comment.id}}" type="button" onclick="delete_{{comment.id}}()">Delete</button>
+                            </form>                            
+                        </div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
     <div class="col-md-9 col-sm-9 col-xs-12 mb-4  mt-3 form">
         <div class="box-my">        
         
@@ -175,6 +220,53 @@
 </div>
 <div class="clear"></div>
 
-
-
 {% endblock content %}
+
+{% block jsblock %}
+<script>
+        `This JS submits the publishing of comments to the backend`
+    {% if unpublished_comments %}
+    {% for comment in unpublished_comments %}
+// initialise DOM
+        // publish function
+        function submit_{{comment.id}}(){	
+            //initialise DOM elements
+            let action_status = "publish"
+            let form_name = 'comments-form'+'{{comment.id}}'
+            let form = document.getElementById(form_name)
+
+            let publish_name = 'publish'+'{{comment.id}}'
+            let delete_name = 'delete'+'{{comment.id}}' 
+
+            let publish = document.getElementById(publish_name)
+            let deleteBtn = document.getElementById(delete_name)
+            
+            // calling the ajax for submitting the data in article static folder
+            submit_data(action_status, publish, deleteBtn, form)
+        };
+
+        // delete function
+        function delete_{{comment.id}}(){	
+           let  action_status='delete'
+           let form_name = 'comments-form'+'{{comment.id}}'
+            let form = document.getElementById(form_name)
+            
+            let publish_name = 'publish'+'{{comment.id}}'
+            let delete_name = 'delete'+'{{comment.id}}' 
+
+            let publish = document.getElementById(publish_name)
+            let deleteBtn = document.getElementById(delete_name) 
+
+              // calling the ajax for submitting the data in article static folder
+
+           submit_data(action_status, publish, deleteBtn, form)          
+        };
+
+        
+        {% endfor %}
+        
+    {% endif %}
+
+     
+</script>
+{% endblock %}
