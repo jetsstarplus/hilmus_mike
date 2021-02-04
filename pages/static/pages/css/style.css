@@ -578,13 +578,11 @@ div#preloader {
 /* 4.Services Area
 /*--------------------------------*/
 .services-area{
-  /* background-color: rgb(224, 64, 17); */
-  background-color: rgb(71, 1, 113);
-
+  background-color: rgb(240, 235, 243);
 }
 
 .services-icon {
-  color:#dddbdb;
+  color:#0e0d0d;
   display: inline-block;
   font-size: 42px;
   line-height: 42px;
@@ -593,7 +591,7 @@ div#preloader {
 
 .section-headline.services-head>h2 {
   margin-bottom: 25px;
-  color:#eee8e8;
+  color:#070707;
 }
 
 .services-details {
@@ -610,50 +608,48 @@ div#preloader {
 }
 
 .section-head>h2 {
-  color: rgb(255, 255, 255);
+  color: rgb(10, 10, 10);
 }
 
 .service-item{
-  /* background: rgb(197, 62, 21); */
-  background:rgb(62, 1, 97);
-  margin: 1rem .1rem 1rem 0;
+  background:rgb(233, 226, 233);
   border-radius: 5px;
   transition: background .2s ease;
   padding: 1rem 2rem 3rem;
-  
+  margin: 1rem 1rem 1rem;
 }
 
 .service-item:hover{
   /* background:rgb(156, 42, 8); */
-  background:rgb(38, 0, 59);
+  background:rgb(203, 202, 204);
   cursor: pointer;
 }
 .services-title {
-  color: rgb(255, 255, 255);
+  color: rgb(24, 24, 24);
   font-size: 24px;
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .single-services>p {
-  color:#eee8e8;
+  color:#232124;
   font-size: 14px;
 }
 
 .services-link{
-  color:rgb(255, 255, 255);
+  color:rgb(90, 86, 86);
   font-size: 1.5rem;
   text-transform: capitalize;
   transition: all .2s ease-in;
   margin: 1rem auto;  
   font-weight: 600;
   backface-visibility: hidden;  
-  border-bottom: 2px solid rgb(62, 1, 97);
+  border-bottom: 2px solid rgb(82, 81, 81);
 }
 
 .services-link:hover{
-  border-color: rgb(255, 255, 255);
-  color:rgb(255, 255, 255);
+  border-color: rgb(2, 2, 2);
+  color:rgb(2, 2, 2);
   backface-visibility: hidden;
 }
 

@@ -173,12 +173,14 @@ def service(request, slug):
     service = get_object_or_404(Service, slug=slug)  
      # generating the keywords for the post
     service_keywords=strip_tags(service.content).strip()
+    service_list=Service.objects.all().order_by('title')[:6]
     keyword_list = re.split(r'\W', service_keywords)
     context = {
         'service': service,
         'service_active':'active',
         'keywords':keyword_list,
-        'description':service_keywords 
+        'description':service_keywords,
+        'service_list': service_list
     }
     return render(request, template_name, context=context)
 

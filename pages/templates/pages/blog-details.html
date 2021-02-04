@@ -4,7 +4,7 @@
 {% block title %}
 
   <title>{{post.title}} - Articles Mike Creatives</title>  
-  <meta content="{{description}}" name="description" >
+  <meta content="{{description | truncatewords:30}}" name="description" >
   <meta content="{% for keyword in keywords %}{{keyword}},{% endfor %}" name="keywords"> 
 {% endblock %}
 {% block meta %}
@@ -34,8 +34,8 @@
   <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if post.title %}{{post.title}}{% endif %}" />
-  <meta property="og:description"        content="{{description}}" />
-  <meta property="og:image"              content="{% if post.image %} {{post.image.url}} {% endif %}" />
+  <meta property="og:description"        content="{{description|truncatewords:30 }}" />
+  <meta property="og:image"              content="{{post.image.url}}" />
   {% endif %}
 {% endblock%}
 

@@ -1,7 +1,7 @@
 {% extends './base.html' %}
 {% block title %}
   <title>{{service.title}} - Services Mike Creatives</title>  
-  <meta content="{{description }}" name="description"/>
+  <meta content="{{description|truncatewords:30 }}" name="description"/>
   <meta content="Mike, Mike Creatives, Creatives, Music, mp3, musica, youtube music, music downloader, song, mp3 download, 
   music player, mp3 music download, musician, play music, free music download, music, web music, google music, mp3 songs, songs, boomplay, youtube, skiza code, artist, 
   management, music marketing,{% for keyword in keywords %} {{keyword}}, {% endfor %} " name="keywords"> 
@@ -24,8 +24,8 @@
   <meta property="og:url"                content="{% url 'pages:services' service.slug %}" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if service.title %}{{service.title}}{% endif %}" />
-  <meta property="og:description"        content=" {{description}}" />
-  <meta property="og:image"              content="{% if service.image %} {{service.image.url}} {% endif %}" />
+  <meta property="og:description"        content=" {{description | truncatewords|30}}" />
+  <meta property="og:image"              content="{{service.image.url}}" />
   {% endif %}
 {% endblock%}
 {% load static %}
