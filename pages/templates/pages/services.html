@@ -1,7 +1,7 @@
 {% extends './base.html' %}
 {% block title %}
   <title>{{service.title}} - Services Mike Creatives</title>  
-  <meta content="{{description|truncatewords:30 }}" name="description"/>
+  <meta content="{{description|truncatewords:50 }}" name="description"/>
   <meta content="Mike, Mike Creatives, Creatives, Music, mp3, musica, youtube music, music downloader, song, mp3 download, 
   music player, mp3 music download, musician, play music, free music download, music, web music, google music, mp3 songs, songs, boomplay, youtube, skiza code, artist, 
   management, music marketing,{% for keyword in keywords %} {{keyword}}, {% endfor %} " name="keywords"> 
@@ -9,26 +9,38 @@
 {% load thumbnail %}
 {% load static %}
 {% block meta %}
-{% if post %}
 <script type="application/ld+json">
   {
     "@context": "https://schema.org/", 
     "@type": "Product", 
     "name": "{{service.title}}",
-    "image": "{{service.image.url}}",
+    "image": "{{service.image.url}}",      
+    "description": "{{description}}",
+    "mpn": "{{service.slug}}",
     "url":"{% url 'pages:services' service.slug %}",
     "logo": "{% static 'icons/original.png' %}",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "worstRating": "2",
+      "ratingCount": "10"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewBody": "The Service is fantastic from mike Creatives",
+      "datePublished": "2021-02-02",
+      "author": {"@type": "Person", "name": "Wilma Mwangi"}
+    }
   }
   </script>
 
   <meta property="og:url"                content="{% url 'pages:services' service.slug %}" />
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if service.title %}{{service.title}}{% endif %}" />
-  <meta property="og:description"        content=" {{description | truncatewords|30}}" />
+  <meta property="og:description"        content=" {{description|truncatewords:50}}" />
   <meta property="og:image"              content="{{service.image.url}}" />
-  {% endif %}
 {% endblock%}
-{% load static %}
 {% block content %}
   <!-- Start Bottom Header -->
   <!-- END Header -->

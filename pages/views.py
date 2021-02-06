@@ -56,7 +56,6 @@ def shop(request):
 # Create your views here.
 def terms(request):
     template_name='pages/terms.html'    
-    post_list = Post.objects.filter(status=1).order_by('-created_on')
     terms= TermsOfService.objects.all().order_by('-date_added')[:1]    
     service_list=Service.objects.all().order_by('title')[:6]
     context={
@@ -114,7 +113,9 @@ class PostSearchList(generic.ListView):
 def post_detail(request, slug):
     template_name = 'pages/blog-details.html'
     post = get_object_or_404(Post, slug=slug)    
-    post_list=Post.objects.filter(status=1).order_by('-created_on').exclude(slug=post.slug)[: 6]
+    post_list=Post.objects.filter(status=1).order_by('-created_on').exclude(slug=post.slug)[: 8]
+    
+    service_list=Service.objects.all().order_by('title')[:6]
     comments = post.comments.filter(active=True)       
     new_comment = None
     
@@ -164,6 +165,7 @@ def post_detail(request, slug):
         'post_active':'active',
         'keywords':keyword_list,
         'description':post_keywords, 
+        'service_list':service_list,
     }
     return render(request, template_name, context=context)
 
@@ -243,6 +245,4 @@ def submit_subscription(request):
             
             
         finally:              
-            return JsonResponse(data)
-
-       
+            return JsonResponse(data)      
