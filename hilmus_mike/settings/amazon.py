@@ -8,7 +8,7 @@ env = environ.Env()
 # Authentication information
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'hilmus-mike-1'
+AWS_STORAGE_BUCKET_NAME = 'hilmus-mike'
 
 # Storage location
 DEFAULT_FILE_STORAGE = 'hilmus_mike.storage_backends.MediaStorage'
