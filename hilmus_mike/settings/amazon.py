@@ -21,7 +21,7 @@ STATICFILES_STORAGE = 'hilmus_mike.storage_backends.StaticStorage'
 AWS_S3_REGION = 'af-south-1'
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.{}.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION)
-
+AWS_S3_CDN_DOMAIN = 'd3jsqccm00oaky.cloudfront.net'
 # AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 AWS_DEFAULT_ACL = None
@@ -38,10 +38,11 @@ AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
 
 # For future deployment purposes
 STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+# STATIC_URL = 'https://d3jsqccm00oaky.cloudfront.net'
 
 MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
 
-# STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+# STATIC_URL = 'https://d3jsqccm00oaky.cloudfront.net'
 
 # arn:aws:s3:::hilmus-rentit
 
