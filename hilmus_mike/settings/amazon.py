@@ -37,8 +37,8 @@ AWS_PUBLIC_MEDIA_LOCATION = 'media'
 AWS_PRIVATE_MEDIA_LOCATION = 'private-media'
 
 # For future deployment purposes
-STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
-# STATIC_URL = 'https://d3jsqccm00oaky.cloudfront.net'
+# STATIC_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+STATIC_URL = 'https://d3jsqccm00oaky.cloudfront.net'
 
 MEDIA_URL = 'https://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_PUBLIC_MEDIA_LOCATION)
 
