@@ -1107,7 +1107,7 @@ def requestMessages(request):
                 new_comments=items.order_by('-created_on')
                 for comment in new_comments:
                     # Adding the comments to a dictionary inside a list
-                    com_dic=[{'id':comment.id},{'body':comment.body}, {'name':comment.name}, {'date': comment.created_on}]
+                    com_dic=[{'id':comment.id}, {'body':comment.body}, {'name':comment.name}, {'date': comment.created_on}, {'post':comment.post.slug}]
                     com.append(com_dic)                
                     # print(com)
                 data={

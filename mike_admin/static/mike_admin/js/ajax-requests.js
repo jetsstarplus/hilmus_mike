@@ -68,7 +68,7 @@
                 let anchor=document.createElement('a')        
                 let message=document.createElement('div')
                 message.setAttribute('class', 'message-content')
-                anchor.setAttribute('href', '#')
+                anchor.setAttribute('href', '/article/post/'+data.new_comments[item][4].post+'/')
                 anchor.appendChild(message)
                 list.appendChild(anchor)
                 message_container.appendChild(list)
