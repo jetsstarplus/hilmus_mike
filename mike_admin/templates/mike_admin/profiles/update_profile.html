@@ -25,6 +25,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2"></div>
+                <iframe name="form-submit" src="" style="display:none; opacity:0; visibility: hidden"></iframe>
                 <form id="adminpro-register-form" class='upload' class="adminpro-form" novalidate="novalidate" method='POST' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-lg-8">
@@ -132,7 +133,7 @@
                                 </div>
                             </div>
                             
-                           
+                            <div id="progress-home"></div>
                             <div class="row">
                                 <div class="col-lg-3"></div>
                                 <div class="col-lg-8">
@@ -141,11 +142,19 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </form>
                 <div class="col-lg-3"></div>
             </div>
+
         </div>
     </div>
+  {% endblock %}
+  {% block jsblock %}
+  <script>
+      let form2 = $("form.upload")
+      form.target = "form-submit"
+  </script>
   {% endblock %}

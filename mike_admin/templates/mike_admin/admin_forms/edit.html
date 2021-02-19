@@ -20,6 +20,7 @@
 {% block content %}
 <div class="container-fluid">
     <div class="container-fluid">
+        <iframe name="form-submit" src="" style="display:none; opacity:0; visibility: hidden"></iframe>
         <form method='POST' enctype="multipart/form-data" action="{{url}}" id="ajax-form" class='upload' >
             {% csrf_token %}
             <div class="row">

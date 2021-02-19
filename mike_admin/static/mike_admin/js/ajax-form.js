@@ -97,6 +97,7 @@
                 }
             });
             
+            form.target = "file-upload"
             	
             form.submit((e)=>{		
                 e.preventDefault()  
@@ -212,7 +213,7 @@
             // $.data(form, 'submitted', true); // mark form as submitted.
             });
             
-        
+            
     })(jQuery); 
 
 

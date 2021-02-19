@@ -10,7 +10,7 @@
 // Add upload progress for multipart forms.
 $(function() {
     let ferror=false
-    let form = $("#form.upload")
+    let form = $("form.upload")
 // Validation for login form
     form.validate(
     {					
