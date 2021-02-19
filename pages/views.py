@@ -131,7 +131,14 @@ def post_detail(request, slug):
         name = request.POST.get("name", None)
         body = request.POST.get("body", None)
         try:
-            comment=Comment(name=name, email=email, body=body, post=post)           
+            comment=Comment(name=name, email=email, body=body, post=post)   
+            final="Sender: {}\n Email: {}\n Has commented on {} post\n Comment: \n {}".format(name,email,post, body)
+            mail = EmailMessage(
+                subject=subject, body=final, 
+                from_email= 'Blog Comment <{}>'.format(settings.DEFAULT_FROM_EMAIL),
+                headers={'Message-ID': 'MIKE Creatives'},
+                to=['edwinkyalo@hotmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
+            mail.send()       
             comment.save()
             data = {
                 'message': "Your Comment is Awaiting Moderation, Thank you !",
