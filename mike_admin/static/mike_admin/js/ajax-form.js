@@ -2,6 +2,12 @@
      "use strict";
             let ferror=false
             let form = $('#ajax-form')
+            var bar = $('.barr');
+            var percent = $('.percent');
+            var status = $('#status');
+            let location=document.getElementById('progress-home')
+            var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><span class="progress-info"></span><div class="progress-bar"></div></div>');
+                        
         // Validation for login form
             form.validate(
             {					
@@ -97,7 +103,6 @@
                 }
             });
             
-            form.target = "file-upload"
             	
             form.submit((e)=>{		
                 e.preventDefault()  
@@ -141,78 +146,91 @@
                 // these HTTP methods do not require CSRF protection
                 return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
                 }
-            
-                jquery3.ajaxSetup({
-                beforeSend: function(xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                }
-                });
-                jquery3.ajax({
-                type: "POST",
-                processData: false,
-                contentType: false,
-                cache: false,
-                url: action,
-                data:form_data,
-                dataType:'json',
-                statusCode: {
-                    403: function(responseObject, textStatus) {
-                    document.getElementById('sendmessage').classList.remove('show');
-                    document.getElementById('errormessage').innerHTML="Not Permitted!"+' '+textStatus;          
-                    document.getElementById('errormessage').classList.add('show');
-                    // alert("Not Permitted!"+' '+textStatus)
+                // This implementation uses ajax forms library from jquery.
+                let options={
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                           
+                       }
+                        status.empty();
+                        var percentVal = '0%';
+                        bar.width(percentVal);
+                        percent.html(percentVal);
                     },
-                    404:  function(responseObject, textStatus) {
-                    document.getElementById('sendmessage').classList.remove('show');
-                    document.getElementById('errormessage').innerHTML="Not Found! 404"+' '+textStatus;          
-                    document.getElementById('errormessage').classList.add('show');
-                    // alert("Not Found! 404"+' '+textStatus)
+                    uploadProgress: function(event, position, total, percentComplete) {
+                               // console.log(progress)
+                        var width = $progress.find('.progress-container').width()
+                        // console.log(width)
+                        var progress_width = width * percentComplete;
+                        $progress.find('.progress-bar').width(progress_width);
+                        $progress.find('.progress-info').text('UPLOADED ' + percentComplete + '%');
+                        
                     },
-                    500:  function(responseObject, textStatus) {
-                    document.getElementById('sendmessage').classList.remove('show');
-                    document.getElementById('errormessage').innerHTML="Internal Server 500!"+' '+textStatus;          
-                    document.getElementById('errormessage').classList.add('show');
-                    // alert("Internal Server 500! "+textStatus)
+                    complete: function(xhr) {
+                        status.html(xhr.responseText);
                     },
-                },
-                success: function(data) {
-                    // console.log(data.message)
-                    if (data.status === 200) {
-                        // document.getElementById('message').innerHTML=data.message
+                    target: 'form-submit',
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    url: action,
+                    // data:form_data,
+                    dataType:'json',
+                    statusCode: {
+                        403: function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Not Permitted!"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Not Permitted!"+' '+textStatus)
+                        },
+                        404:  function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Not Found! 404"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Not Found! 404"+' '+textStatus)
+                        },
+                        500:  function(responseObject, textStatus) {
+                        document.getElementById('sendmessage').classList.remove('show');
+                        document.getElementById('errormessage').innerHTML="Internal Server 500!"+' '+textStatus;          
+                        document.getElementById('errormessage').classList.add('show');
+                        // alert("Internal Server 500! "+textStatus)
+                        },
+                    },
+                    success: function(data) {
+                        // console.log(data.message)
+                        if (data.status === 200) {
+                            // document.getElementById('message').innerHTML=data.message
+                            // alert(data.message)
+                            // form.appendChild(document.createElement('p').innerHTML=data.message)
+                            document.getElementById('errormessage').classList.remove('show')
+                        document.getElementById('sendmessage').innerHTML=data.message          
+                        document.getElementById('sendmessage').classList.add('show')
+                        
+                        // form.find( "textarea").val("");
+                        } 
+                        else {
+                        document.getElementById('sendmessage').classList.remove('show')
+                        document.getElementById('errormessage').innerHTML=data.message          
+                        document.getElementById('errormessage').classList.add('show')
                         // alert(data.message)
-                        // form.appendChild(document.createElement('p').innerHTML=data.message)
-                        document.getElementById('errormessage').classList.remove('show')
-                    document.getElementById('sendmessage').innerHTML=data.message          
-                    document.getElementById('sendmessage').classList.add('show')
-                    
-                    // form.find( "textarea").val("");
-                    } 
-                    else {
-                    document.getElementById('sendmessage').classList.remove('show')
-                    document.getElementById('errormessage').innerHTML=data.message          
-                    document.getElementById('errormessage').classList.add('show')
-                    // alert(data.message)
-                    }
-            
-                },
-                error: () =>{
-                    document.getElementById('sendmessage').classList.remove('show')
-                    document.getElementById('errormessage').innerHTML='There Was An Error In Your Submission'         
-                    document.getElementById('errormessage').classList.add('show')
-                },                                
+                        }
                 
-                })
-                .fail(function(jqXHR, textStatus){
-                    document.getElementById('sendmessage').classList.remove('show')
-                    document.getElementById('errormessage').innerHTML=`Failed, ${jqXHR} Please Try Again ${textStatus}!`         
-                    document.getElementById('errormessage').classList.add('show')
-                    })
-
+                    },
+                    error: () =>{
+                        document.getElementById('sendmessage').classList.remove('show')
+                        document.getElementById('errormessage').innerHTML='There Was An Error In Your Submission'         
+                        document.getElementById('errormessage').classList.add('show')
+                    },
+                }
+                form.ajaxForm(options);
+                form.ajaxSubmit(options);
+               
             // $.data(form, 'submitted', true); // mark form as submitted.
             });
             
+            form.target = "file-upload"
             
     })(jQuery); 
 

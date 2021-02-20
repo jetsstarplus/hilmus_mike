@@ -110,9 +110,7 @@ $(function() {
     This throws a syntax error...
     $('form[@enctype=multipart/form-data]').submit(function(){
     */
-    $('form.upload').submit(function(){
-        // Prevent multiple submits
-        if ($.data(this, 'submitted')) return false;
+    $('form.upload').submit(function(e){
         // console.log('submitted')
         var freq = 1000; // freqency of update in ms
         var uuid = gen_uuid(); // id for this upload so we can fetch progress info.
@@ -122,12 +120,7 @@ $(function() {
         this.action += (this.action.indexOf('?') == -1 ? '?' : '&') + 'X-Progress-ID=' + uuid;
         
         var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><span class="progress-info"></span><div class="progress-bar"></div></div>');
-        
-        // progress bar position
-        $progress.css({
-            // position: 'absolute',
-            // left: '50%', marginLeft: 0-($progress.width()/2), bottom: '20%'
-        }).show();
+    
         //alert("test progress")
         // Update progress bar
         function update_progress_info() {
@@ -142,7 +135,7 @@ $(function() {
                     // console.log(width)
                     var progress_width = width * progress;
                     $progress.find('.progress-bar').width(progress_width);
-                    $progress.find('.progress-info').text('uploading ' + parseInt(progress*100) + '%');
+                    $progress.find('.progress-info').text('UPLOADED ' + ((parseInt(progress*100)>=100)?100:parseInt(progress*100)) + '%');
                     // console.log(progress_width)
                 }
                 // else{
@@ -153,6 +146,5 @@ $(function() {
         };
         window.setTimeout(update_progress_info, freq);
 
-        $.data(this, 'submitted', true); // mark form as submitted.
     });
 });

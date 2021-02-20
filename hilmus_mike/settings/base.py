@@ -200,7 +200,7 @@ SUMMERNOTE_CONFIG = {
     # Codemirror as codeview
     # If any codemirror settings are defined, it will include codemirror files automatically.
     'css': (
-        'cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.29.0/theme/monokai.min.css',
     ),
 
     # Lazy initialization

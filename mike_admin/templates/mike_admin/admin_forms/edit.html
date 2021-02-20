@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="container-fluid">
         <iframe name="form-submit" src="" style="display:none; opacity:0; visibility: hidden"></iframe>
-        <form method='POST' enctype="multipart/form-data" action="{{url}}" id="ajax-form" class='upload' >
+        <form method='POST' enctype="multipart/form-data" action="{{url}}" id="ajax-form">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
@@ -38,12 +38,13 @@
                     {{form | crispy}}
                     </div>
                     <div id="progress-home"></div>
+                    <div class="status"></div>
                     <div class=" ajax-form" style="margin:2rem auto">        
                         <div id="sendmessage"></div>
                         <div id="errormessage"></div>
                     </div>       
                     <div class="login-button-pro">
-                        <button type="submit" class="login-button login-button-lg"> Update </button> 
+                        <button type="submit" class="login-button login-button-lg" id="submit-button"> Update </button> 
                     </div>
                         
                 </div>
