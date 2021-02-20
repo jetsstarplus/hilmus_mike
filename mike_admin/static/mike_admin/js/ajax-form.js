@@ -6,7 +6,7 @@
             var percent = $('.percent');
             var status = $('#status');
             let location=document.getElementById('progress-home')
-            var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><span class="progress-info"></span><div class="progress-bar"></div></div>');
+            var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><div class="progress-info"></div><div class="progress-bar"></div></div>');
                         
         // Validation for login form
             form.validate(
@@ -162,7 +162,7 @@
                                // console.log(progress)
                         var width = $progress.find('.progress-container').width()
                         // console.log(width)
-                        var progress_width = width * percentComplete;
+                        var progress_width = percentComplete + '%';
                         $progress.find('.progress-bar').width(progress_width);
                         $progress.find('.progress-info').text('UPLOADED ' + percentComplete + '%');
                         

@@ -119,7 +119,7 @@ $(function() {
         // Append X-Progress-ID uuid form action
         this.action += (this.action.indexOf('?') == -1 ? '?' : '&') + 'X-Progress-ID=' + uuid;
         
-        var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><span class="progress-info"></span><div class="progress-bar"></div></div>');
+        var $progress = $('<div id="upload-progress" class="upload-progress"></div>').appendTo(location).append('<div class="progress-container"><div class="progress-info"></div><div class="progress-bar"></div></div>');
     
         //alert("test progress")
         // Update progress bar
