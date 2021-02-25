@@ -27,7 +27,7 @@ Get to the environment that you just created
 `python pip install -r requirements.txt`
 
 ###### Configure the Database
-<pre><code>Navigate to hilmus-mike/settings/local.py and configure the database as per django's specification</code></pre>
+<pre><code>Navigate to `hilmus-mike/settings/local.py` and configure the database as per django's specification</code></pre>
 
 ###### Run migrations
 `python python manage.py migrate`
