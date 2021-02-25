@@ -15,7 +15,7 @@ To use the app, that is 100% dynamic.
 ###### First ensure that python is installed in your computer
 
 ###### Secondly Clone the repository
-`bash git clone https://mikecreatives.com/jetsstarpus/hilmus-mike.git`
+`bash git clone https://mikecreatives.com/jetsstarpus/hilmus_mike.git`
 
 ###### Create a virtual environment
 A virtual environment will help to make your apps workon independent packages that can be reused and deployed alongsite with the app.
