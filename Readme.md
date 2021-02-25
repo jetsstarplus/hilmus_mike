@@ -5,7 +5,7 @@ Mike Creatives with Hilmus Admin
 
 **This is an app that is responsible for rendering the mike Creatives site**
 
-**The site is live at [This url](mikecreatives.com)**
+**The site is live at [This url](https://mikecreatives.com)**
 
 <br />
 
@@ -13,7 +13,7 @@ The site runs on a python web framework that is django and that is the webframew
 
 To use the app, that is 100% dynamic.
 ###### First ensure that python is installed in your computer
-You can download that from [python's official Website](www.python.com)[python Installation]
+You can download that from [python's official Website](https://www.python.com)[python Installation]
 
 ###### Secondly Clone the repository
 ```bash 
@@ -34,7 +34,7 @@ Get to the environment that you just created
  ```
 
 ###### Configure the Database
-<pre><code>Navigate to `hilmus-mike/settings/local.py` and configure the database as per django's specification</code></pre>
+<pre><code>Navigate to `/hilmus-mike/settings/local.py` and configure the database as per django's specification</code></pre>
 
 ###### Run migrations
 ```python
