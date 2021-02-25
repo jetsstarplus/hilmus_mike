@@ -63,36 +63,7 @@
       </div>
     </div>
   </div>
-  <!-- <div class="blog-hero">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="slider-content text-center header-bottom-background">
-              <div class="header-bottom">
-                <div class="layer2">
-                  <h1 class="title2">MIKE Creatives Blog</h1>
-                </div>
-                <div class="row">
-                  <div class="col-md-3 col-sm-2"></div>
-                  <div class="col-md-6 col-sm-8 text-center layer3">
-                    <form action="" method = "get">
-                      <div class="search-option">
-                        <input type="text" name="q" placeholder="Search...">
-                        <button class="button" type="submit">
-                          <i class="fa fa-search"></i>
-                      </button>
-                      </div>
-                    </form>
-                  </div>
-                  <div class="col-md-3 col-sm-2"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-  </div> -->
-  <!-- END Header -->
+  
   <div class="blog-page area-padding">
     <div class="container">
       <div class="row">
@@ -133,11 +104,10 @@
                       <span>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</span> 
                       <div class="fb-like" style="padding:1rem 0" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
                     </div>
-                    <div class="blog-text">
-                      
-                      <!-- <p>
-                        {{post.brief_information}}</p></em>
-                      </p> -->
+                    <div class="blog-text">                      
+                      <p>
+                        {{post.content | striptags | truncatewords_html:17}}</p></em>
+                      </p>
                     </div>
                     <span>
                         <a href="{% url 'pages:article_detail'  post.slug %}" class="ready-btn">Read more</a>
