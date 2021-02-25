@@ -45,9 +45,11 @@
                                 <div class="col-md-3">
                                 </div>
                                 <div class="income-range low-value-cl col-md-9">
-                                    <p class="card-text">{{post.content | safe |slice:":400" }}</p>...</p></i></em>
+                                    <div class="container-fluid">
+                                        <p class="card-text">{{post.content | striptags | truncatewords_html:37 }}</p>
+                                    </div>
                                    
-                                    <div style="padding-top:2rem" class="notification-bt responsive-bt">
+                                    <div style="padding-top:2rem; display:flex; flex-direction:row; justify-content:space-between; align-items:center" class="notification-bt responsive-bt">
                                         <a href="{% url 'mike_admin:terms_detail' post.id  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
                                         </a>

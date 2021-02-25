@@ -45,7 +45,7 @@
                                 <div class="income-range low-value-cl col-md-9">
                                     <p class="card-text">{{post.home_page_text | safe |slice:":400" }}</p>...</p></i></em>
                                    
-                                    <div style="padding-top:2rem" class="notification-bt responsive-bt">
+                                    <div style="padding-top:2rem; display:flex; flex-direction:row; justify-content:space-between; align-items:center" class="notification-bt responsive-bt">
                                         <a href="{% url 'mike_admin:service_detail' post.slug  %}" >
                                             <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
                                         </a>

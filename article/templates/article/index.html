@@ -51,11 +51,13 @@
                                         <h5>{% ifequal post.status 1 %} <strong style="color:green">😊 
                                             Published </strong>{% else %} <strong style="color:red">😒 Not Published</strong> {% endifequal %}</h5>
                                     </div>
-                                    <!-- <p class="card-text">{{post.content | safe  }}</p>...</p></i></em> -->
-                                   
-                                    <div style="padding-top:2rem" class="notification-bt responsive-bt">
+                                    <div class="container-fluid">
+                                        <p class="card-text">{{post.content | striptags | truncatewords_html:37 }}</p>
+                                    </div>
+                                                                       
+                                    <div style="padding-top:2rem; display:flex; flex-direction:row; justify-content:space-between; align-items:center" class="notification-bt responsive-bt">
                                         <a href="{% url 'article:post_detail' post.slug  %}" >
-                                            <button id = "basicInfoNoSound" class="btn btn-info">Read More &rarr;</button> 
+                                            <button id = "basicInfoNoSound" class="btn btn-info">Read &rarr;</button> 
                                         </a>
                                         {% ifequal user post.author %}
                                         <a href="{% url 'article:update_post' post.slug  %}" >
