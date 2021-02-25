@@ -1,7 +1,7 @@
----
-Title: Mike Creatives with Hilmus Admin
-Date: 03-2021
----
+Mike Creatives with Hilmus Admin
+--------------------------------
+--------------------------------
+
 
 *This is an app that is responsible for rendering the mike Creatives site*
 
