@@ -53,8 +53,8 @@ class ServiceForm(forms.ModelForm):
         #     'content': SummernoteWidget,
         # } 
         
- class CategoryItemsForm(forms.ModelForm):
-        class Meta:
+class CategoryItemsForm(forms.ModelForm):
+    class Meta:
         model=CategoryItem
         exclude=('date_added', 'date_modified')
         widgets={
@@ -63,7 +63,7 @@ class ServiceForm(forms.ModelForm):
             'content': SummernoteWidget(
                 attrs={'onkeyup':'resetForm()'}
             )
-            } 
+        } 
   
 class TestimonialForm(forms.ModelForm):
      class Meta:
