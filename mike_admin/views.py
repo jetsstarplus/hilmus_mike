@@ -17,7 +17,7 @@ env = environ.Env(
     MPESA = (bool, True)
 )
 
-from .models import Music, Testimonial, StaffMember, TermsOfService, Service
+from .models import Music, Testimonial, StaffMember, TermsOfService, Service, CategoryItem
 from article.models import Post, Comment
 from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate, Paypal
 
@@ -1022,6 +1022,171 @@ def service_detail(request, slug):
     
     context = {
         'service': service
+    }
+    return render(request, template_name, context=context)
+
+# The services controllers
+class CategoryItemList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
+    queryset = CategoryItem.objects.all().order_by('-date_added')
+    template_name = 'mike_admin/categoryItem/index.html'
+    context_object_name= "services"
+    paginate_by=10
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.is_staff
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def create_category(request):
+    template_name='mike_admin/admin_forms/create.html'
+    category=None
+    error=None
+    user=request.user
+    message=None
+    callbackurl=reverse('mike_admin:create_category')
+    name='Category Item'
+    breadcrum={
+        'url': reverse('mike_admin:categoryItems'),
+        'name':'Category Items'
+    }
+    
+    
+    if user.is_staff:   
+        if request.method=='POST' and request.is_ajax():
+            form = ServiceForm(request.POST, request.FILES)
+            if form.is_valid():
+               service = form.save()
+               message=" Service Successfully created!"
+               data={
+                   'message':message,
+                   'status':200
+               }
+            else:
+                error="Your Information is Incomplete!"
+                data={
+                    'message':error,
+                    'status':400
+                }
+            return JsonResponse(data)
+        else:
+            form= ServiceForm()
+    
+    context={
+        'user':user,
+        'form':form,
+        'category':category,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def update_category(request, slug):
+    template_name='mike_admin/admin_forms/edit.html'
+    service = get_object_or_404(Service, slug=slug)
+    error=None
+    user=request.user
+    message=None
+    callbackurl=reverse('mike_admin:update_service', args = (slug, ))
+    name='Service'
+    breadcrum={
+        'url': reverse('mike_admin:services'),
+        'name':'Services'
+    }
+    create_url=reverse('mike_admin:create_service')
+    delete_url=reverse('mike_admin:delete_service', args=(slug, ))
+    
+    if user.is_staff:   
+        if request.method=='POST' and request.is_ajax():
+            form = ServiceForm(request.POST, request.FILES, instance=service)
+            if form.is_valid():
+                try:  
+                    form.save()         
+                    # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
+                    
+                    message="Service Update successful!"
+                    data={
+                        'message':message,
+                        'status':200
+                    }
+                except:
+                    error="There was a problem with your submission!"
+                    data={
+                        'message':error,
+                        'status':400
+                    }
+            else:
+                error = "Your data is not complete"
+                data={
+                            'message':error,
+                            'status':400
+                        } 
+            return JsonResponse(data)
+               
+        else:
+            form= ServiceForm(instance=service)
+    
+    context={
+        'user':user,
+        'form':form,
+        'service':service,
+        'url':callbackurl,
+        'breadcrum':breadcrum,
+        'name':name,
+        'create_url':create_url,
+        'delete_url':delete_url,
+        }
+    return render(request, template_name, context=context)
+
+@login_required
+@user_passes_test(lambda user: user.is_staff)
+def delete_category(request, slug):
+    template_name='mike_admin/admin_forms/delete.html'
+    service= get_object_or_404(Service, slug=slug)
+    error=None
+    user=request.user
+    message= None  
+    callbackurl=reverse('mike_admin:delete_service', args=(service.slug, ))
+    name='Service'
+    breadcrum={
+        'url': reverse('mike_admin:services'),
+        'name':'Services' 
+    } 
+      
+    if request.method=='POST' and request.is_ajax():
+        if request.user.is_staff:                           
+                service.delete()
+                message="The term of service has been successfully deleted" 
+                data={
+                'message':message,
+                'status':200
+                    }                   
+        else:
+            error ="You are not authorized to edit this page"                 
+            data={
+                'message':error,
+                'status':200
+            } 
+        return JsonResponse(data)      
+         
+    
+    context={
+        'user':user,
+        'post':service,        
+        'name':name,
+        'breadcrum':breadcrum,
+        'url':callbackurl
+        }
+    return render(request, template_name, context=context)
+    
+@login_required
+def service_category_detail(request, id):
+    template_name = 'mike_admin/categoryitem/category_detail.html'
+    service = get_object_or_404(CategoryItem, id=id)     # Comment posted
+    
+    context = {
+        'category': service
     }
     return render(request, template_name, context=context)
 
