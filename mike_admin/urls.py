@@ -2,6 +2,7 @@ from django.urls import path, include
 
 from .import views
 from . import auth_urls
+from .api import urls
 
 app_name='mike_admin'
 urlpatterns = [    
@@ -10,6 +11,7 @@ urlpatterns = [
     path('profile/update/', views.update_profile, name="update_profile"),
     path('', include(auth_urls)),
     path('send/', views.sendemail),
+    path('', include(urls)),
 
     # Testimonials urls
     path('testimonials/', views.TestimonialList.as_view(), name='testimonials'),

@@ -13,7 +13,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "{{ post.title}}",
-    "image": "{{ post.image}}",  
+    "image": "{% if post.image %}{{ post.image.url}} {% endif %}",  
     "author": {
       "@type": "Person",
       "name": "{{post.author}}"
@@ -35,7 +35,7 @@
   <meta property="og:type"               content="article" />
   <meta property="og:title"              content="{% if post.title %}{{post.title}}{% endif %}" />
   <meta property="og:description"        content="{{description|truncatewords:50 }}" />
-  <meta property="og:image"              content="{{post.image.url}}" />
+  <meta property="og:image"              content="{% if post.image %}{{post.image.url}}{% else%}https://source.unspash.com/random {% endif %}" />
   {% endif %}
 {% endblock%}
 
@@ -60,11 +60,9 @@
                 </div>
               </div>
               <article class="blog-post-wrapper">
-                {% if post.image %}
                 <div class="post-thumbnail">
-                  <img class="border-radius services-image" src="{% thumbnail post.image 750x400 %}" alt="{{post.image.name}}"/>
+                  <img class="border-radius services-image" src="{% if post.image %} {% thumbnail post.image 750x400 %} {% else %} https://source.unsplash.com/random/750x400 {% endif %} " alt="{{post.title}}"/>
                 </div>
-                {% endif %}
                 <div class="post-information">
                   
                   <div class="entry-meta">

@@ -109,3 +109,11 @@ class Service(models.Model):
         return reverse("pages:services", kwargs={"slug": str(self.slug)})
     
 # Create your models here.
+class CategoryItem(models.Model):
+    """This is the category items"""
+    category = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name="category the item belongs to")
+    Image = models.ImageField(upload_to="categoryItemImages", blank=True, null=True, verbose_name='Item Image')
+    PDF = models.FileField(upload_to='categoryItemPdf', blank=True, null=False, verbose_name="Category Item Pdf")
+    content=SummernoteTextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    date_modified=models.DateTimeField(auto_now=True)

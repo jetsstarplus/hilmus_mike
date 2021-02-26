@@ -81,13 +81,11 @@
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="single-blog">
                     
-                    {% if post.image %}
                     <div class="single-blog-img">
                       <a href="{% url 'pages:article_detail'  post.slug %}">
-                          <img class="blog-img border-radius"  src="{% thumbnail post.image 360x200 %}" alt="{{post.image}}" alt="blog placeholder" >
+                          <img class="blog-img border-radius" {% if post.image %} src="{% thumbnail post.image 360x200 %}" {% else %} src="https://source.unsplash.com/random/360x200" {% endif %} alt="{{post.title}}">
                         </a>
                     </div>
-                    {% endif %}
                     <a href="{% url 'pages:article_detail'  post.slug %}">
                       <div class="blog-header">
                         <h3>{{post.title}}</h3>
