@@ -21,7 +21,7 @@ from .models import Music, Testimonial, StaffMember, TermsOfService, Service, Ca
 from article.models import Post, Comment
 from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate, Paypal
 
-from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm
+from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm, CategoryItem
 
 @login_required
 def home(request): 
@@ -1029,7 +1029,7 @@ def service_detail(request, slug):
 class CategoryItemList(generic.ListView, LoginRequiredMixin, UserPassesTestMixin):
     queryset = CategoryItem.objects.all().order_by('-date_added')
     template_name = 'mike_admin/categoryItem/index.html'
-    context_object_name= "services"
+    context_object_name= "categories"
     paginate_by=10
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -1052,9 +1052,9 @@ def create_category(request):
     
     if user.is_staff:   
         if request.method=='POST' and request.is_ajax():
-            form = ServiceForm(request.POST, request.FILES)
+            form = CategoryItemForm(request.POST, request.FILES)
             if form.is_valid():
-               service = form.save()
+               category = form.save()
                message=" Service Successfully created!"
                data={
                    'message':message,
@@ -1068,7 +1068,7 @@ def create_category(request):
                 }
             return JsonResponse(data)
         else:
-            form= ServiceForm()
+            form= CategoryItemForm()
     
     context={
         'user':user,
@@ -1082,24 +1082,24 @@ def create_category(request):
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
-def update_category(request, slug):
+def update_category_item(request, id):
     template_name='mike_admin/admin_forms/edit.html'
-    service = get_object_or_404(Service, slug=slug)
+    service = get_object_or_404(CategoryItem, slug=slug)
     error=None
     user=request.user
     message=None
-    callbackurl=reverse('mike_admin:update_service', args = (slug, ))
-    name='Service'
+    callbackurl=reverse('mike_admin:update_service_item', args = (id, ))
+    name='category'
     breadcrum={
-        'url': reverse('mike_admin:services'),
+        'url': reverse('mike_admin:category_items'),
         'name':'Services'
     }
-    create_url=reverse('mike_admin:create_service')
-    delete_url=reverse('mike_admin:delete_service', args=(slug, ))
+    create_url=reverse('mike_admin:create_category_item')
+    delete_url=reverse('mike_admin:delete_category_item', args=(id, ))
     
     if user.is_staff:   
         if request.method=='POST' and request.is_ajax():
-            form = ServiceForm(request.POST, request.FILES, instance=service)
+            form = categoryItemForm(request.POST, request.FILES, instance=service)
             if form.is_valid():
                 try:  
                     form.save()         
@@ -1125,7 +1125,7 @@ def update_category(request, slug):
             return JsonResponse(data)
                
         else:
-            form= ServiceForm(instance=service)
+            form= CategoryItemForm(instance=service)
     
     context={
         'user':user,
@@ -1141,7 +1141,7 @@ def update_category(request, slug):
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
-def delete_category(request, slug):
+def delete_category_item(request, slug):
     template_name='mike_admin/admin_forms/delete.html'
     service= get_object_or_404(Service, slug=slug)
     error=None
@@ -1181,8 +1181,8 @@ def delete_category(request, slug):
     return render(request, template_name, context=context)
     
 @login_required
-def service_category_detail(request, id):
-    template_name = 'mike_admin/categoryitem/category_detail.html'
+def service_category_item_detail(request, id):
+    template_name = 'mike_admin/categoryItem/categoryitem_detail.html'
     service = get_object_or_404(CategoryItem, id=id)     # Comment posted
     
     context = {

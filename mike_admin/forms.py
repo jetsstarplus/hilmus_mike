@@ -4,7 +4,7 @@ from django_registration.forms import RegistrationFormTermsOfService, Registrati
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 from account.models import Account
-from .models import TermsOfService, Testimonial, StaffMember, Music, Service
+from .models import TermsOfService, Testimonial, StaffMember, Music, Service, CategoryItem
 
 
 class AccountFormSub(RegistrationFormTermsOfService,RegistrationFormUniqueEmail):
@@ -48,9 +48,22 @@ class ServiceForm(forms.ModelForm):
                 attrs={'onkeyup':'resetForm()'}
             )
             }  
+        
         # widgets ={
         #     'content': SummernoteWidget,
-        # }  
+        # } 
+        
+ class CategoryItemsForm(forms.ModelForm):
+        class Meta:
+        model=CategoryItem
+        exclude=('date_added', 'date_modified')
+        widgets={
+            'title':forms.TextInput(
+                attrs={'onkeyup':'resetForm()'}),
+            'content': SummernoteWidget(
+                attrs={'onkeyup':'resetForm()'}
+            )
+            } 
   
 class TestimonialForm(forms.ModelForm):
      class Meta:

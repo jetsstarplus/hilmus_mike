@@ -1,0 +1,65 @@
+{% extends 'mike_admin/base_site.html' %} 
+{% load thumbnail %}
+{% block title %} {{ service.title }} | Mike Creatives {% endblock title %}
+{% block breadcrump %}
+
+<li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:service_detail" service.category.slug %}">{{service.category.title}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{service.title}}</span>
+      </li>
+  {% endblock %}
+  {% block m-breadcrump %}
+      <li><a href="{% url "mike_admin:home" %}">Home</a> <span class="bread-slash">/</span>
+      </li>
+      <li><a href="{% url "mike_admin:service_detail" service.category.slug %}">{{service.category.title}}</a> <span class="bread-slash">/</span>
+      </li>
+      <li><span class="bread-blod">{{service.title}}</span>
+      </li>
+  {% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+  <div class="container-fluid">
+      <div class="col-md-7 col-sm-12 col-xs-12 col-xl-8 col-lg-8 card mb-4  mt-30 left homeback top">
+      <div class="card-body">
+          <br />
+          {% if user.is_staff %}
+          <div class = "row container-fluid">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:update_category_item' service.id %}"><button class="btn btn-primary">Edit Service</button></a></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a href = "{% url 'mike_admin:delete_category_item' service.id %}"><button class="btn btn-danger">Delete Service</button></a></div>
+          </div>
+          <hr />
+          {% endif%}
+          
+          <br />
+          <div class="row">
+              <div class="row col-md-4">
+                  <div class="col-md-10">
+                      {% if service.image %}
+                          <img  class="border-radius" src="{% thumbnail service.image 500x600 crop%}" alt="Service image">
+                      {% endif%}
+                      <br />
+                  </div>                
+                  <br />
+              </div>
+              <div class="income-dashone-pro col-md-8 border-radius">
+                  <h1>{{service.title}}</h1> 
+                  <p class=" text-muted">Added On | {{ service.date_added }}</p>  
+                  <hr />         
+                  <div class="income-range low-value-cl">
+                      {{ service.content | safe }}
+                  </div>
+                  <div class="clear"></div>
+              </div>
+          </div>
+          <br />
+
+          
+      </div>
+      </div>
+  </div>
+</div> 
+<br />
+{% endblock content %}
