@@ -52,6 +52,9 @@
                             <a href="{% url 'mike_admin:services' %}" class="dropdown-item">Services</a>
                             {% if user.is_staff %}                          
                             <a href="{% url 'mike_admin:create_service' %}" class="dropdown-item">Create New Service</a>
+                            <a href="{% url 'mike_admin:category_items' %}" class="dropdown-item">Categories Items</a>  
+                            <a href="{% url 'mike_admin:create_category_item' %}" class="dropdown-item">Create New Category Items</a>
+                                            
                             {% endif %}                            
                         </div>
                     </li>
@@ -256,6 +259,10 @@
                                             <li>
                                                 <a href="{% url 'mike_admin:create_service' %}" class="dropdown-item">Create New Service</a>
                                              
+                                            </li>
+                                            <li><a href="{% url 'mike_admin:category_items' %}" class="dropdown-item">Categories Items</a>
+                                            </li>
+                                            <li><a href="{% url 'mike_admin:create_category_item' %}" class="dropdown-item">Create New Category Items</a>
                                             </li>
                                             {% endif %}
                                         </ul>

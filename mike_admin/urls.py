@@ -49,6 +49,14 @@ urlpatterns = [
     path('service/<slug:slug>/change/', views.update_service, name="update_service"), 
     path('service/<slug:slug>/delete/', views.delete_service, name="delete_service"),
     
+    # Category items urls
+    path('categories/item/create/', views.create_service, name="create_category_item"),
+    path('categories/item/', views.CategoryItemList.as_view(), name='category_items'),
+    path('categories/item/<id:id>/', views.service_category_item_detail, name='category_detail'),    
+    path('categories/item/<id:id>/change/', views.update_service, name="update_category_item"), 
+    path('categories/item/<id:id>/delete/', views.delete_service, name="delete_category_item"),
+    
+    
     #Users urls
     path('users/', views.UserList.as_view(), name='users'),
     path('user/<str:username>/', views.user_detail, name='user_detail'),

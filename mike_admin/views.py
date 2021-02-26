@@ -21,7 +21,7 @@ from .models import Music, Testimonial, StaffMember, TermsOfService, Service, Ca
 from article.models import Post, Comment
 from daraja.models import Lipa_na_mpesa, C2BPaymentModel, Initiate, Paypal
 
-from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm, CategoryItem
+from .forms import ProfileForm, TestimonialForm, TermsForm, StaffMemberForm, MusicForm, ServiceForm, CategoryItemForm
 
 @login_required
 def home(request): 
@@ -1042,10 +1042,10 @@ def create_category(request):
     error=None
     user=request.user
     message=None
-    callbackurl=reverse('mike_admin:create_category')
+    callbackurl=reverse('mike_admin:create_category_item')
     name='Category Item'
     breadcrum={
-        'url': reverse('mike_admin:categoryItems'),
+        'url': reverse('mike_admin:category_items'),
         'name':'Category Items'
     }
     
@@ -1055,7 +1055,7 @@ def create_category(request):
             form = CategoryItemForm(request.POST, request.FILES)
             if form.is_valid():
                category = form.save()
-               message=" Service Successfully created!"
+               message=" Category Item Successfully created!"
                data={
                    'message':message,
                    'status':200
@@ -1084,28 +1084,28 @@ def create_category(request):
 @user_passes_test(lambda user: user.is_staff)
 def update_category_item(request, id):
     template_name='mike_admin/admin_forms/edit.html'
-    service = get_object_or_404(CategoryItem, slug=slug)
+    service = get_object_or_404(CategoryItem, id=id)
     error=None
     user=request.user
     message=None
-    callbackurl=reverse('mike_admin:update_service_item', args = (id, ))
+    callbackurl=reverse('mike_admin:update_category_item', args = (id, ))
     name='category'
     breadcrum={
         'url': reverse('mike_admin:category_items'),
-        'name':'Services'
+        'name':'Item Categories'
     }
     create_url=reverse('mike_admin:create_category_item')
     delete_url=reverse('mike_admin:delete_category_item', args=(id, ))
     
     if user.is_staff:   
         if request.method=='POST' and request.is_ajax():
-            form = categoryItemForm(request.POST, request.FILES, instance=service)
+            form = CategoryItemForm(request.POST, request.FILES, instance=service)
             if form.is_valid():
                 try:  
                     form.save()         
                     # post=post.update(post=form.cleaned_data['post'], status=form.cleaned_data['status'])
                     
-                    message="Service Update successful!"
+                    message="Category Update successful!"
                     data={
                         'message':message,
                         'status':200
@@ -1130,7 +1130,7 @@ def update_category_item(request, id):
     context={
         'user':user,
         'form':form,
-        'service':service,
+        'category':category,
         'url':callbackurl,
         'breadcrum':breadcrum,
         'name':name,
@@ -1141,23 +1141,23 @@ def update_category_item(request, id):
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
-def delete_category_item(request, slug):
+def delete_category_item(request, id):
     template_name='mike_admin/admin_forms/delete.html'
-    service= get_object_or_404(Service, slug=slug)
+    service= get_object_or_404(CategoryItem, slug=slug)
     error=None
     user=request.user
     message= None  
-    callbackurl=reverse('mike_admin:delete_service', args=(service.slug, ))
+    callbackurl=reverse('mike_admin:delete_category_item', args=(id, ))
     name='Service'
     breadcrum={
-        'url': reverse('mike_admin:services'),
-        'name':'Services' 
+        'url': reverse('mike_admin:category_items'),
+        'name':'Category Items' 
     } 
       
     if request.method=='POST' and request.is_ajax():
         if request.user.is_staff:                           
                 service.delete()
-                message="The term of service has been successfully deleted" 
+                message="The term of category item has been successfully deleted" 
                 data={
                 'message':message,
                 'status':200
