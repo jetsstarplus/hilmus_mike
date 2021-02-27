@@ -53,7 +53,7 @@ class ServiceForm(forms.ModelForm):
         #     'content': SummernoteWidget,
         # } 
         
-class CategoryItemsForm(forms.ModelForm):
+class CategoryItemForm(forms.ModelForm):
     class Meta:
         model=CategoryItem
         exclude=('date_added', 'date_modified')

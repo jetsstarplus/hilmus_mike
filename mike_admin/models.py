@@ -112,8 +112,8 @@ class Service(models.Model):
 class CategoryItem(models.Model):
     """This is the category items"""
     title=models.TextField(max_length=200, null=True, blank=True)
-    category = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name="category the item belongs to")
-    Image = models.ImageField(upload_to="categoryItemImages", blank=True, null=True, verbose_name='Item Image')
+    category = models.ForeignKey(Service, on_delete=models.CASCADE, verbose_name="category the item belongs to", related_name="category")
+    image = models.ImageField(upload_to="categoryItemImages", blank=True, null=True, verbose_name='Item Image')
     PDF = models.FileField(upload_to='categoryItemPdf', blank=True, null=False, verbose_name="Category Item Pdf")
     content=SummernoteTextField()
     date_added = models.DateTimeField(auto_now_add=True)

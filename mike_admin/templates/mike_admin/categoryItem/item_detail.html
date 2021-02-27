@@ -51,11 +51,16 @@
                   <div class="income-range low-value-cl">
                       {{ service.content | safe }}
                   </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:2rem">                   
+                    <div><a href="{{service.PDF.url}}">{{service.PDF.name}}</a></div> 
+                    <object data="{{service.PDF.url}}" width="500" height="375" 
+ type="application/pdf"> </object>                 
+                </div>
                   <div class="clear"></div>
               </div>
           </div>
           <br />
-
+            
           
       </div>
       </div>

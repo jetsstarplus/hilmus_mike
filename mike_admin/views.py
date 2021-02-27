@@ -1082,24 +1082,24 @@ def create_category(request):
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
-def update_category_item(request, id):
+def update_category_item(request, pk):
     template_name='mike_admin/admin_forms/edit.html'
-    service = get_object_or_404(CategoryItem, id=id)
+    category = get_object_or_404(CategoryItem, id=pk)
     error=None
     user=request.user
     message=None
-    callbackurl=reverse('mike_admin:update_category_item', args = (id, ))
+    callbackurl=reverse('mike_admin:update_category_item', args = (pk, ))
     name='category'
     breadcrum={
         'url': reverse('mike_admin:category_items'),
         'name':'Item Categories'
     }
     create_url=reverse('mike_admin:create_category_item')
-    delete_url=reverse('mike_admin:delete_category_item', args=(id, ))
+    delete_url=reverse('mike_admin:delete_category_item', args=(pk, ))
     
     if user.is_staff:   
         if request.method=='POST' and request.is_ajax():
-            form = CategoryItemForm(request.POST, request.FILES, instance=service)
+            form = CategoryItemForm(request.POST, request.FILES, instance=category)
             if form.is_valid():
                 try:  
                     form.save()         
@@ -1125,7 +1125,7 @@ def update_category_item(request, id):
             return JsonResponse(data)
                
         else:
-            form= CategoryItemForm(instance=service)
+            form= CategoryItemForm(instance=category)
     
     context={
         'user':user,
@@ -1141,13 +1141,13 @@ def update_category_item(request, id):
 
 @login_required
 @user_passes_test(lambda user: user.is_staff)
-def delete_category_item(request, id):
+def delete_category_item(request, pk):
     template_name='mike_admin/admin_forms/delete.html'
-    service= get_object_or_404(CategoryItem, slug=slug)
+    service= get_object_or_404(CategoryItem, pk=pk)
     error=None
     user=request.user
     message= None  
-    callbackurl=reverse('mike_admin:delete_category_item', args=(id, ))
+    callbackurl=reverse('mike_admin:delete_category_item', args=(pk, ))
     name='Service'
     breadcrum={
         'url': reverse('mike_admin:category_items'),
@@ -1181,12 +1181,12 @@ def delete_category_item(request, id):
     return render(request, template_name, context=context)
     
 @login_required
-def service_category_item_detail(request, id):
-    template_name = 'mike_admin/categoryItem/categoryitem_detail.html'
-    service = get_object_or_404(CategoryItem, id=id)     # Comment posted
+def service_category_item_detail(request, pk):
+    template_name = 'mike_admin/categoryItem/item_detail.html'
+    service = get_object_or_404(CategoryItem, pk=pk)     # Comment posted
     
     context = {
-        'category': service
+        'service': service
     }
     return render(request, template_name, context=context)
 
