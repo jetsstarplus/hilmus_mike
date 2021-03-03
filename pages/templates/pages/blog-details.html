@@ -3,9 +3,10 @@
 {% load thumbnail %}
 {% block title %}
 
-  <title>{{post.title}} - Articles Mike Creatives</title>  
+  <title>{{post.title}}</title>  
   <meta content="{{description|truncatewords:50}}" name="description" >
   <meta content="{% for keyword in keywords %}{{keyword}},{% endfor %}" name="keywords"> 
+
 {% endblock %}
 {% block meta %}
 <script type="application/ld+json">
@@ -33,9 +34,26 @@
 {% if post %}
   <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
   <meta property="og:type"               content="article" />
-  <meta property="og:title"              content="{% if post.title %}{{post.title}}{% endif %}" />
+  <meta property="og:title"              content="{% if post.title %}{{post.title}} {% endif %}" />
   <meta property="og:description"        content="{{description|truncatewords:50 }}" />
-  <meta property="og:image"              content="{% if post.image %}{{post.image.url}}{% else%}https://source.unspash.com/random {% endif %}" />
+  <meta property="og:image"              content="{% if post.image %}{{post.image.url}}{% endif %}" />
+  <meta data-rh="true" property="article:published_time" content="{{post.created_on}}">
+  <meta data-rh="true" name="twitter:app:name:iphone" content="Mike Creatives">
+  <!-- <meta data-rh="true" name="twitter:app:id:iphone" content="828256236"> -->
+  <meta data-rh="true" property="al:ios:app_name" content="Mike Creatives">
+  <meta data-rh="true" property="al:ios:url" content="mikecreatives://p/{{post.slug}}">
+  <meta data-rh="true" property="al:android:app_name" content="Mike Creatives">
+  <meta data-rh="true" property="title" content="{% if post.title %}{{post.title}} {{description | truncatewords:56}} | by {{post.author}} | {{post.created_on}}{% endif %}">
+  <meta data-rh="true" property="twitter:description" content="{{description | truncatewords:20}}">
+  <meta data-rh="true" property="al:web:url" content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/">
+  <meta data-rh="true" name="twitter:image:src" content="{% if post.image %}{{post.image.url}}{% endif %}">
+  <meta data-rh="true" name="twitter:card" content="summary_large_image">
+  <meta data-rh="true" property="article:author" content="{{post.author.get_fullname}}">
+  <meta data-rh="true" name="author" content="{{post.author.get_fullname}}">
+  <meta data-rh="true" name="referrer" content="unsafe-url">
+  <meta data-rh="true" name="twitter:label1" value="Reading time">
+  <meta data-rh="true" name="twitter:data1" value="{% if post.read_time %}{{post.read_time}} min read {%endif%}">
+  <meta data-rh="true" name="parsely-post-id" content="{{ post.slug }}">
   {% endif %}
 {% endblock%}
 
@@ -60,9 +78,11 @@
                 </div>
               </div>
               <article class="blog-post-wrapper">
+                {% if post.image %}
                 <div class="post-thumbnail">
-                  <img class="border-radius services-image" src="{% if post.image %} {% thumbnail post.image 750x400 %} {% else %} https://source.unsplash.com/random/750x400 {% endif %} " alt="{{post.title}}"/>
+                  <img class="services-image" src="{% thumbnail post.image 400x400 %}" alt="{{post.title}}"/>
                 </div>
+                {% endif %}
                 <div class="post-information">
                   
                   <div class="entry-meta">
@@ -177,24 +197,27 @@
         <div class="more-section-page row">
 
           {% for post in post_list %}
-          <a href="{% url 'pages:article_detail' post.slug %}">
-            <div class="more-section-item col-md-3 col-sm-6 col-xs-12">
-              <div class="section-author col-md-4 col-sm-4 col-xs-4">
-                <img src="{{post.author.avatar | thumbnail_url:'avatar2'}}" alt="{{post.author.avatar.name}}"/>
-                <div class="entry-meta">
-                  <span class="author-meta"><p>{% if post.author %} {{post.author}} {% else %}user{% endif %}</p></span>
+          <div class="more-section-item col-md-3 col-sm-5 col-xs-11 ">
+
+            <a href="{% url 'pages:article_detail' post.slug %}">
+              <div class="">
+                <div class="section-author col-md-4 col-sm-4 col-xs-4">
+                  <img src="{{post.author.avatar | thumbnail_url:'avatar2'}}" alt="{{post.author.avatar.name}}"/>
+                  <div class="entry-meta">
+                    <span class="author-meta"><p>{% if post.author %} {{post.author}} {% else %}user{% endif %}</p></span>
+                  </div>
+                </div>
+                <div class="section-text col-md-8 col-sm-8 col-xs-8">
+                  <h6><span>{{post.title}}</span></h6>
+                  <div class="entry-meta">
+                    <div><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on.date}} {% else%}march 28, 2016 {% endif %}</div>                
+                    <div>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</div>                
+                    
+                  </div>
                 </div>
               </div>
-              <div class="section-text col-md-8 col-sm-8 col-xs-8">
-                <h6><a href="{% url 'pages:article_detail' post.slug %}">{{post.title}}</a></h6>
-                <div class="entry-meta">
-                  <div><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on.date}} {% else%}march 28, 2016 {% endif %}</div>                
-                  <div>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</div>                
-                
-                </div>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
           {% endfor %}
         </div>
       </div>

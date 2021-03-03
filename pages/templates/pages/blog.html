@@ -67,94 +67,143 @@
   <div class="blog-page area-padding">
     <div class="container">
       <div class="row">
-        <h2 class="blog-page-head">Latest Posts</h2>
+        <h2 class="blog-page-head">Trending Posts</h2>
         <hr>
       </div>
-      <div class="row">
         <!-- End left sidebar -->
         <!-- Start single blog -->
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="row">
-            {% if post_list %}
-              <div class="blog-content">
-              {% for post in post_list %}
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                  <div class="single-blog">
-                    
-                    <div class="single-blog-img">
-                      <a href="{% url 'pages:article_detail'  post.slug %}">
-                          <img class="blog-img border-radius" {% if post.image %} src="{% thumbnail post.image 360x200 %}" {% else %} src="https://source.unsplash.com/random/360x200" {% endif %} alt="{{post.title}}">
-                        </a>
-                    </div>
+        <div class = "row">
+
+          <div class="col-md-12 col-sm-12 col-xs-12 blog-content-home">
+            {% if trending %}
+            <div class="blog-content">
+              {% for post in trending %}
+              <div class="col-md-4 col-sm-6 col-xs-12 new-single-blog ">
+                <div class="text-count col-sm-2 col-md-2 col-xs-2">
+                  <p>0{{forloop.counter}}</p>
+                </div>
+                <div class="blog-content-container col-sm-10 col-md-10 col-xs-10 row">
+                  <div class="content-inside">
                     <a href="{% url 'pages:article_detail'  post.slug %}">
-                      <div class="blog-header">
-                        <h3>{{post.title}}</h3>
+                      <div class="blog-user-meta">
+                        <img {% if post.author.avatar %} src="{{post.author.avatar.url}}" alt="{{post.author}}" {% endif %}>
+                        <h6>{{post.author | title}}</h6>
+                      </div>
+                      <div class="blog-header-1">
+                        <h3>{{post.title | truncatewords:15}}</h3>
+                      </div>
+                      <div class="blog-meta-1">
+                        <span class="date">{{post.created_on.date |date:'M j'}}</span>
+                        <span class = "separator"><p>.</p></span>
+                        <span class="read-time">{{post.read_time}} Min Read</span>
                       </div>
                     </a>
-                    <div class="blog-meta">
-                      <span class="comments-type" style="margin:auto auto 1rem">
-                          <i class="fa fa-comment-o"></i>
-                          <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a>
-                        </span>
-                      <span class="date-type">
-                          <i class="fa fa-calendar"></i> {{post.created_on.date}}
-                        </span>
-                      <span>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</span> 
-                      <div class="fb-like" style="padding:1rem 0" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
-                    </div>
-                    <div class="blog-text">                      
-                      <p>
-                        {{post.content | striptags | truncatewords_html:17}}</p></em>
-                      </p>
-                    </div>
-                    <span>
-                        <a href="{% url 'pages:article_detail'  post.slug %}" class="ready-btn">Read more</a>
-                      </span>
+                    <p class="text"></p>
                   </div>
-                </div>
-              {% endfor %}
-            </div>
-            {% else %}
-           
-           
-            <!-- Start single blog -->
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="single-blog">
-               
-                <div class="blog-text text-center">
-                  <h4>
-											<a href="#">No post matches your search</a>
-										</h4>
                   
                 </div>
               </div>
+              {% endfor %}
             </div>
-            {% endif %}
-            <!-- End single blog -->
-            
+            {%endif %}
           </div>
-          <!-- pagination -->
-          {% if page_obj %}
+          
+          <div class="clearfix"></div>
+          <!-- Added the hr line -->
+          <div class="trending-border"> </div> 
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+              {% if post_list %}
+              <div class="blog-content-fluid">
+                {% for post in post_list %}
+                <div class="col-md-7 col-sm-9 col-xs-12">
+                  <div class="new-single-blog-item">                   
+                    
+                    <div class = "single-main-blog col-md-9 col-sm-9 col-xs-12">
+                      <div class="blog-user-meta">
+                        <img {% if post.author.avatar %} src="{{post.author.avatar.url}}" alt="{{post.author}}" {% endif %}>
+                        <h6>{{post.author | title}}</h6>
+                      </div>
+                      <a href="{% url 'pages:article_detail'  post.slug %}">
+                        <div class="blog-header-1">
+                          <h3 class="font-2">{{post.title | truncatewords:15}}</h3>
+                        </div>
+                      </a>
+                      {% if post.image %}
+                      <div class="single-blog-img hidden-xl hidden-lg hidden-sm hidden-md">
+                        <a href="{% url 'pages:article_detail'  post.slug %}">
+                          <img class="blog-img" src="{% thumbnail post.image 360x180 %}" alt="{{post.title}}" >
+                        </a>
+                      </div>
+                      {% endif %}
+                      <div class="blog-meta-1">
+                        
+                        <span class="date-type">
+                          <i class="fa fa-calendar"></i> {{post.created_on.date}}
+                        </span>
+                        <span class="separator"><p>.</p></span>
+                        <span>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</span> 
+                      </div>
+                      <div class="blog-text">                      
+                        <p>
+                          {{post.content | striptags | truncatewords:13}}</p></em>
+                        </p>
+                      </div>
+                      
+                    </div>
+                    {% if post.image %}
+                    <div class="single-blog-img col-md-3 col-sm-3 hidden-xs">
+                      <a href="{% url 'pages:article_detail'  post.slug %}">
+                        <img class="blog-img" src="{% thumbnail post.image 360x360 %}" alt="{{post.title}}" >
+                      </a>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              {% else %}
+              
+              
+              <!-- Start single blog -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="single-blog">
+                  
+                  <div class="blog-text text-center">
+                    <h4>
+                      <a href="#">No post matches your search</a>
+										</h4>
+                    
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              <!-- End single blog -->
+              
+            </div>
+            <!-- pagination -->
+            {% if page_obj %}
             <div class="blog-pagination container-fluid">
               <ul class="pagination">
                 {% if page_obj.has_previous %}
-                  <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>                     
-                  <li><a href="?page=1">1</a></li>               
-              {% endif %}
-                  <li class="active"><a href="?page={{page_object.number}}">{{page_obj.number}}</a></li>
+                <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>                     
+                <li><a href="?page=1">1</a></li>               
+                {% endif %}
+                <li class="active"><a href="?page={{page_object.number}}">{{page_obj.number}}</a></li>
                 <!-- <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li> -->
-                {% if page_obj.has_next %}
+                  <li><a href="#">3</a></li> -->
+                  {% if page_obj.has_next %}
                   <li><a href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a></li>
                   <li><a href="?page={{ page_obj.paginator.num_pages }}">&gt;</a></li>
+                  {% endif %}
+                </ul>
+              </div>
               {% endif %}
-              </ul>
             </div>
-            {% endif %}
+          </div>
+          
         </div>
       </div>
-    </div>
-  </div>
   <!-- End Blog Area -->
 
   <div class="clearfix"></div>

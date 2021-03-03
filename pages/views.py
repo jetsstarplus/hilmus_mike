@@ -79,6 +79,7 @@ class PostList(generic.ListView):
         # Add in a QuerySet of all the books
         context['service_list'] = Service.objects.all().order_by('-title')[:6]
         context['post_active']='active'
+        context['trending']=Post.objects.filter(status=1).order_by('-visit')
         return context
     def get_queryset(self): # new
         query = self.request.GET.get('q')
@@ -131,14 +132,19 @@ def post_detail(request, slug):
         name = request.POST.get("name", None)
         body = request.POST.get("body", None)
         try:
-            comment=Comment(name=name, email=email, body=body, post=post)   
+            comment=Comment(name=name, email=email, body=body, post=post) 
+            subject = "Post Comment Received"
             final="Sender: {}\n Email: {}\n Has commented on {} post\n Comment: \n {}".format(name,email,post, body)
+            print('this is the problem')
             mail = EmailMessage(
-                subject=subject, body=final, 
+                subject=subject, 
+                body=final, 
                 from_email= 'Blog Comment <{}>'.format(settings.DEFAULT_FROM_EMAIL),
                 headers={'Message-ID': 'MIKE Creatives'},
-                to=['edwinkyalo@hotmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com'])
-            mail.send()       
+                to=['edwinkyalo@hotmail.com', 'w.mwangi95@gmail.com', 'mikecreatives254@gmail.com', ])
+            print('failing this point')
+            mail.send() 
+            print('i"m failling')      
             comment.save()
             data = {
                 'message': "Your Comment is Awaiting Moderation, Thank you !",
@@ -162,6 +168,11 @@ def post_detail(request, slug):
         #     new_comment.save()
     else:
         comment_form = CommentForm()
+        
+    """This line stores the analytics for a blog post"""
+    visit_count = int(post.visit)+1
+    visit = Post(pk=post.id, visit=visit_count)
+    visit.save(update_fields=['visit'])
 
     context = {
         'post': post,

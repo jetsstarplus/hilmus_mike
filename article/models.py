@@ -24,6 +24,7 @@ class Post(models.Model):
     read_time = models.IntegerField(verbose_name="Read Time", blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    visit = models.IntegerField(verbose_name="Number of Visits", default=0)
 
     class Meta:
         ordering = ['-created_on']
