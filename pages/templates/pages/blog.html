@@ -90,7 +90,7 @@
                         <h6>{{post.author | title}}</h6>
                       </div>
                       <div class="blog-header-1">
-                        <h3>{{post.title | truncatewords:15}}</h3>
+                        <h3>{{post.title | title | truncatewords:15}}</h3>
                       </div>
                       <div class="blog-meta-1">
                         <span class="date">{{post.created_on.date |date:'M j'}}</span>
@@ -126,7 +126,7 @@
                       </div>
                       <a href="{% url 'pages:article_detail'  post.slug %}">
                         <div class="blog-header-1">
-                          <h3 class="font-2">{{post.title | truncatewords:15}}</h3>
+                          <h3 class="font-2">{{post.title | title | truncatewords:15}}</h3>
                         </div>
                       </a>
                       {% if post.image %}

@@ -9,7 +9,7 @@ env = environ.Env()
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'mikecreatives'
-AWS_STORAGE_BUCKET_NAME ='hilmus-mike'
+# AWS_STORAGE_BUCKET_NAME ='hilmus-mike'
 
 # Storage location
 DEFAULT_FILE_STORAGE = 'hilmus_mike.storage_backends.MediaStorage'
@@ -22,8 +22,8 @@ STATICFILES_STORAGE = 'hilmus_mike.storage_backends.StaticStorage'
 AWS_S3_REGION = 'af-south-1'
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.{}.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION)
-AWS_S3_CDN_DOMAIN = 'd3jsqccm00oaky.cloudfront.net'
-# AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+# AWS_S3_CDN_DOMAIN = 'd3jsqccm00oaky.cloudfront.net'
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 AWS_DEFAULT_ACL = None
 
