@@ -1,62 +1,188 @@
 {% extends './base.html' %}
 {% load static %}
 {% load thumbnail %}
-{% block title %}     
-  <title>Mike Creatives Blogs- Latest Music Industry News</title>  
-  <meta content="Latest news as pertaining to the music industry" name="description" />
-  <meta content="Mike, Mike Creatives, Creatives, Music, mp3, musica, youtube music, music downloader, song, mp3 download, 
-  music player, blog, mike creatives blog" name="keywords"> 
+{% block title %}
+
+  <title>{{post.title}}</title>  
+  <meta content="{{description|truncatewords:50}}" name="description" >
+  <meta content="{% for keyword in keywords %}{{keyword}},{% endfor %}" name="keywords"> 
+
 {% endblock %}
 {% block meta %}
 <script type="application/ld+json">
   {
-    "@context": "https://schema.org/",
-    "@type": "WebSite",
-    "name": "Mike Creatives Blog",
-    "url": "https://mikecreatives.com/articles/",
-    "logo": "{% static 'icons/original.png' %}",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://mikecreatives.com/articles?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ post.title}}",
+    "image": "{% if post.image %}{{ post.image.url}} {% endif %}",  
+    "author": {
+      "@type": "Person",
+      "name": "{{post.author}}"
+    },  
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{site.name}}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{% static 'icons/original.png' %}"
+      }
+    },
+    "datePublished": "{{post.created_on}}"
   }
   </script>
+  
+{% if post %}
+  <meta property="og:url"                content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/" />
+  <meta property="og:type"               content="article" />
+  <meta property="og:title"              content="{% if post.title %}{{post.title}} {% endif %}" />
+  <meta property="og:description"        content="{{description|truncatewords:50 }}" />
+  <meta property="og:image"              content="{% if post.image %}{{post.image.url}}{% endif %}" />
+  <meta data-rh="true" property="article:published_time" content="{{post.created_on}}">
+  <meta data-rh="true" name="twitter:app:name:iphone" content="Mike Creatives">
+  <!-- <meta data-rh="true" name="twitter:app:id:iphone" content="828256236"> -->
+  <meta data-rh="true" property="al:ios:app_name" content="Mike Creatives">
+  <meta data-rh="true" property="al:ios:url" content="mikecreatives://p/{{post.slug}}">
+  <meta data-rh="true" property="al:android:app_name" content="Mike Creatives">
+  <meta data-rh="true" property="title" content="{% if post.title %}{{post.title}} {{description | truncatewords:56}} | by {{post.author}} | {{post.created_on}}{% endif %}">
+  <meta data-rh="true" property="twitter:description" content="{{description | truncatewords:20}}">
+  <meta data-rh="true" property="al:web:url" content="https://mikecreatives.com/articles/{% if post.slug %}{{post.slug}}{% endif %}/">
+  <meta data-rh="true" name="twitter:image:src" content="{% if post.image %}{{post.image.url}}{% endif %}">
+  <meta data-rh="true" name="twitter:card" content="summary_large_image">
+  <meta data-rh="true" property="article:author" content="{{post.author.get_fullname}}">
+  <meta data-rh="true" name="author" content="{{post.author.get_fullname}}">
+  <meta data-rh="true" name="referrer" content="unsafe-url">
+  <meta data-rh="true" name="twitter:label1" value="Reading time">
+  <meta data-rh="true" name="twitter:data1" value="{% if post.read_time %}{{post.read_time}} min read {%endif%}">
+  <meta data-rh="true" name="parsely-post-id" content="{{ post.slug }}">
+  {% endif %}
+{% endblock%}
 
-  <meta property="og:url"           content="https://mikecreatives.com/articles/" />
-  <meta property="og:type"          content="website" />
-  <meta property="og:title"         content="Articles Mike Creatives - The Home Of Kenyan Brands" />
-  <meta property="og:description"   content="Latest news as pertaining to the music industry" />
-  <meta property="og:image"         content="{% static 'icons/original.png' %}" />
-
-{% endblock %}
-{% load static %}
 {% block content %}
-  <!-- Start Bottom Header -->
-  <div class="header-bg page-area">
-    <div class="home-overly"></div>
+  
+  <!-- END Header -->
+  <div class="blog-page area-padding-1">
+    <!-- <div class="home-overly"></div> -->
     <div class="container">
       <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="slider-content text-center header-bottom-background">
-            <div class="header-bottom">
-              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
-                <h1 class="title2">MIKE Creatives Blog</h1>
-              </div>
-              <div class="row">
-                <div class="col-md-3 col-sm-2"></div>
-                <div class="col-md-6 col-sm-8 text-center layer3 wow zoomInUp" data-wow-duration="2s" data-wow-delay="1s">
-                  <form action="" method = "get">
-                    <div class="search-option">
-                      <input type="text" name="q" placeholder="Search...">
-                      <button class="button" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                    </div>
-                  </form>
+        {# {% include './includes/left_side_bar.html' %} #}
+        <!-- End left sidebar -->
+        <!-- Start single blog -->
+        <div class="col-md-2 col-sm-1">
+            
+        </div>
+        <div class="col-md-8 col-sm-10 col-xs-12">
+            <div class="sharethis-sticky-share-buttons"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <!-- single-blog start -->
+              <div class="post-information">
+                <div class="section-headline text-center ">
+                  <h1 class="service-title">{% if post.title %}{{post.title}}{% else %} Blog Page Title {% endif %}</h1>
                 </div>
-                <div class="col-md-3 col-sm-2"></div>
               </div>
+              <article class="blog-post-wrapper">
+                {% if post.image %}
+                <div class="post-thumbnail">
+                  <img class="services-image" src="{% thumbnail post.image 400x400 %}" alt="{{post.title}}"/>
+                </div>
+                {% endif %}
+                <div class="post-information">
+                  
+                  <div class="entry-meta">
+                    <span class="author-meta"><i class="fa fa-user"></i> <a href="#">{% if post.author %} {{post.author}} {% else %}user{% endif %}</a></span>
+                    <span><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on }} {% else%}march 28, 2016 {% endif %}</span>
+                    
+                    <span><i class="fa fa-comments-o"></i> <a href="#">{{post.comments.count}} comment{{post.comments.count|pluralize}}</a></span>
+                    <span><i class="fa fa-time"></i>{% if post.read_time %} {{post.read_time }}{% endif %} Min Read</span>
+											</span>
+                    <div style = "margin-left:1rem" class="fb-like" data-href="https://mikecreatives.com/articles/{{post.slug}}/" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                  </div>
+                  {% if post.content %}
+                  <div class = "entry-content">
+                    {{post.content | safe}}
+                  </div>
+                  
+                  {% endif %}
+                </div>
+              </article>
+              <div class="clear"></div>
+              <div class="single-post-comments">
+                <div class="comments-area">
+                  <div class="comments-heading">
+                    <h3>{{comments.count}} comment{{comments.count|pluralize}}</h3>
+                  </div>
+                  <div class="comments-list">
+                    <ul>
+                      {% if comments %}
+                      {% for comment in comments %}
+                      <li class="threaded-comments">
+                        <div class="comments-details">
+                          <div class="comments-list-img">
+                            <img src="{% static 'pages/img/blog/b02.jpg' %}" alt="post-author">
+                          </div>
+                          <div class="comments-content-wrap">
+                            <span>
+																<b><a href="#">{{comment.name}}</a></b>
+															
+																<span class="post-time">{{comment.created_on.date}} at {{comment.created_on.time}}</span>
+                            
+                            </span>
+                            <p>{{comment.body | linebreaks | safe}}</p>
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                      
+                      {% endif %}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="comment-respond">
+                  {% if new_comment %}
+                    <div class="alert alert-success" role="alert">
+                      Your comment is awaiting moderation
+                    </div>
+                    {% else %}
+                    
+                  <div class="form contact-form">
+                    <div id="sendmessage"></div>
+                    <div id="errormessage"></div>
+                    <h3 class="comment-reply-title">Leave us a comment </h3>
+                    <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
+                    
+                    <form action="{% url 'pages:article_detail' post.slug %}" method='POST' id='ajaxForm'>
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <p>Full Name <span style="color:red">*</span></p>
+                          {{comment_form.name}}
+                          <div class="validation"></div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                          <p>Email <span style="color:red">*</span></p>
+                          {{comment_form.email}}
+                          <div class="validation"></div>
+                        </div>
+                        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                          <p>Website</p>
+                          <input type="text" />
+                        </div> -->
+                        <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
+                          <p>Comment</p>
+                          {{comment_form.body}}
+                          <div class="validation"></div>
+                          <!-- <textarea id="message-box" cols="30" rows="10"></textarea> -->
+                          <input type="submit" value="Post Comment" />
+                        </div>
+                      </div>  
+                    </form>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+             
+              <!-- single-blog end -->
             </div>
           </div>
         </div>
@@ -64,148 +190,40 @@
     </div>
   </div>
   
-  <div class="blog-page area-padding">
-    <div class="container">
-      <div class="row">
-        <h2 class="blog-page-head">Trending Posts</h2>
-        <hr>
-      </div>
-        <!-- End left sidebar -->
-        <!-- Start single blog -->
-        <div class = "row">
+    <!-- More sections to apply -->
+    {% if post_list %}
+    <div class="more-section">
+      <div class="container">
+        <div class="more-section-title">
+          <h5>More From MIKE Creatives</h5>
+        </div>
+        <div class="more-section-page row">
 
-          <div class="col-md-12 col-sm-12 col-xs-12 blog-content-home">
-            {% if trending %}
-            <div class="blog-content">
-              {% for post in trending %}
-              <div class="col-md-4 col-sm-6 col-xs-12 new-single-blog ">
-                <div class="text-count col-sm-2 col-md-2 col-xs-2">
-                  <p>0{{forloop.counter}}</p>
-                </div>
-                <div class="blog-content-container col-sm-10 col-md-10 col-xs-10 row">
-                  <div class="content-inside">
-                    <a href="{% url 'pages:article_detail'  post.slug %}">
-                      <div class="blog-user-meta">
-                        <img {% if post.author.avatar %} src="{{post.author.avatar.url}}" alt="{{post.author}}" {% endif %}>
-                        <h6>{{post.author | title}}</h6>
-                      </div>
-                      <div class="blog-header-1">
-                        <h3>{{post.title | title | truncatewords:15}}</h3>
-                      </div>
-                      <div class="blog-meta-1">
-                        <span class="date">{{post.created_on.date |date:'M j'}}</span>
-                        <span class = "separator"><p>.</p></span>
-                        <span class="read-time">{{post.read_time}} Min Read</span>
-                      </div>
-                    </a>
-                    <p class="text"></p>
-                  </div>
-                  
-                </div>
-              </div>
-              {% endfor %}
-            </div>
-            {%endif %}
-          </div>
-          
-          <div class="clearfix"></div>
-          <!-- Added the hr line -->
-          <div class="trending-border"> </div> 
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-              {% if post_list %}
-              <div class="blog-content-fluid">
-                {% for post in post_list %}
-                <div class="col-md-7 col-sm-9 col-xs-12">
-                  <div class="new-single-blog-item">                   
-                    
-                    <div class = "single-main-blog col-md-9 col-sm-9 col-xs-12">
-                      <div class="blog-user-meta">
-                        <img {% if post.author.avatar %} src="{{post.author.avatar.url}}" alt="{{post.author}}" {% endif %}>
-                        <h6>{{post.author | title}}</h6>
-                      </div>
-                      <a href="{% url 'pages:article_detail'  post.slug %}">
-                        <div class="blog-header-1">
-                          <h3 class="font-2">{{post.title | title | truncatewords:15}}</h3>
-                        </div>
-                      </a>
-                      {% if post.image %}
-                      <div class="single-blog-img hidden-xl hidden-lg hidden-sm hidden-md">
-                        <a href="{% url 'pages:article_detail'  post.slug %}">
-                          <img class="blog-img" src="{% thumbnail post.image 360x180 %}" alt="{{post.title}}" >
-                        </a>
-                      </div>
-                      {% endif %}
-                      <div class="blog-meta-1">
-                        
-                        <span class="date-type">
-                          <i class="fa fa-calendar"></i> {{post.created_on.date}}
-                        </span>
-                        <span class="separator"><p>.</p></span>
-                        <span>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</span> 
-                      </div>
-                      <div class="blog-text">                      
-                        <p>
-                          {{post.content | striptags | truncatewords:13}}</p></em>
-                        </p>
-                      </div>
-                      
-                    </div>
-                    {% if post.image %}
-                    <div class="single-blog-img col-md-3 col-sm-3 hidden-xs">
-                      <a href="{% url 'pages:article_detail'  post.slug %}">
-                        <img class="blog-img" src="{% thumbnail post.image 360x360 %}" alt="{{post.title}}" >
-                      </a>
-                    </div>
-                    {% endif %}
+          {% for post in post_list %}
+          <div class="more-section-item col-md-3 col-sm-5 col-xs-11 ">
+
+            <a href="{% url 'pages:article_detail' post.slug %}">
+              <div class="">
+                <div class="section-author col-md-4 col-sm-4 col-xs-4">
+                  <img src="{{post.author.avatar | thumbnail_url:'avatar2'}}" alt="{{post.author.avatar.name}}"/>
+                  <div class="entry-meta">
+                    <span class="author-meta"><p>{% if post.author %} {{post.author}} {% else %}user{% endif %}</p></span>
                   </div>
                 </div>
-                {% endfor %}
-              </div>
-              {% else %}
-              
-              
-              <!-- Start single blog -->
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="single-blog">
-                  
-                  <div class="blog-text text-center">
-                    <h4>
-                      <a href="#">No post matches your search</a>
-										</h4>
+                <div class="section-text col-md-8 col-sm-8 col-xs-8">
+                  <h6><span>{{post.title}}</span></h6>
+                  <div class="entry-meta">
+                    <div><i class="fa fa-clock-o"></i>{% if post.created_on %} {{post.created_on.date}} {% else%}march 28, 2016 {% endif %}</div>                
+                    <div>{% if post.read_time %} {{post.read_time}} Min Read {% endif %}</div>                
                     
                   </div>
                 </div>
               </div>
-              {% endif %}
-              <!-- End single blog -->
-              
-            </div>
-            <!-- pagination -->
-            {% if page_obj %}
-            <div class="blog-pagination container-fluid">
-              <ul class="pagination">
-                {% if page_obj.has_previous %}
-                <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>                     
-                <li><a href="?page=1">1</a></li>               
-                {% endif %}
-                <li class="active"><a href="?page={{page_object.number}}">{{page_obj.number}}</a></li>
-                <!-- <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li> -->
-                  {% if page_obj.has_next %}
-                  <li><a href="?page={{ page_obj.next_page_number }}">{{page_obj.next_page_number}}</a></li>
-                  <li><a href="?page={{ page_obj.paginator.num_pages }}">&gt;</a></li>
-                  {% endif %}
-                </ul>
-              </div>
-              {% endif %}
-            </div>
+            </a>
           </div>
-          
+          {% endfor %}
         </div>
       </div>
-  <!-- End Blog Area -->
-
-  <div class="clearfix"></div>
-{% endblock %}
-
+    </div>
+    {% endif %}
+  {% endblock %}
